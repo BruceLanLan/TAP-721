@@ -41,3 +41,5 @@ Once the editors are happy with the direction, every normative part will live in
 6. Open questions already listed in the drafts that the editors may want settled early: a future `tapnet/2` with flattened REF records; a staged upload for netlist files above 49,152 bytes; a minimal lock-contract interface; a `vrf` seed source; and the verifier for the TAP-10 hub bridging profile.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+

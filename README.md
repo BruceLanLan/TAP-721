@@ -1,5 +1,7 @@
 # TAP-721 · Netlist-Bound NFT
 
+[![CI](https://github.com/BruceLanLan/TAP-721/actions/workflows/ci.yml/badge.svg)](https://github.com/BruceLanLan/TAP-721/actions/workflows/ci.yml) [![Idea issue #66](https://img.shields.io/badge/TAPs-issue%20%2366-blue)](https://github.com/TapeOutProtocol/TAPs/issues/66) [![Core PR #67](https://img.shields.io/badge/core%20PR-%2367-orange)](https://github.com/TapeOutProtocol/TAPs/pull/67) [![License](https://img.shields.io/badge/license-CC0%20%2B%20MIT-lightgrey)](NOTICE)
+
 **One flagship TapeOut standard with in-document extensions, plus three extension TAPs — organised like ERC-721. NFTs that carry a verifiable, runnable on-chain circuit.**
 
 [中文](#中文) · [English](#english)

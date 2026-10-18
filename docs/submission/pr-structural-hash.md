@@ -9,13 +9,13 @@
 **Files.**
 
 - `TAPs/TAP-draft-netlist-structural-hash.md` (normative). The Chinese translation is at https://github.com/BruceLanLan/TAP-721/blob/e4b922969521d21525940bf1dda0634c38a05b4e/TAPs/TAP-draft-netlist-structural-hash.zh.md; per CONTRIBUTING.md §2.4 it is not in this PR and will be added as `TAP-<nn>.zh.md` after a number is assigned.
-- `assets/tap-netlist-structural-hash/`: reference implementation `canon.py` (MIT, imports the flagship's `tapnft.py` and `tap02_reference.py` unchanged), deterministic generator, `vectors.json` (37 cases and 3 mainnet circuits; SHA-256 `35aaf41cbcff011290ba51ee9cc9f5ca7820345658069161bba74062914062aa`) and a test suite (18 tests)
+- `assets/tap-draft-netlist-structural-hash/`: reference implementation `canon.py` (MIT, imports the flagship's `tapnft.py` and `tap02_reference.py` unchanged), deterministic generator, `vectors.json` (37 cases and 3 mainnet circuits; SHA-256 `35aaf41cbcff011290ba51ee9cc9f5ca7820345658069161bba74062914062aa`) and a test suite (18 tests)
 
 An independent implementation written only from the Specification reproduced every vector (`reviews/editorial.md` in the reference repository).
 
-**Asset dependency.** The scripts in this folder import `assets/tap-netlist-bound-nft/` and read `assets/chain-snapshot.json`, which are added by #67; run the tests after #67 is merged (or on a checkout of both branches).
+**Asset dependency.** The scripts in this folder import `assets/tap-draft-netlist-bound-nft/` and read `assets/tap-draft-netlist-bound-nft/chain-snapshot.json`, which are added by #67; run the tests after #67 is merged (or on a checkout of both branches).
 
-**Reference implementation** (background): https://github.com/BruceLanLan/TAP-721/tree/e4b922969521d21525940bf1dda0634c38a05b4e/assets/tap-netlist-structural-hash
+**Reference implementation** (background): https://github.com/BruceLanLan/TAP-721/tree/e4b922969521d21525940bf1dda0634c38a05b4e/assets/tap-draft-netlist-structural-hash
 
 Checklist for authors (editors check the same list, CONTRIBUTING.md §4):
 
@@ -28,4 +28,9 @@ Checklist for authors (editors check the same list, CONTRIBUTING.md §4):
 
 **Open questions** (also in the draft): a quasi-linear canonical labelling of the feedback region, a flattening rule for REF circuits, a second pin-order-free hash, and named sound simplifications as a separate hash.
 
+**Update (2026-10-18).** Proofreading and format fixes pushed: asset folder renamed to `assets/tap-draft-<short-title>/` (the chain snapshot now lives in `assets/tap-draft-netlist-bound-nft/`), REQUIRED/RECOMMENDED replaced by the TAP-01 §7.2 key words, section references corrected. Vector hashes are unchanged. Reference-implementation links now point to commit `e4b9229`.
+
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+
+

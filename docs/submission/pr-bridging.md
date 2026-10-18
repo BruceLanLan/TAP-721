@@ -9,7 +9,7 @@
 **Files.**
 
 - `TAPs/TAP-draft-netlist-nft-bridging.md` (normative). The Chinese translation is at https://github.com/BruceLanLan/TAP-721/blob/e4b922969521d21525940bf1dda0634c38a05b4e/TAPs/TAP-draft-netlist-nft-bridging.zh.md; per CONTRIBUTING.md §2.4 it is not in this PR and will be added as `TAP-<nn>.zh.md` after a number is assigned.
-- `assets/tap-netlist-nft-bridging/`: dependency-free vector generator (own keccak) and `vectors.json` (collection keys, valid and invalid payloads, LayerZero options, EIP-712 values, selectors, interface ids, event topics); `make_vectors.py --check` reproduces it byte for byte
+- `assets/tap-draft-netlist-nft-bridging/`: dependency-free vector generator (own keccak) and `vectors.json` (collection keys, valid and invalid payloads, LayerZero options, EIP-712 values, selectors, interface ids, event topics); `make_vectors.py --check` reproduces it byte for byte
 
 **Reference implementation** (background): https://github.com/BruceLanLan/TAP-721/tree/e4b922969521d21525940bf1dda0634c38a05b4e/contracts/src/bridge — `TapGateway`, `TapMirror`, `TapBridgeEndpoint`, `LayerZeroV2Adapter`, `HubRelayAdapter`, with 42 bridge tests plus review PoCs reading the same vectors. Not deployed; reviewed internally only.
 
@@ -24,4 +24,9 @@ Checklist for authors (editors check the same list, CONTRIBUTING.md §4):
 
 **Open questions** (also in the draft): who runs and replaces hub attesters, and how relayers are paid.
 
+**Update (2026-10-18).** Proofreading and format fixes pushed: asset folder renamed to `assets/tap-draft-<short-title>/` (the chain snapshot now lives in `assets/tap-draft-netlist-bound-nft/`), REQUIRED/RECOMMENDED replaced by the TAP-01 §7.2 key words, section references corrected. Vector hashes are unchanged. Reference-implementation links now point to commit `e4b9229`.
+
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+
+

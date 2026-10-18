@@ -9,11 +9,11 @@
 **Files.**
 
 - `TAPs/TAP-draft-pod-attributes.md` (normative). The Chinese translation is at https://github.com/BruceLanLan/TAP-721/blob/e4b922969521d21525940bf1dda0634c38a05b4e/TAPs/TAP-draft-pod-attributes.zh.md; per CONTRIBUTING.md §2.4 it is not in this PR and will be added as `TAP-<nn>.zh.md` after a number is assigned.
-- `assets/tap-pod-attributes/`: snapshot tool (`pod_snapshot.py`), validator (`pod_validate.py`), functional check (`function_check.py`), recorded reads under `raw/`, `vectors.json`, `trait-metadata.json`, and a test suite (26 tests, no network) that regenerates the vectors byte for byte
+- `assets/tap-draft-pod-attributes/`: snapshot tool (`pod_snapshot.py`), validator (`pod_validate.py`), functional check (`function_check.py`), recorded reads under `raw/`, `vectors.json`, `trait-metadata.json`, and a test suite (26 tests, no network) that regenerates the vectors byte for byte
 
-**Asset dependency.** The scripts in this folder import `assets/tap-netlist-bound-nft/` and read `assets/chain-snapshot.json`, which are added by #67; run the tests after #67 is merged (or on a checkout of both branches).
+**Asset dependency.** The scripts in this folder import `assets/tap-draft-netlist-bound-nft/` and read `assets/tap-draft-netlist-bound-nft/chain-snapshot.json`, which are added by #67; run the tests after #67 is merged (or on a checkout of both branches).
 
-**Reference implementation** (background): https://github.com/BruceLanLan/TAP-721/tree/e4b922969521d21525940bf1dda0634c38a05b4e/assets/tap-pod-attributes and `tools/collection/verify_function.py`.
+**Reference implementation** (background): https://github.com/BruceLanLan/TAP-721/tree/e4b922969521d21525940bf1dda0634c38a05b4e/assets/tap-draft-pod-attributes and `tools/collection/verify_function.py`.
 
 Checklist for authors (editors check the same list, CONTRIBUTING.md §4):
 
@@ -26,4 +26,9 @@ Checklist for authors (editors check the same list, CONTRIBUTING.md §4):
 
 **Open questions** (also in the draft): meaning of status codes other than 1, the unverified mining implementation, naming `refArea` as K_task, whether `taskId` is stable across restarts, sequential-check semantics, a rig-voucher mapping, and repeating single-operator reads with a second archive operator before Review.
 
+**Update (2026-10-18).** Proofreading and format fixes pushed: asset folder renamed to `assets/tap-draft-<short-title>/` (the chain snapshot now lives in `assets/tap-draft-netlist-bound-nft/`), REQUIRED/RECOMMENDED replaced by the TAP-01 §7.2 key words, section references corrected. Vector hashes are unchanged. Reference-implementation links now point to commit `e4b9229`.
+
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+
+
