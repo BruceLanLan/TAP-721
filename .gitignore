@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node / Cloudflare
+node_modules/
+.wrangler/
+.dev.vars
+
+# Foundry
+contracts/out/
+contracts/cache/
+contracts/broadcast/
+
+# Tool outputs and local state
+work/
+*.log
+anvil*.log
+.env
+.env.*
+.DS_Store

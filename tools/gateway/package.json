@@ -1,0 +1,14 @@
+{
+  "name": "tap-gateway",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Reference server-side HTTPS gateway for TAP-10 site-store files (Cloudflare Worker + Node 20)",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/unit.test.mjs",
+    "test:live": "LIVE=1 node --test test/live.test.mjs"
+  },
+  "engines": { "node": ">=20" }
+}

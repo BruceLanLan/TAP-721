@@ -1,0 +1,22 @@
+name = "tap-gateway"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+
+# Route both forms to this Worker, e.g.:
+#   gw.example.org/*        (path form: https://gw.example.org/1.2.282.tape/meta/1)
+#   *.gw.example.org/*      (host form: https://1-2-282.gw.example.org/meta/1, needs a wildcard certificate)
+# routes = [
+#   { pattern = "gw.example.org/*", zone_name = "example.org" },
+#   { pattern = "*.gw.example.org/*", zone_name = "example.org" },
+# ]
+
+[vars]
+GATEWAY_DOMAIN = "gw.example.org"
+# Optional overrides, "operator=url,operator=url". Defaults are hard-coded in core.js (CHAINS).
+# Never put a node URL carrying an API key here if this file is public (TAP-10 §5.1); use `wrangler secret put RPC_XLAYER`.
+# RPC_BNB = "bnbchain=https://bsc-dataseed.bnbchain.org,publicnode=https://bsc-rpc.publicnode.com"
+# RPC_BASE = "coinbase=https://mainnet.base.org,publicnode=https://base-rpc.publicnode.com"
+# RPC_XLAYER = "xlayer=https://rpc.xlayer.tech,okx=https://xlayerrpc.okx.com,drpc=https://xlayer.drpc.org"
+# BLOCKLIST = "# one container address or on-chain name per line"
+# SERVE_UNPAID = "0"
+# SPA_FALLBACK = "0"   # recommended for NFT metadata: a missing meta/N is a 404, not index.html

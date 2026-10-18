@@ -1,0 +1,83 @@
+{
+ "synthetic": true,
+ "note": "SYNTHETIC example, not a TapeOut circuit and not read from any chain. It is built by hand to exercise the 'verified but computes another function' case of Specification §3.9: a 3-NAND OR netlist (g0 = NAND(a,a), g1 = NAND(b,b), out = NAND(g0,g1)) recorded as a verified miner of the public XOR task 3. It differs from the XOR reference circuit (raw/ref-task3.json) only on input 11. The processor 0x...dEaD and circuit id 900000001 are fictional; block, header, implementation, contract parameters and the task tuple are copied from the public recorded reads (raw/raw906.json) so that the snapshot has a realistic context. bestSlot describes a fictional slot holder (id 900000000, cost 108 like the public XOR holder #906). A real instance observed on chain is withheld until it has been disclosed to the TapeOut team.",
+ "block": 128200681,
+ "header": {
+  "number": 128200681,
+  "hash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+  "timestamp": 1792253755
+ },
+ "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+ "entry": {
+  "processor": "0x000000000000000000000000000000000000dEaD",
+  "circuitId": 900000001,
+  "minerKey": "0xf21d7cf38ac99955c278c1ce940432cc824f37a9ce229f1926a3b548bfcafe10",
+  "miner": {
+   "circuits": "0x000000000000000000000000000000000000dEaD",
+   "circuitId": "900000001",
+   "taskId": "3",
+   "gateCount": "3",
+   "stateCount": "0",
+   "depth": "2",
+   "area": "3",
+   "mult": "1",
+   "since": "0",
+   "status": "1",
+   "registrant": "0x000000000000000000000000000000000000dEaD",
+   "nandBurn": "3",
+   "latchBurn": "0",
+   "bstar": "3",
+   "bonus": "0",
+   "optimal": "false",
+   "commitBlock": "0",
+   "firstUnusedId": "0",
+   "stopBlock": "0",
+   "verifWeight": "3",
+   "unverWeight": "0",
+   "debt": "0"
+  },
+  "task": {
+   "kind": "0",
+   "cycles": "1",
+   "nIn": "2",
+   "nOut": "1",
+   "vectorCount": "256",
+   "active": "True",
+   "vectorsRoot": "0xe2b8eda1d1a6b79a109bfe9dbd334635c1546795b5e6dc0e0c5c2539f9d45fe4",
+   "name": "异或门 XOR",
+   "refArea": "4",
+   "refCost": "108",
+   "refCircuits": "0xF4412C52ec3DDf7CAf5f518B6662F77B02Bde28E",
+   "refCircuitId": "3"
+  },
+  "circuitBurn": {
+   "nandBurn": 3,
+   "latchBurn": 0
+  },
+  "cachedDepth": {
+   "cached": true,
+   "depth": 2,
+   "live": 3
+  },
+  "nIn": 2,
+  "nOut": 1,
+  "nState": 0,
+  "gateCount": 3,
+  "netlist": "0x000000020000020000000300000300000004000005"
+ },
+ "mining": {
+  "lambda": 6,
+  "beta": 3,
+  "lambdaBurn": 1,
+  "processorMultiplier": {
+   "0x000000000000000000000000000000000000dead": 1
+  }
+ },
+ "extra": {
+  "bestSlot": {
+   "holderPlus1": "900000001",
+   "cost": "108"
+  }
+ },
+ "transactionsSent": 0
+}

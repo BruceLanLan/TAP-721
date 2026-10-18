@@ -1,0 +1,150 @@
+{
+ "traits": {
+  "tap.pod.snapshotBlock": {
+   "displayName": "PoD snapshot block (BSC)",
+   "dataType": {
+    "type": "decimal",
+    "signed": false,
+    "decimals": 0
+   },
+   "validateOnSale": "none",
+   "tokenOwnerCanUpdateValue": false
+  },
+  "tap.pod.taskId": {
+   "displayName": "PoD task",
+   "dataType": {
+    "type": "decimal",
+    "signed": false,
+    "decimals": 0
+   },
+   "validateOnSale": "none",
+   "tokenOwnerCanUpdateValue": false
+  },
+  "tap.pod.nandBurn": {
+   "displayName": "NAND burn",
+   "dataType": {
+    "type": "decimal",
+    "signed": false,
+    "decimals": 0
+   },
+   "validateOnSale": "none",
+   "tokenOwnerCanUpdateValue": false
+  },
+  "tap.pod.latchBurn": {
+   "displayName": "LATCH burn",
+   "dataType": {
+    "type": "decimal",
+    "signed": false,
+    "decimals": 0
+   },
+   "validateOnSale": "none",
+   "tokenOwnerCanUpdateValue": false
+  },
+  "tap.pod.area": {
+   "displayName": "Area",
+   "dataType": {
+    "type": "decimal",
+    "signed": false,
+    "decimals": 0
+   },
+   "validateOnSale": "none",
+   "tokenOwnerCanUpdateValue": false
+  },
+  "tap.pod.depth": {
+   "displayName": "Depth",
+   "dataType": {
+    "type": "decimal",
+    "signed": false,
+    "decimals": 0
+   },
+   "validateOnSale": "none",
+   "tokenOwnerCanUpdateValue": false
+  },
+  "tap.pod.cost": {
+   "displayName": "Design cost",
+   "dataType": {
+    "type": "decimal",
+    "signed": false,
+    "decimals": 0
+   },
+   "validateOnSale": "none",
+   "tokenOwnerCanUpdateValue": false
+  },
+  "tap.pod.bstar": {
+   "displayName": "Burn basis b*",
+   "dataType": {
+    "type": "decimal",
+    "signed": false,
+    "decimals": 0
+   },
+   "validateOnSale": "none",
+   "tokenOwnerCanUpdateValue": false
+  },
+  "tap.pod.status": {
+   "displayName": "Miner status (at snapshot)",
+   "dataType": {
+    "type": "decimal",
+    "signed": false,
+    "decimals": 0
+   },
+   "validateOnSale": "none",
+   "tokenOwnerCanUpdateValue": false
+  },
+  "tap.pod.optimal": {
+   "displayName": "Optimal first (at snapshot)",
+   "dataType": {
+    "type": "boolean"
+   },
+   "validateOnSale": "none",
+   "tokenOwnerCanUpdateValue": false
+  },
+  "tap.pod.bonus": {
+   "displayName": "Design bonus (at snapshot)",
+   "dataType": {
+    "type": "decimal",
+    "signed": false,
+    "decimals": 0
+   },
+   "validateOnSale": "none",
+   "tokenOwnerCanUpdateValue": false
+  },
+  "tap.pod.multiplier": {
+   "displayName": "Processor multiplier (at snapshot)",
+   "dataType": {
+    "type": "decimal",
+    "signed": false,
+    "decimals": 0
+   },
+   "validateOnSale": "none",
+   "tokenOwnerCanUpdateValue": false
+  },
+  "tap.pod.verified": {
+   "displayName": "Verified (at snapshot)",
+   "dataType": {
+    "type": "boolean"
+   },
+   "validateOnSale": "none",
+   "tokenOwnerCanUpdateValue": false
+  },
+  "tap.pod.verifWeight": {
+   "displayName": "Verified weight (at snapshot)",
+   "dataType": {
+    "type": "decimal",
+    "signed": false,
+    "decimals": 0
+   },
+   "validateOnSale": "none",
+   "tokenOwnerCanUpdateValue": false
+  },
+  "tap.pod.unverWeight": {
+   "displayName": "Unverified weight (at snapshot)",
+   "dataType": {
+    "type": "decimal",
+    "signed": false,
+    "decimals": 0
+   },
+   "validateOnSale": "none",
+   "tokenOwnerCanUpdateValue": false
+  }
+ }
+}

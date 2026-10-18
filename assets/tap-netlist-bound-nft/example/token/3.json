@@ -1,0 +1,59 @@
+{
+ "attributes": [
+  {
+   "trait_type": "Background",
+   "value": "Gold"
+  },
+  {
+   "trait_type": "NAND",
+   "value": 55
+  },
+  {
+   "trait_type": "LATCH",
+   "value": 0
+  }
+ ],
+ "description": "Worked example token 3 of the Netlist-Bound NFT draft.",
+ "image": "https://example.invalid/tap-example/images/2.png",
+ "name": "TAP Example #3",
+ "tap": {
+  "edition": {
+   "index": 1,
+   "of": 2
+  },
+  "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/3",
+  "image": {
+   "sha256": "0x2a5756153a9c6f520b2454f277c0a6da614d13803cf6b44b8af5bb311b7a5f62",
+   "uris": [
+    "https://example.invalid/tap-example/images/2.png"
+   ]
+  },
+  "manifest": {
+   "sha256": "0x231570124fd096137b329f71472ce4ac06c8195f457c20d485bfce4605ca5983",
+   "uris": [
+    "https://example.invalid/tap-example/manifest.json"
+   ]
+  },
+  "netlist": {
+   "bytes": 401,
+   "format": "tapnet/1",
+   "latch": 0,
+   "nIn": 8,
+   "nOut": 4,
+   "nand": 55,
+   "sha256": "0x1013cbe316b27f41c70910deaaa266b296222db6b128c368a6b750f25c4a5abd",
+   "uris": [
+    "https://example.invalid/tap-example/netlists/1013cbe316b27f41c70910deaaa266b296222db6b128c368a6b750f25c4a5abd.tapnet"
+   ]
+  },
+  "source": {
+   "block": 128200681,
+   "chainId": 56,
+   "circuitId": "3151",
+   "name": "3151.30.tape",
+   "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+  },
+  "state": "revealed",
+  "v": 1
+ }
+}

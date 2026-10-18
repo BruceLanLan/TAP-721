@@ -1,0 +1,114 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      network:
+        description: "Also run network tests (drand, X Layer RPC, anvil fork)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+env:
+  FOUNDRY_VERSION: v1.8.3
+  # Network suites run on manual dispatch with network=true, or when the repository
+  # variable RUN_NETWORK_TESTS is "true".
+  RUN_NETWORK: ${{ (github.event_name == 'workflow_dispatch' && inputs.network) || vars.RUN_NETWORK_TESTS == 'true' }}
+
+jobs:
+  python-assets:
+    name: Python ${{ matrix.suite.dir }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        suite:
+          - { dir: assets/tap-netlist-bound-nft,       cmd: "python make_vectors.py && python test_tapnft.py" }
+          - { dir: assets/tap-netlist-structural-hash, cmd: "python make_vectors.py && python test_canon.py" }
+          - { dir: assets/tap-pod-attributes,          cmd: "python make_vectors.py && python test_pod.py" }
+          - { dir: assets/tap-netlist-nft-bridging,    cmd: "python make_vectors.py --check" }
+          - { dir: contracts,                          cmd: "python test/fixtures/make_core_fixtures.py" }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pycryptodome
+      - name: Install Foundry (cast, used by test_pod.py)
+        uses: foundry-rs/foundry-toolchain@v1.9.1
+        with:
+          version: ${{ env.FOUNDRY_VERSION }}
+      - name: Run suite
+        working-directory: ${{ matrix.suite.dir }}
+        run: ${{ matrix.suite.cmd }}
+      - name: Generated files must match the committed ones
+        run: git diff --exit-code
+
+  forge:
+    name: Foundry build + test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: foundry-rs/foundry-toolchain@v1.9.1
+        with:
+          version: ${{ env.FOUNDRY_VERSION }}
+      - name: forge build
+        working-directory: contracts
+        run: forge build
+      - name: forge test (fork test returns early without XLAYER_RPC)
+        working-directory: contracts
+        run: forge test
+      - name: X Layer fork test (network)
+        if: env.RUN_NETWORK == 'true'
+        working-directory: contracts
+        env:
+          XLAYER_RPC: ${{ secrets.XLAYER_RPC || 'https://rpc.xlayer.tech' }}
+        run: forge test --evm-version cancun --match-path test/fork/ContainerLock.t.sol
+
+  gateway:
+    name: Gateway (Node)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Unit tests (offline)
+        working-directory: tools/gateway
+        run: npm test
+      - name: Live tests (network, read-only mainnet)
+        if: env.RUN_NETWORK == 'true'
+        working-directory: tools/gateway
+        run: npm run test:live
+
+  tools-network:
+    name: Tools ${{ matrix.suite.dir }} (network)
+    runs-on: ubuntu-latest
+    # These suites need the network: drand relays + tapeout.net RPC, or an anvil fork of X Layer.
+    if: (github.event_name == 'workflow_dispatch' && inputs.network) || vars.RUN_NETWORK_TESTS == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        suite:
+          - { dir: tools/collection, cmd: "python test_pipeline.py" }
+          - { dir: tools/uploader,   cmd: "python test_e2e.py" }
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pycryptodome
+      - uses: foundry-rs/foundry-toolchain@v1.9.1
+        with:
+          version: ${{ env.FOUNDRY_VERSION }}
+      - name: Run suite
+        working-directory: ${{ matrix.suite.dir }}
+        run: ${{ matrix.suite.cmd }}

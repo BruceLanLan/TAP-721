@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you refer to these drafts or their reference implementation, please cite them as below."
+title: "TAP-721 · Netlist-Bound NFTs: TAP drafts and reference implementation"
+type: software
+authors:
+  - name: "Bruce (@BruceLanLan)"
+    website: "https://x.com/BruceBlue"
+license:
+  - MIT
+  - CC0-1.0
+version: "draft"
+repository-code: "https://github.com/BruceLanLan/TAP-721"
+date-released: "2026-10-18"
+keywords:
+  - TapeOut
+  - TAP
+  - NFT
+  - netlist
+  - ERC-721
+abstract: >-
+  Four TAP drafts for TapeOut (Netlist-Bound NFTs, bridging between TapeOut chains, Proof-of-Design
+  attributes, and a structural hash of flat netlists) with Python reference implementations, test
+  vectors, Foundry contracts and tools. Draft; not deployed; reviewed internally only.

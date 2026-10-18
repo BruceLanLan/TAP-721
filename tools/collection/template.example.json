@@ -1,0 +1,49 @@
+{
+ "name": "TapeCode-Test1 #{id}",
+ "description": "TapeCode-Test1 avatar plus a real BEM miner netlist (tapnet/1) that anyone can download, verify and run on X Layer. Netlists are public on-chain data: this NFT grants no exclusive right to the design and no BEM income or mining share.",
+ "external_url": "https://project.example.invalid/tct1/{id}",
+ "image": "https://gateway.example.invalid/ipfs/IMAGE_DIR_CID/{sha256}.{ext}",
+ "image_uris": [
+  "tape://CONTENT_CIRCUIT_NAME/tct1/img/{sha256}.{ext}",
+  "ipfs://IMAGE_DIR_CID/{sha256}.{ext}"
+ ],
+ "netlist_uris": [
+  "tape://CONTENT_CIRCUIT_NAME/tct1/net/{sha256}.tapnet",
+  "ipfs://NETLIST_DIR_CID/{sha256}.tapnet",
+  "https://gateway.example.invalid/ipfs/NETLIST_DIR_CID/{sha256}.tapnet"
+ ],
+ "manifest_uris": [
+  "tape://CONTENT_CIRCUIT_NAME/tct1/manifest.json",
+  "ipfs://MANIFEST_CID"
+ ],
+ "license": {
+  "image": "LicenseRef-TCT1-Avatar",
+  "netlist": "LicenseRef-TCT1-Netlist"
+ },
+ "companion": {
+  "chainId": 196,
+  "address": "0x00000000000000000000000000000000000000c0"
+ },
+ "unrevealed": {
+  "name": "TapeCode-Test1 #{id}",
+  "description": "Unrevealed. Content is fixed by the published manifest and assigned by the drand round it names.",
+  "image": "https://gateway.example.invalid/ipfs/BLINDBOX_CID/blindbox.png"
+ },
+ "content": {
+  "chainId": 196,
+  "container": "0x00000000000000000000000000000000000000c1",
+  "name": "2.2.282.tape",
+  "paths": {
+   "image": "tct1/img/{sha256}.{ext}",
+   "netlist": "tct1/net/{sha256}.tapnet",
+   "manifest": "tct1/manifest.json",
+   "metadata": "tct1/meta/{id}"
+  }
+ },
+ "excluded": {
+  "name": "TapeCode-Test1 #{id} (excluded)",
+  "description": "This token is held by an address that can never move it (0x…dEaD) and is not part of the token set of the manifest: it receives no avatar and no netlist.",
+  "image": "https://gateway.example.invalid/ipfs/BLINDBOX_CID/excluded.png"
+ },
+ "_comment": "Replace every *_CID, CONTENT_CIRCUIT_NAME, gateway host, content.container/name (the content circuit and its container) and companion.address before use. Add content.lock once the content circuit is held by its TapContainerLock."
+}

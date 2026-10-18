@@ -1,0 +1,321 @@
+{
+ "collection": {
+  "address": "0x00000000000000000000000000000000000000aa",
+  "chainId": 196,
+  "firstTokenId": 1,
+  "supply": 8
+ },
+ "freeze": {
+  "call": "uriFrozen()",
+  "chainId": 196,
+  "contract": "0x00000000000000000000000000000000000000aa",
+  "expect": true
+ },
+ "pools": [
+  {
+   "entries": [
+    {
+     "attributes": [
+      {
+       "trait_type": "Background",
+       "value": "Copper"
+      }
+     ],
+     "image": "0x2da1fc59339f21ea2cd41bffc0136e4a399f64ce690e0ca06e0bb90f6e589b9e",
+     "uris": [
+      "https://example.invalid/tap-example/images/0.png"
+     ]
+    },
+    {
+     "attributes": [
+      {
+       "trait_type": "Background",
+       "value": "Silicon"
+      }
+     ],
+     "image": "0xbc628b1b449d889f9a84e161ef2c4b775287f3151d7428bd0c40c5de64886f9f",
+     "uris": [
+      "https://example.invalid/tap-example/images/1.png"
+     ]
+    },
+    {
+     "attributes": [
+      {
+       "trait_type": "Background",
+       "value": "Gold"
+      }
+     ],
+     "image": "0x2a5756153a9c6f520b2454f277c0a6da614d13803cf6b44b8af5bb311b7a5f62",
+     "uris": [
+      "https://example.invalid/tap-example/images/2.png"
+     ]
+    },
+    {
+     "attributes": [
+      {
+       "trait_type": "Background",
+       "value": "Glass"
+      }
+     ],
+     "image": "0xbdd231155a420bbc7d7bbe67c216d9201952c7ba24c2c6d9adc2cee20c45d111",
+     "uris": [
+      "https://example.invalid/tap-example/images/3.png"
+     ]
+    },
+    {
+     "attributes": [
+      {
+       "trait_type": "Background",
+       "value": "Copper"
+      }
+     ],
+     "image": "0x24744ffe324368ca88a2c18ca68e0beac0fbdee5526a848920655de7bc4562c3",
+     "uris": [
+      "https://example.invalid/tap-example/images/4.png"
+     ]
+    },
+    {
+     "attributes": [
+      {
+       "trait_type": "Background",
+       "value": "Silicon"
+      }
+     ],
+     "image": "0x65dbb7a716bf0fb4a88460aa41ab350498106c1638de0f3f77881053e67c930a",
+     "uris": [
+      "https://example.invalid/tap-example/images/5.png"
+     ]
+    },
+    {
+     "attributes": [
+      {
+       "trait_type": "Background",
+       "value": "Gold"
+      }
+     ],
+     "image": "0x7ce5c7d18a0c70108affc398de26a800e1a6c7b06addc3647c9e7a262e69344f",
+     "uris": [
+      "https://example.invalid/tap-example/images/6.png"
+     ]
+    },
+    {
+     "attributes": [
+      {
+       "trait_type": "Background",
+       "value": "Glass"
+      }
+     ],
+     "image": "0x8a12a9f6185ebc9b237cf47971028e576f0e6e5a1b1a5ed0ea7b5bb1810f15b3",
+     "uris": [
+      "https://example.invalid/tap-example/images/7.png"
+     ]
+    }
+   ],
+   "fields": [
+    "image"
+   ],
+   "label": "IMAGE_V1",
+   "root": "0x74db282d145acb6d347e7d2bce76abf6b6f84e6ec46a8ef9973abefde313e27a"
+  },
+  {
+   "entries": [
+    {
+     "attributes": [
+      {
+       "trait_type": "NAND",
+       "value": 4
+      },
+      {
+       "trait_type": "LATCH",
+       "value": 0
+      }
+     ],
+     "netlist": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+     "source": {
+      "block": 128200681,
+      "chainId": 56,
+      "circuitId": "17851",
+      "name": "17851.30.tape",
+      "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+     },
+     "uris": [
+      "https://example.invalid/tap-example/netlists/ecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e.tapnet"
+     ]
+    },
+    {
+     "attributes": [
+      {
+       "trait_type": "NAND",
+       "value": 1
+      },
+      {
+       "trait_type": "LATCH",
+       "value": 9
+      }
+     ],
+     "netlist": "0x9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f",
+     "source": {
+      "block": 128200681,
+      "chainId": 56,
+      "circuitId": "17852",
+      "name": "17852.30.tape",
+      "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+     },
+     "uris": [
+      "https://example.invalid/tap-example/netlists/9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f.tapnet"
+     ]
+    },
+    {
+     "attributes": [
+      {
+       "trait_type": "NAND",
+       "value": 55
+      },
+      {
+       "trait_type": "LATCH",
+       "value": 0
+      }
+     ],
+     "netlist": "0x1013cbe316b27f41c70910deaaa266b296222db6b128c368a6b750f25c4a5abd",
+     "source": {
+      "block": 128200681,
+      "chainId": 56,
+      "circuitId": "3151",
+      "name": "3151.30.tape",
+      "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+     },
+     "uris": [
+      "https://example.invalid/tap-example/netlists/1013cbe316b27f41c70910deaaa266b296222db6b128c368a6b750f25c4a5abd.tapnet"
+     ]
+    },
+    {
+     "attributes": [
+      {
+       "trait_type": "NAND",
+       "value": 4
+      },
+      {
+       "trait_type": "LATCH",
+       "value": 0
+      }
+     ],
+     "netlist": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+     "source": {
+      "block": 128200681,
+      "chainId": 56,
+      "circuitId": "17851",
+      "name": "17851.30.tape",
+      "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+     },
+     "uris": [
+      "https://example.invalid/tap-example/netlists/ecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e.tapnet"
+     ]
+    },
+    {
+     "attributes": [
+      {
+       "trait_type": "NAND",
+       "value": 1
+      },
+      {
+       "trait_type": "LATCH",
+       "value": 9
+      }
+     ],
+     "netlist": "0x9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f",
+     "source": {
+      "block": 128200681,
+      "chainId": 56,
+      "circuitId": "17852",
+      "name": "17852.30.tape",
+      "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+     },
+     "uris": [
+      "https://example.invalid/tap-example/netlists/9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f.tapnet"
+     ]
+    },
+    {
+     "attributes": [
+      {
+       "trait_type": "NAND",
+       "value": 55
+      },
+      {
+       "trait_type": "LATCH",
+       "value": 0
+      }
+     ],
+     "netlist": "0x1013cbe316b27f41c70910deaaa266b296222db6b128c368a6b750f25c4a5abd",
+     "source": {
+      "block": 128200681,
+      "chainId": 56,
+      "circuitId": "3151",
+      "name": "3151.30.tape",
+      "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+     },
+     "uris": [
+      "https://example.invalid/tap-example/netlists/1013cbe316b27f41c70910deaaa266b296222db6b128c368a6b750f25c4a5abd.tapnet"
+     ]
+    },
+    {
+     "attributes": [
+      {
+       "trait_type": "NAND",
+       "value": 4
+      },
+      {
+       "trait_type": "LATCH",
+       "value": 0
+      }
+     ],
+     "netlist": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+     "source": {
+      "block": 128200681,
+      "chainId": 56,
+      "circuitId": "17851",
+      "name": "17851.30.tape",
+      "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+     },
+     "uris": [
+      "https://example.invalid/tap-example/netlists/ecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e.tapnet"
+     ]
+    },
+    {
+     "attributes": [
+      {
+       "trait_type": "NAND",
+       "value": 1
+      },
+      {
+       "trait_type": "LATCH",
+       "value": 9
+      }
+     ],
+     "netlist": "0x9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f",
+     "source": {
+      "block": 128200681,
+      "chainId": 56,
+      "circuitId": "17852",
+      "name": "17852.30.tape",
+      "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+     },
+     "uris": [
+      "https://example.invalid/tap-example/netlists/9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f.tapnet"
+     ]
+    }
+   ],
+   "fields": [
+    "netlist"
+   ],
+   "label": "NETLIST_V1",
+   "root": "0x376e16d74681f43023dedadee1612c20f7ecd2a7cd6231a8c959e772251608de"
+  }
+ ],
+ "reveal": {
+  "chainHash": "52db9ba70e0cc0f6eaf7803dd07447a1f5477735fd3f661792ba94600c84e971",
+  "note": "example only: the masterSeed used below is a fixed value, not this round's randomness",
+  "round": 1000000,
+  "source": "drand"
+ },
+ "tapManifest": 1
+}

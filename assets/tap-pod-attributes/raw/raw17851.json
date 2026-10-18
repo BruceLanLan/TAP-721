@@ -1,0 +1,148 @@
+{
+ "block": 128200681,
+ "header": {
+  "number": 128200681,
+  "hash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+  "timestamp": 1792253755
+ },
+ "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+ "entry": {
+  "processor": "0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C",
+  "circuitId": 17851,
+  "minerKey": "0xa13a5bd9630a45d0308786747431d473f749348c02d5128e66d48cc2cec6464e",
+  "miner": {
+   "circuits": "0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C",
+   "circuitId": "17851",
+   "taskId": "3",
+   "gateCount": "4",
+   "stateCount": "0",
+   "depth": "3",
+   "area": "4",
+   "mult": "1",
+   "since": "1792251014",
+   "status": "1",
+   "registrant": "0x3A61FF1694335a55bF02C716B1C4908E123addE2",
+   "nandBurn": "4",
+   "latchBurn": "0",
+   "bstar": "4",
+   "bonus": "0",
+   "optimal": "false",
+   "commitBlock": "128194569",
+   "firstUnusedId": "17851",
+   "stopBlock": "0",
+   "verifWeight": "4",
+   "unverWeight": "0",
+   "debt": "159819445"
+  },
+  "task": {
+   "kind": "0",
+   "cycles": "1",
+   "nIn": "2",
+   "nOut": "1",
+   "vectorCount": "256",
+   "active": "True",
+   "vectorsRoot": "0xe2b8eda1d1a6b79a109bfe9dbd334635c1546795b5e6dc0e0c5c2539f9d45fe4",
+   "name": "\u5f02\u6216\u95e8 XOR",
+   "refArea": "4",
+   "refCost": "108",
+   "refCircuits": "0xF4412C52ec3DDf7CAf5f518B6662F77B02Bde28E",
+   "refCircuitId": "3"
+  },
+  "circuitBurn": {
+   "nandBurn": 4,
+   "latchBurn": 0
+  },
+  "cachedDepth": {
+   "cached": true,
+   "depth": 3,
+   "live": 4
+  },
+  "nIn": 2,
+  "nOut": 1,
+  "nState": 0,
+  "gateCount": 4,
+  "netlist": "0x00000002000003000000020000040000000300000400000005000006"
+ },
+ "mining": {
+  "lambda": 6,
+  "beta": 3,
+  "lambdaBurn": 1,
+  "processorMultiplier": {
+   "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c": 1
+  }
+ },
+ "extra": {
+  "bestSlot": {
+   "holderPlus1": "907",
+   "cost": "108"
+  },
+  "bonusOfCost": "4"
+ },
+ "nodes": [
+  "https://tapeout.net/rpc",
+  "https://bsc-rpc.publicnode.com"
+ ],
+ "singleSourceReads": [
+  "minerKey('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 17851)",
+  "getMiner('0xa13a5bd9630a45d0308786747431d473f749348c02d5128e66d48cc2cec6464e',)",
+  "getTask('3',)",
+  "circuitBurn('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 17851)",
+  "cachedDepth('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 17851)",
+  "circuitInfo(17851,)",
+  "netlist(17851,)",
+  "lambda()",
+  "beta()",
+  "lambdaBurn()",
+  "processorMultiplier('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C',)",
+  "bestSlot('3', '0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C')",
+  "bonusOf('3', 108)",
+  "storage 0x360894a1"
+ ],
+ "nodeLog": [
+  "https://tapeout.net/rpc: minerKey('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 17851): 0.8s",
+  "https://bsc-rpc.publicnode.com: minerKey('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 17851): 17.2s",
+  "https://bsc-rpc.publicnode.com: minerKey('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 17851): HTTP Error 403: Forbidden",
+  "https://tapeout.net/rpc: getMiner('0xa13a5bd9630a45d0308786747431d473f749348c02d5128e66d48cc2cec6464e',): 0.5s",
+  "https://bsc-rpc.publicnode.com: getMiner('0xa13a5bd9630a45d0308786747431d473f749348c02d5128e66d48cc2cec6464e',): 18.2s",
+  "https://bsc-rpc.publicnode.com: getMiner('0xa13a5bd9630a45d0308786747431d473f749348c02d5128e66d48cc2cec6464e',): HTTP Error 403: Forbidden",
+  "https://tapeout.net/rpc: getTask('3',): 0.5s",
+  "https://bsc-rpc.publicnode.com: getTask('3',): 17.1s",
+  "https://bsc-rpc.publicnode.com: getTask('3',): HTTP Error 403: Forbidden",
+  "https://tapeout.net/rpc: circuitBurn('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 17851): 0.5s",
+  "https://bsc-rpc.publicnode.com: circuitBurn('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 17851): 16.7s",
+  "https://bsc-rpc.publicnode.com: circuitBurn('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 17851): HTTP Error 403: Forbidden",
+  "https://tapeout.net/rpc: cachedDepth('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 17851): 0.6s",
+  "https://bsc-rpc.publicnode.com: cachedDepth('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 17851): 17.0s",
+  "https://bsc-rpc.publicnode.com: cachedDepth('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 17851): HTTP Error 403: Forbidden",
+  "https://tapeout.net/rpc: circuitInfo(17851,): 0.7s",
+  "https://bsc-rpc.publicnode.com: circuitInfo(17851,): 16.6s",
+  "https://bsc-rpc.publicnode.com: circuitInfo(17851,): HTTP Error 403: Forbidden",
+  "https://tapeout.net/rpc: netlist(17851,): 0.8s",
+  "https://bsc-rpc.publicnode.com: netlist(17851,): 16.9s",
+  "https://bsc-rpc.publicnode.com: netlist(17851,): HTTP Error 403: Forbidden",
+  "https://tapeout.net/rpc: lambda(): 0.7s",
+  "https://bsc-rpc.publicnode.com: lambda(): 16.7s",
+  "https://bsc-rpc.publicnode.com: lambda(): HTTP Error 403: Forbidden",
+  "https://tapeout.net/rpc: beta(): 0.6s",
+  "https://bsc-rpc.publicnode.com: beta(): 16.6s",
+  "https://bsc-rpc.publicnode.com: beta(): HTTP Error 403: Forbidden",
+  "https://tapeout.net/rpc: lambdaBurn(): 0.5s",
+  "https://bsc-rpc.publicnode.com: lambdaBurn(): 16.6s",
+  "https://bsc-rpc.publicnode.com: lambdaBurn(): HTTP Error 403: Forbidden",
+  "https://tapeout.net/rpc: processorMultiplier('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C',): 0.6s",
+  "https://bsc-rpc.publicnode.com: processorMultiplier('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C',): 16.8s",
+  "https://bsc-rpc.publicnode.com: processorMultiplier('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C',): HTTP Error 403: Forbidden",
+  "https://tapeout.net/rpc: bestSlot('3', '0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C'): 1.6s",
+  "https://bsc-rpc.publicnode.com: bestSlot('3', '0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C'): 16.7s",
+  "https://bsc-rpc.publicnode.com: bestSlot('3', '0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C'): HTTP Error 403: Forbidden",
+  "https://tapeout.net/rpc: bonusOf('3', 108): 0.9s",
+  "https://bsc-rpc.publicnode.com: bonusOf('3', 108): 16.7s",
+  "https://bsc-rpc.publicnode.com: bonusOf('3', 108): HTTP Error 403: Forbidden",
+  "https://tapeout.net/rpc: storage 0x360894a1: 0.7s",
+  "https://bsc-rpc.publicnode.com: storage 0x360894a1: 16.7s",
+  "https://bsc-rpc.publicnode.com: storage 0x360894a1: HTTP Error 403: Forbidden",
+  "https://tapeout.net/rpc: header: 0.7s",
+  "https://bsc-rpc.publicnode.com: header: 0.5s"
+ ],
+ "transactionsSent": 0
+}

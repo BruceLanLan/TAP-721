@@ -1,0 +1,15 @@
+{
+ "processor": "0xf4412c52ec3ddf7caf5f518b6662f77b02bde28e",
+ "circuitId": 3,
+ "block": 128200681,
+ "nIn": 2,
+ "nOut": 1,
+ "nState": 0,
+ "gateCount": 4,
+ "netlist": "0x00000002000003000000020000040000000300000400000005000006",
+ "singleSourceReads": [
+  "circuitInfo(3,)",
+  "netlist(3,)"
+ ],
+ "transactionsSent": 0
+}

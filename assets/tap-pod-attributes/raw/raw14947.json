@@ -1,0 +1,148 @@
+{
+ "block": 128200681,
+ "header": {
+  "number": 128200681,
+  "hash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+  "timestamp": 1792253755
+ },
+ "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+ "entry": {
+  "processor": "0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C",
+  "circuitId": 14947,
+  "minerKey": "0x4480b3376fe020c236e13fa1c87b5ca5ec0eb1f8bab48b077c70f84208fbee9e",
+  "miner": {
+   "circuits": "0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C",
+   "circuitId": "14947",
+   "taskId": "48",
+   "gateCount": "88",
+   "stateCount": "0",
+   "depth": "8",
+   "area": "88",
+   "mult": "1",
+   "since": "1789645258",
+   "status": "1",
+   "registrant": "0x98Ce75463917E5fd1470675c6F133a38F7167712",
+   "nandBurn": "88",
+   "latchBurn": "0",
+   "bstar": "88",
+   "bonus": "284",
+   "optimal": "true",
+   "commitBlock": "122054505",
+   "firstUnusedId": "14037",
+   "stopBlock": "0",
+   "verifWeight": "372",
+   "unverWeight": "0",
+   "debt": "14865662407"
+  },
+  "task": {
+   "kind": "0",
+   "cycles": "1",
+   "nIn": "8",
+   "nOut": "4",
+   "vectorCount": "256",
+   "active": "True",
+   "vectorsRoot": "0xbe52a8e5122ac21e6a0a1d83f839fca8f9bb10f265cc5ae5502d9d722c29e267",
+   "name": "8 \u4f4d 1 \u7684\u4e2a\u6570",
+   "refArea": "71",
+   "refCost": "290816",
+   "refCircuits": "0xF4412C52ec3DDf7CAf5f518B6662F77B02Bde28E",
+   "refCircuitId": "48"
+  },
+  "circuitBurn": {
+   "nandBurn": 88,
+   "latchBurn": 0
+  },
+  "cachedDepth": {
+   "cached": true,
+   "depth": 8,
+   "live": 88
+  },
+  "nIn": 8,
+  "nOut": 4,
+  "nState": 0,
+  "gateCount": 88,
+  "netlist": "0x00000006000008000000070000090000000a00000b00000007000008000000060000090000000d00000e0000000c00000f0000000c00000d0000000100000800000001000006000000120000130000000700000700000001000009000000150000160000001400001700000011000018000000100000190000000a0000140000000b0000170000001b00001c0000001a00001d00000002000003000000040000050000001f000020000000050000050000000400000400000022000023000000200000240000000100000300000002000002000000260000270000001f000028000000250000290000002100002a000000240000280000002a00002c0000002b00002d0000001e00002e00000003000005000000020000040000003000003100000021000032000000210000310000002c000034000000330000350000002a0000360000000c00001d0000001800001d000000380000390000003700003a0000002800002c000000240000330000003c00003d0000003900003e0000000a0000240000000b0000280000004000004100000033000042000000380000430000003f0000440000000500001f0000002000002000000046000047000000480000350000001a0000490000000b0000140000000a0000170000004b00004c000000040000300000004600004e0000002800004f000000340000500000004d0000510000004a0000520000003500004d000000380000540000002e000055000000190000480000004800004800000042000058000000570000590000004d0000540000005a00005b000000580000590000002f00003b000000450000530000005600005c0000005d00005d"
+ },
+ "mining": {
+  "lambda": 6,
+  "beta": 3,
+  "lambdaBurn": 1,
+  "processorMultiplier": {
+   "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c": 1
+  }
+ },
+ "extra": {
+  "bestSlot": {
+   "holderPlus1": "14948",
+   "cost": "45056"
+  },
+  "bonusOfCost": "284"
+ },
+ "nodes": [
+  "https://tapeout.net/rpc",
+  "https://bsc-dataseed.bnbchain.org"
+ ],
+ "singleSourceReads": [
+  "minerKey('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 14947)",
+  "getMiner('0x4480b3376fe020c236e13fa1c87b5ca5ec0eb1f8bab48b077c70f84208fbee9e',)",
+  "getTask('48',)",
+  "circuitBurn('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 14947)",
+  "cachedDepth('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 14947)",
+  "circuitInfo(14947,)",
+  "netlist(14947,)",
+  "lambda()",
+  "beta()",
+  "lambdaBurn()",
+  "processorMultiplier('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C',)",
+  "bestSlot('48', '0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C')",
+  "bonusOf('48', 45056)",
+  "storage 0x360894a1"
+ ],
+ "nodeLog": [
+  "https://tapeout.net/rpc: minerKey('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 14947): 1.0s",
+  "https://bsc-dataseed.bnbchain.org: minerKey('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 14947): 0.6s",
+  "https://bsc-dataseed.bnbchain.org: minerKey('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 14947): {'code': -32000, 'message': 'missing trie node'}",
+  "https://tapeout.net/rpc: getMiner('0x4480b3376fe020c236e13fa1c87b5ca5ec0eb1f8bab48b077c70f84208fbee9e',): 1.0s",
+  "https://bsc-dataseed.bnbchain.org: getMiner('0x4480b3376fe020c236e13fa1c87b5ca5ec0eb1f8bab48b077c70f84208fbee9e',): 0.8s",
+  "https://bsc-dataseed.bnbchain.org: getMiner('0x4480b3376fe020c236e13fa1c87b5ca5ec0eb1f8bab48b077c70f84208fbee9e',): {'code': -32000, 'message': 'missing trie node'}",
+  "https://tapeout.net/rpc: getTask('48',): 1.2s",
+  "https://bsc-dataseed.bnbchain.org: getTask('48',): 0.6s",
+  "https://bsc-dataseed.bnbchain.org: getTask('48',): {'code': -32000, 'message': 'missing trie node'}",
+  "https://tapeout.net/rpc: circuitBurn('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 14947): 0.5s",
+  "https://bsc-dataseed.bnbchain.org: circuitBurn('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 14947): 0.6s",
+  "https://bsc-dataseed.bnbchain.org: circuitBurn('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 14947): {'code': -32000, 'message': 'missing trie node'}",
+  "https://tapeout.net/rpc: cachedDepth('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 14947): 0.7s",
+  "https://bsc-dataseed.bnbchain.org: cachedDepth('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 14947): 0.6s",
+  "https://bsc-dataseed.bnbchain.org: cachedDepth('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 14947): {'code': -32000, 'message': 'missing trie node'}",
+  "https://tapeout.net/rpc: circuitInfo(14947,): 0.8s",
+  "https://bsc-dataseed.bnbchain.org: circuitInfo(14947,): 0.6s",
+  "https://bsc-dataseed.bnbchain.org: circuitInfo(14947,): {'code': -32000, 'message': 'missing trie node'}",
+  "https://tapeout.net/rpc: netlist(14947,): 1.2s",
+  "https://bsc-dataseed.bnbchain.org: netlist(14947,): 0.6s",
+  "https://bsc-dataseed.bnbchain.org: netlist(14947,): {'code': -32000, 'message': 'missing trie node'}",
+  "https://tapeout.net/rpc: lambda(): 0.9s",
+  "https://bsc-dataseed.bnbchain.org: lambda(): 0.7s",
+  "https://bsc-dataseed.bnbchain.org: lambda(): {'code': -32000, 'message': 'missing trie node'}",
+  "https://tapeout.net/rpc: beta(): 0.8s",
+  "https://bsc-dataseed.bnbchain.org: beta(): 0.6s",
+  "https://bsc-dataseed.bnbchain.org: beta(): {'code': -32000, 'message': 'missing trie node'}",
+  "https://tapeout.net/rpc: lambdaBurn(): 0.9s",
+  "https://bsc-dataseed.bnbchain.org: lambdaBurn(): 0.6s",
+  "https://bsc-dataseed.bnbchain.org: lambdaBurn(): {'code': -32000, 'message': 'missing trie node'}",
+  "https://tapeout.net/rpc: processorMultiplier('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C',): 0.6s",
+  "https://bsc-dataseed.bnbchain.org: processorMultiplier('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C',): 0.6s",
+  "https://bsc-dataseed.bnbchain.org: processorMultiplier('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C',): {'code': -32000, 'message': 'missing trie node'}",
+  "https://tapeout.net/rpc: bestSlot('48', '0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C'): 0.8s",
+  "https://bsc-dataseed.bnbchain.org: bestSlot('48', '0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C'): 0.6s",
+  "https://bsc-dataseed.bnbchain.org: bestSlot('48', '0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C'): {'code': -32000, 'message': 'missing trie node'}",
+  "https://tapeout.net/rpc: bonusOf('48', 45056): 0.5s",
+  "https://bsc-dataseed.bnbchain.org: bonusOf('48', 45056): 0.6s",
+  "https://bsc-dataseed.bnbchain.org: bonusOf('48', 45056): {'code': -32000, 'message': 'missing trie node'}",
+  "https://tapeout.net/rpc: storage 0x360894a1: 0.5s",
+  "https://bsc-dataseed.bnbchain.org: storage 0x360894a1: 0.9s",
+  "https://bsc-dataseed.bnbchain.org: storage 0x360894a1: {'code': -32000, 'message': 'missing trie node'}",
+  "https://tapeout.net/rpc: header: 0.6s",
+  "https://bsc-dataseed.bnbchain.org: header: 0.6s"
+ ],
+ "transactionsSent": 0
+}

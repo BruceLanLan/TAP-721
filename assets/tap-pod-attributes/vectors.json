@@ -1,0 +1,2994 @@
+{
+ "description": "Vectors for TAP draft 'Proof-of-Design Attributes for Netlist-Bound NFTs'. Values read read-only from BNB Smart Chain; no transaction was sent.",
+ "chainId": 56,
+ "block": 128200681,
+ "blockHash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+ "timestamp": 1792253755,
+ "mining": "0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46",
+ "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+ "params": {
+  "lambda": 6,
+  "beta": 3,
+  "lambdaBurn": 1,
+  "processorMultiplier": {
+   "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c": 1,
+   "0x1f5cb4aeae1807bf60c3b9c0d8adbcc14e91f12c": 6
+  }
+ },
+ "nodes": {
+  "chain-snapshot.json": [
+   "https://tapeout.net/rpc",
+   "https://bsc-rpc.publicnode.com",
+   "https://bsc-dataseed.bnbchain.org",
+   "https://bsc-dataseed1.ninicoin.io"
+  ],
+  "singleSourceReads": [
+   "circuitInfo(uint256)(uint32,uint32,uint32,uint32) (3151,)",
+   "netlist(uint256)(bytes) (3151,)",
+   "name()(string) ()",
+   "minerKey(address,uint256)(bytes32) ('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 3151)",
+   "getMiner(bytes32)((address,uint64,uint32,uint32,uint32,uint32,uint64,uint32,uint64,uint8,address,uint32,uint32,uint64,uint64,bool,uint64,uint64,uint64,uint128,uint128,uint256)) ('0x14419ac7344695c780d6c029314ea97f56771225cca19ce35578af471ef95538',)",
+   "circuitBurn(address,uint256)(uint32,uint32) ('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 3151)",
+   "cachedDepth(address,uint256)(bool,uint32,uint32) ('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C', 3151)",
+   "getTask(uint32)((uint8,uint32,uint32,uint32,uint32,bool,bytes32,string,uint64,uint256,address,uint64)) ('48',)",
+   "circuitInfo(uint256)(uint32,uint32,uint32,uint32) (38,)",
+   "netlist(uint256)(bytes) (38,)",
+   "name()(string) ()",
+   "minerKey(address,uint256)(bytes32) ('0x1f5cb4aeae1807bf60c3b9c0d8adbcc14e91f12c', 38)",
+   "getMiner(bytes32)((address,uint64,uint32,uint32,uint32,uint32,uint64,uint32,uint64,uint8,address,uint32,uint32,uint64,uint64,bool,uint64,uint64,uint64,uint128,uint128,uint256)) ('0x7c7c2123ce7591ed8ea3044a32f5f8fb08c01009c71614964f2a648f9d46682c',)",
+   "circuitBurn(address,uint256)(uint32,uint32) ('0x1f5cb4aeae1807bf60c3b9c0d8adbcc14e91f12c', 38)",
+   "cachedDepth(address,uint256)(bool,uint32,uint32) ('0x1f5cb4aeae1807bf60c3b9c0d8adbcc14e91f12c', 38)",
+   "lambda()(uint16) ()",
+   "beta()(uint8) ()",
+   "lambdaBurn()(uint16) ()",
+   "taskCount()(uint32) ()",
+   "processorMultiplier(address)(uint256) ('0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C',)",
+   "processorMultiplier(address)(uint256) ('0x1f5cb4aeae1807bf60c3b9c0d8adbcc14e91f12c',)"
+  ],
+  "raw": [
+   "https://tapeout.net/rpc",
+   "https://bsc-dataseed.bnbchain.org"
+  ]
+ },
+ "limitations": "Only TapeOut #17851 and #17852 in chain-snapshot.json were confirmed by two operators. The reads listed in nodes.singleSourceReads (circuits #3151 and #38 and the contract parameters) and every eth_call in raw/ come from the archive node https://tapeout.net/rpc alone, because other public nodes no longer serve state at this block; only block headers were cross-checked. Repeat with a second archive operator before Review.",
+ "traitKeys": [
+  {
+   "name": "tap.pod.snapshotBlock",
+   "key": "0x0c83b866c7f4ae4bc14376df103564c65d79f5d851284a0c11a210f1728bca19",
+   "dataType": "decimal"
+  },
+  {
+   "name": "tap.pod.taskId",
+   "key": "0xfd64ebeaade5a108f78bfc94ee0edfe916c75d828e7c70129827ea0caa1a4723",
+   "dataType": "decimal"
+  },
+  {
+   "name": "tap.pod.nandBurn",
+   "key": "0xe6812d63110001a7da779d278372a1b4831d829f2b26af45f40826e40274f42b",
+   "dataType": "decimal"
+  },
+  {
+   "name": "tap.pod.latchBurn",
+   "key": "0x91b9d0cc668255fa778685c7338fe63d92e536385c87f08c6e17a26d42c0ef85",
+   "dataType": "decimal"
+  },
+  {
+   "name": "tap.pod.area",
+   "key": "0xef44719e0caef64b0ad22f820f1708667b608e0c4c59a80c8deebf8688627337",
+   "dataType": "decimal"
+  },
+  {
+   "name": "tap.pod.depth",
+   "key": "0x691e154bb3637b1685d381f103f429ac2d4cdc57f92fd1f1194b47f0bd316e3e",
+   "dataType": "decimal"
+  },
+  {
+   "name": "tap.pod.cost",
+   "key": "0x1553b0cf7ee3f2ca0aa45a80f70c798570abcdf04acf5aec1a612b21ecc5d29b",
+   "dataType": "decimal"
+  },
+  {
+   "name": "tap.pod.bstar",
+   "key": "0x13d8a1dcf1cef697a18c42ef48929ae6e6124242f366c4ea7440825c3883cd36",
+   "dataType": "decimal"
+  },
+  {
+   "name": "tap.pod.status",
+   "key": "0x5c1f2b4070b54fc2f5561f38390399cf8d4c29b81499370517a16c2717151d39",
+   "dataType": "decimal"
+  },
+  {
+   "name": "tap.pod.optimal",
+   "key": "0x8cc64f68d1b65bf6912ce63a85a0f5816e9b5a3ee7bdbd8bef65d7f44ca4abdb",
+   "dataType": "boolean"
+  },
+  {
+   "name": "tap.pod.bonus",
+   "key": "0xeb0e1e58cd5de11d87fbfa80b7b0c7db07fe2927be7ec0031c9c85d8b62ddb4a",
+   "dataType": "decimal"
+  },
+  {
+   "name": "tap.pod.multiplier",
+   "key": "0x8e86769259637e5965f73f19f92dd8221947eee18e3eb2566926f6e2184725ea",
+   "dataType": "decimal"
+  },
+  {
+   "name": "tap.pod.verified",
+   "key": "0xa5dba9952bac764a13016b30c24d35b2efb5d9d9b33f600d4dcbfc44500659c5",
+   "dataType": "boolean"
+  },
+  {
+   "name": "tap.pod.verifWeight",
+   "key": "0x0314874f9605c7d0456f0d16f4f551a20fbd2861f171aed22417d41a6f5da2d3",
+   "dataType": "decimal"
+  },
+  {
+   "name": "tap.pod.unverWeight",
+   "key": "0x0717ebcfb36876929ba6257ed6a85a3c22cc4ed0348df2bb927e4dbf3dcc811a",
+   "dataType": "decimal"
+  }
+ ],
+ "traitSchema": {
+  "traits": {
+   "tap.pod.snapshotBlock": {
+    "displayName": "PoD snapshot block (BSC)",
+    "dataType": {
+     "type": "decimal",
+     "signed": false,
+     "decimals": 0
+    },
+    "validateOnSale": "none",
+    "tokenOwnerCanUpdateValue": false
+   },
+   "tap.pod.taskId": {
+    "displayName": "PoD task",
+    "dataType": {
+     "type": "decimal",
+     "signed": false,
+     "decimals": 0
+    },
+    "validateOnSale": "none",
+    "tokenOwnerCanUpdateValue": false
+   },
+   "tap.pod.nandBurn": {
+    "displayName": "NAND burn",
+    "dataType": {
+     "type": "decimal",
+     "signed": false,
+     "decimals": 0
+    },
+    "validateOnSale": "none",
+    "tokenOwnerCanUpdateValue": false
+   },
+   "tap.pod.latchBurn": {
+    "displayName": "LATCH burn",
+    "dataType": {
+     "type": "decimal",
+     "signed": false,
+     "decimals": 0
+    },
+    "validateOnSale": "none",
+    "tokenOwnerCanUpdateValue": false
+   },
+   "tap.pod.area": {
+    "displayName": "Area",
+    "dataType": {
+     "type": "decimal",
+     "signed": false,
+     "decimals": 0
+    },
+    "validateOnSale": "none",
+    "tokenOwnerCanUpdateValue": false
+   },
+   "tap.pod.depth": {
+    "displayName": "Depth",
+    "dataType": {
+     "type": "decimal",
+     "signed": false,
+     "decimals": 0
+    },
+    "validateOnSale": "none",
+    "tokenOwnerCanUpdateValue": false
+   },
+   "tap.pod.cost": {
+    "displayName": "Design cost",
+    "dataType": {
+     "type": "decimal",
+     "signed": false,
+     "decimals": 0
+    },
+    "validateOnSale": "none",
+    "tokenOwnerCanUpdateValue": false
+   },
+   "tap.pod.bstar": {
+    "displayName": "Burn basis b*",
+    "dataType": {
+     "type": "decimal",
+     "signed": false,
+     "decimals": 0
+    },
+    "validateOnSale": "none",
+    "tokenOwnerCanUpdateValue": false
+   },
+   "tap.pod.status": {
+    "displayName": "Miner status (at snapshot)",
+    "dataType": {
+     "type": "decimal",
+     "signed": false,
+     "decimals": 0
+    },
+    "validateOnSale": "none",
+    "tokenOwnerCanUpdateValue": false
+   },
+   "tap.pod.optimal": {
+    "displayName": "Optimal first (at snapshot)",
+    "dataType": {
+     "type": "boolean"
+    },
+    "validateOnSale": "none",
+    "tokenOwnerCanUpdateValue": false
+   },
+   "tap.pod.bonus": {
+    "displayName": "Design bonus (at snapshot)",
+    "dataType": {
+     "type": "decimal",
+     "signed": false,
+     "decimals": 0
+    },
+    "validateOnSale": "none",
+    "tokenOwnerCanUpdateValue": false
+   },
+   "tap.pod.multiplier": {
+    "displayName": "Processor multiplier (at snapshot)",
+    "dataType": {
+     "type": "decimal",
+     "signed": false,
+     "decimals": 0
+    },
+    "validateOnSale": "none",
+    "tokenOwnerCanUpdateValue": false
+   },
+   "tap.pod.verified": {
+    "displayName": "Verified (at snapshot)",
+    "dataType": {
+     "type": "boolean"
+    },
+    "validateOnSale": "none",
+    "tokenOwnerCanUpdateValue": false
+   },
+   "tap.pod.verifWeight": {
+    "displayName": "Verified weight (at snapshot)",
+    "dataType": {
+     "type": "decimal",
+     "signed": false,
+     "decimals": 0
+    },
+    "validateOnSale": "none",
+    "tokenOwnerCanUpdateValue": false
+   },
+   "tap.pod.unverWeight": {
+    "displayName": "Unverified weight (at snapshot)",
+    "dataType": {
+     "type": "decimal",
+     "signed": false,
+     "decimals": 0
+    },
+    "validateOnSale": "none",
+    "tokenOwnerCanUpdateValue": false
+   }
+  }
+ },
+ "cases": [
+  {
+   "label": "TapeOut #17851",
+   "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+   "processorNumber": 30,
+   "circuitId": "17851",
+   "source": "chain-snapshot.json",
+   "hasMinerRecord": true,
+   "pod": {
+    "v": 1,
+    "chainId": 56,
+    "block": 128200681,
+    "blockHash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+    "timestamp": 1792253755,
+    "mining": "0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46",
+    "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+    "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+    "circuitId": "17851",
+    "minerKey": "0xa13a5bd9630a45d0308786747431d473f749348c02d5128e66d48cc2cec6464e",
+    "params": {
+     "lambda": 6,
+     "beta": 3,
+     "lambdaBurn": 1,
+     "processorMultiplier": "1"
+    },
+    "design": {
+     "taskId": 3,
+     "gateCount": 4,
+     "stateCount": 0,
+     "nandBurn": 4,
+     "latchBurn": 0,
+     "depth": 3,
+     "area": "4",
+     "bstar": "4",
+     "cost": "108",
+     "task": {
+      "name": "异或门 XOR",
+      "kTask": "4",
+      "cRef": "108"
+     }
+    },
+    "standing": {
+     "status": 1,
+     "statusLabel": "mining",
+     "optimal": false,
+     "bonus": "0",
+     "multiplier": 1,
+     "verified": true,
+     "verifWeight": "4",
+     "unverWeight": "0",
+     "since": "1792251014",
+     "stopBlock": "0"
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "reference": {
+      "processor": "0xf4412c52ec3ddf7caf5f518b6662f77b02bde28e",
+      "circuitId": "3"
+     },
+     "method": "exhaustive",
+     "vectors": 4,
+     "result": "match"
+    }
+   },
+   "valid": true,
+   "warnings": [],
+   "traits": [
+    {
+     "name": "tap.pod.snapshotBlock",
+     "key": "0x0c83b866c7f4ae4bc14376df103564c65d79f5d851284a0c11a210f1728bca19",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000007a42fe9"
+    },
+    {
+     "name": "tap.pod.taskId",
+     "key": "0xfd64ebeaade5a108f78bfc94ee0edfe916c75d828e7c70129827ea0caa1a4723",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000003"
+    },
+    {
+     "name": "tap.pod.nandBurn",
+     "key": "0xe6812d63110001a7da779d278372a1b4831d829f2b26af45f40826e40274f42b",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000004"
+    },
+    {
+     "name": "tap.pod.latchBurn",
+     "key": "0x91b9d0cc668255fa778685c7338fe63d92e536385c87f08c6e17a26d42c0ef85",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.area",
+     "key": "0xef44719e0caef64b0ad22f820f1708667b608e0c4c59a80c8deebf8688627337",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000004"
+    },
+    {
+     "name": "tap.pod.depth",
+     "key": "0x691e154bb3637b1685d381f103f429ac2d4cdc57f92fd1f1194b47f0bd316e3e",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000003"
+    },
+    {
+     "name": "tap.pod.cost",
+     "key": "0x1553b0cf7ee3f2ca0aa45a80f70c798570abcdf04acf5aec1a612b21ecc5d29b",
+     "dataType": "decimal",
+     "value": "0x000000000000000000000000000000000000000000000000000000000000006c"
+    },
+    {
+     "name": "tap.pod.bstar",
+     "key": "0x13d8a1dcf1cef697a18c42ef48929ae6e6124242f366c4ea7440825c3883cd36",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000004"
+    },
+    {
+     "name": "tap.pod.status",
+     "key": "0x5c1f2b4070b54fc2f5561f38390399cf8d4c29b81499370517a16c2717151d39",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.optimal",
+     "key": "0x8cc64f68d1b65bf6912ce63a85a0f5816e9b5a3ee7bdbd8bef65d7f44ca4abdb",
+     "dataType": "boolean",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.bonus",
+     "key": "0xeb0e1e58cd5de11d87fbfa80b7b0c7db07fe2927be7ec0031c9c85d8b62ddb4a",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.multiplier",
+     "key": "0x8e86769259637e5965f73f19f92dd8221947eee18e3eb2566926f6e2184725ea",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.verified",
+     "key": "0xa5dba9952bac764a13016b30c24d35b2efb5d9d9b33f600d4dcbfc44500659c5",
+     "dataType": "boolean",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.verifWeight",
+     "key": "0x0314874f9605c7d0456f0d16f4f551a20fbd2861f171aed22417d41a6f5da2d3",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000004"
+    },
+    {
+     "name": "tap.pod.unverWeight",
+     "key": "0x0717ebcfb36876929ba6257ed6a85a3c22cc4ed0348df2bb927e4dbf3dcc811a",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    }
+   ],
+   "crossChecks": [
+    {
+     "check": "gateCount == nandBurn + latchBurn",
+     "ok": true,
+     "detail": "4 vs 4+0"
+    },
+    {
+     "check": "area == gateCount + lambda*stateCount",
+     "ok": true,
+     "detail": "4 vs 4+6*0"
+    },
+    {
+     "check": "bstar == nandBurn + lambdaBurn*latchBurn",
+     "ok": true,
+     "detail": "4 vs 4+1*0"
+    },
+    {
+     "check": "circuitBurn == (nandBurn, latchBurn)",
+     "ok": true,
+     "detail": "4,0"
+    },
+    {
+     "check": "cachedDepth.depth == depth",
+     "ok": true,
+     "detail": "cached=True depth=3 live=4"
+    },
+    {
+     "check": "netlist NAND/LATCH records == nandBurn/latchBurn",
+     "ok": true,
+     "detail": "4,0"
+    },
+    {
+     "check": "circuitInfo gateCount/nState == miner gateCount/stateCount",
+     "ok": true,
+     "detail": "4,0"
+    },
+    {
+     "check": "multiplier == processorMultiplier(processor)",
+     "ok": true,
+     "detail": "1 vs 1"
+    },
+    {
+     "check": "verifWeight == (bstar + bonus) * multiplier",
+     "ok": true,
+     "detail": "4 vs 4"
+    },
+    {
+     "check": "bonus == 0 when not optimal",
+     "ok": true,
+     "detail": "0"
+    },
+    {
+     "check": "optimal == (bestSlot holder is this circuit)",
+     "ok": true,
+     "detail": "holder #906"
+    },
+    {
+     "check": "cost vs bestSlot.cost (informative: a cheaper design can lose or never hold the slot after a counterexample kick)",
+     "ok": true,
+     "informative": true,
+     "detail": "108 vs 108"
+    },
+    {
+     "check": "bonusOf(taskId, cost) ~= kTask * clamp(cRef/cost, 1/4, 4) (float, informative)",
+     "ok": true,
+     "detail": "4 vs 4.000"
+    }
+   ],
+   "extraReads": {
+    "bestSlot": {
+     "holderPlus1": "907",
+     "cost": "108"
+    },
+    "bonusOfCost": "4"
+   }
+  },
+  {
+   "label": "TapeOut #17852",
+   "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+   "processorNumber": 30,
+   "circuitId": "17852",
+   "source": "chain-snapshot.json",
+   "hasMinerRecord": true,
+   "pod": {
+    "v": 1,
+    "chainId": 56,
+    "block": 128200681,
+    "blockHash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+    "timestamp": 1792253755,
+    "mining": "0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46",
+    "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+    "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+    "circuitId": "17852",
+    "minerKey": "0x1c8649f58c8b7eca3ec6f680bf7b029adfd9a454de8b59c5bcdb790eed0ca032",
+    "params": {
+     "lambda": 6,
+     "beta": 3,
+     "lambdaBurn": 1,
+     "processorMultiplier": "1"
+    },
+    "design": {
+     "taskId": 220,
+     "gateCount": 10,
+     "stateCount": 9,
+     "nandBurn": 1,
+     "latchBurn": 9,
+     "depth": 1,
+     "area": "64",
+     "bstar": "10",
+     "cost": "64",
+     "task": {
+      "name": "8 位约翰逊计数器",
+      "kTask": "25",
+      "cRef": "584"
+     }
+    },
+    "standing": {
+     "status": 1,
+     "statusLabel": "mining",
+     "optimal": false,
+     "bonus": "0",
+     "multiplier": 1,
+     "verified": true,
+     "verifWeight": "10",
+     "unverWeight": "0",
+     "since": "1792252096",
+     "stopBlock": "0"
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "reference": {
+      "processor": "0xf4412c52ec3ddf7caf5f518b6662f77b02bde28e",
+      "circuitId": "220"
+     },
+     "method": "sampled",
+     "seed": "0x2a8ae4d777d75596dacbaefb75c5ca2304bb0f292ce47b5a438665217d1b3a99",
+     "vectors": 32,
+     "result": "match"
+    }
+   },
+   "valid": true,
+   "warnings": [],
+   "traits": [
+    {
+     "name": "tap.pod.snapshotBlock",
+     "key": "0x0c83b866c7f4ae4bc14376df103564c65d79f5d851284a0c11a210f1728bca19",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000007a42fe9"
+    },
+    {
+     "name": "tap.pod.taskId",
+     "key": "0xfd64ebeaade5a108f78bfc94ee0edfe916c75d828e7c70129827ea0caa1a4723",
+     "dataType": "decimal",
+     "value": "0x00000000000000000000000000000000000000000000000000000000000000dc"
+    },
+    {
+     "name": "tap.pod.nandBurn",
+     "key": "0xe6812d63110001a7da779d278372a1b4831d829f2b26af45f40826e40274f42b",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.latchBurn",
+     "key": "0x91b9d0cc668255fa778685c7338fe63d92e536385c87f08c6e17a26d42c0ef85",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000009"
+    },
+    {
+     "name": "tap.pod.area",
+     "key": "0xef44719e0caef64b0ad22f820f1708667b608e0c4c59a80c8deebf8688627337",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000040"
+    },
+    {
+     "name": "tap.pod.depth",
+     "key": "0x691e154bb3637b1685d381f103f429ac2d4cdc57f92fd1f1194b47f0bd316e3e",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.cost",
+     "key": "0x1553b0cf7ee3f2ca0aa45a80f70c798570abcdf04acf5aec1a612b21ecc5d29b",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000040"
+    },
+    {
+     "name": "tap.pod.bstar",
+     "key": "0x13d8a1dcf1cef697a18c42ef48929ae6e6124242f366c4ea7440825c3883cd36",
+     "dataType": "decimal",
+     "value": "0x000000000000000000000000000000000000000000000000000000000000000a"
+    },
+    {
+     "name": "tap.pod.status",
+     "key": "0x5c1f2b4070b54fc2f5561f38390399cf8d4c29b81499370517a16c2717151d39",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.optimal",
+     "key": "0x8cc64f68d1b65bf6912ce63a85a0f5816e9b5a3ee7bdbd8bef65d7f44ca4abdb",
+     "dataType": "boolean",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.bonus",
+     "key": "0xeb0e1e58cd5de11d87fbfa80b7b0c7db07fe2927be7ec0031c9c85d8b62ddb4a",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.multiplier",
+     "key": "0x8e86769259637e5965f73f19f92dd8221947eee18e3eb2566926f6e2184725ea",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.verified",
+     "key": "0xa5dba9952bac764a13016b30c24d35b2efb5d9d9b33f600d4dcbfc44500659c5",
+     "dataType": "boolean",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.verifWeight",
+     "key": "0x0314874f9605c7d0456f0d16f4f551a20fbd2861f171aed22417d41a6f5da2d3",
+     "dataType": "decimal",
+     "value": "0x000000000000000000000000000000000000000000000000000000000000000a"
+    },
+    {
+     "name": "tap.pod.unverWeight",
+     "key": "0x0717ebcfb36876929ba6257ed6a85a3c22cc4ed0348df2bb927e4dbf3dcc811a",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    }
+   ],
+   "crossChecks": [
+    {
+     "check": "gateCount == nandBurn + latchBurn",
+     "ok": true,
+     "detail": "10 vs 1+9"
+    },
+    {
+     "check": "area == gateCount + lambda*stateCount",
+     "ok": true,
+     "detail": "64 vs 10+6*9"
+    },
+    {
+     "check": "bstar == nandBurn + lambdaBurn*latchBurn",
+     "ok": true,
+     "detail": "10 vs 1+1*9"
+    },
+    {
+     "check": "circuitBurn == (nandBurn, latchBurn)",
+     "ok": true,
+     "detail": "1,9"
+    },
+    {
+     "check": "cachedDepth.depth == depth",
+     "ok": true,
+     "detail": "cached=True depth=1 live=10"
+    },
+    {
+     "check": "netlist NAND/LATCH records == nandBurn/latchBurn",
+     "ok": true,
+     "detail": "1,9"
+    },
+    {
+     "check": "circuitInfo gateCount/nState == miner gateCount/stateCount",
+     "ok": true,
+     "detail": "10,9"
+    },
+    {
+     "check": "multiplier == processorMultiplier(processor)",
+     "ok": true,
+     "detail": "1 vs 1"
+    },
+    {
+     "check": "verifWeight == (bstar + bonus) * multiplier",
+     "ok": true,
+     "detail": "10 vs 10"
+    },
+    {
+     "check": "bonus == 0 when not optimal",
+     "ok": true,
+     "detail": "0"
+    },
+    {
+     "check": "optimal == (bestSlot holder is this circuit)",
+     "ok": true,
+     "detail": "holder #2033"
+    },
+    {
+     "check": "cost vs bestSlot.cost (informative: a cheaper design can lose or never hold the slot after a counterexample kick)",
+     "ok": true,
+     "informative": true,
+     "detail": "64 vs 64"
+    },
+    {
+     "check": "bonusOf(taskId, cost) ~= kTask * clamp(cRef/cost, 1/4, 4) (float, informative)",
+     "ok": true,
+     "detail": "100 vs 100.000"
+    }
+   ],
+   "extraReads": {
+    "bestSlot": {
+     "holderPlus1": "2034",
+     "cost": "64"
+    },
+    "bonusOfCost": "100"
+   }
+  },
+  {
+   "label": "TapeOut #3151",
+   "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+   "processorNumber": 30,
+   "circuitId": "3151",
+   "source": "chain-snapshot.json",
+   "hasMinerRecord": true,
+   "pod": {
+    "v": 1,
+    "chainId": 56,
+    "block": 128200681,
+    "blockHash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+    "timestamp": 1792253755,
+    "mining": "0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46",
+    "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+    "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+    "circuitId": "3151",
+    "minerKey": "0x14419ac7344695c780d6c029314ea97f56771225cca19ce35578af471ef95538",
+    "params": {
+     "lambda": 6,
+     "beta": 3,
+     "lambdaBurn": 1,
+     "processorMultiplier": "1"
+    },
+    "design": {
+     "taskId": 48,
+     "gateCount": 55,
+     "stateCount": 0,
+     "nandBurn": 55,
+     "latchBurn": 0,
+     "depth": 16,
+     "area": "55",
+     "bstar": "55",
+     "cost": "225280",
+     "task": {
+      "name": "8 位 1 的个数",
+      "kTask": "71",
+      "cRef": "290816"
+     }
+    },
+    "standing": {
+     "status": 1,
+     "statusLabel": "mining",
+     "optimal": false,
+     "bonus": "0",
+     "multiplier": 1,
+     "verified": true,
+     "verifWeight": "55",
+     "unverWeight": "0",
+     "since": "1787410927",
+     "stopBlock": "0"
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "reference": {
+      "processor": "0xf4412c52ec3ddf7caf5f518b6662f77b02bde28e",
+      "circuitId": "48"
+     },
+     "method": "exhaustive",
+     "vectors": 256,
+     "result": "match"
+    }
+   },
+   "valid": true,
+   "warnings": [],
+   "traits": [
+    {
+     "name": "tap.pod.snapshotBlock",
+     "key": "0x0c83b866c7f4ae4bc14376df103564c65d79f5d851284a0c11a210f1728bca19",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000007a42fe9"
+    },
+    {
+     "name": "tap.pod.taskId",
+     "key": "0xfd64ebeaade5a108f78bfc94ee0edfe916c75d828e7c70129827ea0caa1a4723",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000030"
+    },
+    {
+     "name": "tap.pod.nandBurn",
+     "key": "0xe6812d63110001a7da779d278372a1b4831d829f2b26af45f40826e40274f42b",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000037"
+    },
+    {
+     "name": "tap.pod.latchBurn",
+     "key": "0x91b9d0cc668255fa778685c7338fe63d92e536385c87f08c6e17a26d42c0ef85",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.area",
+     "key": "0xef44719e0caef64b0ad22f820f1708667b608e0c4c59a80c8deebf8688627337",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000037"
+    },
+    {
+     "name": "tap.pod.depth",
+     "key": "0x691e154bb3637b1685d381f103f429ac2d4cdc57f92fd1f1194b47f0bd316e3e",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000010"
+    },
+    {
+     "name": "tap.pod.cost",
+     "key": "0x1553b0cf7ee3f2ca0aa45a80f70c798570abcdf04acf5aec1a612b21ecc5d29b",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000037000"
+    },
+    {
+     "name": "tap.pod.bstar",
+     "key": "0x13d8a1dcf1cef697a18c42ef48929ae6e6124242f366c4ea7440825c3883cd36",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000037"
+    },
+    {
+     "name": "tap.pod.status",
+     "key": "0x5c1f2b4070b54fc2f5561f38390399cf8d4c29b81499370517a16c2717151d39",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.optimal",
+     "key": "0x8cc64f68d1b65bf6912ce63a85a0f5816e9b5a3ee7bdbd8bef65d7f44ca4abdb",
+     "dataType": "boolean",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.bonus",
+     "key": "0xeb0e1e58cd5de11d87fbfa80b7b0c7db07fe2927be7ec0031c9c85d8b62ddb4a",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.multiplier",
+     "key": "0x8e86769259637e5965f73f19f92dd8221947eee18e3eb2566926f6e2184725ea",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.verified",
+     "key": "0xa5dba9952bac764a13016b30c24d35b2efb5d9d9b33f600d4dcbfc44500659c5",
+     "dataType": "boolean",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.verifWeight",
+     "key": "0x0314874f9605c7d0456f0d16f4f551a20fbd2861f171aed22417d41a6f5da2d3",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000037"
+    },
+    {
+     "name": "tap.pod.unverWeight",
+     "key": "0x0717ebcfb36876929ba6257ed6a85a3c22cc4ed0348df2bb927e4dbf3dcc811a",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    }
+   ],
+   "crossChecks": [
+    {
+     "check": "gateCount == nandBurn + latchBurn",
+     "ok": true,
+     "detail": "55 vs 55+0"
+    },
+    {
+     "check": "area == gateCount + lambda*stateCount",
+     "ok": true,
+     "detail": "55 vs 55+6*0"
+    },
+    {
+     "check": "bstar == nandBurn + lambdaBurn*latchBurn",
+     "ok": true,
+     "detail": "55 vs 55+1*0"
+    },
+    {
+     "check": "circuitBurn == (nandBurn, latchBurn)",
+     "ok": true,
+     "detail": "55,0"
+    },
+    {
+     "check": "cachedDepth.depth == depth",
+     "ok": true,
+     "detail": "cached=True depth=16 live=51"
+    },
+    {
+     "check": "netlist NAND/LATCH records == nandBurn/latchBurn",
+     "ok": true,
+     "detail": "55,0"
+    },
+    {
+     "check": "circuitInfo gateCount/nState == miner gateCount/stateCount",
+     "ok": true,
+     "detail": "55,0"
+    },
+    {
+     "check": "multiplier == processorMultiplier(processor)",
+     "ok": true,
+     "detail": "1 vs 1"
+    },
+    {
+     "check": "verifWeight == (bstar + bonus) * multiplier",
+     "ok": true,
+     "detail": "55 vs 55"
+    },
+    {
+     "check": "bonus == 0 when not optimal",
+     "ok": true,
+     "detail": "0"
+    },
+    {
+     "check": "optimal == (bestSlot holder is this circuit)",
+     "ok": true,
+     "detail": "holder #14947"
+    },
+    {
+     "check": "cost vs bestSlot.cost (informative: a cheaper design can lose or never hold the slot after a counterexample kick)",
+     "ok": true,
+     "informative": true,
+     "detail": "225280 vs 45056"
+    },
+    {
+     "check": "bonusOf(taskId, cost) ~= kTask * clamp(cRef/cost, 1/4, 4) (float, informative)",
+     "ok": true,
+     "detail": "91 vs 91.655"
+    }
+   ],
+   "extraReads": {
+    "bestSlot": {
+     "holderPlus1": "14948",
+     "cost": "45056"
+    },
+    "bonusOfCost": "91"
+   }
+  },
+  {
+   "label": "Blonskr_No1 #38",
+   "processor": "0x1f5cb4aeae1807bf60c3b9c0d8adbcc14e91f12c",
+   "processorNumber": 1,
+   "circuitId": "38",
+   "source": "chain-snapshot.json",
+   "hasMinerRecord": false,
+   "pod": null,
+   "note": "getMiner(minerKey) returns the zero record (the netlist contains REF records, which the mining contract rejects): no PoD attributes; tap.pod.snapshotBlock trait stays 0",
+   "traits": [
+    {
+     "name": "tap.pod.snapshotBlock",
+     "key": "0x0c83b866c7f4ae4bc14376df103564c65d79f5d851284a0c11a210f1728bca19",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.taskId",
+     "key": "0xfd64ebeaade5a108f78bfc94ee0edfe916c75d828e7c70129827ea0caa1a4723",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.nandBurn",
+     "key": "0xe6812d63110001a7da779d278372a1b4831d829f2b26af45f40826e40274f42b",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.latchBurn",
+     "key": "0x91b9d0cc668255fa778685c7338fe63d92e536385c87f08c6e17a26d42c0ef85",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.area",
+     "key": "0xef44719e0caef64b0ad22f820f1708667b608e0c4c59a80c8deebf8688627337",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.depth",
+     "key": "0x691e154bb3637b1685d381f103f429ac2d4cdc57f92fd1f1194b47f0bd316e3e",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.cost",
+     "key": "0x1553b0cf7ee3f2ca0aa45a80f70c798570abcdf04acf5aec1a612b21ecc5d29b",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.bstar",
+     "key": "0x13d8a1dcf1cef697a18c42ef48929ae6e6124242f366c4ea7440825c3883cd36",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.status",
+     "key": "0x5c1f2b4070b54fc2f5561f38390399cf8d4c29b81499370517a16c2717151d39",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.optimal",
+     "key": "0x8cc64f68d1b65bf6912ce63a85a0f5816e9b5a3ee7bdbd8bef65d7f44ca4abdb",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.bonus",
+     "key": "0xeb0e1e58cd5de11d87fbfa80b7b0c7db07fe2927be7ec0031c9c85d8b62ddb4a",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.multiplier",
+     "key": "0x8e86769259637e5965f73f19f92dd8221947eee18e3eb2566926f6e2184725ea",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.verified",
+     "key": "0xa5dba9952bac764a13016b30c24d35b2efb5d9d9b33f600d4dcbfc44500659c5",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.verifWeight",
+     "key": "0x0314874f9605c7d0456f0d16f4f551a20fbd2861f171aed22417d41a6f5da2d3",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.unverWeight",
+     "key": "0x0717ebcfb36876929ba6257ed6a85a3c22cc4ed0348df2bb927e4dbf3dcc811a",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    }
+   ]
+  }
+ ],
+ "optimalHolders": [
+  {
+   "label": "TapeOut #906 (optimal-slot holder)",
+   "source": "raw/raw906.json",
+   "pod": {
+    "v": 1,
+    "chainId": 56,
+    "block": 128200681,
+    "blockHash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+    "timestamp": 1792253755,
+    "mining": "0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46",
+    "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+    "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+    "circuitId": "906",
+    "minerKey": "0xa42c911d48c3a5fd1644875dbb8d89357421d896d8f4889c3909b438e7f1a508",
+    "params": {
+     "lambda": 6,
+     "beta": 3,
+     "lambdaBurn": 1,
+     "processorMultiplier": "1"
+    },
+    "design": {
+     "taskId": 3,
+     "gateCount": 4,
+     "stateCount": 0,
+     "nandBurn": 4,
+     "latchBurn": 0,
+     "depth": 3,
+     "area": "4",
+     "bstar": "4",
+     "cost": "108",
+     "task": {
+      "name": "异或门 XOR",
+      "kTask": "4",
+      "cRef": "108"
+     }
+    },
+    "standing": {
+     "status": 1,
+     "statusLabel": "mining",
+     "optimal": true,
+     "bonus": "4",
+     "multiplier": 1,
+     "verified": true,
+     "verifWeight": "8",
+     "unverWeight": "0",
+     "since": "1787352671",
+     "stopBlock": "0"
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "reference": {
+      "processor": "0xf4412c52ec3ddf7caf5f518b6662f77b02bde28e",
+      "circuitId": "3"
+     },
+     "method": "exhaustive",
+     "vectors": 4,
+     "result": "match"
+    }
+   },
+   "valid": true,
+   "warnings": [],
+   "traits": [
+    {
+     "name": "tap.pod.snapshotBlock",
+     "key": "0x0c83b866c7f4ae4bc14376df103564c65d79f5d851284a0c11a210f1728bca19",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000007a42fe9"
+    },
+    {
+     "name": "tap.pod.taskId",
+     "key": "0xfd64ebeaade5a108f78bfc94ee0edfe916c75d828e7c70129827ea0caa1a4723",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000003"
+    },
+    {
+     "name": "tap.pod.nandBurn",
+     "key": "0xe6812d63110001a7da779d278372a1b4831d829f2b26af45f40826e40274f42b",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000004"
+    },
+    {
+     "name": "tap.pod.latchBurn",
+     "key": "0x91b9d0cc668255fa778685c7338fe63d92e536385c87f08c6e17a26d42c0ef85",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.area",
+     "key": "0xef44719e0caef64b0ad22f820f1708667b608e0c4c59a80c8deebf8688627337",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000004"
+    },
+    {
+     "name": "tap.pod.depth",
+     "key": "0x691e154bb3637b1685d381f103f429ac2d4cdc57f92fd1f1194b47f0bd316e3e",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000003"
+    },
+    {
+     "name": "tap.pod.cost",
+     "key": "0x1553b0cf7ee3f2ca0aa45a80f70c798570abcdf04acf5aec1a612b21ecc5d29b",
+     "dataType": "decimal",
+     "value": "0x000000000000000000000000000000000000000000000000000000000000006c"
+    },
+    {
+     "name": "tap.pod.bstar",
+     "key": "0x13d8a1dcf1cef697a18c42ef48929ae6e6124242f366c4ea7440825c3883cd36",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000004"
+    },
+    {
+     "name": "tap.pod.status",
+     "key": "0x5c1f2b4070b54fc2f5561f38390399cf8d4c29b81499370517a16c2717151d39",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.optimal",
+     "key": "0x8cc64f68d1b65bf6912ce63a85a0f5816e9b5a3ee7bdbd8bef65d7f44ca4abdb",
+     "dataType": "boolean",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.bonus",
+     "key": "0xeb0e1e58cd5de11d87fbfa80b7b0c7db07fe2927be7ec0031c9c85d8b62ddb4a",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000004"
+    },
+    {
+     "name": "tap.pod.multiplier",
+     "key": "0x8e86769259637e5965f73f19f92dd8221947eee18e3eb2566926f6e2184725ea",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.verified",
+     "key": "0xa5dba9952bac764a13016b30c24d35b2efb5d9d9b33f600d4dcbfc44500659c5",
+     "dataType": "boolean",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.verifWeight",
+     "key": "0x0314874f9605c7d0456f0d16f4f551a20fbd2861f171aed22417d41a6f5da2d3",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000008"
+    },
+    {
+     "name": "tap.pod.unverWeight",
+     "key": "0x0717ebcfb36876929ba6257ed6a85a3c22cc4ed0348df2bb927e4dbf3dcc811a",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    }
+   ],
+   "extraReads": {
+    "bestSlot": {
+     "holderPlus1": "907",
+     "cost": "108"
+    },
+    "bonusOfCost": "4"
+   },
+   "crossChecks": [
+    {
+     "check": "gateCount == nandBurn + latchBurn",
+     "ok": true,
+     "detail": "4 vs 4+0"
+    },
+    {
+     "check": "area == gateCount + lambda*stateCount",
+     "ok": true,
+     "detail": "4 vs 4+6*0"
+    },
+    {
+     "check": "bstar == nandBurn + lambdaBurn*latchBurn",
+     "ok": true,
+     "detail": "4 vs 4+1*0"
+    },
+    {
+     "check": "circuitBurn == (nandBurn, latchBurn)",
+     "ok": true,
+     "detail": "4,0"
+    },
+    {
+     "check": "cachedDepth.depth == depth",
+     "ok": true,
+     "detail": "cached=True depth=3 live=4"
+    },
+    {
+     "check": "netlist NAND/LATCH records == nandBurn/latchBurn",
+     "ok": true,
+     "detail": "4,0"
+    },
+    {
+     "check": "circuitInfo gateCount/nState == miner gateCount/stateCount",
+     "ok": true,
+     "detail": "4,0"
+    },
+    {
+     "check": "multiplier == processorMultiplier(processor)",
+     "ok": true,
+     "detail": "1 vs 1"
+    },
+    {
+     "check": "verifWeight == (bstar + bonus) * multiplier",
+     "ok": true,
+     "detail": "8 vs 8"
+    },
+    {
+     "check": "optimal == (bestSlot holder is this circuit)",
+     "ok": true,
+     "detail": "holder #906"
+    },
+    {
+     "check": "bestSlot.cost == cost",
+     "ok": true,
+     "detail": "108 vs 108"
+    },
+    {
+     "check": "bonusOf(taskId, cost) == bonus",
+     "ok": true,
+     "detail": "4 vs 4"
+    },
+    {
+     "check": "bonusOf(taskId, cost) ~= kTask * clamp(cRef/cost, 1/4, 4) (float, informative)",
+     "ok": true,
+     "detail": "4 vs 4.000"
+    }
+   ]
+  },
+  {
+   "label": "TapeOut #2033 (optimal-slot holder)",
+   "source": "raw/raw2033.json",
+   "pod": {
+    "v": 1,
+    "chainId": 56,
+    "block": 128200681,
+    "blockHash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+    "timestamp": 1792253755,
+    "mining": "0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46",
+    "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+    "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+    "circuitId": "2033",
+    "minerKey": "0x50748dbb3078599cdad6bea05a3a8fb90a904fa7099ebb922394e57e0ceda42e",
+    "params": {
+     "lambda": 6,
+     "beta": 3,
+     "lambdaBurn": 1,
+     "processorMultiplier": "1"
+    },
+    "design": {
+     "taskId": 220,
+     "gateCount": 10,
+     "stateCount": 9,
+     "nandBurn": 1,
+     "latchBurn": 9,
+     "depth": 1,
+     "area": "64",
+     "bstar": "10",
+     "cost": "64",
+     "task": {
+      "name": "8 位约翰逊计数器",
+      "kTask": "25",
+      "cRef": "584"
+     }
+    },
+    "standing": {
+     "status": 1,
+     "statusLabel": "mining",
+     "optimal": true,
+     "bonus": "100",
+     "multiplier": 1,
+     "verified": true,
+     "verifWeight": "110",
+     "unverWeight": "0",
+     "since": "1787350610",
+     "stopBlock": "0"
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "reference": {
+      "processor": "0xf4412c52ec3ddf7caf5f518b6662f77b02bde28e",
+      "circuitId": "220"
+     },
+     "method": "sampled",
+     "seed": "0x2a8ae4d777d75596dacbaefb75c5ca2304bb0f292ce47b5a438665217d1b3a99",
+     "vectors": 32,
+     "result": "match"
+    }
+   },
+   "valid": true,
+   "warnings": [],
+   "traits": [
+    {
+     "name": "tap.pod.snapshotBlock",
+     "key": "0x0c83b866c7f4ae4bc14376df103564c65d79f5d851284a0c11a210f1728bca19",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000007a42fe9"
+    },
+    {
+     "name": "tap.pod.taskId",
+     "key": "0xfd64ebeaade5a108f78bfc94ee0edfe916c75d828e7c70129827ea0caa1a4723",
+     "dataType": "decimal",
+     "value": "0x00000000000000000000000000000000000000000000000000000000000000dc"
+    },
+    {
+     "name": "tap.pod.nandBurn",
+     "key": "0xe6812d63110001a7da779d278372a1b4831d829f2b26af45f40826e40274f42b",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.latchBurn",
+     "key": "0x91b9d0cc668255fa778685c7338fe63d92e536385c87f08c6e17a26d42c0ef85",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000009"
+    },
+    {
+     "name": "tap.pod.area",
+     "key": "0xef44719e0caef64b0ad22f820f1708667b608e0c4c59a80c8deebf8688627337",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000040"
+    },
+    {
+     "name": "tap.pod.depth",
+     "key": "0x691e154bb3637b1685d381f103f429ac2d4cdc57f92fd1f1194b47f0bd316e3e",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.cost",
+     "key": "0x1553b0cf7ee3f2ca0aa45a80f70c798570abcdf04acf5aec1a612b21ecc5d29b",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000040"
+    },
+    {
+     "name": "tap.pod.bstar",
+     "key": "0x13d8a1dcf1cef697a18c42ef48929ae6e6124242f366c4ea7440825c3883cd36",
+     "dataType": "decimal",
+     "value": "0x000000000000000000000000000000000000000000000000000000000000000a"
+    },
+    {
+     "name": "tap.pod.status",
+     "key": "0x5c1f2b4070b54fc2f5561f38390399cf8d4c29b81499370517a16c2717151d39",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.optimal",
+     "key": "0x8cc64f68d1b65bf6912ce63a85a0f5816e9b5a3ee7bdbd8bef65d7f44ca4abdb",
+     "dataType": "boolean",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.bonus",
+     "key": "0xeb0e1e58cd5de11d87fbfa80b7b0c7db07fe2927be7ec0031c9c85d8b62ddb4a",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000064"
+    },
+    {
+     "name": "tap.pod.multiplier",
+     "key": "0x8e86769259637e5965f73f19f92dd8221947eee18e3eb2566926f6e2184725ea",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.verified",
+     "key": "0xa5dba9952bac764a13016b30c24d35b2efb5d9d9b33f600d4dcbfc44500659c5",
+     "dataType": "boolean",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.verifWeight",
+     "key": "0x0314874f9605c7d0456f0d16f4f551a20fbd2861f171aed22417d41a6f5da2d3",
+     "dataType": "decimal",
+     "value": "0x000000000000000000000000000000000000000000000000000000000000006e"
+    },
+    {
+     "name": "tap.pod.unverWeight",
+     "key": "0x0717ebcfb36876929ba6257ed6a85a3c22cc4ed0348df2bb927e4dbf3dcc811a",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    }
+   ],
+   "extraReads": {
+    "bestSlot": {
+     "holderPlus1": "2034",
+     "cost": "64"
+    },
+    "bonusOfCost": "100"
+   },
+   "crossChecks": [
+    {
+     "check": "gateCount == nandBurn + latchBurn",
+     "ok": true,
+     "detail": "10 vs 1+9"
+    },
+    {
+     "check": "area == gateCount + lambda*stateCount",
+     "ok": true,
+     "detail": "64 vs 10+6*9"
+    },
+    {
+     "check": "bstar == nandBurn + lambdaBurn*latchBurn",
+     "ok": true,
+     "detail": "10 vs 1+1*9"
+    },
+    {
+     "check": "circuitBurn == (nandBurn, latchBurn)",
+     "ok": true,
+     "detail": "1,9"
+    },
+    {
+     "check": "cachedDepth.depth == depth",
+     "ok": true,
+     "detail": "cached=True depth=1 live=10"
+    },
+    {
+     "check": "netlist NAND/LATCH records == nandBurn/latchBurn",
+     "ok": true,
+     "detail": "1,9"
+    },
+    {
+     "check": "circuitInfo gateCount/nState == miner gateCount/stateCount",
+     "ok": true,
+     "detail": "10,9"
+    },
+    {
+     "check": "multiplier == processorMultiplier(processor)",
+     "ok": true,
+     "detail": "1 vs 1"
+    },
+    {
+     "check": "verifWeight == (bstar + bonus) * multiplier",
+     "ok": true,
+     "detail": "110 vs 110"
+    },
+    {
+     "check": "optimal == (bestSlot holder is this circuit)",
+     "ok": true,
+     "detail": "holder #2033"
+    },
+    {
+     "check": "bestSlot.cost == cost",
+     "ok": true,
+     "detail": "64 vs 64"
+    },
+    {
+     "check": "bonusOf(taskId, cost) == bonus",
+     "ok": true,
+     "detail": "100 vs 100"
+    },
+    {
+     "check": "bonusOf(taskId, cost) ~= kTask * clamp(cRef/cost, 1/4, 4) (float, informative)",
+     "ok": true,
+     "detail": "100 vs 100.000"
+    }
+   ]
+  },
+  {
+   "label": "TapeOut #14947 (optimal-slot holder)",
+   "source": "raw/raw14947.json",
+   "pod": {
+    "v": 1,
+    "chainId": 56,
+    "block": 128200681,
+    "blockHash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+    "timestamp": 1792253755,
+    "mining": "0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46",
+    "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+    "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+    "circuitId": "14947",
+    "minerKey": "0x4480b3376fe020c236e13fa1c87b5ca5ec0eb1f8bab48b077c70f84208fbee9e",
+    "params": {
+     "lambda": 6,
+     "beta": 3,
+     "lambdaBurn": 1,
+     "processorMultiplier": "1"
+    },
+    "design": {
+     "taskId": 48,
+     "gateCount": 88,
+     "stateCount": 0,
+     "nandBurn": 88,
+     "latchBurn": 0,
+     "depth": 8,
+     "area": "88",
+     "bstar": "88",
+     "cost": "45056",
+     "task": {
+      "name": "8 位 1 的个数",
+      "kTask": "71",
+      "cRef": "290816"
+     }
+    },
+    "standing": {
+     "status": 1,
+     "statusLabel": "mining",
+     "optimal": true,
+     "bonus": "284",
+     "multiplier": 1,
+     "verified": true,
+     "verifWeight": "372",
+     "unverWeight": "0",
+     "since": "1789645258",
+     "stopBlock": "0"
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "reference": {
+      "processor": "0xf4412c52ec3ddf7caf5f518b6662f77b02bde28e",
+      "circuitId": "48"
+     },
+     "method": "exhaustive",
+     "vectors": 256,
+     "result": "match"
+    }
+   },
+   "valid": true,
+   "warnings": [],
+   "traits": [
+    {
+     "name": "tap.pod.snapshotBlock",
+     "key": "0x0c83b866c7f4ae4bc14376df103564c65d79f5d851284a0c11a210f1728bca19",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000007a42fe9"
+    },
+    {
+     "name": "tap.pod.taskId",
+     "key": "0xfd64ebeaade5a108f78bfc94ee0edfe916c75d828e7c70129827ea0caa1a4723",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000030"
+    },
+    {
+     "name": "tap.pod.nandBurn",
+     "key": "0xe6812d63110001a7da779d278372a1b4831d829f2b26af45f40826e40274f42b",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000058"
+    },
+    {
+     "name": "tap.pod.latchBurn",
+     "key": "0x91b9d0cc668255fa778685c7338fe63d92e536385c87f08c6e17a26d42c0ef85",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.area",
+     "key": "0xef44719e0caef64b0ad22f820f1708667b608e0c4c59a80c8deebf8688627337",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000058"
+    },
+    {
+     "name": "tap.pod.depth",
+     "key": "0x691e154bb3637b1685d381f103f429ac2d4cdc57f92fd1f1194b47f0bd316e3e",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000008"
+    },
+    {
+     "name": "tap.pod.cost",
+     "key": "0x1553b0cf7ee3f2ca0aa45a80f70c798570abcdf04acf5aec1a612b21ecc5d29b",
+     "dataType": "decimal",
+     "value": "0x000000000000000000000000000000000000000000000000000000000000b000"
+    },
+    {
+     "name": "tap.pod.bstar",
+     "key": "0x13d8a1dcf1cef697a18c42ef48929ae6e6124242f366c4ea7440825c3883cd36",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000058"
+    },
+    {
+     "name": "tap.pod.status",
+     "key": "0x5c1f2b4070b54fc2f5561f38390399cf8d4c29b81499370517a16c2717151d39",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.optimal",
+     "key": "0x8cc64f68d1b65bf6912ce63a85a0f5816e9b5a3ee7bdbd8bef65d7f44ca4abdb",
+     "dataType": "boolean",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.bonus",
+     "key": "0xeb0e1e58cd5de11d87fbfa80b7b0c7db07fe2927be7ec0031c9c85d8b62ddb4a",
+     "dataType": "decimal",
+     "value": "0x000000000000000000000000000000000000000000000000000000000000011c"
+    },
+    {
+     "name": "tap.pod.multiplier",
+     "key": "0x8e86769259637e5965f73f19f92dd8221947eee18e3eb2566926f6e2184725ea",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.verified",
+     "key": "0xa5dba9952bac764a13016b30c24d35b2efb5d9d9b33f600d4dcbfc44500659c5",
+     "dataType": "boolean",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.verifWeight",
+     "key": "0x0314874f9605c7d0456f0d16f4f551a20fbd2861f171aed22417d41a6f5da2d3",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000174"
+    },
+    {
+     "name": "tap.pod.unverWeight",
+     "key": "0x0717ebcfb36876929ba6257ed6a85a3c22cc4ed0348df2bb927e4dbf3dcc811a",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    }
+   ],
+   "extraReads": {
+    "bestSlot": {
+     "holderPlus1": "14948",
+     "cost": "45056"
+    },
+    "bonusOfCost": "284"
+   },
+   "crossChecks": [
+    {
+     "check": "gateCount == nandBurn + latchBurn",
+     "ok": true,
+     "detail": "88 vs 88+0"
+    },
+    {
+     "check": "area == gateCount + lambda*stateCount",
+     "ok": true,
+     "detail": "88 vs 88+6*0"
+    },
+    {
+     "check": "bstar == nandBurn + lambdaBurn*latchBurn",
+     "ok": true,
+     "detail": "88 vs 88+1*0"
+    },
+    {
+     "check": "circuitBurn == (nandBurn, latchBurn)",
+     "ok": true,
+     "detail": "88,0"
+    },
+    {
+     "check": "cachedDepth.depth == depth",
+     "ok": true,
+     "detail": "cached=True depth=8 live=88"
+    },
+    {
+     "check": "netlist NAND/LATCH records == nandBurn/latchBurn",
+     "ok": true,
+     "detail": "88,0"
+    },
+    {
+     "check": "circuitInfo gateCount/nState == miner gateCount/stateCount",
+     "ok": true,
+     "detail": "88,0"
+    },
+    {
+     "check": "multiplier == processorMultiplier(processor)",
+     "ok": true,
+     "detail": "1 vs 1"
+    },
+    {
+     "check": "verifWeight == (bstar + bonus) * multiplier",
+     "ok": true,
+     "detail": "372 vs 372"
+    },
+    {
+     "check": "optimal == (bestSlot holder is this circuit)",
+     "ok": true,
+     "detail": "holder #14947"
+    },
+    {
+     "check": "bestSlot.cost == cost",
+     "ok": true,
+     "detail": "45056 vs 45056"
+    },
+    {
+     "check": "bonusOf(taskId, cost) == bonus",
+     "ok": true,
+     "detail": "284 vs 284"
+    },
+    {
+     "check": "bonusOf(taskId, cost) ~= kTask * clamp(cRef/cost, 1/4, 4) (float, informative)",
+     "ok": true,
+     "detail": "284 vs 284.000"
+    }
+   ]
+  }
+ ],
+ "verifiedButWrong": [
+  {
+   "label": "SYNTHETIC example (not a TapeOut circuit): verified, but computes another function than the reference",
+   "synthetic": true,
+   "note": "SYNTHETIC example, not a TapeOut circuit and not read from any chain. It is built by hand to exercise the 'verified but computes another function' case of Specification §3.9: a 3-NAND OR netlist (g0 = NAND(a,a), g1 = NAND(b,b), out = NAND(g0,g1)) recorded as a verified miner of the public XOR task 3. It differs from the XOR reference circuit (raw/ref-task3.json) only on input 11. The processor 0x...dEaD and circuit id 900000001 are fictional; block, header, implementation, contract parameters and the task tuple are copied from the public recorded reads (raw/raw906.json) so that the snapshot has a realistic context. bestSlot describes a fictional slot holder (id 900000000, cost 108 like the public XOR holder #906). A real instance observed on chain is withheld until it has been disclosed to the TapeOut team.",
+   "source": "synthetic/verified-but-wrong.json",
+   "pod": {
+    "v": 1,
+    "chainId": 56,
+    "block": 128200681,
+    "blockHash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+    "timestamp": 1792253755,
+    "mining": "0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46",
+    "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+    "processor": "0x000000000000000000000000000000000000dead",
+    "circuitId": "900000001",
+    "minerKey": "0xf21d7cf38ac99955c278c1ce940432cc824f37a9ce229f1926a3b548bfcafe10",
+    "params": {
+     "lambda": 6,
+     "beta": 3,
+     "lambdaBurn": 1,
+     "processorMultiplier": "1"
+    },
+    "design": {
+     "taskId": 3,
+     "gateCount": 3,
+     "stateCount": 0,
+     "nandBurn": 3,
+     "latchBurn": 0,
+     "depth": 2,
+     "area": "3",
+     "bstar": "3",
+     "cost": "24",
+     "task": {
+      "name": "异或门 XOR",
+      "kTask": "4",
+      "cRef": "108"
+     }
+    },
+    "standing": {
+     "status": 1,
+     "statusLabel": "mining",
+     "optimal": false,
+     "bonus": "0",
+     "multiplier": 1,
+     "verified": true,
+     "verifWeight": "3",
+     "unverWeight": "0",
+     "since": "0",
+     "stopBlock": "0"
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "reference": {
+      "processor": "0xf4412c52ec3ddf7caf5f518b6662f77b02bde28e",
+      "circuitId": "3"
+     },
+     "method": "exhaustive",
+     "vectors": 4,
+     "result": "mismatch"
+    }
+   },
+   "valid": true,
+   "warnings": [],
+   "traits": [
+    {
+     "name": "tap.pod.snapshotBlock",
+     "key": "0x0c83b866c7f4ae4bc14376df103564c65d79f5d851284a0c11a210f1728bca19",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000007a42fe9"
+    },
+    {
+     "name": "tap.pod.taskId",
+     "key": "0xfd64ebeaade5a108f78bfc94ee0edfe916c75d828e7c70129827ea0caa1a4723",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000003"
+    },
+    {
+     "name": "tap.pod.nandBurn",
+     "key": "0xe6812d63110001a7da779d278372a1b4831d829f2b26af45f40826e40274f42b",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000003"
+    },
+    {
+     "name": "tap.pod.latchBurn",
+     "key": "0x91b9d0cc668255fa778685c7338fe63d92e536385c87f08c6e17a26d42c0ef85",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.area",
+     "key": "0xef44719e0caef64b0ad22f820f1708667b608e0c4c59a80c8deebf8688627337",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000003"
+    },
+    {
+     "name": "tap.pod.depth",
+     "key": "0x691e154bb3637b1685d381f103f429ac2d4cdc57f92fd1f1194b47f0bd316e3e",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000002"
+    },
+    {
+     "name": "tap.pod.cost",
+     "key": "0x1553b0cf7ee3f2ca0aa45a80f70c798570abcdf04acf5aec1a612b21ecc5d29b",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000018"
+    },
+    {
+     "name": "tap.pod.bstar",
+     "key": "0x13d8a1dcf1cef697a18c42ef48929ae6e6124242f366c4ea7440825c3883cd36",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000003"
+    },
+    {
+     "name": "tap.pod.status",
+     "key": "0x5c1f2b4070b54fc2f5561f38390399cf8d4c29b81499370517a16c2717151d39",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.optimal",
+     "key": "0x8cc64f68d1b65bf6912ce63a85a0f5816e9b5a3ee7bdbd8bef65d7f44ca4abdb",
+     "dataType": "boolean",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.bonus",
+     "key": "0xeb0e1e58cd5de11d87fbfa80b7b0c7db07fe2927be7ec0031c9c85d8b62ddb4a",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+     "name": "tap.pod.multiplier",
+     "key": "0x8e86769259637e5965f73f19f92dd8221947eee18e3eb2566926f6e2184725ea",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.verified",
+     "key": "0xa5dba9952bac764a13016b30c24d35b2efb5d9d9b33f600d4dcbfc44500659c5",
+     "dataType": "boolean",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+     "name": "tap.pod.verifWeight",
+     "key": "0x0314874f9605c7d0456f0d16f4f551a20fbd2861f171aed22417d41a6f5da2d3",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000003"
+    },
+    {
+     "name": "tap.pod.unverWeight",
+     "key": "0x0717ebcfb36876929ba6257ed6a85a3c22cc4ed0348df2bb927e4dbf3dcc811a",
+     "dataType": "decimal",
+     "value": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    }
+   ],
+   "extraReads": {
+    "bestSlot": {
+     "holderPlus1": "900000001",
+     "cost": "108"
+    }
+   },
+   "crossChecks": [
+    {
+     "check": "gateCount == nandBurn + latchBurn",
+     "ok": true,
+     "detail": "3 vs 3+0"
+    },
+    {
+     "check": "area == gateCount + lambda*stateCount",
+     "ok": true,
+     "detail": "3 vs 3+6*0"
+    },
+    {
+     "check": "bstar == nandBurn + lambdaBurn*latchBurn",
+     "ok": true,
+     "detail": "3 vs 3+1*0"
+    },
+    {
+     "check": "circuitBurn == (nandBurn, latchBurn)",
+     "ok": true,
+     "detail": "3,0"
+    },
+    {
+     "check": "cachedDepth.depth == depth",
+     "ok": true,
+     "detail": "cached=True depth=2 live=3"
+    },
+    {
+     "check": "netlist NAND/LATCH records == nandBurn/latchBurn",
+     "ok": true,
+     "detail": "3,0"
+    },
+    {
+     "check": "circuitInfo gateCount/nState == miner gateCount/stateCount",
+     "ok": true,
+     "detail": "3,0"
+    },
+    {
+     "check": "multiplier == processorMultiplier(processor)",
+     "ok": true,
+     "detail": "1 vs 1"
+    },
+    {
+     "check": "verifWeight == (bstar + bonus) * multiplier",
+     "ok": true,
+     "detail": "3 vs 3"
+    },
+    {
+     "check": "bonus == 0 when not optimal",
+     "ok": true,
+     "detail": "0"
+    },
+    {
+     "check": "optimal == (bestSlot holder is this circuit)",
+     "ok": true,
+     "detail": "holder #900000000"
+    },
+    {
+     "check": "cost vs bestSlot.cost (informative: a cheaper design can lose or never hold the slot after a counterexample kick)",
+     "ok": false,
+     "informative": true,
+     "detail": "24 vs 108"
+    }
+   ]
+  }
+ ],
+ "manifestCommitment": [
+  {
+   "label": "snapshot block committed in the manifest",
+   "manifestPod": {
+    "block": 128200681,
+    "rule": {
+     "sha256": "0x2222222222222222222222222222222222222222222222222222222222222222",
+     "uris": [
+      "ipfs://example-rarity-rule"
+     ]
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "seed": "0x2a8ae4d777d75596dacbaefb75c5ca2304bb0f292ce47b5a438665217d1b3a99"
+    }
+   },
+   "revealSource": "drand",
+   "valid": true,
+   "errors": [],
+   "warnings": [],
+   "expect": null
+  },
+  {
+   "label": "manifest without pod for a revealed collection",
+   "manifestPod": null,
+   "revealSource": "drand",
+   "valid": false,
+   "errors": [
+    "manifest.pod: REQUIRED when a revealed collection carries tap.pod (snapshot block fixed before the seed)"
+   ],
+   "warnings": [],
+   "expect": "manifest.pod"
+  },
+  {
+   "label": "snapshot earlier than the committed block",
+   "manifestPod": {
+    "block": 128200682,
+    "rule": {
+     "sha256": "0x2222222222222222222222222222222222222222222222222222222222222222",
+     "uris": [
+      "ipfs://example-rarity-rule"
+     ]
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "seed": "0x2a8ae4d777d75596dacbaefb75c5ca2304bb0f292ce47b5a438665217d1b3a99"
+    }
+   },
+   "revealSource": "drand",
+   "valid": false,
+   "errors": [
+    "tap.pod.block is earlier than the block committed in manifest.pod.block"
+   ],
+   "warnings": [],
+   "expect": "earlier than the block committed"
+  },
+  {
+   "label": "refreshed snapshot after the committed block (warning only)",
+   "manifestPod": {
+    "block": 128199681,
+    "rule": {
+     "sha256": "0x2222222222222222222222222222222222222222222222222222222222222222",
+     "uris": [
+      "ipfs://example-rarity-rule"
+     ]
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "seed": "0x2a8ae4d777d75596dacbaefb75c5ca2304bb0f292ce47b5a438665217d1b3a99"
+    }
+   },
+   "revealSource": "drand",
+   "valid": true,
+   "errors": [],
+   "warnings": [
+    "tap.pod is a refreshed snapshot; traits and rarity derived by the manifest's rule stay those of manifest.pod.block"
+   ],
+   "expect": "refreshed snapshot"
+  },
+  {
+   "label": "collection without a reveal (source none) need not commit",
+   "manifestPod": null,
+   "revealSource": "none",
+   "valid": true,
+   "errors": [],
+   "warnings": [],
+   "expect": null
+  }
+ ],
+ "readerAgreement": [
+  {
+   "circuit": "TapeOut #17851",
+   "file": "raw/raw17851.json",
+   "fieldsCompared": [
+    "miner",
+    "task",
+    "circuitBurn",
+    "cachedDepth",
+    "netlist",
+    "nIn",
+    "nOut",
+    "nState",
+    "gateCount"
+   ],
+   "differences": []
+  },
+  {
+   "circuit": "TapeOut #17852",
+   "file": "raw/raw17852.json",
+   "fieldsCompared": [
+    "miner",
+    "task",
+    "circuitBurn",
+    "cachedDepth",
+    "netlist",
+    "nIn",
+    "nOut",
+    "nState",
+    "gateCount"
+   ],
+   "differences": []
+  },
+  {
+   "circuit": "TapeOut #3151",
+   "file": "raw/raw3151.json",
+   "fieldsCompared": [
+    "miner",
+    "task",
+    "circuitBurn",
+    "cachedDepth",
+    "netlist",
+    "nIn",
+    "nOut",
+    "nState",
+    "gateCount"
+   ],
+   "differences": []
+  }
+ ],
+ "functionCheck": {
+  "procedure": "tap-pod-fc/1",
+  "defaultSeed": "0x2a8ae4d777d75596dacbaefb75c5ca2304bb0f292ce47b5a438665217d1b3a99",
+  "defaultSeedPreimage": "TAP-pod functionCheck v1",
+  "exhaustiveMaxNIn": 16,
+  "sampledCombinational": 16384,
+  "sequentialRuns": 64,
+  "sequentialMinBeats": 32
+ },
+ "invalid": [
+  {
+   "label": "cost not equal to area*max(depth,1)^beta",
+   "pod": {
+    "v": 1,
+    "chainId": 56,
+    "block": 128200681,
+    "blockHash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+    "timestamp": 1792253755,
+    "mining": "0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46",
+    "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+    "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+    "circuitId": "17851",
+    "minerKey": "0xa13a5bd9630a45d0308786747431d473f749348c02d5128e66d48cc2cec6464e",
+    "params": {
+     "lambda": 6,
+     "beta": 3,
+     "lambdaBurn": 1,
+     "processorMultiplier": "1"
+    },
+    "design": {
+     "taskId": 3,
+     "gateCount": 4,
+     "stateCount": 0,
+     "nandBurn": 4,
+     "latchBurn": 0,
+     "depth": 3,
+     "area": "4",
+     "bstar": "4",
+     "cost": "109",
+     "task": {
+      "name": "异或门 XOR",
+      "kTask": "4",
+      "cRef": "108"
+     }
+    },
+    "standing": {
+     "status": 1,
+     "statusLabel": "mining",
+     "optimal": false,
+     "bonus": "0",
+     "multiplier": 1,
+     "verified": true,
+     "verifWeight": "4",
+     "unverWeight": "0",
+     "since": "1792251014",
+     "stopBlock": "0"
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "reference": {
+      "processor": "0xf4412c52ec3ddf7caf5f518b6662f77b02bde28e",
+      "circuitId": "3"
+     },
+     "method": "exhaustive",
+     "vectors": 4,
+     "result": "match"
+    }
+   },
+   "valid": false,
+   "errors": [
+    "tap.pod.design.cost: 109 != area * max(depth,1)^beta = 108"
+   ],
+   "expectError": "design.cost"
+  },
+  {
+   "label": "verified true but verifWeight 0",
+   "pod": {
+    "v": 1,
+    "chainId": 56,
+    "block": 128200681,
+    "blockHash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+    "timestamp": 1792253755,
+    "mining": "0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46",
+    "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+    "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+    "circuitId": "17851",
+    "minerKey": "0xa13a5bd9630a45d0308786747431d473f749348c02d5128e66d48cc2cec6464e",
+    "params": {
+     "lambda": 6,
+     "beta": 3,
+     "lambdaBurn": 1,
+     "processorMultiplier": "1"
+    },
+    "design": {
+     "taskId": 3,
+     "gateCount": 4,
+     "stateCount": 0,
+     "nandBurn": 4,
+     "latchBurn": 0,
+     "depth": 3,
+     "area": "4",
+     "bstar": "4",
+     "cost": "108",
+     "task": {
+      "name": "异或门 XOR",
+      "kTask": "4",
+      "cRef": "108"
+     }
+    },
+    "standing": {
+     "status": 1,
+     "statusLabel": "mining",
+     "optimal": false,
+     "bonus": "0",
+     "multiplier": 1,
+     "verified": true,
+     "verifWeight": "0",
+     "unverWeight": "0",
+     "since": "1792251014",
+     "stopBlock": "0"
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "reference": {
+      "processor": "0xf4412c52ec3ddf7caf5f518b6662f77b02bde28e",
+      "circuitId": "3"
+     },
+     "method": "exhaustive",
+     "vectors": 4,
+     "result": "match"
+    }
+   },
+   "valid": false,
+   "errors": [
+    "tap.pod.standing.verified must equal verifWeight > 0"
+   ],
+   "expectError": "verified"
+  },
+  {
+   "label": "statusLabel for unknown code",
+   "pod": {
+    "v": 1,
+    "chainId": 56,
+    "block": 128200681,
+    "blockHash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+    "timestamp": 1792253755,
+    "mining": "0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46",
+    "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+    "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+    "circuitId": "17851",
+    "minerKey": "0xa13a5bd9630a45d0308786747431d473f749348c02d5128e66d48cc2cec6464e",
+    "params": {
+     "lambda": 6,
+     "beta": 3,
+     "lambdaBurn": 1,
+     "processorMultiplier": "1"
+    },
+    "design": {
+     "taskId": 3,
+     "gateCount": 4,
+     "stateCount": 0,
+     "nandBurn": 4,
+     "latchBurn": 0,
+     "depth": 3,
+     "area": "4",
+     "bstar": "4",
+     "cost": "108",
+     "task": {
+      "name": "异或门 XOR",
+      "kTask": "4",
+      "cRef": "108"
+     }
+    },
+    "standing": {
+     "status": 2,
+     "statusLabel": "mining",
+     "optimal": false,
+     "bonus": "0",
+     "multiplier": 1,
+     "verified": true,
+     "verifWeight": "4",
+     "unverWeight": "0",
+     "since": "1792251014",
+     "stopBlock": "0"
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "reference": {
+      "processor": "0xf4412c52ec3ddf7caf5f518b6662f77b02bde28e",
+      "circuitId": "3"
+     },
+     "method": "exhaustive",
+     "vectors": 4,
+     "result": "match"
+    }
+   },
+   "valid": false,
+   "errors": [
+    "tap.pod.standing.statusLabel must be 'unknown' for status 2"
+   ],
+   "expectError": "statusLabel"
+  },
+  {
+   "label": "wrong chainId",
+   "pod": {
+    "v": 1,
+    "chainId": 196,
+    "block": 128200681,
+    "blockHash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+    "timestamp": 1792253755,
+    "mining": "0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46",
+    "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+    "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+    "circuitId": "17851",
+    "minerKey": "0xa13a5bd9630a45d0308786747431d473f749348c02d5128e66d48cc2cec6464e",
+    "params": {
+     "lambda": 6,
+     "beta": 3,
+     "lambdaBurn": 1,
+     "processorMultiplier": "1"
+    },
+    "design": {
+     "taskId": 3,
+     "gateCount": 4,
+     "stateCount": 0,
+     "nandBurn": 4,
+     "latchBurn": 0,
+     "depth": 3,
+     "area": "4",
+     "bstar": "4",
+     "cost": "108",
+     "task": {
+      "name": "异或门 XOR",
+      "kTask": "4",
+      "cRef": "108"
+     }
+    },
+    "standing": {
+     "status": 1,
+     "statusLabel": "mining",
+     "optimal": false,
+     "bonus": "0",
+     "multiplier": 1,
+     "verified": true,
+     "verifWeight": "4",
+     "unverWeight": "0",
+     "since": "1792251014",
+     "stopBlock": "0"
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "reference": {
+      "processor": "0xf4412c52ec3ddf7caf5f518b6662f77b02bde28e",
+      "circuitId": "3"
+     },
+     "method": "exhaustive",
+     "vectors": 4,
+     "result": "match"
+    }
+   },
+   "valid": false,
+   "errors": [
+    "tap.pod.chainId: must be 56, got 196"
+   ],
+   "expectError": "chainId"
+  },
+  {
+   "label": "mixed-case processor address",
+   "pod": {
+    "v": 1,
+    "chainId": 56,
+    "block": 128200681,
+    "blockHash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+    "timestamp": 1792253755,
+    "mining": "0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46",
+    "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+    "processor": "0xB1024B89886B9A34AA4FF5F31C411D708B20A14C",
+    "circuitId": "17851",
+    "minerKey": "0xa13a5bd9630a45d0308786747431d473f749348c02d5128e66d48cc2cec6464e",
+    "params": {
+     "lambda": 6,
+     "beta": 3,
+     "lambdaBurn": 1,
+     "processorMultiplier": "1"
+    },
+    "design": {
+     "taskId": 3,
+     "gateCount": 4,
+     "stateCount": 0,
+     "nandBurn": 4,
+     "latchBurn": 0,
+     "depth": 3,
+     "area": "4",
+     "bstar": "4",
+     "cost": "108",
+     "task": {
+      "name": "异或门 XOR",
+      "kTask": "4",
+      "cRef": "108"
+     }
+    },
+    "standing": {
+     "status": 1,
+     "statusLabel": "mining",
+     "optimal": false,
+     "bonus": "0",
+     "multiplier": 1,
+     "verified": true,
+     "verifWeight": "4",
+     "unverWeight": "0",
+     "since": "1792251014",
+     "stopBlock": "0"
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "reference": {
+      "processor": "0xf4412c52ec3ddf7caf5f518b6662f77b02bde28e",
+      "circuitId": "3"
+     },
+     "method": "exhaustive",
+     "vectors": 4,
+     "result": "match"
+    }
+   },
+   "valid": false,
+   "errors": [
+    "tap.pod.processor: must be a lowercase address, got '0xB1024B89886B9A34AA4FF5F31C411D708B20A14C'"
+   ],
+   "expectError": "processor"
+  },
+  {
+   "label": "circuitId as JSON number",
+   "pod": {
+    "v": 1,
+    "chainId": 56,
+    "block": 128200681,
+    "blockHash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+    "timestamp": 1792253755,
+    "mining": "0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46",
+    "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+    "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+    "circuitId": 17851,
+    "minerKey": "0xa13a5bd9630a45d0308786747431d473f749348c02d5128e66d48cc2cec6464e",
+    "params": {
+     "lambda": 6,
+     "beta": 3,
+     "lambdaBurn": 1,
+     "processorMultiplier": "1"
+    },
+    "design": {
+     "taskId": 3,
+     "gateCount": 4,
+     "stateCount": 0,
+     "nandBurn": 4,
+     "latchBurn": 0,
+     "depth": 3,
+     "area": "4",
+     "bstar": "4",
+     "cost": "108",
+     "task": {
+      "name": "异或门 XOR",
+      "kTask": "4",
+      "cRef": "108"
+     }
+    },
+    "standing": {
+     "status": 1,
+     "statusLabel": "mining",
+     "optimal": false,
+     "bonus": "0",
+     "multiplier": 1,
+     "verified": true,
+     "verifWeight": "4",
+     "unverWeight": "0",
+     "since": "1792251014",
+     "stopBlock": "0"
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "reference": {
+      "processor": "0xf4412c52ec3ddf7caf5f518b6662f77b02bde28e",
+      "circuitId": "3"
+     },
+     "method": "exhaustive",
+     "vectors": 4,
+     "result": "match"
+    }
+   },
+   "valid": false,
+   "errors": [
+    "tap.pod.circuitId: must be a decimal string, got 17851"
+   ],
+   "expectError": "circuitId"
+  },
+  {
+   "label": "block missing",
+   "pod": {
+    "v": 1,
+    "chainId": 56,
+    "blockHash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+    "timestamp": 1792253755,
+    "mining": "0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46",
+    "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+    "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+    "circuitId": "17851",
+    "minerKey": "0xa13a5bd9630a45d0308786747431d473f749348c02d5128e66d48cc2cec6464e",
+    "params": {
+     "lambda": 6,
+     "beta": 3,
+     "lambdaBurn": 1,
+     "processorMultiplier": "1"
+    },
+    "design": {
+     "taskId": 3,
+     "gateCount": 4,
+     "stateCount": 0,
+     "nandBurn": 4,
+     "latchBurn": 0,
+     "depth": 3,
+     "area": "4",
+     "bstar": "4",
+     "cost": "108",
+     "task": {
+      "name": "异或门 XOR",
+      "kTask": "4",
+      "cRef": "108"
+     }
+    },
+    "standing": {
+     "status": 1,
+     "statusLabel": "mining",
+     "optimal": false,
+     "bonus": "0",
+     "multiplier": 1,
+     "verified": true,
+     "verifWeight": "4",
+     "unverWeight": "0",
+     "since": "1792251014",
+     "stopBlock": "0"
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "reference": {
+      "processor": "0xf4412c52ec3ddf7caf5f518b6662f77b02bde28e",
+      "circuitId": "3"
+     },
+     "method": "exhaustive",
+     "vectors": 4,
+     "result": "match"
+    }
+   },
+   "valid": false,
+   "errors": [
+    "tap.pod.block: missing"
+   ],
+   "expectError": "block"
+  },
+  {
+   "label": "cost as JSON number",
+   "pod": {
+    "v": 1,
+    "chainId": 56,
+    "block": 128200681,
+    "blockHash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+    "timestamp": 1792253755,
+    "mining": "0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46",
+    "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+    "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+    "circuitId": "17851",
+    "minerKey": "0xa13a5bd9630a45d0308786747431d473f749348c02d5128e66d48cc2cec6464e",
+    "params": {
+     "lambda": 6,
+     "beta": 3,
+     "lambdaBurn": 1,
+     "processorMultiplier": "1"
+    },
+    "design": {
+     "taskId": 3,
+     "gateCount": 4,
+     "stateCount": 0,
+     "nandBurn": 4,
+     "latchBurn": 0,
+     "depth": 3,
+     "area": "4",
+     "bstar": "4",
+     "cost": 108,
+     "task": {
+      "name": "异或门 XOR",
+      "kTask": "4",
+      "cRef": "108"
+     }
+    },
+    "standing": {
+     "status": 1,
+     "statusLabel": "mining",
+     "optimal": false,
+     "bonus": "0",
+     "multiplier": 1,
+     "verified": true,
+     "verifWeight": "4",
+     "unverWeight": "0",
+     "since": "1792251014",
+     "stopBlock": "0"
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "reference": {
+      "processor": "0xf4412c52ec3ddf7caf5f518b6662f77b02bde28e",
+      "circuitId": "3"
+     },
+     "method": "exhaustive",
+     "vectors": 4,
+     "result": "match"
+    }
+   },
+   "valid": false,
+   "errors": [
+    "tap.pod.design.cost: must be a decimal string, got 108"
+   ],
+   "expectError": "design.cost"
+  },
+  {
+   "label": "unknown version",
+   "pod": {
+    "v": 2,
+    "chainId": 56,
+    "block": 128200681,
+    "blockHash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+    "timestamp": 1792253755,
+    "mining": "0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46",
+    "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+    "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+    "circuitId": "17851",
+    "minerKey": "0xa13a5bd9630a45d0308786747431d473f749348c02d5128e66d48cc2cec6464e",
+    "params": {
+     "lambda": 6,
+     "beta": 3,
+     "lambdaBurn": 1,
+     "processorMultiplier": "1"
+    },
+    "design": {
+     "taskId": 3,
+     "gateCount": 4,
+     "stateCount": 0,
+     "nandBurn": 4,
+     "latchBurn": 0,
+     "depth": 3,
+     "area": "4",
+     "bstar": "4",
+     "cost": "108",
+     "task": {
+      "name": "异或门 XOR",
+      "kTask": "4",
+      "cRef": "108"
+     }
+    },
+    "standing": {
+     "status": 1,
+     "statusLabel": "mining",
+     "optimal": false,
+     "bonus": "0",
+     "multiplier": 1,
+     "verified": true,
+     "verifWeight": "4",
+     "unverWeight": "0",
+     "since": "1792251014",
+     "stopBlock": "0"
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "reference": {
+      "processor": "0xf4412c52ec3ddf7caf5f518b6662f77b02bde28e",
+      "circuitId": "3"
+     },
+     "method": "exhaustive",
+     "vectors": 4,
+     "result": "match"
+    }
+   },
+   "valid": false,
+   "errors": [
+    "tap.pod.v: must be 1, got 2"
+   ],
+   "expectError": ".v"
+  },
+  {
+   "label": "functionCheck exhaustive on a sequential design",
+   "pod": {
+    "v": 1,
+    "chainId": 56,
+    "block": 128200681,
+    "blockHash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+    "timestamp": 1792253755,
+    "mining": "0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46",
+    "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+    "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+    "circuitId": "17851",
+    "minerKey": "0xa13a5bd9630a45d0308786747431d473f749348c02d5128e66d48cc2cec6464e",
+    "params": {
+     "lambda": 6,
+     "beta": 3,
+     "lambdaBurn": 1,
+     "processorMultiplier": "1"
+    },
+    "design": {
+     "taskId": 3,
+     "gateCount": 4,
+     "stateCount": 1,
+     "nandBurn": 4,
+     "latchBurn": 0,
+     "depth": 3,
+     "area": "10",
+     "bstar": "4",
+     "cost": "270",
+     "task": {
+      "name": "异或门 XOR",
+      "kTask": "4",
+      "cRef": "108"
+     }
+    },
+    "standing": {
+     "status": 1,
+     "statusLabel": "mining",
+     "optimal": false,
+     "bonus": "0",
+     "multiplier": 1,
+     "verified": true,
+     "verifWeight": "4",
+     "unverWeight": "0",
+     "since": "1792251014",
+     "stopBlock": "0"
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "reference": {
+      "processor": "0xf4412c52ec3ddf7caf5f518b6662f77b02bde28e",
+      "circuitId": "3"
+     },
+     "method": "exhaustive",
+     "vectors": 4,
+     "result": "match"
+    }
+   },
+   "valid": false,
+   "errors": [
+    "tap.pod.functionCheck.method: exhaustive applies only to combinational circuits (design.stateCount 0)"
+   ],
+   "expectError": "exhaustive applies only"
+  },
+  {
+   "label": "functionCheck sampled without seed",
+   "pod": {
+    "v": 1,
+    "chainId": 56,
+    "block": 128200681,
+    "blockHash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+    "timestamp": 1792253755,
+    "mining": "0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46",
+    "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+    "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+    "circuitId": "17851",
+    "minerKey": "0xa13a5bd9630a45d0308786747431d473f749348c02d5128e66d48cc2cec6464e",
+    "params": {
+     "lambda": 6,
+     "beta": 3,
+     "lambdaBurn": 1,
+     "processorMultiplier": "1"
+    },
+    "design": {
+     "taskId": 3,
+     "gateCount": 4,
+     "stateCount": 0,
+     "nandBurn": 4,
+     "latchBurn": 0,
+     "depth": 3,
+     "area": "4",
+     "bstar": "4",
+     "cost": "108",
+     "task": {
+      "name": "异或门 XOR",
+      "kTask": "4",
+      "cRef": "108"
+     }
+    },
+    "standing": {
+     "status": 1,
+     "statusLabel": "mining",
+     "optimal": false,
+     "bonus": "0",
+     "multiplier": 1,
+     "verified": true,
+     "verifWeight": "4",
+     "unverWeight": "0",
+     "since": "1792251014",
+     "stopBlock": "0"
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "reference": {
+      "processor": "0xf4412c52ec3ddf7caf5f518b6662f77b02bde28e",
+      "circuitId": "3"
+     },
+     "method": "sampled",
+     "vectors": 4,
+     "result": "match"
+    }
+   },
+   "valid": false,
+   "errors": [
+    "tap.pod.functionCheck.seed: missing"
+   ],
+   "expectError": "functionCheck.seed"
+  },
+  {
+   "label": "functionCheck unconfirmed with a result",
+   "pod": {
+    "v": 1,
+    "chainId": 56,
+    "block": 128200681,
+    "blockHash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+    "timestamp": 1792253755,
+    "mining": "0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46",
+    "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+    "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+    "circuitId": "17851",
+    "minerKey": "0xa13a5bd9630a45d0308786747431d473f749348c02d5128e66d48cc2cec6464e",
+    "params": {
+     "lambda": 6,
+     "beta": 3,
+     "lambdaBurn": 1,
+     "processorMultiplier": "1"
+    },
+    "design": {
+     "taskId": 3,
+     "gateCount": 4,
+     "stateCount": 0,
+     "nandBurn": 4,
+     "latchBurn": 0,
+     "depth": 3,
+     "area": "4",
+     "bstar": "4",
+     "cost": "108",
+     "task": {
+      "name": "异或门 XOR",
+      "kTask": "4",
+      "cRef": "108"
+     }
+    },
+    "standing": {
+     "status": 1,
+     "statusLabel": "mining",
+     "optimal": false,
+     "bonus": "0",
+     "multiplier": 1,
+     "verified": true,
+     "verifWeight": "4",
+     "unverWeight": "0",
+     "since": "1792251014",
+     "stopBlock": "0"
+    },
+    "functionCheck": {
+     "procedure": "tap-pod-fc/1",
+     "reference": {
+      "processor": "0xf4412c52ec3ddf7caf5f518b6662f77b02bde28e",
+      "circuitId": "3"
+     },
+     "method": "unconfirmed",
+     "vectors": 4,
+     "result": "match"
+    }
+   },
+   "valid": false,
+   "errors": [
+    "tap.pod.functionCheck.result: must be absent when method is unconfirmed"
+   ],
+   "expectError": "must be absent"
+  }
+ ],
+ "metadataExample": {
+  "document": {
+   "name": "Example token (illustrative collection address)",
+   "tap": {
+    "v": 1,
+    "id": "eip155:196/erc721:0x0000000000000000000000000000000000000001/1",
+    "state": "revealed",
+    "netlist": {
+     "format": "tapnet/1",
+     "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+     "bytes": 44,
+     "nIn": 2,
+     "nOut": 1,
+     "nand": 4,
+     "latch": 0,
+     "uris": [
+      "ipfs://example"
+     ]
+    },
+    "source": {
+     "chainId": 56,
+     "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+     "circuitId": "17851",
+     "name": "17851.30.tape",
+     "block": 128200681
+    },
+    "pod": {
+     "v": 1,
+     "chainId": 56,
+     "block": 128200681,
+     "blockHash": "0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5",
+     "timestamp": 1792253755,
+     "mining": "0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46",
+     "implementation": "0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898",
+     "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c",
+     "circuitId": "17851",
+     "minerKey": "0xa13a5bd9630a45d0308786747431d473f749348c02d5128e66d48cc2cec6464e",
+     "params": {
+      "lambda": 6,
+      "beta": 3,
+      "lambdaBurn": 1,
+      "processorMultiplier": "1"
+     },
+     "design": {
+      "taskId": 3,
+      "gateCount": 4,
+      "stateCount": 0,
+      "nandBurn": 4,
+      "latchBurn": 0,
+      "depth": 3,
+      "area": "4",
+      "bstar": "4",
+      "cost": "108",
+      "task": {
+       "name": "异或门 XOR",
+       "kTask": "4",
+       "cRef": "108"
+      }
+     },
+     "standing": {
+      "status": 1,
+      "statusLabel": "mining",
+      "optimal": false,
+      "bonus": "0",
+      "multiplier": 1,
+      "verified": true,
+      "verifWeight": "4",
+      "unverWeight": "0",
+      "since": "1792251014",
+      "stopBlock": "0"
+     },
+     "functionCheck": {
+      "procedure": "tap-pod-fc/1",
+      "reference": {
+       "processor": "0xf4412c52ec3ddf7caf5f518b6662f77b02bde28e",
+       "circuitId": "3"
+      },
+      "method": "exhaustive",
+      "vectors": 4,
+      "result": "match"
+     }
+    },
+    "rig": {
+     "chainId": 196,
+     "contract": "0x9cfc959cd42b2e1d39a0d850c528210e818ae520",
+     "id": "1"
+    }
+   }
+  },
+  "valid": true,
+  "errors": [],
+  "warnings": []
+ }
+}

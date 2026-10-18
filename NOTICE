@@ -1,0 +1,32 @@
+Licensing of this repository
+============================
+
+Two licences apply, by kind of content. A licence header inside a file
+(SPDX-License-Identifier) takes precedence over this table.
+
+CC0 1.0 Universal (public domain dedication) -- full text in LICENSE-CC0
+  - TAPs/                         TAP draft texts and their translations (as TAP-01 requires)
+  - contracts/src/interfaces/     Solidity interfaces normative for the drafts (SPDX CC0-1.0)
+  - Data: assets/**/vectors.json, assets/**/chain-circuits.json,
+    assets/chain-snapshot.json, assets/tap-pod-attributes/raw/,
+    assets/tap-pod-attributes/trait-metadata.json, assets/tap-netlist-bound-nft/example/,
+    contracts/test/fixtures/*.json, tools/collection/template.example.json,
+    tools/collection/rarity-7000.json, tools/tokenset/*.json, tools/tokenset/tokens.bin
+
+MIT -- full text in LICENSE
+  - All other code: Python under assets/, tools/, profiles/ and contracts/test/fixtures/,
+    Solidity under contracts/src/ (except interfaces/) and contracts/test/,
+    JavaScript under tools/gateway/, shell scripts under scripts/.
+  - Documentation that is not a TAP text (README.md, docs/, reviews/, profiles/*.md,
+    tool READMEs, docs/article/ including its SVG figures) is also offered under MIT; you may
+    additionally treat it as CC0.
+
+Third-party code
+  - contracts/lib/forge-std (git submodule, foundry-rs/forge-std v1.17.0,
+    commit f3dae6e6ee381f25eb6a246f7da9b85c91a68219): dual-licensed MIT OR Apache-2.0,
+    see its LICENSE-MIT and LICENSE-APACHE. Used only by tests.
+  - contracts/src/vendor/: minimal ERC-721, ERC-4906 events and Owned, MIT (SPDX header in
+    each file); see the file headers for any attribution.
+
+Nothing in this repository is deployed or audited. The software and data are provided
+"as is", without warranty of any kind.
