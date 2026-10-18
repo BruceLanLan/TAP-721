@@ -104,9 +104,7 @@ store uses Cancun opcodes while this project compiles for Shanghai.
 Builds the collection in set mode in a temporary directory (7,000 revealed tokens out of ids 1–10,000, the
 other 3,000 served as excluded placeholders), fetches a real past drand quicknet round (33,145,012), reveals,
 serves the output over a local HTTP server and verifies it, then checks that tampering is detected. The current
-`test_pipeline.py` has 8 tests, one more than the recorded 7-test run, and has not been re-run inside this
-repository since; the introductory article (`docs/article/tap-721.md`) reports 8/8 from the final run in the
-working folder. It is heavy (≈ 9,999 HTTP fetches, ≈ 33 MB of metadata). Observed once: when run in parallel with
+`test_pipeline.py` has 8 tests; all 8 passed when re-run inside this repository on 2026-10-18. It is heavy (≈ 9,999 HTTP fetches, ≈ 33 MB of metadata). Observed once: when run in parallel with
 suite 11 on the same machine, the local HTTP verification hit a socket timeout (`Errno 60`) and failed;
 run alone it passes. Set `TCT1_TEST_OUT` to keep the output.
 

@@ -90,16 +90,8 @@ for d in "${DIRS[@]}"; do
 done
 rm -f "$REPO/reviews/alt-fairness-economics.md"
 
-# Article (Markdown + SVG figures only; the .html pages, other drafts and ARTIFACT-RULES.md are not published).
-mkdir -p "$REPO/docs/article/figures"
-rm -f "$REPO/docs/article/"*.md
-cp "$SRC/publish/$ARTICLE" "$REPO/docs/article/$ARTICLE"
-# Only the figures the article references are copied; a missing one fails the sync.
-rm -f "$REPO/docs/article/figures/"*
-for fig in $(grep -oE 'figures/[A-Za-z0-9._-]+' "$SRC/publish/$ARTICLE" | sort -u); do
-  [ -f "$SRC/publish/$fig" ] || { echo "sync: $ARTICLE references missing publish/$fig" >&2; exit 3; }
-  cp "$SRC/publish/$fig" "$REPO/docs/article/$fig"
-done
+# Articles are not published in this repository (the author publishes them elsewhere).
+rm -rf "$REPO/docs/article"
 
 # DESIGN.md lives at the working folder's root; in this repo it is docs/DESIGN.md. Rewrite its
 # repository paths so they resolve from docs/: markdown links get a ../ prefix, and code spans that
@@ -132,7 +124,7 @@ note = "> Copied from the working folder by `scripts/sync-from-drafts.sh`; repos
 open(dst, "w", encoding="utf-8").write(note + text)
 PY
 
-echo "sync: copied ${DIRS[*]}, DESIGN.md -> docs/DESIGN.md, publish/$ARTICLE + figures -> docs/article/ from $SRC"
+echo "sync: copied ${DIRS[*]}, DESIGN.md -> docs/DESIGN.md, (articles not copied) from $SRC"
 echo "sync: withheld reviews/alt-fairness-economics.md"
 if git -C "$REPO" rev-parse --git-dir >/dev/null 2>&1; then
   git -C "$REPO" status --short -- "${DIRS[@]}" docs/DESIGN.md | head -50

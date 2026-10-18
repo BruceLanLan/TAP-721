@@ -18,7 +18,7 @@ MIT -- full text in LICENSE
     Solidity under contracts/src/ (except interfaces/) and contracts/test/,
     JavaScript under tools/gateway/, shell scripts under scripts/.
   - Documentation that is not a TAP text (README.md, docs/, reviews/, profiles/*.md,
-    tool READMEs, docs/article/ including its SVG figures) is also offered under MIT; you may
+    tool READMEs) is also offered under MIT; you may
     additionally treat it as CC0.
 
 Third-party code

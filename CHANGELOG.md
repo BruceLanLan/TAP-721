@@ -66,6 +66,6 @@ editors assign the real numbers.
 
 - Submission texts (`docs/submission/`: Idea issue and four PR bodies).
 - Bilingual README, implementer's guide ([docs/STANDARD.md](docs/STANDARD.md)), architecture, on-chain facts,
-  testing and security docs; introductory article in `docs/article/`.
+  testing and security docs.
 - CI for the offline suites; network suites behind a manual flag.
 - Licences: TAP texts and data CC0-1.0, code MIT (see [NOTICE](NOTICE)).

@@ -117,7 +117,7 @@ pip install pycryptodome
 | `tools/uploader/`、`tools/gateway/` | 容器上传工具；服务器端 TAP-10 网关 |
 | `profiles/` | TapeCode-Test1 配额工具 `tct1_quota.py` |
 | `reviews/` | 编辑、安全、架构、跨链与定稿复审 |
-| `docs/` | [STANDARD](docs/STANDARD.md)、[submission](docs/submission/)（提交草稿）、[ARCHITECTURE](docs/ARCHITECTURE.md)、[FACTS](docs/FACTS.md)、[TESTING](docs/TESTING.md)、[SECURITY](docs/SECURITY.md)、[DESIGN](docs/DESIGN.md)；`docs/article/` 为中文介绍文章 |
+| `docs/` | [STANDARD](docs/STANDARD.md)、[submission](docs/submission/)（提交草稿）、[ARCHITECTURE](docs/ARCHITECTURE.md)、[FACTS](docs/FACTS.md)、[TESTING](docs/TESTING.md)、[SECURITY](docs/SECURITY.md)、[DESIGN](docs/DESIGN.md) |
 | `scripts/sync-from-drafts.sh` | 维护者用：从工作目录同步可发布文件 |
 
 ### 状态
@@ -237,7 +237,7 @@ Requirements: Python 3.9+, [Foundry](https://getfoundry.sh) v1.8.3, Node 20+. Cl
 | `tools/uploader/`, `tools/gateway/` | Container uploader; server-side TAP-10 gateway |
 | `profiles/` | TapeCode-Test1 quota tool `tct1_quota.py` |
 | `reviews/` | Editorial, security, architecture, cross-chain and final reviews |
-| `docs/` | [STANDARD](docs/STANDARD.md), [submission](docs/submission/) (posting drafts), [ARCHITECTURE](docs/ARCHITECTURE.md), [FACTS](docs/FACTS.md), [TESTING](docs/TESTING.md), [SECURITY](docs/SECURITY.md), [DESIGN](docs/DESIGN.md); `docs/article/` holds an introductory article (Chinese) |
+| `docs/` | [STANDARD](docs/STANDARD.md), [submission](docs/submission/) (posting drafts), [ARCHITECTURE](docs/ARCHITECTURE.md), [FACTS](docs/FACTS.md), [TESTING](docs/TESTING.md), [SECURITY](docs/SECURITY.md), [DESIGN](docs/DESIGN.md) |
 | `scripts/sync-from-drafts.sh` | Maintainer tool: syncs publishable files from the working folder |
 
 ### Status
