@@ -23,10 +23,10 @@ Why not one document: the flagship holds what every implementer reads together. 
 
 **Existing material.**
 
-- Drafts, translations, reference implementations and test vectors: https://github.com/BruceLanLan/TAP-721/tree/23dc425d75deab70e3035d3668b88f1db3d02a82
-- Flagship draft: https://github.com/BruceLanLan/TAP-721/blob/23dc425d75deab70e3035d3668b88f1db3d02a82/TAPs/TAP-draft-netlist-bound-nft.md
+- Drafts, translations, reference implementations and test vectors: https://github.com/BruceLanLan/TAP-721/tree/e4b922969521d21525940bf1dda0634c38a05b4e
+- Flagship draft: https://github.com/BruceLanLan/TAP-721/blob/e4b922969521d21525940bf1dda0634c38a05b4e/TAPs/TAP-draft-netlist-bound-nft.md
 - Reference implementation: Python (standard library only) for every draft; a Foundry project with the L1 collection, companion, evaluator, bridge endpoints and adapters, and a container lock (198 tests, including PoCs from four internal review passes). Nothing is deployed; the code has been reviewed internally only.
-- Test results and vector hashes: https://github.com/BruceLanLan/TAP-721/blob/23dc425d75deab70e3035d3668b88f1db3d02a82/docs/TESTING.md
+- Test results and vector hashes: https://github.com/BruceLanLan/TAP-721/blob/e4b922969521d21525940bf1dda0634c38a05b4e/docs/TESTING.md
 - First adopter: TapeCode-Test1 (X Layer, `0x0e91460d6823c711643e650a9a4c0cc21de41614`), via L0 plus a companion; the plan is being confirmed with its founders.
 
 Once the editors are happy with the direction, every normative part will live in this repository, as CONTRIBUTING.md §3 requires; links to our repository will stay as background only.

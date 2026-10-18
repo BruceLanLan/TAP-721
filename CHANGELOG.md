@@ -10,7 +10,7 @@ Submitted to [TapeOutProtocol/TAPs](https://github.com/TapeOutProtocol/TAPs): Id
 [#67](https://github.com/TapeOutProtocol/TAPs/pull/67), extension PRs
 [#68](https://github.com/TapeOutProtocol/TAPs/pull/68) (bridging), [#69](https://github.com/TapeOutProtocol/TAPs/pull/69)
 (PoD attributes) and [#70](https://github.com/TapeOutProtocol/TAPs/pull/70) (structural hash). The PRs link the
-reference implementation at commit `23dc425`.
+reference implementation at commit `e4b9229`.
 
 - `discussions-to` of every draft points at #66; `docs/submission/` holds the texts as posted.
 - Final review round r2 (`reviews/final-r2-summary.md`): no high, medium or low issue.

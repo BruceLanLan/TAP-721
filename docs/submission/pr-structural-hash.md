@@ -8,14 +8,14 @@
 
 **Files.**
 
-- `TAPs/TAP-draft-netlist-structural-hash.md` (normative). The Chinese translation is at https://github.com/BruceLanLan/TAP-721/blob/23dc425d75deab70e3035d3668b88f1db3d02a82/TAPs/TAP-draft-netlist-structural-hash.zh.md; per CONTRIBUTING.md §2.4 it is not in this PR and will be added as `TAP-<nn>.zh.md` after a number is assigned.
+- `TAPs/TAP-draft-netlist-structural-hash.md` (normative). The Chinese translation is at https://github.com/BruceLanLan/TAP-721/blob/e4b922969521d21525940bf1dda0634c38a05b4e/TAPs/TAP-draft-netlist-structural-hash.zh.md; per CONTRIBUTING.md §2.4 it is not in this PR and will be added as `TAP-<nn>.zh.md` after a number is assigned.
 - `assets/tap-netlist-structural-hash/`: reference implementation `canon.py` (MIT, imports the flagship's `tapnft.py` and `tap02_reference.py` unchanged), deterministic generator, `vectors.json` (37 cases and 3 mainnet circuits; SHA-256 `35aaf41cbcff011290ba51ee9cc9f5ca7820345658069161bba74062914062aa`) and a test suite (18 tests)
 
 An independent implementation written only from the Specification reproduced every vector (`reviews/editorial.md` in the reference repository).
 
 **Asset dependency.** The scripts in this folder import `assets/tap-netlist-bound-nft/` and read `assets/chain-snapshot.json`, which are added by #67; run the tests after #67 is merged (or on a checkout of both branches).
 
-**Reference implementation** (background): https://github.com/BruceLanLan/TAP-721/tree/23dc425d75deab70e3035d3668b88f1db3d02a82/assets/tap-netlist-structural-hash
+**Reference implementation** (background): https://github.com/BruceLanLan/TAP-721/tree/e4b922969521d21525940bf1dda0634c38a05b4e/assets/tap-netlist-structural-hash
 
 Checklist for authors (editors check the same list, CONTRIBUTING.md §4):
 

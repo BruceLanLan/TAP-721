@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you refer to these drafts or their reference implementation, please cite them as below."
 title: "TAP-721 · Netlist-Bound NFTs: TAP drafts and reference implementation"
-commit: "23dc425"
+commit: "e4b9229"
 type: software
 authors:
   - name: "Bruce (@BruceLanLan)"
@@ -24,5 +24,5 @@ abstract: >-
   plus three extension TAPs (bridging between TapeOut chains, Proof-of-Design attributes, and a
   structural hash of flat netlists), with Python reference implementations, test vectors, Foundry
   contracts and tools. Submitted to TapeOutProtocol/TAPs on 2026-10-18 (Idea issue #66, PRs #67-#70;
-  reference implementation pinned at commit 23dc425). Draft; not deployed; reviewed internally only,
+  reference implementation pinned at commit e4b9229). Draft; not deployed; reviewed internally only,
   not externally audited.

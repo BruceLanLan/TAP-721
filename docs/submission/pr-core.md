@@ -6,11 +6,11 @@
 
 **Files.**
 
-- `TAPs/TAP-draft-netlist-bound-nft.md` (normative). A Chinese translation, kept section by section in sync, is at https://github.com/BruceLanLan/TAP-721/blob/23dc425d75deab70e3035d3668b88f1db3d02a82/TAPs/TAP-draft-netlist-bound-nft.zh.md; following CONTRIBUTING.md §2.4 it is not in this PR and will be added as `TAP-<nn>.zh.md` once a number is assigned.
+- `TAPs/TAP-draft-netlist-bound-nft.md` (normative). A Chinese translation, kept section by section in sync, is at https://github.com/BruceLanLan/TAP-721/blob/e4b922969521d21525940bf1dda0634c38a05b4e/TAPs/TAP-draft-netlist-bound-nft.zh.md; following CONTRIBUTING.md §2.4 it is not in this PR and will be added as `TAP-<nn>.zh.md` once a number is assigned.
 - `assets/tap-netlist-bound-nft/`: Python reference implementation (`tapnft.py`, standard library only) with the TAP-02 reference `tap02_reference.py`, the vector generator, `vectors.json`, a unittest suite (31 tests) and an 8-token worked example
 - `assets/chain-snapshot.json`: read-only BNB Smart Chain snapshot at block 128,200,681 used by the vectors
 
-**Reference implementation and tests** (background, not normative): https://github.com/BruceLanLan/TAP-721/tree/23dc425d75deab70e3035d3668b88f1db3d02a82 — Solidity interfaces and contracts (`TapNetlistNFT`, `TapCompanion`, `TapNetlistVM`, `TapContainerLock`), 198 Foundry tests that read the same vectors as the Python suite, and an X Layer fork test. Nothing is deployed; the contracts have had four internal review passes, not an external audit.
+**Reference implementation and tests** (background, not normative): https://github.com/BruceLanLan/TAP-721/tree/e4b922969521d21525940bf1dda0634c38a05b4e — Solidity interfaces and contracts (`TapNetlistNFT`, `TapCompanion`, `TapNetlistVM`, `TapContainerLock`), 198 Foundry tests that read the same vectors as the Python suite, and an X Layer fork test. Nothing is deployed; the contracts have had four internal review passes, not an external audit.
 
 Checklist for authors (editors check the same list, CONTRIBUTING.md §4):
 
