@@ -3,7 +3,7 @@ tap: TBD
 title: Moving Netlist-Bound NFTs between TapeOut chains
 description: A lock-and-mint bridge for netlist-bound ERC-721 tokens across the TapeOut chains, with one payload format carried over LayerZero V2, the TAP-10 hub, or both at once.
 author: Bruce (@BruceLanLan)
-discussions-to: TBD
+discussions-to: https://github.com/TapeOutProtocol/TAPs/issues/66
 status: Draft
 type: Standards
 created: 2026-10-18

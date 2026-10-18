@@ -3,7 +3,7 @@ tap: TBD
 title: Proof-of-Design Attributes for Netlist-Bound NFTs
 description: How a netlist-bound NFT whose netlist comes from a BEM miner circuit records that circuit's Proof-of-Design facts as a labelled snapshot at a pinned BNB Smart Chain block, in metadata and optionally as ERC-7496 traits.
 author: Bruce (@BruceLanLan)
-discussions-to: TBD
+discussions-to: https://github.com/TapeOutProtocol/TAPs/issues/66
 status: Draft
 type: Application
 created: 2026-10-18

@@ -1,13 +1,3 @@
-<!--
-Ready-to-post Idea issue for https://github.com/TapeOutProtocol/TAPs (template: .github/ISSUE_TEMPLATE/idea.md, label `idea`).
-Before posting: replace <COMMIT> with the full commit hash of https://github.com/BruceLanLan/TAP-721 that is published.
-The TAPs Idea template suggests the title form "Idea: <short title>"; the title below keeps the requested wording.
--->
-
-**Title:** TAP-721: Netlist-Bound NFT standard and extensions
-
----
-
 **Problem.** TapeOut circuits are already ERC-721 tokens, but there is no standard for a *collectible* whose identity is a real circuit: an NFT that carries, next to its image, a netlist that anyone can download, check against the chain, simulate, run in a contract and tape out again. Community write-ups for the first such collection (TapeCode-Test1, 10,000 tokens on X Layer) agree on the idea but differ on field names, hash definitions, how a netlist is checked and how a blind-box reveal is made fair. Without one text, wallets, explorers, indexers and games cannot read two collections the same way, and holders cannot check that a reveal was fair. TapeOut is multi-chain (BNB Smart Chain, Base, X Layer), which makes a shared identifier and file format more pressing.
 
 **Proposal.** A family of drafts, organised the way ERC-721 is: one flagship standard with in-document extensions, plus separate extension TAPs that build on it (as ERC-4906 and ERC-7496 build on ERC-721).
@@ -33,10 +23,10 @@ Why not one document: the flagship holds what every implementer reads together. 
 
 **Existing material.**
 
-- Drafts, translations, reference implementations and test vectors: https://github.com/BruceLanLan/TAP-721/tree/<COMMIT>
-- Flagship draft: https://github.com/BruceLanLan/TAP-721/blob/<COMMIT>/TAPs/TAP-draft-netlist-bound-nft.md
+- Drafts, translations, reference implementations and test vectors: https://github.com/BruceLanLan/TAP-721/tree/23dc425d75deab70e3035d3668b88f1db3d02a82
+- Flagship draft: https://github.com/BruceLanLan/TAP-721/blob/23dc425d75deab70e3035d3668b88f1db3d02a82/TAPs/TAP-draft-netlist-bound-nft.md
 - Reference implementation: Python (standard library only) for every draft; a Foundry project with the L1 collection, companion, evaluator, bridge endpoints and adapters, and a container lock (198 tests, including PoCs from four internal review passes). Nothing is deployed; the code has been reviewed internally only.
-- Test results and vector hashes: https://github.com/BruceLanLan/TAP-721/blob/<COMMIT>/docs/TESTING.md
+- Test results and vector hashes: https://github.com/BruceLanLan/TAP-721/blob/23dc425d75deab70e3035d3668b88f1db3d02a82/docs/TESTING.md
 - First adopter: TapeCode-Test1 (X Layer, `0x0e91460d6823c711643e650a9a4c0cc21de41614`), via L0 plus a companion; the plan is being confirmed with its founders.
 
 Once the editors are happy with the direction, every normative part will live in this repository, as CONTRIBUTING.md §3 requires; links to our repository will stay as background only.

@@ -3,7 +3,7 @@ tap: TBD
 title: Structural Hash of Flat Netlists
 description: A canonical form and a hash for REF-free TapeOut netlists that stay the same when gates are renumbered or reordered, NAND inputs are swapped, dead gates are added or identical gates are duplicated.
 author: Bruce (@BruceLanLan)
-discussions-to: TBD
+discussions-to: https://github.com/TapeOutProtocol/TAPs/issues/66
 status: Draft
 type: Standards
 created: 2026-10-18

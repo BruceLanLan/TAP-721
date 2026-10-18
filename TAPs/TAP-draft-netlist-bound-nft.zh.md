@@ -3,7 +3,7 @@ tap: TBD
 title: Netlist-Bound NFTs
 description: An ERC-721 extension that binds each token to a verifiable, REF-free TapeOut netlist and an image, with one identifier, one file format and one reveal procedure on every TapeOut chain.
 author: Bruce (@BruceLanLan)
-discussions-to: TBD
+discussions-to: https://github.com/TapeOutProtocol/TAPs/issues/66
 status: Draft
 type: Standards
 created: 2026-10-18

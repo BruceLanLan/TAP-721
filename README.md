@@ -58,7 +58,7 @@ TAP-721 是一个标准，不是四份并列的草案：一份**主标准**（�
 
 **为什么不是四合一。** 放进主标准的，是每个实现者都要一起读、直接用到核心哈希、清单和接口的部分。独立成扩展 TAP 的，各有外部依赖或独立受众：跨链依赖消息层和可升级合约，而按 TAP-01 §5.1，依赖可升级合约的 TAP 只能停在 Candidate 直到该合约封存；PoD 属性依赖 BSC 挖矿合约；结构哈希只依赖 TAP-02、对任何网表都有用。合成一份，主标准会被这些依赖拖住，而首个采用者只需要主标准；TAPs 编辑也按"一份 TAP 一个主题"审核。
 
-**提交计划。** ① 在 TapeOutProtocol/TAPs 开一个 Idea issue 讨论整个家族，申请主标准编号 721（接受编辑另行分配）；② 先为主标准提交 PR，`discussions-to` 指向该 issue；③ 三个扩展 TAP 随后各自提交 PR。草稿见 [`docs/submission/`](docs/submission/)。
+**已提交（2026-10-18）。** 整个家族的讨论在 Idea issue [TapeOutProtocol/TAPs#66](https://github.com/TapeOutProtocol/TAPs/issues/66)，申请主标准编号 721（接受编辑另行分配）。主标准 PR：[#67](https://github.com/TapeOutProtocol/TAPs/pull/67)；扩展 PR：跨链 [#68](https://github.com/TapeOutProtocol/TAPs/pull/68)、PoD 属性 [#69](https://github.com/TapeOutProtocol/TAPs/pull/69)、结构哈希 [#70](https://github.com/TapeOutProtocol/TAPs/pull/70)。提交时的正文见 [`docs/submission/`](docs/submission/)。
 
 ```mermaid
 flowchart LR
@@ -188,7 +188,7 @@ TAP-721 is one standard, not four parallel drafts: a **flagship standard** (core
 
 **Why not four-in-one.** The flagship holds what every implementer reads together and what uses the core's hashes, manifest and interface directly. The extension TAPs each have outside dependencies or their own audience: bridging depends on a message layer and upgradeable contracts, and under TAP-01 §5.1 a TAP that depends on an upgradeable contract stays at Candidate until it is sealed; PoD attributes depend on the BSC mining contract; the structural hash depends only on TAP-02 and is useful for any netlist. Merged, the flagship would be held back by those dependencies, while the first adopter needs only the flagship; TAP editors also review one topic per TAP.
 
-**Submission plan.** (1) One Idea issue at TapeOutProtocol/TAPs for the whole family, requesting number 721 for the flagship (another number is accepted); (2) a PR for the flagship with `discussions-to` pointing at that issue; (3) one PR per extension TAP afterwards. Drafts are in [`docs/submission/`](docs/submission/).
+**Submitted (2026-10-18).** The family is discussed in Idea issue [TapeOutProtocol/TAPs#66](https://github.com/TapeOutProtocol/TAPs/issues/66), which requests number 721 for the flagship (another number is accepted). Flagship PR: [#67](https://github.com/TapeOutProtocol/TAPs/pull/67); extension PRs: bridging [#68](https://github.com/TapeOutProtocol/TAPs/pull/68), PoD attributes [#69](https://github.com/TapeOutProtocol/TAPs/pull/69), structural hash [#70](https://github.com/TapeOutProtocol/TAPs/pull/70). The posted texts are in [`docs/submission/`](docs/submission/).
 
 ```mermaid
 flowchart LR

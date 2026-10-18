@@ -1,25 +1,16 @@
-<!--
-PR body for TapeOutProtocol/TAPs — flagship standard. Title: "Add TAP-draft-netlist-bound-nft: TAP-721 · Netlist-Bound NFTs"
-Placeholders: #<ISSUE> = the Idea issue number; <COMMIT> = published commit of BruceLanLan/TAP-721.
-Files in this PR: TAPs/TAP-draft-netlist-bound-nft.md, TAPs/TAP-draft-netlist-bound-nft.zh.md,
-assets/tap-netlist-bound-nft/ (and assets/chain-snapshot.json unless the editors prefer a copy inside the folder).
-Before opening: set `discussions-to` to the issue URL; check the vectors.json SHA-256 quoted in Test Cases against the file
-(at the time of writing the draft quotes 16c45ff3…, the file hashes to bb77433f…).
--->
-
 **What this pull request does:** new TAP draft — the flagship of the TAP-721 family, *Netlist-Bound NFTs* (`tap: TBD`; number 721 requested in the Idea issue).
 
-**Idea issue or discussion:** #<ISSUE>
+**Idea issue or discussion:** #66
 
 **Summary.** An ERC-721 extension that binds each token to a verifiable, REF-free TapeOut netlist (`tapnet/1`) and an image, with one identifier (CAIP-19), one metadata member (`tap`), one fair reveal procedure (Merkle-committed manifest, drand seed, keyed permutation) and two conformance levels: L0 (metadata only) and L1 (`ITapNetlistNFT`, `0x282b67f6`). In-document extensions: Companion (`ITapCompanion`, `0x12b40a6c`), Eval (`ITapNetlistEval`, `0xec7d7e20`), TokenSet (`ITapNetlistTokenSet`, `0x3f7177c7`) and container hosting and locking. Bridging, PoD attributes and the structural hash follow as separate extension TAPs.
 
 **Files.**
 
-- `TAPs/TAP-draft-netlist-bound-nft.md` (normative) and `TAPs/TAP-draft-netlist-bound-nft.zh.md` (informative translation, section-by-section in sync)
+- `TAPs/TAP-draft-netlist-bound-nft.md` (normative). A Chinese translation, kept section by section in sync, is at https://github.com/BruceLanLan/TAP-721/blob/23dc425d75deab70e3035d3668b88f1db3d02a82/TAPs/TAP-draft-netlist-bound-nft.zh.md; following CONTRIBUTING.md §2.4 it is not in this PR and will be added as `TAP-<nn>.zh.md` once a number is assigned.
 - `assets/tap-netlist-bound-nft/`: Python reference implementation (`tapnft.py`, standard library only) with the TAP-02 reference `tap02_reference.py`, the vector generator, `vectors.json`, a unittest suite (31 tests) and an 8-token worked example
 - `assets/chain-snapshot.json`: read-only BNB Smart Chain snapshot at block 128,200,681 used by the vectors
 
-**Reference implementation and tests** (background, not normative): https://github.com/BruceLanLan/TAP-721/tree/<COMMIT> — Solidity interfaces and contracts (`TapNetlistNFT`, `TapCompanion`, `TapNetlistVM`, `TapContainerLock`), 198 Foundry tests that read the same vectors as the Python suite, and an X Layer fork test. Nothing is deployed; the contracts have had four internal review passes, not an external audit.
+**Reference implementation and tests** (background, not normative): https://github.com/BruceLanLan/TAP-721/tree/23dc425d75deab70e3035d3668b88f1db3d02a82 — Solidity interfaces and contracts (`TapNetlistNFT`, `TapCompanion`, `TapNetlistVM`, `TapContainerLock`), 198 Foundry tests that read the same vectors as the Python suite, and an X Layer fork test. Nothing is deployed; the contracts have had four internal review passes, not an external audit.
 
 Checklist for authors (editors check the same list, CONTRIBUTING.md §4):
 
