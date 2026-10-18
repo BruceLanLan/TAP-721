@@ -11,7 +11,7 @@ import unittest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-sys.path.insert(0, os.path.join(HERE, "..", "tap-netlist-bound-nft"))
+sys.path.insert(0, os.path.join(HERE, "..", "tap-draft-netlist-bound-nft"))
 
 import pod_snapshot as ps  # noqa: E402
 from pod_validate import validate_pod, validate_tap  # noqa: E402
@@ -29,7 +29,7 @@ def _sha(path):
 
 
 V = _json(os.path.join(HERE, "vectors.json"))
-SNAP = _json(os.path.join(HERE, "..", "chain-snapshot.json"))
+SNAP = _json(os.path.join(HERE, "..", "tap-draft-netlist-bound-nft", "chain-snapshot.json"))
 
 
 def pods():

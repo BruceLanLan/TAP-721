@@ -1,5 +1,11 @@
 > Copied from the working folder by `scripts/sync-from-drafts.sh`; repository paths are rewritten to resolve from `docs/`.
 
+> Copied from the working folder by [`scripts/sync-from-drafts.sh`](../scripts/sync-from-drafts.sh); repository paths are rewritten to resolve from `docs/`.
+>
+> These are the working notes used while the drafts were written (status of the drafts: Draft, submitted
+> 2026-10-18 as TapeOutProtocol/TAPs#66–#70). Where they differ from the drafts in [`TAPs/`](../TAPs/), the drafts and
+> [ARCHITECTURE.md](../ARCHITECTURE.md) win; §8 in particular has been superseded on two points (noted there).
+
 # Design contract for the netlist-NFT TAP drafts (working notes, not a TAP)
 
 Every agent working in `tap-drafts/` follows this file. If something here is wrong or missing, say so
@@ -13,7 +19,7 @@ user-facing Chinese translations come last.
 - Netlist format = TAP-02: records NAND `0x00 a:u24 b:u24` (7 bytes), LATCH `0x01 d:u24` (4 bytes),
   REF `0x02 …`. Signals: 0 = const 0, 1 = const 1, 2..2+nIn-1 inputs, then element outputs.
   Read-only processor functions: `circuitInfo(uint256)` → (nIn, nOut, nState, gateCount),
-  `netlist(uint256)` → bytes. TAP-02 reference implementation: [`assets/tap-netlist-bound-nft/tap02_reference.py`](../assets/tap-netlist-bound-nft/tap02_reference.py).
+  `netlist(uint256)` → bytes. TAP-02 reference implementation: [`assets/tap-draft-netlist-bound-nft/tap02_reference.py`](../assets/tap-draft-netlist-bound-nft/tap02_reference.py).
 - PoD mining (BSC only) bans REF in miner circuits, so every BEM miner netlist is REF-free.
   Mining contract `0x7E2E0DC66a3bD9103E69b766afA62d9f7b697b46` (ERC-1967 proxy; `owner()` = 0 and `isSealed()` = true since block 121,815,032 — renounced via a 48 h timelock; implementation `0xa3dbe873…f898`, source not publicly verified).
   `getMiner(minerKey(circuits,id))` returns (circuits, circuitId, taskId, gateCount, stateCount, depth, area,
@@ -21,8 +27,7 @@ user-facing Chinese translations come last.
   stopBlock, verifWeight, unverWeight, debt). Formula (tapeout.net/pod): b* = n + λ_burn·m; A = g + λ·s;
   C = A·max(d,1)^β; q = clamp(C_ref/C, 1/Q, Q); H = (b* + K_task·q)·P. Getters `lambda()`, `beta()`,
   `lambdaBurn()`, `processorMultiplier(address)`, `getTask(uint32)`. Observed: status 1 = mining;
-  verified ⇔ verifWeight > 0. Community shorthand "C/N/L" = 电容 (Container), NAND, LATCH — the three TapeOut primitives (confirmed by the user 2026-10-18; "电容" is the community nickname for a TapeOut container). An earlier inference (C = design cost) was wrong
-  (inference — neither source document defines it).
+  verified ⇔ verifWeight > 0. Community shorthand "C/N/L" = 电容 (Container), NAND, LATCH — the three TapeOut primitives (confirmed by the user 2026-10-18; "电容" is the community nickname for a TapeOut container). An earlier inference (C = design cost) was wrong.
 - Official rig bridge already live: BSC vault `0x48D43345656f0f9510dC3c06CBa99dFf597617C2` (one EIP-1167 escrow
   per rig), X Layer voucher `0x9cfc959cd42B2e1d39a0d850c528210E818AE520` ("TapeOut Rig"/RIG, proxy, owner
   `0xB3D85b42A045c1A88D800CAD0F55d2566a4D3138`), messages over LayerZero V2, endpoint
@@ -88,7 +93,7 @@ user-facing Chinese translations come last.
 | Draft (working file name) | Type | Requires | Owner |
 |---|---|---|---|
 | A [`TAPs/TAP-draft-netlist-bound-nft.md`](../TAPs/TAP-draft-netlist-bound-nft.md) — Netlist-Bound NFTs | Standards | ERC-721, ERC-165, ERC-4906, TAP-02, TAP-10 | lead |
-| B [`TAPs/TAP-draft-netlist-nft-bridging.md`](../TAPs/TAP-draft-netlist-nft-bridging.md) — Moving Netlist-Bound NFTs between TapeOut chains | Standards | A, TAP-10, ERC-721 | bridge agent |
+| B [`TAPs/TAP-draft-netlist-nft-bridging.md`](../TAPs/TAP-draft-netlist-nft-bridging.md) — Moving Netlist-Bound NFTs between TapeOut Chains | Standards | A, TAP-10, ERC-721 | bridge agent |
 | C [`TAPs/TAP-draft-pod-attributes.md`](../TAPs/TAP-draft-pod-attributes.md) — Proof-of-Design attributes for Netlist-Bound NFTs | Application | A, ERC-7496 | lead (tools by python agent) |
 | D [`TAPs/TAP-draft-netlist-structural-hash.md`](../TAPs/TAP-draft-netlist-structural-hash.md) — Structural hash of flat netlists | Standards | TAP-02, A | canon agent |
 
@@ -110,7 +115,7 @@ offset 16 …        TAP-02 records, NAND and LATCH only (REF MUST be rejected)
 Valid iff header correct, ≥ 1 record, records well-formed per TAP-02 §3 (conditions 1–5, 7, 8; condition
 6 cannot arise). `netlistHash = SHA-256(file)`. Metrics: nIn, nOut, nand, latch, gates = nand + latch;
 file length = 16 + 7·nand + 4·latch. Source circuit → file: `"TAPNET" 01 00 ‖ u32(nIn) ‖ u32(nOut) ‖ netlist(id)`.
-Python: [`assets/tap-netlist-bound-nft/tapnft.py`](../assets/tap-netlist-bound-nft/tapnft.py) (`check_file`, `netlist_hash`, `file_from_chain`).
+Python: [`assets/tap-draft-netlist-bound-nft/tapnft.py`](../assets/tap-draft-netlist-bound-nft/tapnft.py) (`check_file`, `netlist_hash`, `file_from_chain`).
 
 ## 3. Manifest, pools, Merkle (draft A §5)
 
@@ -187,12 +192,14 @@ besides forge-std for tests; write minimal ERC-721 yourself or copy a small MIT 
 
 - Home chain = the chain of the original collection. Home endpoint = `TapGateway` (locks a legacy or
   native ERC-721 token in escrow; a native collection MAY burn instead). Remote endpoint = `TapMirror`
-  (ERC-721 + `ITapNetlistNFT` + ERC-4906; mints on arrival, burns on departure). Remote→remote hops allowed.
+  (ERC-721 + `ITapNetlistNFT` + ERC-4906; mints on arrival, burns on departure). Superseded: routing is hub and
+  spoke — a remote→remote move is two transfers through the home chain, and the gateway tracks `locationOf[id]`.
   Invariant: for each tokenId at most one non-escrowed live token across all chains.
 - `collectionKey = keccak256(abi.encode("TAP-NFT collection v1", homeChainId, homeContract))`.
 - Payload v1 = `abi.encode(uint8 1, bytes32 collectionKey, uint256 tokenId, address to, bytes32 netlistHash,
   bytes32 imageHash, bytes32 manifestHash, uint64 srcChainId, uint64 dstChainId, uint64 nonce)`;
-  `messageId = keccak256(payload)`; destination rejects a messageId it has seen.
+  `messageId = keccak256(srcEndpoint ‖ payload)` (superseded the earlier `keccak256(payload)`, review L-2);
+  destination rejects a messageId it has seen.
 - Mirror stores the hashes it receives; `materialize(bytes tapnet)` (permissionless) stores netlist bytes if
   `sha256(bytes)` equals a hash some token holds, so `netlistOf` works on every chain.
 - Adapters behind one interface; per route (src, dst) a policy: `ONE` (exactly one enabled adapter, default)

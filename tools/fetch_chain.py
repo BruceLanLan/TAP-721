@@ -2,7 +2,7 @@
 
 Uses `cast` (Foundry) for ABI work. Every value is read from two independent BNB Smart Chain
 nodes at one pinned block and must agree; the result is written to
-../assets/chain-snapshot.json. No transaction is sent.
+../assets/tap-draft-netlist-bound-nft/chain-snapshot.json. No transaction is sent.
 """
 import json
 import urllib.request
@@ -131,7 +131,7 @@ def main():
         ["cast", "storage", "-r", NODES[0], "-b", str(block), MINING,
          "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc"], text=True).strip()
     snap["singleSourceReads"] = SINGLE
-    with open(sys.argv[2] if len(sys.argv) > 2 else "../assets/chain-snapshot.json", "w") as f:
+    with open(sys.argv[2] if len(sys.argv) > 2 else "../assets/tap-draft-netlist-bound-nft/chain-snapshot.json", "w") as f:
         json.dump(snap, f, indent=1)
         f.write("\n")
 

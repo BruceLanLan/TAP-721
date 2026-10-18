@@ -40,7 +40,8 @@ for d in "${DIRS[@]}"; do
 done
 [ -f "$SRC/DESIGN.md" ] || { echo "sync: missing $SRC/DESIGN.md" >&2; exit 1; }
 # The published article: publish/standard.md when present (it replaces the older article.md).
-if [ -f "$SRC/publish/standard.md" ]; then ARTICLE=standard.md
+if [ -f "$SRC/publish/tap-721.md" ]; then ARTICLE=tap-721.md
+elif [ -f "$SRC/publish/standard.md" ]; then ARTICLE=standard.md
 elif [ -f "$SRC/publish/article.md" ]; then ARTICLE=article.md
 else echo "sync: missing $SRC/publish/standard.md (or article.md)" >&2; exit 1; fi
 for fig in $(grep -oE 'figures/[A-Za-z0-9._-]+' "$SRC/publish/$ARTICLE" | sort -u); do
@@ -84,7 +85,7 @@ fi
 for d in "${DIRS[@]}"; do
   mkdir -p "$REPO/$d"
   extra=()
-  [ "$d" = reviews ] && extra=("${WITHHELD[@]}")
+  extra=("${WITHHELD[@]}")
   rsync -a --delete "${EXCLUDES[@]}" ${extra[@]+"${extra[@]}"} "$SRC/$d/" "$REPO/$d/"
 done
 rm -f "$REPO/reviews/alt-fairness-economics.md"

@@ -3,7 +3,9 @@
 A concise guide to implementing **TAP-721 · Netlist-Bound NFT**. "TAP-721" is the proposal name; the
 submission requests number 721 and the TAPs editors assign the real number. The normative text of the flagship
 standard is [`TAPs/TAP-draft-netlist-bound-nft.md`](../TAPs/TAP-draft-netlist-bound-nft.md); section numbers (§)
-below refer to it. Where this guide and the draft differ, the draft wins.
+below refer to it. Where this guide and the draft differ, the draft wins. Status: Draft, submitted on 2026-10-18
+([TapeOutProtocol/TAPs#67](https://github.com/TapeOutProtocol/TAPs/pull/67), discussion in
+[#66](https://github.com/TapeOutProtocol/TAPs/issues/66)) and awaiting editor format review and number assignment.
 
 ## The TAP-721 family at a glance
 
@@ -52,7 +54,7 @@ selectors and event topics are in its Test Cases section.
 - [ ] At least one record; records valid per TAP-02 §3; file length = `16 + 7·nand + 4·latch`.
 - [ ] `netlistHash = SHA-256(file)`; metrics `nIn`, `nOut`, `nand`, `latch` are derived from the file.
 - [ ] From a source circuit: `"TAPNET" 01 00 ‖ u32(nIn) ‖ u32(nOut) ‖ netlist(id)` (`tapnft.file_from_chain`).
-- Reference: `assets/tap-netlist-bound-nft/tapnft.py` (`check_file`, `netlist_hash`); vectors in `vectors.json`.
+- Reference: `assets/tap-draft-netlist-bound-nft/tapnft.py` (`check_file`, `netlist_hash`); vectors in `vectors.json`.
 
 ### 1.2 Source circuits (§3), optional per token
 
@@ -74,7 +76,7 @@ selectors and event topics are in its Test Cases section.
 - [ ] `state` is `unrevealed` (no `netlist`, `manifest` present) or `revealed`. Never write frozenness into metadata.
 - [ ] Consistency (§7.3): every URI serves the declared bytes; `bytes` matches the metrics; revealed hashes equal
       the assigned pool entries; editions are ranked by token id starting at 1.
-- Reference: `tapnft.check_metadata`, `check_editions`; example collection in `assets/tap-netlist-bound-nft/example/`.
+- Reference: `tapnft.check_metadata`, `check_editions`; example collection in `assets/tap-draft-netlist-bound-nft/example/`.
 
 ### 1.4 Manifest, pools and reveal (§5, §6), for collections that reveal
 
@@ -170,6 +172,6 @@ SHOULD: fetch the manifest (and the token-set file in set mode), check their has
 verify a declared source.
 
 ```bash
-python3 assets/tap-netlist-bound-nft/tapnft.py token.json manifest.json file.tapnet   # checks each file on its own
+python3 assets/tap-draft-netlist-bound-nft/tapnft.py token.json manifest.json file.tapnet   # checks each file on its own
 python3 tools/collection/verify_collection.py --manifest <url|file> --base-url <meta dir>/ --beacon beacon.json
 ```

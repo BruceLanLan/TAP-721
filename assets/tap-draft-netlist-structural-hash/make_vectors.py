@@ -309,7 +309,7 @@ def import_snapshot(path):
         snap = json.load(f)
     keep = ("processor", "circuitId", "nIn", "nOut", "nState", "gateCount", "netlist")
     doc = {"chainId": snap["chainId"], "block": snap["block"],
-           "note": "Pinned subset of ../chain-snapshot.json: read-only eth_call results; no transaction was sent.",
+           "note": "Pinned subset of ../tap-draft-netlist-bound-nft/chain-snapshot.json: read-only eth_call results; no transaction was sent.",
            "circuits": [{k: c[k] for k in keep if k in c} for c in snap["circuits"]]}
     with open(os.path.join(HERE, "chain-circuits.json"), "w", newline="\n") as f:
         f.write(json.dumps(doc, indent=1, sort_keys=True) + "\n")

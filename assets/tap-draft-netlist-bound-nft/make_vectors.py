@@ -1,10 +1,10 @@
 """Generate vectors.json and example/ from tapnft.py. Deterministic; rerun to reproduce byte for byte.
 
     python3 make_vectors.py                          # regenerate vectors.json and example/
-    python3 make_vectors.py --import ../chain-snapshot.json
+    python3 make_vectors.py --import chain-snapshot.json
                                                      # first refresh chain-circuits.json from a snapshot
 
-The on-chain input is the pinned file chain-circuits.json (a subset of ../chain-snapshot.json, read
+The on-chain input is the pinned file chain-circuits.json (a subset of chain-snapshot.json, read
 from BNB Smart Chain with read-only calls). Everything else is constructed here. Every value in
 vectors.json is computed with tapnft.py; nothing is hard-coded except inputs and the expected error
 texts, which are asserted against what tapnft.py raises.

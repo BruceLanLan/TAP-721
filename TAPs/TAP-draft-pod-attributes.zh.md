@@ -11,8 +11,6 @@ requires: TAP-02, TAP-10, TAP-draft-netlist-bound-nft, ERC-7496 (ethereum/ERCs c
 license: CC0-1.0
 ---
 
-<!-- `requires`：`TAP-draft-netlist-bound-nft` 即 TAP-721，核心草案申请的编号；若编辑分配了其它编号，本草案即采用该编号。 -->
-
 本文是 `TAP-draft-pod-attributes.md` 的中文译文，仅供参考；与英文不一致时以英文为准（TAP-01 §6.2）。
 
 # TAP-TBD：网表绑定 NFT 的设计证明属性
@@ -23,7 +21,7 @@ license: CC0-1.0
 
 ## 摘要
 
-本 TAP 是 TAP-721（网表绑定 NFT，`TAP-draft-netlist-bound-nft`）的扩展：它为 TAP-721 代币增加设计证明属性，不改动 TAP-721 本身的任何内容。TAP-721 代币可以指明一个来源电路。当该电路在 BNB Smart Chain 上的 BEM 设计证明（PoD）挖矿合约中注册为矿机时，收藏者会关心它的 PoD 事实（例如题目、烧掉的 NAND 与 LATCH 数、设计成本和最优首创标志）。本 TAP 定义代币元数据中的 `tap.pod` 成员：在一个钉住的区块上读取的这些事实的快照，每个字段都对应它所来自的确切读取函数，分为已记录的设计事实和随时间变化的现状两组，并标明区块。本 TAP 还定义：验证方如何重读并确认快照；供同时在链上发布快照的集合使用的十五个 ERC-7496 特征（trait）键及其取值编码；一个可选的、未经验证的 `tap.rig` 引用，指向 X Layer 上的矿机凭证；集合不得作出的声明；以及（仅供参考）集合如何从这些属性推导稀有度。本 TAP 不部署任何合约。
+本 TAP 是 TAP-721（网表绑定 NFT，`TAP-draft-netlist-bound-nft`）的扩展：它为 TAP-721 代币增加设计证明属性，不改动 TAP-721 本身的任何内容。TAP-721 代币可以指明一个来源电路。当该电路在 BNB Smart Chain 上的 BEM 设计证明（PoD）挖矿合约中注册为矿机时，收藏者会关心它的 PoD 事实（例如题目、烧掉的 NAND 与 LATCH 数、设计成本和最优首创标志）。本 TAP 定义代币元数据中的 `tap.pod` 成员：在一个固定的区块上读取的这些事实的快照，每个字段都对应它所来自的确切读取函数，分为已记录的设计事实和随时间变化的现状两组，并标明区块。本 TAP 还定义：验证方如何重读并确认快照；供同时在链上发布快照的集合使用的十五个 ERC-7496 特征（trait）键及其取值编码；一个可选的、未经验证的 `tap.rig` 引用，指向 X Layer 上的矿机凭证；集合不得作出的声明；以及（仅供参考）集合如何从这些属性推导稀有度。本 TAP 不部署任何合约。
 
 ## 动机
 
@@ -53,7 +51,7 @@ license: CC0-1.0
 ### 2. 适用范围
 
 1. 本 TAP 适用于这样的 TAP-721 代币：其 `tap.source` 指明 BNB Smart Chain 上的一个电路，该电路在快照区块有矿机记录。只有 BNB Smart Chain 处理器工厂（TAP-02、TAP-10）所建处理器合约中的电路，才能作为携带 `tap.pod` 的代币的来源；其它链上的来源（TAP-draft-netlist-bound-nft §3）没有 PoD 事实。
-2. 一个代币 MUST 至多携带一个 `tap.pod` 成员，且它 MUST 描述 `tap.source` 所指的电路。存在 `tap.pod` 时 `tap.source` 为 REQUIRED，且 `tap.source.chainId` MUST 为 `56`。
+2. 一个代币 MUST 至多携带一个 `tap.pod` 成员，且它 MUST 描述 `tap.source` 所指的电路。存在 `tap.pod` 时 `tap.source` MUST 存在，且 `tap.source.chainId` MUST 为 `56`。
 3. TAP-draft-netlist-bound-nft 的每项要求继续适用。`tap.pod` 与 `tap.rig` 是该草案 §7.1 意义下 `tap` 的附加成员；未实现本 TAP 的工具忽略它们。
 4. 快照描述的是来源电路，而不是 NFT。只有当来源已确认（TAP-draft-netlist-bound-nft §3.2）时，其事实才描述 NFT 的网表。来源未确认时，工具 MUST NOT 把 PoD 事实当作关于 NFT 网表的事实展示；它 MAY 把它们展示为"由集合声明，未经验证"。
 
@@ -77,10 +75,10 @@ license: CC0-1.0
 | `v` | 是 | number | `1` |
 | `chainId` | 是 | number | `56` |
 | `block` | 是 | number | 快照区块 `B` |
-| `blockHash` | 否（RECOMMENDED） | hash | 区块 `B` 的哈希 |
+| `blockHash` | 否（SHOULD） | hash | 区块 `B` 的哈希 |
 | `timestamp` | 否 | number | 区块 `B` 的时间戳（秒） |
 | `mining` | 是 | address | `0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46` |
-| `implementation` | 否（RECOMMENDED） | address | `B` 时挖矿代理的 ERC-1967 实现（存储槽 `0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc`） |
+| `implementation` | 否（SHOULD） | address | `B` 时挖矿代理的 ERC-1967 实现（存储槽 `0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc`） |
 | `processor` | 是 | address | 来源电路的处理器合约；MUST 等于 `tap.source.processor` |
 | `circuitId` | 是 | 十进制字符串 | 电路编号；MUST 等于 `tap.source.circuitId` |
 | `minerKey` | 是 | hash | `B` 时的 `minerKey(processor, circuitId)` |
@@ -117,7 +115,7 @@ license: CC0-1.0
 | `cost` | 十进制字符串 | 推导：`area` · max(`depth`, 1)^`params.beta`，精确整数 | C，设计成本 |
 | `task` | object，可选 | `getTask(taskId)` | `name`（string，元组成员 7）、`kTask`（十进制字符串，元组成员 8，`refArea`）、`cRef`（十进制字符串，元组成员 9，`refCost`） |
 
-`cost` 不存于矿机记录中；它 MUST 按上式用 `params.beta`（即 `B` 时的 β，§3.1 第 3 条）精确计算。对占有最优首创席位的矿机，`bestSlot(taskId, processor)` 返回与 `cost` 相同的值（见测试用例）。在 `task` 中，`kTask` 是题目的 K_task（参考实现的工本），`cRef` 是其 C_ref，两者都在题目创建时冻结；前端把 `refArea` 显示为 K_task。
+`cost` 不存于矿机记录中；它 MUST 按上式用 `params.beta`（即 `B` 时的 β，§3.1 第 3 条）精确计算。对占有最优首创席位的矿机，`bestSlot(taskId, processor)` 返回与 `cost` 相同的值（见测试用例）。在 `task` 中，`kTask` 是题目的 K_task（题目参考电路的工本），`cRef` 是其 C_ref，两者都在题目创建时冻结；前端把 `refArea` 显示为 K_task。
 
 #### 3.5 `standing`（易变事实）
 
@@ -283,7 +281,7 @@ event TraitMetadataURIUpdated();
 
 #### 5.5 特征元数据
 
-`getTraitMetadataURI()` 返回的文档 MUST 在各特征名下列出 §5.2 的每个特征，并带 §5.3 给出的 `dataType`。`displayName` 的值 MUST 唯一（ERC-7496）；`assets/tap-pod-attributes/trait-metadata.json` 中的值为 RECOMMENDED，对其做本地化的集合 SHOULD 为易变特征保留"at snapshot"（快照时）字样。
+`getTraitMetadataURI()` 返回的文档 MUST 在各特征名下列出 §5.2 的每个特征，并带 §5.2 给出的 `dataType`。`displayName` 的值 MUST 唯一（ERC-7496）；集合 SHOULD 使用 `assets/tap-draft-pod-attributes/trait-metadata.json` 中的值，对其做本地化的集合 SHOULD 为易变特征保留"at snapshot"（快照时）字样。
 
 ### 6. 矿机引用（`tap.rig`）
 
@@ -340,7 +338,7 @@ event TraitMetadataURIUpdated();
 
 ## 测试用例
 
-`assets/tap-pod-attributes/vectors.json` 由 `make_vectors.py` 从记录下来的读取结果生成，无需网络访问，测试套件可逐字节复现它（SHA-256 `ade615b1a2e461d26bbf88b67eb93767eb88d26a189b824cf0c484108a4dbebb`；`trait-metadata.json` `336be474884b5cf2ce32ed77bdb05a75a02c8b96db1073e229fe287c6cdda0ac`）。读取以只读方式在 BNB Smart Chain 区块 128200681（哈希 `0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5`，时间戳 1792253755，2026-10-17 16:15:55 UTC）进行：`assets/chain-snapshot.json`（四个电路；TapeOut #17851 与 #17852 的读取在两个运营方之间一致，而 #3151 与 #38 的读取以及合约参数 `lambda()`、`beta()`、`lambdaBurn()`、`taskCount()` 和两个 `processorMultiplier` 值只来自归档节点 `https://tapeout.net/rpc`）以及 `assets/tap-pod-attributes/raw/`（`pod_snapshot.py`，归档节点，区块头已与第二个运营方交叉核对）。对两个来源都包含的三个电路，读到的每个字段都一致。该区块时的参数：λ = 6，β = 3，λ_burn = 1；`processorMultiplier` 对 TapeOut（`0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C`，处理器 30）为 1，对 Blonskr_No1（`0x1f5cb4aeae1807bf60c3b9c0d8adbcc14e91f12c`，处理器 1）为 6；实现为 `0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898`。
+`assets/tap-draft-pod-attributes/vectors.json` 由 `make_vectors.py` 从记录下来的读取结果生成，无需网络访问，测试套件可逐字节复现它（SHA-256 `ade615b1a2e461d26bbf88b67eb93767eb88d26a189b824cf0c484108a4dbebb`；`trait-metadata.json` `336be474884b5cf2ce32ed77bdb05a75a02c8b96db1073e229fe287c6cdda0ac`）。读取以只读方式在 BNB Smart Chain 区块 128200681（哈希 `0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5`，时间戳 1792253755，2026-10-17 16:15:55 UTC）进行：`assets/tap-draft-netlist-bound-nft/chain-snapshot.json`（四个电路；TapeOut #17851 与 #17852 的读取在两个运营方之间一致，而 #3151 与 #38 的读取以及合约参数 `lambda()`、`beta()`、`lambdaBurn()`、`taskCount()` 和两个 `processorMultiplier` 值只来自归档节点 `https://tapeout.net/rpc`）以及 `assets/tap-draft-pod-attributes/raw/`（`pod_snapshot.py`，归档节点，区块头已与第二个运营方交叉核对）。对两个来源都包含的三个电路，读到的每个字段都一致。该区块时的参数：λ = 6，β = 3，λ_burn = 1；`processorMultiplier` 对 TapeOut（`0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C`，处理器 30）为 1，对 Blonskr_No1（`0x1f5cb4aeae1807bf60c3b9c0d8adbcc14e91f12c`，处理器 1）为 6；实现为 `0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898`。
 
 | 电路 | 题目（K_task, C_ref） | g, s | n, m | d | A | b* | C | 区块 128200681 时的现状 |
 |---|---|---|---|---|---|---|---|---|
@@ -356,17 +354,17 @@ event TraitMetadataURIUpdated();
 
 ## 参考实现
 
-Python 3.9，位于 `assets/tap-pod-attributes/`（MIT）；ABI 处理使用 Foundry 的 `cast`，keccak-256 使用 pycryptodome：
+Python 3.9，位于 `assets/tap-draft-pod-attributes/`（MIT）；ABI 处理使用 Foundry 的 `cast`，keccak-256 使用 pycryptodome：
 
 | 文件 | 覆盖内容 |
 |---|---|
-| `pod_snapshot.py` | §4.1 在钉住区块的读取（只读 JSON-RPC、跨节点交叉核对、单一来源报告）、§3 对象、§5.3 特征值、§5.5 特征元数据、测试用例中的交叉核对 |
+| `pod_snapshot.py` | §4.1 在固定区块的读取（只读 JSON-RPC、跨节点交叉核对、单一来源报告）、§3 对象、§5.3 特征值、§5.5 特征元数据、测试用例中的交叉核对 |
 | `pod_validate.py` | §3.7 格式良好检查与警告、§3.9 `functionCheck` 格式、§2 与 `tap.source` 的绑定、§4.4 清单承诺、§6 `tap.rig` 格式 |
 | `function_check.py` | §3.9 程序 `tap-pod-fc/1`（使用 TAP-02 参考求值器）；`pod_snapshot.py --check` 读取参考电路并加入 `functionCheck` |
 | `make_vectors.py` | `vectors.json`、`trait-metadata.json` |
 | `test_pod.py` | 测试；重新生成向量并逐字节比较 |
 
-使用 `assets/tap-netlist-bound-nft/tapnft.py`、`tap02_reference.py` 与 `assets/chain-snapshot.json`；分配编号后这些文件夹改名为 `assets/tap-<nn>/` 时，这些路径随之更新。
+使用 `assets/tap-draft-netlist-bound-nft/tapnft.py`、`tap02_reference.py` 与 `assets/tap-draft-netlist-bound-nft/chain-snapshot.json`；分配编号后这些文件夹改名为 `assets/tap-<nn>/` 时，这些路径随之更新。
 
 将在 Review 之前（TAP-01 §7.2 第 8 条）补上指向固定提交的链接。
 
@@ -402,11 +400,12 @@ Python 3.9，位于 `assets/tap-pod-attributes/`（MIT）；ABI 处理使用 Fou
 
 1. **状态码。** 只有 `status` 1（"mining"）已确认：官方前端检测的是 `status === 1`。据观察前端对代码 3 提供重新启动，暗示其含义为 "restartable"，但无法在其已发布的代码包中得到确认，所以本 TAP 把 3 与代码 0、2 和 4–255 一样标为 `"unknown"`。PoD 作者能否公布完整的对照表？
 2. **挖矿合约源码。** 实现 `0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898` 在公开区块浏览器上未找到经验证的源码。没有源码，字段语义（尤其是 `stateCount`、`depth`、`unverWeight`、`cachedDepth` 的第三个值（据观察等于活元件数，见测试用例），以及 `seal()` 是否去掉了所有升级和参数途径）只能从观察和前端推断。
-3. **`refArea` 即 K_task。** ABI 成员 `refArea` 的表现就是 K_task（它在三个题目上与 `bonusOf` 吻合；对题目 220，它不是参考实现的面积，因为 584 不是 25 的倍数）。`tap.pod` 是否应保留 `kTask` 这个名字？
+3. **`refArea` 即 K_task。** ABI 成员 `refArea` 的表现就是 K_task（它在三个题目上与 `bonusOf` 吻合；对题目 220，它不是参考电路的面积，因为 584 不是 25 的倍数）。`tap.pod` 是否应保留 `kTask` 这个名字？
 4. **题目编号是否稳定。** 停止后重新启动的矿机能否改变 `taskId`？如果能，`taskId` 应归入 `standing`。
 5. **时序检查语义。** `tap-pod-fc/1` 从全零状态起逐拍比较时序设计。向量允许预热或相位偏移的题目可能需要另一个程序；题目向量格式尚未公布。一旦 PoD 作者的向量语义可用，是否应以其取代？
 6. **矿机映射。** 链上是否存在从矿机凭证编号到（处理器，电路编号）矿机的映射，可供后续版本验证？
 7. **第二个运营方。** #3151、#38、参考电路以及合约参数的读取只来自一个归档运营方（见测试用例）。进入 Review 之前，应使用另一个能提供区块 128200681 状态的运营方重新读取。
+8. **`exhaustive` 的适用范围。** 是否应把 `method` `"exhaustive"` 限定为两个电路都是组合电路且 nIn ≤ 16 的情形？
 
 ## 版权
 

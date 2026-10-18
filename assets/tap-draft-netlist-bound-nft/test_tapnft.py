@@ -37,9 +37,9 @@ class Regeneration(unittest.TestCase):
                 self.assertEqual((HERE / rel).read_bytes(), data)
 
     def test_pinned_chain_matches_snapshot(self):
-        snap_path = HERE.parent / "chain-snapshot.json"
+        snap_path = HERE / "chain-snapshot.json"
         if not snap_path.exists():
-            self.skipTest("../chain-snapshot.json not present")
+            self.skipTest("chain-snapshot.json not present")
         snap = json.loads(snap_path.read_text(encoding="utf-8"))
         if snap["block"] != MV.load_chain()["block"]:
             self.skipTest("snapshot was re-taken at another block")

@@ -2,10 +2,10 @@
 
 | File | What it is |
 |---|---|
-| `canon.py` | Reference implementation (MIT): `canonicalize(file)` returns the canonical `tapnet/1` file, the structural hash and the counts `live`, `nodes`, `cyclic`, `rounds`, `copies`. It imports `tapnft.py` and `tap02_reference.py` unchanged from `../tap-netlist-bound-nft`. |
+| `canon.py` | Reference implementation (MIT): `canonicalize(file)` returns the canonical `tapnet/1` file, the structural hash and the counts `live`, `nodes`, `cyclic`, `rounds`, `copies`. It imports `tapnft.py` and `tap02_reference.py` unchanged from `../tap-draft-netlist-bound-nft`. |
 | `make_vectors.py` | Generates `vectors.json` (deterministic: fixed seed, sorted keys, no timestamps). Also holds the netlist-graph helpers and the transformations (renumbering, NAND input swaps, dead elements, duplication) used by the tests. |
 | `vectors.json` | Test vectors, format `tap-structural-hash-vectors/1` (sections below). |
-| `chain-circuits.json` | Pinned on-chain input: `netlist` and `circuitInfo` of four BNB Smart Chain circuits at block 128200681, from read-only `eth_call` reads (subset of `../chain-snapshot.json`); no transaction was sent. |
+| `chain-circuits.json` | Pinned on-chain input: `netlist` and `circuitInfo` of four BNB Smart Chain circuits at block 128200681, from read-only `eth_call` reads (subset of `../tap-draft-netlist-bound-nft/chain-snapshot.json`); no transaction was sent. |
 | `test_canon.py` | `unittest` suite (below). |
 
 ## Regenerate and test
@@ -15,7 +15,7 @@ python3 make_vectors.py && python3 test_canon.py
 ```
 
 Python 3.9 or later, standard library only. To re-pin the chain input from a fresh snapshot:
-`python3 make_vectors.py --import ../chain-snapshot.json` (this changes the hash below if the snapshot changed).
+`python3 make_vectors.py --import ../tap-draft-netlist-bound-nft/chain-snapshot.json` (this changes the hash below if the snapshot changed).
 
 SHA-256 of `vectors.json`:
 

@@ -1,7 +1,7 @@
 # Verified on-chain facts
 
 Facts the drafts rely on, collected from [DESIGN.md](DESIGN.md) §0, `reviews/security-contracts.md`,
-`reviews/editorial.md` and `assets/chain-snapshot.json`. Each entry says when it was read and how to re-check
+`reviews/editorial.md` and `assets/tap-draft-netlist-bound-nft/chain-snapshot.json`. Each entry says when it was read and how to re-check
 it. Read dates are 2026-10-17/18 unless stated. Chain state changes: re-run the check before relying on a value.
 
 Re-check commands use Foundry `cast` with public nodes:
@@ -28,7 +28,7 @@ New chains are appended by TAP-10, never by these drafts.
 | Fact | Value | Re-check |
 |---|---|---|
 | Mining contract | `0x7E2E0DC66a3bD9103E69b766afA62d9f7b697b46` (ERC-1967 proxy) | `cast storage 0x7E2E0DC66a3bD9103E69b766afA62d9f7b697b46 $IMPL --rpc-url $BSC` |
-| Implementation | `0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898` (source not publicly verified) | same command; also `mining.implementationSlot` in `assets/chain-snapshot.json` |
+| Implementation | `0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898` (source not publicly verified) | same command; also `mining.implementationSlot` in `assets/tap-draft-netlist-bound-nft/chain-snapshot.json` |
 | Ownership | `owner()` = 0 and `isSealed()` = true since block 121,815,032 (renounced through a 48 h timelock) | `cast call 0x7E2E…7b46 "owner()(address)" --rpc-url $BSC`; `"isSealed()(bool)"` |
 | Parameters at block 128,200,681 | `lambda()` = 6, `beta()` = 3, `lambdaBurn()` = 1, task count 267 | `cast call 0x7E2E…7b46 "lambda()(uint256)" --block 128200681 --rpc-url <archive node>` |
 | `processorMultiplier` | processor 30 "TapeOut" `0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C` = 1; `0x1f5cb4aeae1807bf60c3b9c0d8adbcc14e91f12c` ("Blonskr_No1") = 6 | `cast call 0x7E2E…7b46 "processorMultiplier(address)(uint256)" <processor> --rpc-url $BSC` |
@@ -39,7 +39,7 @@ New chains are appended by TAP-10, never by these drafts.
 | Snapshot block | 128,200,681, timestamp 1792253755 = 2026-10-17 16:15:55 UTC | `cast block 128200681 timestamp --rpc-url $BSC` |
 | `minerKey` example | circuit #17851 of processor 30 → `0xa13a5bd9630a45d0308786747431d473f749348c02d5128e66d48cc2cec6464e` = keccak256(processor ‖ uint256 id) | `cast keccak $(cast abi-encode --packed "f(address,uint256)" 0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C 17851)` (run 2026-10-18, matches) |
 
-Circuits in `assets/chain-snapshot.json` (block 128,200,681):
+Circuits in `assets/tap-draft-netlist-bound-nft/chain-snapshot.json` (block 128,200,681):
 
 | Processor | Circuit | Gates | Task | Depth | Area | b* | verifWeight |
 |---|---|---|---|---|---|---|---|
@@ -49,7 +49,7 @@ Circuits in `assets/chain-snapshot.json` (block 128,200,681):
 | 1 Blonskr_No1 | 38 | 1204 | — | — | — | — | 0 (miner status 0) |
 
 Regenerate with `python3 tools/fetch_chain.py` (needs an archive node for the pinned block; public BSC nodes
-prune state after about a minute, see `assets/tap-pod-attributes/README.md`).
+prune state after about a minute, see `assets/tap-draft-pod-attributes/README.md`).
 
 ## 3. Official rig bridge (already live, not part of these drafts)
 
@@ -86,7 +86,7 @@ is **[Open]**.
 | Container logic | `0xac4f…2a57` is a beacon proxy; beacon `0x9b135f586f7850a3fa92210c298f732b20bc8f44` ✓ owned by the 3/5 multisig `0xB3D8…3138` (upgradeable) | `cast call 0x9b135f586f7850a3fa92210c298f732b20bc8f44 "owner()(address)" --rpc-url $XL` |
 | Deployment | X Layer block 72,863,247 (2026-10-10 11:38:03 UTC); first claim 11:39:29 UTC; sold out 19:25:21 UTC the same day | `cast block 72863247 timestamp --rpc-url $XL` |
 | "30 days" | a marketplace listing rule, not in the contract | |
-| Bridging collection key | `keccak256(abi.encode("TAP-NFT collection v1", 196, 0x0e91…1614))` = `0x8755cf608e750f9bd55ba6ac4c0e655dffffc199774518f82624273f5217b4bd` | `assets/tap-netlist-nft-bridging/vectors.json` |
+| Bridging collection key | `keccak256(abi.encode("TAP-NFT collection v1", 196, 0x0e91…1614))` = `0x8755cf608e750f9bd55ba6ac4c0e655dffffc199774518f82624273f5217b4bd` | `assets/tap-draft-netlist-nft-bridging/vectors.json` |
 
 ✓ = re-verified by the lead.
 

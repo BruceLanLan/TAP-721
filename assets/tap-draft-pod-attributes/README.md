@@ -1,4 +1,4 @@
-# tap-pod-attributes
+# tap-draft-pod-attributes
 
 Tools and vectors for the TAP draft "Proof-of-Design Attributes for Netlist-Bound NFTs"
 (`TAPs/TAP-draft-pod-attributes.md`). Code is MIT; data files are CC0.
@@ -11,7 +11,7 @@ Nothing here sends a transaction: only `eth_call`, `eth_getStorageAt` and `eth_g
 | `pod_snapshot.py` | Read a miner at a pinned BNB Smart Chain block and print the `tap.pod` object, its ERC-7496 trait values and cross-checks |
 | `pod_validate.py` | Validate a `tap.pod` object (`--pod file`) or the PoD members of a token metadata document (with `functionCheck` and, in code, the manifest commitments of §4.4) |
 | `function_check.py` | §3.9 functional check `tap-pod-fc/1` against the task's reference circuit (TAP-02 reference evaluator) |
-| `make_vectors.py` | Build `vectors.json` and `trait-metadata.json` from `../chain-snapshot.json`, `raw/` and `synthetic/` (no network) |
+| `make_vectors.py` | Build `vectors.json` and `trait-metadata.json` from `../tap-draft-netlist-bound-nft/chain-snapshot.json`, `raw/` and `synthetic/` (no network) |
 | `test_pod.py` | Tests (no network); regenerates the vectors and checks they are byte-identical |
 | `raw/raw<id>.json` | Raw reads by `pod_snapshot.py --raw` at block 128200681 (TapeOut processor) |
 | `raw/ref-task<id>.json` | Reference circuits of tasks 3, 48, 220 at the same block (`read_reference`) |

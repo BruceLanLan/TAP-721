@@ -21,7 +21,7 @@ license: CC0-1.0
 
 ## 摘要
 
-网表绑定 NFT 是一种 ERC-721 代币，其元数据（以及可选地，其合约）把它绑定到一张图片和一份采用本文定义的 `tapnet/1` 格式的网表（不含 REF 记录、带输入数与输出数的 TAP-02 网表）。本 TAP 规定：该格式及其哈希；如何把网表追溯到它所复制的 TapeOut 电路；适用于 TAP-10 各链的全局代币标识符；在揭示前以 Merkle 根承诺图片池与网表池的集合清单（覆盖一个代币区间或一个显式代币集）；用一个随机种子把池条目分配给代币的带密钥置换；以及代币元数据中的 `tap` 成员。与 ERC-721 一样，它有一个强制核心，分两个一致性等级：L0（仅元数据，只能修改 base URI 的现有合约也能达到）与 L1（链上接口 `ITapNetlistNFT`，由集合本身或伴生合约实现）；另有若干扩展：代币集扩展（代币集模式下必需）、伴生合约扩展（每个伴生合约必需）、可选的求值扩展（让合约能运行代币的网表），以及在 TapeOut 容器中托管内容的规则。跨链转移、设计证明（PoD）属性与网表结构哈希是各自独立的 TAP-721 扩展提案。
+网表绑定 NFT 是一种 ERC-721 代币，其元数据（以及可选地，其合约）把它绑定到一张图片和一份采用本文定义的 `tapnet/1` 格式的网表（不含 REF 记录、带输入数与输出数的 TAP-02 网表）。本 TAP 规定：该格式及其哈希；如何把网表追溯到它所复制的 TapeOut 电路；适用于 TAP-10 各链的全局代币标识符；在揭示前以 Merkle 根承诺图片池与网表池的集合清单（覆盖一个代币区间或一个显式代币集）；用一个随机种子把池条目分配给代币的带密钥置换；以及代币元数据中的 `tap` 成员。与 ERC-721 一样，它有一个强制核心，分两个一致性等级：L0（仅元数据，只能修改 base URI 的现有合约也能达到）与 L1（链上接口 `ITapNetlistNFT`，由集合本身或伴生合约实现）；另有若干扩展：代币集扩展（代币集模式下的 L1 合约必需）、伴生合约扩展（每个伴生合约必需）、可选的求值扩展（让合约能运行代币的网表），以及在 TapeOut 容器中托管内容的规则。跨链转移、设计证明（PoD）属性与网表结构哈希是各自独立的 TAP-721 扩展提案。
 
 ## 动机
 
@@ -41,9 +41,9 @@ ERC-721 之所以成为 NFT 的共同基础，是因为它是一份每个钱包�
 
 核心（§1–§8.2）之后，是同一文档中的各扩展：
 
-- **TAP-721 伴生合约扩展**（§8.3，`ITapCompanion`）：每个伴生合约 REQUIRED；
-- **TAP-721 求值扩展**（§8.4，`ITapNetlistEval`）：对 L1 合约为 OPTIONAL；
-- **TAP-721 代币集扩展**（§8.5，`ITapNetlistTokenSet`）：清单使用代币集模式（§5.4）的 L1 合约 REQUIRED，区间模式下 OPTIONAL；
+- **TAP-721 伴生合约扩展**（§8.3，`ITapCompanion`）：每个伴生合约 MUST 实现；
+- **TAP-721 求值扩展**（§8.4，`ITapNetlistEval`）：L1 合约 MAY 实现；
+- **TAP-721 代币集扩展**（§8.5，`ITapNetlistTokenSet`）：清单使用代币集模式（§5.4）的 L1 合约 MUST 实现，区间模式下的 L1 合约 MAY 实现；
 - **TAP-721 容器托管与锁定**（§8.6）：为从 TapeOut 容器提供内容的集合给出的 SHOULD 级规则。
 
 ### 一致性摘要
@@ -266,7 +266,7 @@ verify(root, size, index, leaf, proof):
 3. 影响代币如何分配或标注的每一项输入——池顺序、代币集、档位与稀有度规则、资格规则，以及 `TAP-draft-pod-attributes` 等属性来源的快照区块——MUST 在主种子可能被知晓之前由清单固定（写在清单字节中，或写在一个其 SHA-256 包含于清单中的文件里）；
 4. `reveal.source` 不为 `none` 的集合 SHOULD 在主种子可能被知晓之前完成铸造，因为种子一旦已知，任何人都能算出哪个未铸造的代币编号会获得哪个条目；
 5. 集合 SHOULD 在种子已知后及时发布揭示后的元数据，并 SHOULD 事先提醒持有人：从那一刻起，任何人都能算出每枚代币的分配；
-6. 在区块由单一排序器产生的链上，`blockhash` 为 NOT RECOMMENDED，因为该排序器可以在区块内容之间做选择；X Layer 与 Base 都是这样的链（截至 2026-10-17 UTC）。区块哈希只在其区块之后的 256 个区块内可在链上读取；未在该窗口内记录的揭示，在这份清单下无法进行；
+6. 在区块由单一排序器产生的链上，SHOULD NOT 使用 `blockhash`，因为该排序器可以在区块内容之间做选择；X Layer 与 Base 都是这样的链（截至 2026-10-17 UTC）。区块哈希只在其区块之后的 256 个区块内可在链上读取；未在该窗口内记录的揭示，在这份清单下无法进行；
 7. 核验 `drand` 种子的工具 MUST 确认 `randomness` 等于该轮 `signature` 的 SHA-256，MUST 从至少两个独立的、其链信息哈希等于 `chainHash` 的 drand 中继取得相同的签名，并 SHOULD 用该链的公钥核验 BLS 签名；
 8. 主种子如何写入链上由实现决定；L1 合约 MUST 把它设为本节针对清单来源所定义的值，其 `Revealed(masterSeed)` 事件让任何人都能比对。
 
@@ -276,7 +276,7 @@ verify(root, size, index, leaf, proof):
 poolSeed = SHA-256(masterSeed ‖ u64be(chainId) ‖ collection address (20 bytes) ‖ UTF-8(label))
 ```
 
-`chainId` 与地址取清单的 `collection.chainId` 与 `collection.address`，无论置换在何处计算（伴生合约，或集合在另一条链上的副本，都使用本链的原始值）。每个池有自己的种子，因此各池由同一个主种子独立分配。希望图片稀有度与网表稀有度相互独立的集合，把它们放在两个池中。
+`chainId` 与地址取清单的 `collection.chainId` 与 `collection.address`，无论置换在何处计算（伴生合约，或集合在另一条链上的副本，都使用原链（集合所在链）的值）。每个池有自己的种子，因此各池由同一个主种子独立分配。希望图片稀有度与网表稀有度相互独立的集合，把它们放在两个池中。
 
 #### 6.3 带密钥置换
 
@@ -393,7 +393,7 @@ permute(seed, n, x):
 若一个合约实现下面的 `ITapNetlistNFT`、ERC-165（报告 `ITapNetlistNFT` `0x282b67f6`、ERC-165 `0x01ffc9a7` 与 ERC-4906 `0x49064906` 的接口标识）以及 ERC-4906，并满足以下各条，则它符合 L1：
 
 1. `manifestHash()` 与 `masterSeed()` 一旦非零、`pools()` 与 `tokenRange()` 一旦设定（非空，`supply` ≥ 1），就永不改变；`pools()[i]` 等于清单 `pools[i]` 的标签、字段掩码与根；
-2. 一旦 `masterSeed()` 非零，`entryIndexOf(t, p)` 返回以 §6.3 的序号 `x` 计算的 `permute(poolSeed_p, n, x)`；在此之前、对未被覆盖的代币（§5.4）、以及对不存在的池序号，它回滚。若清单的 `reveal.source` 为 `none`，合约在承诺清单时把 `masterSeed()` 设为 `0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff`，`entryIndexOf(t, p)` 返回序号 `x`，并且对第 5 条而言种子视为已设定。对任何其它来源，合约 MUST NOT 把零或该值记录为主种子；
+2. 一旦 `masterSeed()` 非零，`entryIndexOf(t, p)` 返回以 §6.3 的序号 `x` 计算的 `permute(poolSeed_p, n, x)`；在此之前、对未被覆盖的代币（在区间之外，或在代币集之外，§5.4）、以及对不存在的池序号，它回滚。若清单的 `reveal.source` 为 `none`，合约在承诺清单时把 `masterSeed()` 设为 `0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff`，`entryIndexOf(t, p)` 返回序号 `x`，并且对第 5 条而言种子视为已设定。对任何其它来源，合约 MUST NOT 把零或该值记录为主种子；
 3. `bind` 在按条目序号 `entryIndexOf(t, p)` 对照池根核验一个 Merkle 证明（§5.3）之后，为任何调用者记录一枚代币获得的条目；它是幂等的。实现 MAY 在用完整值列表重建池根并与已承诺的根核对之后，一次调用或分多次调用记录一个池的全部条目；种子设定后，`netlistHashOf` 与 `imageHashOf` 即可无需 `bind` 地为每枚被覆盖代币作答；
 4. 一个网表哈希为已知，当它已由 `bind` 记录；或在 `masterSeed()` 设定之后，某个无需许可的函数为获得它的某枚代币、从按第 3 条记录的池中推导出它并加以记录（参考实现中为 `markKnown(uint256 tokenId)`）；或它随代币按某个跨链 TAP 到达。`storeNetlist` 只接受 SHA-256 为已知网表哈希、且长度至多 49,152 字节的文件，并使其可通过 `netlistFile` 与 `netlistOf` 读取。它 SHOULD 在链上检查有效性（§2.2），若合约实现了 TAP-721 求值扩展（§8.4）则 MUST 检查。`NetlistStored.pointer` 背后的布局仅供参考；客户端通过 `netlistFile` 读取文件。回滚数据不属于本接口；
 5. 只有当清单已承诺、种子已设定，且没有任何账户能改变 `tokenURI`、清单、池或种子时，`frozen()` 才返回 true；一旦为 true，就永不再返回 false。位于可升级代理之后的合约，只要其升级路径存在，就不是冻结的；
@@ -521,7 +521,7 @@ TapeOut 容器中的文件可以被该容器电路的持有人、或持有人设
 
 **按排名的代币集。** 可用代币存在空缺的集合，否则要么把内容分配给无人能用的代币——浪费稀缺的网表并误报稀缺性——要么重新部署。代币集模式保持置换不变，只改变序号：代币在一个升序列表中的排名。打包的 `u32be` 列表在链上链下都很容易哈希，排名也不需要列表以外的数据。带空洞的包围区间被否决，因为那样池大小将不再等于所服务的代币数。在种子之前固定代币集（§6.1 第 3 条），可以防止发行方在看到分配结果后纳入或排除代币。为被排除的代币提供单独的文件（§5.4），让交易市场正常工作，又不暗示将来会有内容。
 
-**容器、名字与锁定。** 社区把 TapeOut 的三种基本元素简称为 C/N/L：容器（社区俗称“电容”）、NAND 与 LATCH。本 TAP 在 `tapnet/1` 中使用后两者，用第一种来存储。容器是存放内容的理想位置，因为 TAP-10 客户端会对照链上核验其文件；但其持有人可以修改文件，其站点存储也可升级。因此本设计依靠哈希保证完整性，只用锁定合约阻止随意修改；`tap.content` 以链上名字指明容器，工具由此推导出地址，因此元数据中错误或恶意的地址无法把工具引向别处。
+**容器、名字与锁定。** 社区把 TapeOut 的三种基本元件简称为 C/N/L：容器（社区俗称“电容”）、NAND 与 LATCH。本 TAP 在 `tapnet/1` 中使用后两者，用第一种来存储。容器是存放内容的理想位置，因为 TAP-10 客户端会对照链上核验其文件；但其持有人可以修改文件，其站点存储也可升级。因此本设计依靠哈希保证完整性，只用锁定合约阻止随意修改；`tap.content` 以链上名字指明容器，工具由此推导出地址，因此元数据中错误或恶意的地址无法把工具引向别处。
 
 **两个等级。** 没有 L0，合约无法修改、只能设置 base URI 的集合——即起推动作用的案例——就无法符合本 TAP。只有 L0，链上其它合约就无法读取网表，而电路游戏需要读取。通过伴生合约实现的 L1 在不替换集合的情况下弥补了这一缺口。
 
@@ -529,7 +529,7 @@ TapeOut 容器中的文件可以被该容器电路的持有人、或持有人设
 
 **为无揭示集合保留的种子。** `reveal.source` 为 `none` 时没有随机值，但 L1 需要一个非零的 `masterSeed()` 来表示分配已确定。全 1 值不会与“未揭示”（零）混淆，随机来源产生它的概率可以忽略；合约拒绝把它作为随机种子。
 
-**已存储网表的大小上限。** 49,152 字节是参考实现在一笔 16,777,216 gas 的交易（BNB Smart Chain 的上限）内能存储并检查有效性的最大文件。为更大的文件定义分段上传仍是开放问题。
+**已存储网表的大小上限。** 49,152 字节是参考实现在一笔 16,777,216 gas 的交易（BNB Smart Chain 的上限）内能存储并检查有效性的最大文件。为更大的文件定义分段上传仍是待定问题。
 
 **清单按发布时的字节哈希。** 规范化 JSON 形式会增加一项依赖却毫无收益：清单只发布一次，永不重新序列化。
 
@@ -549,9 +549,9 @@ TapeOut 容器中的文件可以被该容器电路的持有人、或持有人设
 
 ## 测试用例
 
-`assets/tap-netlist-bound-nft/vectors.json` 由 `assets/tap-netlist-bound-nft/make_vectors.py` 生成，可逐字节复现，SHA-256 为 `bb77433f2d3a5e89267eb590206beb2d17a67158ba4ad1f317ed663645dfb3fe`。其成员 `format` 与 `generator` 标识该文件；各部分为：
+`assets/tap-draft-netlist-bound-nft/vectors.json` 由 `assets/tap-draft-netlist-bound-nft/make_vectors.py` 生成，可逐字节复现，SHA-256 为 `bb77433f2d3a5e89267eb590206beb2d17a67158ba4ad1f317ed663645dfb3fe`。其成员 `format` 与 `generator` 标识该文件；各部分为：
 
-- `chain`：链上输入的链 ID 与固定区块（BNB Smart Chain 区块 128,200,681，`assets/chain-snapshot.json`）；
+- `chain`：链上输入的链 ID 与固定区块（BNB Smart Chain 区块 128,200,681，`assets/tap-draft-netlist-bound-nft/chain-snapshot.json`）；
 - `tapnet`：由在该区块读取的四个 BNB Smart Chain 主网电路构造的网表文件，含网表哈希、指标、链上名字与有效性（其中一个电路含 REF 记录，列为被拒绝）；
 - `invalidFiles`：§2.2 每条规则各一个被拒绝的文件，附预期错误；
 - `merkle`：含 1、2、3、5、8 个条目、单字段与双字段的池，含根、每个证明、失败的证明与错误用例；
@@ -559,6 +559,8 @@ TapeOut 容器中的文件可以被该容器电路的持有人、或持有人设
 - `metadata`：有效与无效的 `tap` 成员，每个无效成员各违反 §7 的一条规则；
 - `manifests`：有效清单（区间模式与代币集模式、一个与两个池、对象形式的 `uris`）与无效清单，每个无效清单各违反 §5.1、§5.2、§5.4 或 §6.1 的一条规则；
 - `tokenSets`：代币集模式（§5.4）：一个 20 取 10 的代币集，含其文件、哈希、清单与每枚代币的分配（集合外的代币为无）；一个 10,000 取 7,000 的代币集，含其哈希、前 32 个分配与全部分配的哈希；代币集文件与哈希的错误用例；
+- `content`：有效与无效的 `tap.content` 成员（§7.5）；
+- `placeholders`：代币集之外的代币与等待揭示的代币的元数据（§5.4、§7.2）；
 - `editions`：对示例进行的集合级版次核对（§6.4、§7.3 第 3 条），以及三个失败用例；
 - `netlistChecks`：对照元数据核对取得的文件（§7.4），一个匹配、两个拒绝；
 - `example`：一个完整的八枚代币集合，含两个池、清单文件及其哈希、一个固定的主种子、分配结果与每枚代币的元数据（也位于 `example/` 下）。
@@ -582,7 +584,7 @@ Solidity 参考实现的测试从一个由 `vectors.json` 生成的数据文件�
 
 ## 参考实现
 
-- Python，仅用标准库：`assets/tap-netlist-bound-nft/tapnft.py`（文件检查、哈希、来源文件构造、Merkle 树、池种子、置换、清单与代币集检查、分配、元数据与版次检查），附原样复制的 TAP-02 参考实现 `tap02_reference.py`、生成器 `make_vectors.py` 与测试套件 `test_tapnft.py`。
+- Python，仅用标准库：`assets/tap-draft-netlist-bound-nft/tapnft.py`（文件检查、哈希、来源文件构造、Merkle 树、池种子、置换、清单与代币集检查、分配、元数据与版次检查），附 TAP-02 参考实现 `tap02_reference.py`（复制自 TAPs 仓库的 `assets/tap-02/reference.py`，仅改动了头部注释）、生成器 `make_vectors.py` 与测试套件 `test_tapnft.py`。
 - Solidity：https://github.com/BruceLanLan/TAP-721，将在进入 Review 之前以一个固定提交链接（TAP-01 §7.2 第 8 条）。其中包含 §8 的各接口；`TapNetlistNFT`（一个 L1 集合）、`TapCompanion`（为现有 ERC-721 实现 L1）、库 `TapPermutation`、`TapMerkle`、`TapNetlistCheck`、`TapNetlistStore` 与 `TapNetlistVM`，以及它们的测试。
 - 参考 L1 合约中由实现决定、客户端会遇到的入口：`commitManifest`、`commitManifestTokenSet` 与 `commitManifestNoReveal`（§5.1、§6.1）；`scheduleBlockhashReveal` 与 `revealFromBlockhash`，延迟至多 1,000,000 个区块；`loadTokenSet` 与 `loadTokenSetChunk`（§8.5）；`loadPool` 与 `loadPoolChunk`（§8.2 第 3 条）；`markKnown(uint256 tokenId)`（§8.2 第 4 条）；`poolSeed(uint256)`（§6.2）。参考合约至多接受 100,000 枚被覆盖代币，这是实现的限制，不是本 TAP 的限制。
 - 参考库未实现 §3.2（第 1、2、5 步）、§5.1 的发布区块、§6.1 第 7 条与 §7.5 的网络核验。`assets/` 下的路径在分配编号时更新。
@@ -612,7 +614,7 @@ Solidity 参考实现的测试从一个由 `vectors.json` 生成的数据文件�
 - **可升级的来源合约。** 处理器合约是位于未封存工厂之后的信标代理（TAP-02 §3 与 Deployments）。之后的升级可能改变 `netlist(id)` 的返回值；核验者记录其读取的区块，具有权威性的是 NFT 的网表哈希，而不是链上的实时状态。
 - **哈希选择。** SHA-256 碰撞遥不可及；格式版本字节与 `tapManifest` 允许将来更换。
 
-### 开放问题
+### 待定问题
 
 1. `tapnet/2` 是否应允许按某条确定规则展平的 REF 记录？如果允许，该规则应放在本 TAP 中，还是放在 `TAP-draft-netlist-structural-hash` 中？
 2. 清单是否应要求按池而不是按代币给出许可？

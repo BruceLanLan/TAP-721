@@ -1,6 +1,6 @@
 ---
 tap: TBD
-title: Moving Netlist-Bound NFTs between TapeOut chains
+title: Moving Netlist-Bound NFTs between TapeOut Chains
 description: A lock-and-mint bridge for netlist-bound ERC-721 tokens across the TapeOut chains, with one payload format carried over LayerZero V2, the TAP-10 hub, or both at once.
 author: Bruce (@BruceLanLan)
 discussions-to: https://github.com/TapeOutProtocol/TAPs/issues/66
@@ -10,8 +10,6 @@ created: 2026-10-18
 requires: TAP-10, TAP-draft-netlist-bound-nft, ERC-165, ERC-721, ERC-4906, EIP-712, EIP-7702, LayerZero V2 EndpointV2 (deployed bytecode, code hashes in Deployments)
 license: CC0-1.0
 ---
-
-<!-- `requires`：`TAP-draft-netlist-bound-nft` 即 TAP-721，核心草案申请的编号；若编辑分配了其它编号，本草案即采用该编号。 -->
 
 本文是 `TAP-draft-netlist-nft-bridging.md` 的中文译文，仅供参考；与英文不一致时以英文为准（TAP-01 §6.2）。
 
@@ -48,7 +46,7 @@ TapeOut 已经为一类资产解决了这个问题。它的矿机桥通过 Layer
 | 术语 | 含义 |
 |---|---|
 | 原链、原集合 | 创建该集合的链（TAP-10 §2.1）及 ERC-721 合约 |
-| 数据源 | 实现 `ITapNetlistNFT`（TAP-721 §8.2）且其 `collection()` 为原集合的合约：集合本身，或其伴生合约（TAP-721 §8.3）。OPTIONAL |
+| 数据源 | 实现 `ITapNetlistNFT`（TAP-721 §8.2）且其 `collection()` 为原集合的合约：集合本身，或其伴生合约（TAP-721 §8.3）。网关合约 MAY 有一个数据源 |
 | 端点 | 网关合约或镜像合约 |
 | 网关合约（Gateway） | 原链上的端点。托管已离开的代币 |
 | 镜像合约（Mirror） | 任何其它 TapeOut 链上的端点。一个 ERC-721 合约，为到达的代币铸币，销毁离开的代币 |
@@ -105,7 +103,7 @@ messageId = keccak256(sourceEndpoint ‖ payload)        sourceEndpoint: the sen
 
 #### 4.2 哈希
 
-- 有数据源的网关合约 MUST 在离开时用数据源的 `netlistHashOf(tokenId)`、`imageHashOf(tokenId)` 和 `manifestHash()` 填写 `netlistHash`、`imageHash` 和 `manifestHash`；若数据源的 `masterSeed()` 非零（包括无揭示集合的全 1 值，TAP-721 §8.2 第 2 条）、代币为清单所覆盖，且数据源有含网表字段的池而 `netlistHashOf(tokenId)` 为零，或有含图像字段的池而 `imageHashOf(tokenId)` 为零（字段以 `pools()` 为准，TAP-721 §5.2），MUST revert（`NotBound(uint256)`）：揭示之后，被覆盖的代币先绑定（TAP-721 §8.2）再离开。数据源若未通过 ERC-165 报告 `ITapNetlistTokenSet`，或其 `tokenSetHash()` 为零，则处于范围模式，代币编号位于数据源的 `tokenRange()` 之内即为被覆盖。否则处于代币集模式（TAP-721 §5.4），此时 `tokenRange()` 返回 `(0, count)`，并不是一个范围，网关合约 MUST NOT 用它做此判断：除非 `tokenAt(0)` 成功（表明代币集文件已记录到链上；在参考实现中，记录代币集无需许可），网关合约 MUST revert（`NotBound`）；此后 `indexOf(tokenId)` 不 revert 的代币即为被覆盖。未被覆盖的代币永远无法绑定，以零哈希离开。没有数据源的网关合约发送零。
+- 有数据源的网关合约 MUST 在离开时用数据源的 `netlistHashOf(tokenId)`、`imageHashOf(tokenId)` 和 `manifestHash()` 填写 `netlistHash`、`imageHash` 和 `manifestHash`；若数据源的 `masterSeed()` 非零（包括无揭示集合的全 1 值，TAP-721 §8.2 第 2 条）、代币为清单所覆盖，且数据源有含网表字段的池而 `netlistHashOf(tokenId)` 为零，或有含图像字段的池而 `imageHashOf(tokenId)` 为零（字段以 `pools()` 为准，TAP-721 §5.2），MUST revert（`NotBound(uint256)`）：揭示之后，被覆盖的代币先绑定（TAP-721 §8.2）再离开。数据源若未通过 ERC-165 报告 `ITapNetlistTokenSet`，或其 `tokenSetHash()` 为零，则处于区间模式，代币编号位于数据源的 `tokenRange()` 之内即为被覆盖。否则处于代币集模式（TAP-721 §5.4），此时 `tokenRange()` 返回 `(0, count)`，并不是一个区间，网关合约 MUST NOT 用它做此判断：除非 `tokenAt(0)` 成功（表明代币集文件已记录到链上；在参考实现中，记录代币集无需许可），网关合约 MUST revert（`NotBound`）；此后 `indexOf(tokenId)` 不 revert 的代币即为被覆盖。未被覆盖的代币永远无法绑定，以零哈希离开。没有数据源的网关合约发送零。
 - 镜像合约 MUST 发送它为该代币保存的值（§5.3）。
 - 网关合约 MUST 忽略到达载荷中的哈希：原链数据源才是权威。
 
@@ -233,14 +231,14 @@ messageId          = 0xc4ced4c2227e9504511e68531d1975140f510e3a0d19b5bcd44db3f33
 
 #### 5.3 镜像合约
 
-镜像合约部署在原链之外的链上，部署时给定 `homeChainId`、原集合地址、名称和符号、base URI，以及从原集合复制的代币范围 `(firstTokenId, supply)`。`supply` = 0 表示范围无上界；这属于 TAP-721 §8.2 所说的桥接副本情形。代币集模式（TAP-721 §5.4）下的集合，其镜像合约 MUST 以 `supply` = 0 部署，因为数据源的 `tokenRange()` 所返回的 `(0, count)` 并不是被覆盖编号的集合。镜像合约实现带元数据扩展的 ERC-721、ERC-165、ERC-4906、`ITapBridgeMirror`，以及下文 `ITapNetlistNFT` 的镜像配置。
+镜像合约部署在原链之外的链上，部署时给定 `homeChainId`、原集合地址、名称和符号、base URI，以及从原集合复制的代币区间 `(firstTokenId, supply)`。`supply` = 0 表示区间无上界；这属于 TAP-721 §8.2 所说的桥接副本情形。代币集模式（TAP-721 §5.4）下的集合，其镜像合约 MUST 以 `supply` = 0 部署，因为数据源的 `tokenRange()` 所返回的 `(0, count)` 并不是被覆盖编号的集合。镜像合约实现带元数据扩展的 ERC-721、ERC-165、ERC-4906、`ITapBridgeMirror`，以及下文 `ITapNetlistNFT` 的镜像配置规范。
 
 - **到达：** 若该代币已存在于镜像合约上，镜像合约 MUST revert（`AlreadyLive`）；若 `supply` ≠ 0 且代币编号超出范围，MUST revert（`OutOfRange`）。若载荷的 `manifestHash` 非零：当镜像合约的 `manifestHash()` 为零时，存储它并发出 `ManifestCommitted`；当两者不同时，镜像合约 MUST revert（`ManifestConflict`）。镜像合约为该代币存储载荷中的 `netlistHash` 和 `imageHash`，把非零的 `netlistHash` 记为已知，不调用 `onERC721Received` 地把代币铸给 `to`，并发出 ERC-4906 `MetadataUpdate(tokenId)`。
 - **离开：** 在 §5.1 的调用者检查之后，镜像合约销毁代币并发送它保存的哈希。销毁之后哈希仍保留：`netlistHashOf`、`imageHashOf` 和 `netlistOf` 继续返回最后一次带入的值，而 `ownerOf` 会 revert。之后的到达会覆盖它们。
 - **网表文件：** `storeNetlist(file)` 及其别名 `materialize(file)` 无需许可。除非 SHA-256(`file`) 是已知网表哈希、文件不超过 49,152 字节且是有效的 `tapnet/1`（TAP-721 §2.2、§8.2 第 4 条），否则它们 MUST revert；存储后的文件可通过 `netlistFile(hash)` 和 `netlistOf(tokenId)` 读取。存储是幂等的。`storeNetlist(bytes)`（`0xf8b0cc86`）、`netlistFile(bytes32)`（`0x5267c429`）和 `netlistOf(uint256)`（`0xae502e0b`）的选择器，以及 `ManifestCommitted(bytes32)`（`0x283da7c24290f991388adb4188dab383e865d9edad5d228e8b95805b85bba620`）和 `NetlistStored(bytes32,address)`（`0x4095b27949435770a1b733b92eb73b92fb8d0c052ef06cf5db328010d57a64ed`）的 topic，均为 `ITapNetlistNFT` 的（TAP-721，测试用例）；`MetadataUpdate(uint256)` 属于 ERC-4906（`0xf8e1a15aba9398e019f0b49df1a4fde98ee17ae345cb5f6b5e2c27f5033e8ce7`）。
 - **tokenURI：** `baseURI ‖ decimal tokenId`；base URI 为空时为空字符串。base URI 在部署时固定。镜像合约 `tokenURI` 处的文档 MUST 与原集合同一代币的文档逐字节相同，后者以原链标识符标识该代币（TAP-721 §4.1）。在原集合的元数据位置确定之前，SHOULD NOT 部署镜像合约。
 
-**`ITapNetlistNFT` 的镜像配置。** 镜像合约没有自己的清单文件、池或揭示。它返回：`collection()` = 镜像合约自身；`tokenRange()` = 部署时的范围；`manifestHash()` = 第一个带入的非零清单哈希（一旦非零就不再改变）；`pools()` = 空；`masterSeed()` = 0；`frozen()` = false；`netlistHashOf`、`imageHashOf` = 代币携带的哈希（尚无已知哈希时为零），离开后仍保留。`entryIndexOf` 和 `bind` MUST 以错误 `NotHomeCollection()`（选择器 `0xbbfa1ada`）revert。镜像合约不计算条目索引；任何计算条目索引的扩展 MUST 用原链链 ID 和原集合地址（清单中的 `collection`，TAP-721 §6.2）派生池种子，绝不能用镜像合约自己的。这是 TAP-721 §8.2 允许的桥接副本情形。镜像合约通过 ERC-165 同时声明 `ITapNetlistNFT` 和 `ITapBridgeMirror`；客户端发现 `ITapBridgeMirror` 即知揭示和清单文件在原链上。
+**`ITapNetlistNFT` 的镜像配置规范。** 镜像合约没有自己的清单文件、池或揭示。它返回：`collection()` = 镜像合约自身；`tokenRange()` = 部署时的区间；`manifestHash()` = 第一个带入的非零清单哈希（一旦非零就不再改变）；`pools()` = 空；`masterSeed()` = 0；`frozen()` = false；`netlistHashOf`、`imageHashOf` = 代币携带的哈希（尚无已知哈希时为零），离开后仍保留。`entryIndexOf` 和 `bind` MUST 以错误 `NotHomeCollection()`（选择器 `0xbbfa1ada`）revert。镜像合约不计算条目索引；任何计算条目索引的扩展 MUST 用原链链 ID 和原集合地址（清单中的 `collection`，TAP-721 §6.2）派生池种子，绝不能用镜像合约自己的。这是 TAP-721 §8.2 允许的桥接副本情形。镜像合约通过 ERC-165 同时声明 `ITapNetlistNFT` 和 `ITapBridgeMirror`；客户端发现 `ITapBridgeMirror` 即知揭示和清单文件在原链上。
 
 `ITapBridgeMirror`（标识符 `0xdba6a55e`）：
 
@@ -273,7 +271,7 @@ revert 的送达（错误的对端、错误的来源、`AlreadyLive`、`Manifest
 
 ### 7. 策略
 
-- **`ONE`**（RECOMMENDED 默认值）：唯一所列适配器的送达立即生效。
+- **`ONE`**（默认值，SHOULD 采用）：唯一所列适配器的送达立即生效。
 - **`ALL`**：每个所列适配器都必须送达逐字节相同的载荷；代币在最后一次确认时释放或铸出。送达的载荷有任何一个字节不同的适配器，确认的是不同的消息 ID，两者都不会生效。
 - 不存在 `ANY` 策略（多个适配器中任意一个即可）。
 
@@ -299,7 +297,7 @@ revert 的送达（错误的对端、错误的来源、`AlreadyLive`、`Manifest
 
 #### 8.2 来源端点
 
-适配器传送的是裸的 320 字节载荷。由于一个适配器只服务一个端点，经过认证的远端适配器即标识了发送端点。收到消息时，在消息层自身认证远端适配器之后，适配器 MUST 把该远端适配器所服务的端点作为 `srcEndpoint` 传给 `receivePayload(srcChainId, srcEndpoint, payload)`；若它没有为 `srcChainId` 配置这样的端点，MUST revert。该配置每条远端链设置一次，与对端适配器一起设置；RECOMMENDED 以 `remoteEndpoint(uint64 chainId) returns (address)`（`0xf2d88e04`）公开它（参考适配器即如此）。随后端点按其路由检查来源端点（§5.1），因此决定另一条链上哪个合约可以代表该集合发言的是路由表，而不仅仅是适配器的对端表。
+适配器传送的是裸的 320 字节载荷。由于一个适配器只服务一个端点，经过认证的远端适配器即标识了发送端点。收到消息时，在消息层自身认证远端适配器之后，适配器 MUST 把该远端适配器所服务的端点作为 `srcEndpoint` 传给 `receivePayload(srcChainId, srcEndpoint, payload)`；若它没有为 `srcChainId` 配置这样的端点，MUST revert。该配置每条远端链设置一次，与对端适配器一起设置；适配器 SHOULD 以 `remoteEndpoint(uint64 chainId) returns (address)`（`0xf2d88e04`）公开它（参考适配器即如此）。随后端点按其路由检查来源端点（§5.1），因此决定另一条链上哪个合约可以代表该集合发言的是路由表，而不仅仅是适配器的对端表。
 
 #### 8.3 适配器封存
 
@@ -382,7 +380,7 @@ HubMessage(uint64 srcChainId,address hub,address fromContainer,uint256 outboxInd
 
 - **与 TAP-721 的关系。** 本 TAP 是单独的扩展，而不是 TAP-721 的一节，因为它的安全性依赖仍可升级的消息层：LayerZero V2 的端点配置、DVN 和执行器，以及跨链验证仍待定的 TAP-10 hub。依赖可升级合约的 TAP 在这些合约封存之前只能停留在 Candidate（TAP-01 §5.1）；若放在 TAP-721 之内，这一依赖会拖住整个标准，而 TAP-721 集合在原链上铸造、揭示和核验都不需要它。分开之后，TAP-721 可以独立推进，本 TAP 在路由和适配器封存后推进（§8.3、§11），而且桥从不改变原链上的 TAP-721 集合。
 - **锁定-铸造，原件是唯一的事实来源。** 在原链上销毁需要集合配合，而 TapeCode-Test1 这样的既有集合做不到。托管适用于任何 ERC-721，原集合、其供应量及其交易市场都保持不变；回到原链的代币就是原件本身。
-- **为什么不直接用 ONFT721，以及本草案保留的另一种方案。** LayerZero 的 ONFT721 是单一消息层的库模式，不是 ERC。它的适配器形式（`ONFT721Adapter`）与网关合约完全一样地托管一个未经修改的 ERC-721，镜像合约也可以是 `ONFT721` 的子类。对本草案的一份跨链审查建议任何部署都采用这种设计：在标准 ONFT 消息后附加三个哈希，原样保留 §5.3 的镜像配置和 `materialize`，以来自不同运营方的至少三个必需 DVN 代替 `ALL` 策略，并在原链适配器上采用星形路由和按路由记账。它的收益是：现成的 LayerZero 工具（连线和配置检查）、小得多的新增审计面（在已审计的库代码之上增加几百行，而不是自定义的端点和适配器），并且与 TapeOut 自己的生产桥（一个标准的 `OFTAdapter`）形态相同。它的损失是：没有独立于消息层的 `ALL` 策略，也没有适配器接口；它只支持 LayerZero，日后若要加入第二个独立的消息层，就需要一个新的标准。本草案规定自定义设计，使比较具体可见，并采纳了审查建议的星形路由和按路由记账，同时请 TAPs 讨论在两者之间作出选择。TapeCode-Test1 v1 没有部署计划。
+- **为什么不直接用 ONFT721，以及本草案保留的另一种方案。** LayerZero 的 ONFT721 是单一消息层的库模式，不是 ERC。它的适配器形式（`ONFT721Adapter`）与网关合约完全一样地托管一个未经修改的 ERC-721，镜像合约也可以是 `ONFT721` 的子类。对本草案的一份跨链审查建议任何部署都采用这种设计：在标准 ONFT 消息后附加三个哈希，原样保留 §5.3 的镜像配置规范和 `materialize`，以来自不同运营方的至少三个必需 DVN 代替 `ALL` 策略，并在原链适配器上采用星形路由和按路由记账。它的收益是：现成的 LayerZero 工具（连线和配置检查）、小得多的新增审计面（在已审计的库代码之上增加几百行，而不是自定义的端点和适配器），并且与 TapeOut 自己的生产桥（一个标准的 `OFTAdapter`）形态相同。它的损失是：没有独立于消息层的 `ALL` 策略，也没有适配器接口；它只支持 LayerZero，日后若要加入第二个独立的消息层，就需要一个新的标准。本草案规定自定义设计，使比较具体可见，并采纳了审查建议的星形路由和按路由记账，同时请 TAPs 讨论在两者之间作出选择。TapeCode-Test1 v1 没有部署计划。
 - **为什么不用 ERC-7786。** ERC-7786 定义了一个通用的跨链消息网关接口。本 TAP 的 `ITapBridgeAdapter` 不采用它，因为 ERC-7786 仍是草案，而且它的属性模型既不固定载荷，也不固定多个适配器之间的策略，而这恰恰是本 TAP 必须确定的部分。
 - **为什么载荷中要有哈希。** 这样镜像合约无需信任消息层之外的任何人，就能回答 `netlistHashOf` 并接受网表文件，各条链上的游戏读到的是同一个电路。图像和清单哈希只多两个字，却让镜像代币能像原件一样被展示和核验。
 - **为什么消息 ID 包含来源端点。** 端点可以在封存前被替换，而替换后的端点从 nonce 0 开始。若不包含来源端点，它的最初几个载荷可能与其前任发出的消息逐字节相同，目标链会把它们当作重放拒绝，而此时代币已被托管或销毁。把经过认证的来源端点与载荷一起哈希，可以使载荷格式保持固定的 320 字节。
@@ -405,7 +403,7 @@ HubMessage(uint64 srcChainId,address hub,address fromContainer,uint256 outboxInd
 
 ## 测试用例
 
-`assets/tap-netlist-nft-bridging/vectors.json`（格式 `tap-netlist-nft-bridging-vectors/2`）由同一目录下的 `make_vectors.py` 生成（无依赖的 Python，自带 Keccak-256），可逐字节复现：`python3 make_vectors.py --check`（SHA-256 `bcfd12c1a2f6d875ce602da32632c260afcd6c5b560a97297044f1f690224f51`）。它包含：
+`assets/tap-draft-netlist-nft-bridging/vectors.json`（格式 `tap-netlist-nft-bridging-vectors/2`）由同一目录下的 `make_vectors.py` 生成（无依赖的 Python，自带 Keccak-256），可逐字节复现：`python3 make_vectors.py --check`（SHA-256 `bcfd12c1a2f6d875ce602da32632c260afcd6c5b560a97297044f1f690224f51`）。它包含：
 
 - **集合键**：X Layer 上的 TapeCode-Test1，以及一个 BNB Smart Chain 示例；
 - **有效载荷**，每个都带有字段、载荷字节、`keccak256(payload)`、一个示例来源端点、消息 ID、hub `ref` 和 hub digest：`home-to-remote`（§4.3）、`remote-to-home`（BNB Smart Chain → X Layer，nonce 3）、`remote-to-home-unbound`（哈希为零）、`extremes`（最大的代币编号、链 ID 和 nonce）；
@@ -414,15 +412,15 @@ HubMessage(uint64 srcChainId,address hub,address fromContainer,uint256 outboxInd
 - **Hub 转发**：layer id、一个示例容器的 `to` 端点 ID、EIP-712 类型哈希、一个域分隔符、一个结构哈希，以及一条固定消息的待签名哈希；
 - **接口**：本 TAP 列出的选择器、ERC-165 标识符、事件 topic 和错误选择器。
 
-Solidity 参考实现复现每个向量（`test/bridge/TapBridgeVectors.t.sol`）。
+https://github.com/BruceLanLan/TAP-721 中的 Solidity 参考实现（见参考实现）复现每个向量（该仓库中的 `contracts/test/bridge/TapBridgeVectors.t.sol`）。
 
-行为测试（`test/bridge/TapBridge.t.sol`、`TapBridgeCompanion.t.sol`，通过切换 `block.chainid` 在一个 EVM 中模拟三条链）：往返 原链 → 远端 → 原链 以及 BNB Smart Chain → 原链 → Base → 原链，并拒绝镜像之间的路由；在模拟消息层、LayerZero（模拟 EndpointV2）和 hub（带持有人检查和见证人签名的模拟 hub）上的 `ONE`；`ALL(LayerZero, hub)`，其中任一消息层单独都不会铸币，第二次确认才铸币，两种顺序都测试，并测试返回原链；`ALL` 路由的两个适配器送达不一致的载荷时永不执行；同一适配器确认两次；执行后的重放，包括代币再次离开之后；错误的 LayerZero 对端、伪造的 origin、所列适配器给出不是路由对端的来源端点；未列在路由上的适配器；错误的来源、目标和集合；重复铸币、释放不在托管中的代币，以及按路由记账（位于 BNB Smart Chain 的代币不会被 Base 路由上的消息释放）；清单冲突和超出范围的编号；路由校验、适配器封存（包括只要任何 eid 仍跟随默认库、默认接收配置或处于接收库宽限期，LayerZero 适配器就不能封存，且拒绝 ULN302 的 NIL 值）和端点封存；通过替换和 `resend` 恢复卡住的 `ALL` 适配器；费用、退款和选项数量；未确认时拒绝合约接收方、确认后接受，以及把 EIP-7702 账户视为普通账户；揭示后先绑定的规则以及托管记录；网表物化、49,016 字节文件的分块存储以及镜像合约上的 `netlistOf`；镜像配置中空的揭示接口；一个形如 TapeCode-Test1 的既有集合（`setBaseURI`、`freezeBaseURI`、无 ERC-4906），以 TAP-721 核心实现的 `TapCompanion` 作为数据源，经过提交、揭示、绑定、跨链和物化。来自安全审查的回归测试（`test/audit/AuditBridge.t.sol`，针对清单范围之外代币的 `AuditFixes.t.sol`（该代币以零哈希离开），以及针对代币集成员资格和 NIL ULN 值的 `AuditPass3.t.sol`）：端点作为接收方、被替换且 nonce 重新开始的网关合约（合法消息得以执行）、转移后仍保留授权的集合（已托管代币不会第二次离开），以及适配器封存（封存后委托方和对端都不能更改）。
+同一仓库中的行为测试（`contracts/test/bridge/TapBridge.t.sol`、`TapBridgeCompanion.t.sol`，通过切换 `block.chainid` 在一个 EVM 中模拟三条链）：往返 原链 → 远端 → 原链 以及 BNB Smart Chain → 原链 → Base → 原链，并拒绝镜像之间的路由；在模拟消息层、LayerZero（模拟 EndpointV2）和 hub（带持有人检查和见证人签名的模拟 hub）上的 `ONE`；`ALL(LayerZero, hub)`，其中任一消息层单独都不会铸币，第二次确认才铸币，两种顺序都测试，并测试返回原链；`ALL` 路由的两个适配器送达不一致的载荷时永不执行；同一适配器确认两次；执行后的重放，包括代币再次离开之后；错误的 LayerZero 对端、伪造的 origin、所列适配器给出不是路由对端的来源端点；未列在路由上的适配器；错误的来源、目标和集合；重复铸币、释放不在托管中的代币，以及按路由记账（位于 BNB Smart Chain 的代币不会被 Base 路由上的消息释放）；清单冲突和超出范围的编号；路由校验、适配器封存（包括只要任何 eid 仍跟随默认库、默认接收配置或处于接收库宽限期，LayerZero 适配器就不能封存，且拒绝 ULN302 的 NIL 值）和端点封存；通过替换和 `resend` 恢复卡住的 `ALL` 适配器；费用、退款和选项数量；未确认时拒绝合约接收方、确认后接受，以及把 EIP-7702 账户视为普通账户；揭示后先绑定的规则以及托管记录；网表物化、49,016 字节文件的分块存储以及镜像合约上的 `netlistOf`；镜像配置规范中空的揭示接口；一个形如 TapeCode-Test1 的既有集合（`setBaseURI`、`freezeBaseURI`、无 ERC-4906），以 TAP-721 核心实现的 `TapCompanion` 作为数据源，经过提交、揭示、绑定、跨链和物化。同在该仓库中的、来自安全审查的回归测试（`contracts/test/audit/AuditBridge.t.sol`，针对清单区间之外代币的 `AuditFixes.t.sol`（该代币以零哈希离开），以及针对代币集成员资格和 NIL ULN 值的 `AuditPass3.t.sol`）：端点作为接收方、被替换且 nonce 重新开始的网关合约（合法消息得以执行）、转移后仍保留授权的集合（已托管代币不会第二次离开），以及适配器封存（封存后委托方和对端都不能更改）。
 
 模拟 EndpointV2 不运行 DVN 验证，也不做 EndpointV2 自身的 nonce 与载荷哈希记账，因此重放测试检验的是端点合约的防护，而真实的 EndpointV2 通常会更早拦截。模拟 hub 不检查容器是否已开通。
 
 ## 参考实现
 
-在本仓库中，Foundry 项目 `contracts/`，solc 0.8.28，优化器 10,000 runs，EVM `shanghai`。在 Review 之前（TAP-01 §7.2 第 8 条），该项目将要么移到 `assets/tap-<nn>/` 之下，要么以外部仓库的固定提交在此链接（CONTRIBUTING §2.4，TAP-01 §6.2）。
+Solidity：https://github.com/BruceLanLan/TAP-721（Foundry 项目 `contracts/`，solc 0.8.28，优化器 10,000 runs，EVM `shanghai`），将在进入 Review 之前以一个固定提交链接（TAP-01 §7.2 第 8 条）。下表路径均相对于该仓库中的 `contracts/`。
 
 | 路径 | 内容 |
 |---|---|

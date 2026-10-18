@@ -7,11 +7,11 @@ ids held by `0x…dEaD` are excluded and get placeholder metadata), netlist rari
 `rarity-7000.json` (size rule; 70×1 / 140×2 / 350×3 / 350×6 / 500×7), netlist files ≤ 49,152 bytes.
 
 Python 3.9+, standard library only. Every TAP primitive comes from
-`assets/tap-netlist-bound-nft/tapnft.py` (imported, never reimplemented): `check_file`, `file_from_chain`,
+`assets/tap-draft-netlist-bound-nft/tapnft.py` (imported, never reimplemented): `check_file`, `file_from_chain`,
 `tape_name`, `leaf_hash`, `merkle_root`, `merkle_levels`, `merkle_proof_from_levels`, `merkle_verify`,
 `pool_seed`, `permute`, `assignment`, `token_set_file`, `token_set_hash`, `check_token_set`, `token_index`,
 `check_manifest`, `check_metadata`, `check_editions`, `check_netlist_against_metadata`. The optional
-`tap.pod` (`--pod-snapshot`) is checked with `assets/tap-pod-attributes/pod_validate.py`, which needs
+`tap.pod` (`--pod-snapshot`) is checked with `assets/tap-draft-pod-attributes/pod_validate.py`, which needs
 pycryptodome; the final plan's metadata carries no mining state, so it is off by default.
 
 Network access is read-only: HTTP GET to drand relays, `eth_call` for chain reads and the freeze probe.

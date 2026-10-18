@@ -11,8 +11,6 @@ requires: TAP-02, TAP-10, TAP-draft-netlist-bound-nft, ERC-7496 (ethereum/ERCs c
 license: CC0-1.0
 ---
 
-<!-- `requires`: `TAP-draft-netlist-bound-nft` is TAP-721, the requested number of the core draft; if editors assign another, this draft takes that number. -->
-
 # TAP-TBD: Proof-of-Design Attributes for Netlist-Bound NFTs
 
 ## Summary
@@ -51,7 +49,7 @@ The names of `getMiner`, `minerKey`, `bestSlot`, `bonusOf`, `cachedDepth` and `p
 ### 2. Scope
 
 1. This TAP applies to a TAP-721 token whose `tap.source` names a circuit on BNB Smart Chain that has a miner record at the snapshot block. Only circuits of processor contracts of the BNB Smart Chain processor factory (TAP-02, TAP-10) can be the source of a token that carries `tap.pod`; sources on other chains (TAP-draft-netlist-bound-nft §3) have no PoD facts.
-2. A token MUST carry at most one `tap.pod` member, and it MUST describe the circuit named in `tap.source`. `tap.source` is REQUIRED when `tap.pod` is present, and `tap.source.chainId` MUST be `56`.
+2. A token MUST carry at most one `tap.pod` member, and it MUST describe the circuit named in `tap.source`. `tap.source` MUST be present when `tap.pod` is present, and `tap.source.chainId` MUST be `56`.
 3. Every requirement of TAP-draft-netlist-bound-nft continues to apply. `tap.pod` and `tap.rig` are further members of `tap` in the sense of §7.1 of that draft; tools that do not implement this TAP ignore them.
 4. A snapshot describes the source circuit, not the NFT. Its facts describe the NFT's netlist only when the source is confirmed (TAP-draft-netlist-bound-nft §3.2). A tool MUST NOT present PoD facts as facts about the NFT's netlist when the source is not confirmed; it MAY show them as "declared by the collection, not verified".
 
@@ -75,10 +73,10 @@ The names of `getMiner`, `minerKey`, `bestSlot`, `bonusOf`, `cachedDepth` and `p
 | `v` | yes | number | `1` |
 | `chainId` | yes | number | `56` |
 | `block` | yes | number | The snapshot block `B` |
-| `blockHash` | no (RECOMMENDED) | hash | Hash of block `B` |
+| `blockHash` | no (SHOULD) | hash | Hash of block `B` |
 | `timestamp` | no | number | Timestamp of block `B` (seconds) |
 | `mining` | yes | address | `0x7e2e0dc66a3bd9103e69b766afa62d9f7b697b46` |
-| `implementation` | no (RECOMMENDED) | address | The mining proxy's ERC-1967 implementation at `B` (storage slot `0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc`) |
+| `implementation` | no (SHOULD) | address | The mining proxy's ERC-1967 implementation at `B` (storage slot `0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc`) |
 | `processor` | yes | address | Processor contract of the source circuit; MUST equal `tap.source.processor` |
 | `circuitId` | yes | decimal string | Circuit id; MUST equal `tap.source.circuitId` |
 | `minerKey` | yes | hash | `minerKey(processor, circuitId)` at `B` |
@@ -115,7 +113,7 @@ Positions refer to the 22-member tuple returned by `getMiner(bytes32)`, counted 
 | `cost` | decimal string | derived: `area` · max(`depth`, 1)^`params.beta`, exact integer | C, the design cost |
 | `task` | object, optional | `getTask(taskId)` | `name` (string, tuple member 7), `kTask` (decimal string, tuple member 8, `refArea`), `cRef` (decimal string, tuple member 9, `refCost`) |
 
-`cost` is not stored in the miner record; it MUST be computed exactly as above with `params.beta`, the value of β at `B` (§3.1 item 3). For the miner that holds the optimal-first slot, `bestSlot(taskId, processor)` returns the same value as `cost` (Test Cases). In `task`, `kTask` is the task's K_task (the reference implementation's burn basis) and `cRef` its C_ref, both frozen when the task was created; the front end displays `refArea` as K_task.
+`cost` is not stored in the miner record; it MUST be computed exactly as above with `params.beta`, the value of β at `B` (§3.1 item 3). For the miner that holds the optimal-first slot, `bestSlot(taskId, processor)` returns the same value as `cost` (Test Cases). In `task`, `kTask` is the task's K_task (the burn basis of the task's reference circuit) and `cRef` its C_ref, both frozen when the task was created; the front end displays `refArea` as K_task.
 
 #### 3.5 `standing` (volatile facts)
 
@@ -281,7 +279,7 @@ Each trait key is `keccak256` of the UTF-8 trait name, as ERC-7496 recommends. T
 
 #### 5.5 Trait metadata
 
-The document returned by `getTraitMetadataURI()` MUST list each trait of §5.2 under its trait name with the `dataType` given in §5.3. `displayName` values MUST be unique (ERC-7496); the values in `assets/tap-pod-attributes/trait-metadata.json` are RECOMMENDED, and a collection that localises them SHOULD keep the words "at snapshot" for the volatile traits.
+The document returned by `getTraitMetadataURI()` MUST list each trait of §5.2 under its trait name with the `dataType` given in §5.2. `displayName` values MUST be unique (ERC-7496); a collection SHOULD use the values in `assets/tap-draft-pod-attributes/trait-metadata.json`, and one that localises them SHOULD keep the words "at snapshot" for the volatile traits.
 
 ### 6. Rig reference (`tap.rig`)
 
@@ -338,7 +336,7 @@ This draft depends on TAP-721 (`TAP-draft-netlist-bound-nft`) and is submitted a
 
 ## Test Cases
 
-`assets/tap-pod-attributes/vectors.json` is generated by `make_vectors.py` from recorded reads, without network access, and is reproduced byte for byte by the test suite (SHA-256 `ade615b1a2e461d26bbf88b67eb93767eb88d26a189b824cf0c484108a4dbebb`; `trait-metadata.json` `336be474884b5cf2ce32ed77bdb05a75a02c8b96db1073e229fe287c6cdda0ac`). The reads were made read-only at BNB Smart Chain block 128200681 (hash `0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5`, timestamp 1792253755, 2026-10-17 16:15:55 UTC): `assets/chain-snapshot.json` (four circuits; the reads for TapeOut #17851 and #17852 agreed between two operators, while the reads for #3151 and #38 and the contract parameters `lambda()`, `beta()`, `lambdaBurn()`, `taskCount()` and both `processorMultiplier` values came from the archive node `https://tapeout.net/rpc` only) and `assets/tap-pod-attributes/raw/` (`pod_snapshot.py`, archive node, block header cross-checked with a second operator). For the three circuits in both sources, every field read agrees. Parameters at that block: λ = 6, β = 3, λ_burn = 1; `processorMultiplier` 1 for TapeOut (`0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C`, processor 30) and 6 for Blonskr_No1 (`0x1f5cb4aeae1807bf60c3b9c0d8adbcc14e91f12c`, processor 1); implementation `0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898`.
+`assets/tap-draft-pod-attributes/vectors.json` is generated by `make_vectors.py` from recorded reads, without network access, and is reproduced byte for byte by the test suite (SHA-256 `ade615b1a2e461d26bbf88b67eb93767eb88d26a189b824cf0c484108a4dbebb`; `trait-metadata.json` `336be474884b5cf2ce32ed77bdb05a75a02c8b96db1073e229fe287c6cdda0ac`). The reads were made read-only at BNB Smart Chain block 128200681 (hash `0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5`, timestamp 1792253755, 2026-10-17 16:15:55 UTC): `assets/tap-draft-netlist-bound-nft/chain-snapshot.json` (four circuits; the reads for TapeOut #17851 and #17852 agreed between two operators, while the reads for #3151 and #38 and the contract parameters `lambda()`, `beta()`, `lambdaBurn()`, `taskCount()` and both `processorMultiplier` values came from the archive node `https://tapeout.net/rpc` only) and `assets/tap-draft-pod-attributes/raw/` (`pod_snapshot.py`, archive node, block header cross-checked with a second operator). For the three circuits in both sources, every field read agrees. Parameters at that block: λ = 6, β = 3, λ_burn = 1; `processorMultiplier` 1 for TapeOut (`0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C`, processor 30) and 6 for Blonskr_No1 (`0x1f5cb4aeae1807bf60c3b9c0d8adbcc14e91f12c`, processor 1); implementation `0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898`.
 
 | Circuit | Task (K_task, C_ref) | g, s | n, m | d | A | b* | C | Standing at block 128200681 |
 |---|---|---|---|---|---|---|---|---|
@@ -354,7 +352,7 @@ What the vectors show: for each slot holder, `bestSlot(taskId, processor).cost` 
 
 ## Reference Implementation
 
-Python 3.9, in `assets/tap-pod-attributes/` (MIT); ABI work uses Foundry's `cast`, keccak-256 uses pycryptodome:
+Python 3.9, in `assets/tap-draft-pod-attributes/` (MIT); ABI work uses Foundry's `cast`, keccak-256 uses pycryptodome:
 
 | File | Covers |
 |---|---|
@@ -364,7 +362,7 @@ Python 3.9, in `assets/tap-pod-attributes/` (MIT); ABI work uses Foundry's `cast
 | `make_vectors.py` | `vectors.json`, `trait-metadata.json` |
 | `test_pod.py` | Tests; regenerates the vectors and compares bytes |
 
-Uses `assets/tap-netlist-bound-nft/tapnft.py`, `tap02_reference.py` and `assets/chain-snapshot.json`; these paths are updated when the folders are renamed `assets/tap-<nn>/` on number assignment.
+Uses `assets/tap-draft-netlist-bound-nft/tapnft.py`, `tap02_reference.py` and `assets/tap-draft-netlist-bound-nft/chain-snapshot.json`; these paths are updated when the folders are renamed `assets/tap-<nn>/` on number assignment.
 
 Links at a fixed commit will be added before Review (TAP-01 §7.2 item 8).
 
@@ -405,6 +403,7 @@ Anyone can repeat the mining-contract checks with `eth_call` (`isSealed()` `0x63
 5. **Sequential check semantics.** `tap-pod-fc/1` compares sequential designs beat by beat from the all-zero state. Tasks whose vectors allow a warm-up or a phase offset may need another procedure; the task vector format is not published. Should the PoD authors' vector semantics replace it once available?
 6. **Rig mapping.** Is there an on-chain mapping from a rig voucher id to a (processor, circuit id) miner that a later version could verify?
 7. **Second operator.** The reads for #3151, #38, the reference circuits and the contract parameters come from one archive operator only (Test Cases). Before Review they should be repeated with a second operator that serves block 128200681.
+8. **Scope of `exhaustive`.** Should `method` `"exhaustive"` be restricted to the case where both circuits are combinational and nIn ≤ 16?
 
 ## Copyright
 

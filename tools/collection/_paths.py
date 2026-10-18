@@ -13,9 +13,9 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DRAFTS = os.path.normpath(os.path.join(HERE, "..", ".."))
-TAPNFT_DIR = os.path.join(DRAFTS, "assets", "tap-netlist-bound-nft")
+TAPNFT_DIR = os.path.join(DRAFTS, "assets", "tap-draft-netlist-bound-nft")
 PROFILES_DIR = os.path.join(DRAFTS, "profiles")
-POD_DIR = os.path.join(DRAFTS, "assets", "tap-pod-attributes")
+POD_DIR = os.path.join(DRAFTS, "assets", "tap-draft-pod-attributes")
 
 for _d in (TAPNFT_DIR, PROFILES_DIR):
     if _d not in sys.path:

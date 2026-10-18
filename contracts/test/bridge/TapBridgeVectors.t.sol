@@ -17,12 +17,12 @@ import {TapGateway} from "../../src/bridge/TapGateway.sol";
 import {TapMirror} from "../../src/bridge/TapMirror.sol";
 import {TapAdapterBase} from "../../src/bridge/TapAdapterBase.sol";
 
-/// @notice Checks the Solidity implementation against assets/tap-netlist-nft-bridging/vectors.json.
+/// @notice Checks the Solidity implementation against assets/tap-draft-netlist-nft-bridging/vectors.json.
 contract TapBridgeVectorsTest is Test {
     string json;
 
     function setUp() public {
-        json = vm.readFile("../assets/tap-netlist-nft-bridging/vectors.json");
+        json = vm.readFile("../assets/tap-draft-netlist-nft-bridging/vectors.json");
     }
 
     function _s(string memory path) internal view returns (string memory) {

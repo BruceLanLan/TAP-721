@@ -11,8 +11,6 @@ requires: TAP-02, TAP-draft-netlist-bound-nft
 license: CC0-1.0
 ---
 
-<!-- `requires`：`TAP-draft-netlist-bound-nft` 即 TAP-721，核心草案申请的编号；若编辑分配了其它编号，本草案即采用该编号。 -->
-
 本文是 `TAP-draft-netlist-structural-hash.md` 的中文译文，仅供参考；与英文不一致时以英文为准（TAP-01 §6.2）。
 
 # TAP-TBD：扁平网表的结构哈希
@@ -185,7 +183,7 @@ structuralHash = SHA-256(ASCII("tap-structural-hash/1") ‖ 0x00 ‖ canonical f
 
 ## 测试用例
 
-`assets/tap-netlist-structural-hash/vectors.json`（格式 `tap-structural-hash-vectors/1`）由 `make_vectors.py` 从参考实现生成，可逐字节复现（SHA-256 `35aaf41cbcff011290ba51ee9cc9f5ca7820345658069161bba74062914062aa`）。每个用例给出输入文件、其网表哈希、规范文件、结构哈希，以及计数 `live`、`nodes`、`cyclic`（`|C|`）、`rounds`（`R`，`C` 为空时为 0）和 `copies`。每个实现都必须复现每个用例的规范文件和结构哈希，并且必须拒绝 `invalid` 中的每个文件。
+`assets/tap-draft-netlist-structural-hash/vectors.json`（格式 `tap-structural-hash-vectors/1`）由 `make_vectors.py` 从参考实现生成，可逐字节复现（SHA-256 `35aaf41cbcff011290ba51ee9cc9f5ca7820345658069161bba74062914062aa`）。每个用例给出输入文件、其网表哈希、规范文件、结构哈希，以及计数 `live`、`nodes`、`cyclic`（`|C|`）、`rounds`（`R`，`C` 为空时为 0）和 `copies`。每个实现都必须复现每个用例的规范文件和结构哈希，并且必须拒绝 `invalid` 中的每个文件。
 
 | 用例 | nIn / nOut | live / nodes | cyclic / rounds / copies | structuralHash |
 |---|---|---|---|---|
@@ -213,7 +211,7 @@ structuralHash = SHA-256(ASCII("tap-structural-hash/1") ‖ 0x00 ‖ canonical f
 
 文件中还包含 `equalGroups`（必须共享同一哈希的用例：XOR 系列、两个翻转器用例、两个常量环，以及四份带种子的随机网表，每份各有三个经过重新编号、NAND 输入交换、死元件和复制的变体）、`distinct`（必须不同的用例对：4 NAND 与 5 NAND 的 XOR、`andnot` 与其输入交换版本、双重与四重否定），以及 `invalid`（一条 REF 记录、错误的文件头、没有记录、一个 NAND 向前引用）。
 
-**主网电路。** `chainSnapshot` 收录 `assets/tap-netlist-structural-hash/chain-circuits.json` 中不含 REF 的电路（钉自 `assets/chain-snapshot.json`；其中第四个电路 #38 使用 REF，没有结构哈希），这些数据在 BNB Smart Chain 区块 128,200,681 上从处理器 `0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C` 只读读取（`eth_call`，不发交易）：
+**主网电路。** `chainSnapshot` 收录 `assets/tap-draft-netlist-structural-hash/chain-circuits.json` 中不含 REF 的电路（取自 `assets/tap-draft-netlist-bound-nft/chain-snapshot.json` 的固定读取结果；其中第四个电路 #38 使用 REF，没有结构哈希），这些数据在 BNB Smart Chain 区块 128,200,681 上从处理器 `0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C` 只读读取（`eth_call`，不发交易）：
 
 | 电路 | nIn / nOut | NAND / LATCH | live / nodes / copies | structuralHash |
 |---|---|---|---|---|
@@ -227,7 +225,7 @@ structuralHash = SHA-256(ASCII("tap-structural-hash/1") ‖ 0x00 ‖ canonical f
 
 ## 参考实现
 
-- `assets/tap-netlist-structural-hash/canon.py`（MIT）：约 250 行无依赖的 Python（含命令行）；`canonicalize(file)` 返回规范文件、结构哈希以及上述计数。它原样使用 `assets/tap-netlist-bound-nft/tapnft.py` 的文件检查和 TAP-02 解码器 `tap02_reference.py`。这些路径（`assets/tap-netlist-bound-nft/tapnft.py`、`tap02_reference.py`，以及测试用例中的 `assets/chain-snapshot.json`）跨越资产目录；编号分配、目录改名为 `assets/tap-<nn>/` 时一并更新。命令行：`python3 canon.py <file.tapnet>` 或 `python3 canon.py 0x<netlist> --n-in N --n-out M`。
+- `assets/tap-draft-netlist-structural-hash/canon.py`（MIT）：约 250 行无依赖的 Python（含命令行）；`canonicalize(file)` 返回规范文件、结构哈希以及上述计数。它原样使用 `assets/tap-draft-netlist-bound-nft/tapnft.py` 的文件检查和 TAP-02 解码器 `tap02_reference.py`。这些路径（`assets/tap-draft-netlist-bound-nft/tapnft.py`、`tap02_reference.py`，以及测试用例中的 `assets/tap-draft-netlist-bound-nft/chain-snapshot.json`）跨越资产目录；编号分配、目录改名为 `assets/tap-<nn>/` 时一并更新。命令行：`python3 canon.py <file.tapnet>` 或 `python3 canon.py 0x<netlist> --n-in N --n-out M`。
 - `make_vectors.py` 重新生成 `vectors.json`；`test_canon.py` 运行上述测试（`python3 make_vectors.py && python3 test_canon.py`）。
 
 ## 部署

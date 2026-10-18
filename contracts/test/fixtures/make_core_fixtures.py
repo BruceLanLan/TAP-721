@@ -9,7 +9,7 @@ import random
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, "..", "..", "..", "assets", "tap-netlist-bound-nft"))
+sys.path.insert(0, os.path.join(HERE, "..", "..", "..", "assets", "tap-draft-netlist-bound-nft"))
 
 import tap02_reference as tap02  # noqa: E402
 import tapnft as T  # noqa: E402
@@ -178,7 +178,7 @@ def main():
                   "tokens": tokens}
 
     # ---- evaluation (TAP-02 §4 beat, §5 packing) of the real files in vectors.json "tapnet"
-    with open(os.path.join(HERE, "..", "..", "..", "assets", "tap-netlist-bound-nft", "vectors.json")) as f:
+    with open(os.path.join(HERE, "..", "..", "..", "assets", "tap-draft-netlist-bound-nft", "vectors.json")) as f:
         real = {e["source"]["circuitId"]: bytes.fromhex(e["file"][2:]) for e in json.load(f)["tapnet"] if e["valid"]}
 
     def beat(data, state_bytes, in_bytes):

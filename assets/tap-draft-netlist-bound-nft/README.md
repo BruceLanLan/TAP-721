@@ -3,8 +3,8 @@
 | File | What it is |
 |---|---|
 | `tapnft.py` | Reference implementation: `.tapnet` files, the manifest Merkle tree (`merkle_levels` plus `merkle_proof_from_levels` give many proofs from one tree), `check_manifest` (range mode and set mode), token sets (`token_set_hash`, `token_set_file`, `check_token_set`, `token_index`), `assignment`, the reveal permutation, `check_metadata` and the collection-level `check_editions`. The command line `python3 tapnft.py FILE…` checks `.tapnet` files, manifests and token metadata. |
-| `tap02_reference.py` | TAP-02 reference implementation, copied unchanged from the TAPs repository (`assets/tap-02/reference.py`). |
-| `chain-circuits.json` | Pinned on-chain input: `circuitInfo` and `netlist` of four BNB Smart Chain circuits at block 128200681. The data comes from read-only `eth_call` reads (subset of `../chain-snapshot.json`); no transaction was sent. |
+| `tap02_reference.py` | TAP-02 reference implementation, copied from `assets/tap-02/reference.py` (TAPs repository) with only the header comment changed. |
+| `chain-circuits.json` | Pinned on-chain input: `circuitInfo` and `netlist` of four BNB Smart Chain circuits at block 128200681. The data comes from read-only `eth_call` reads (subset of `chain-snapshot.json`); no transaction was sent. |
 | `make_vectors.py` | Generates `vectors.json` and `example/` using only `tapnft.py` functions. It is deterministic. |
 | `vectors.json` | Test vectors (sections below). |
 | `example/` | Worked collection: `manifest.json`, `token/1.json` … `token/8.json`, and the three `.tapnet` files under `netlists/<sha256>.tapnet`. |
@@ -17,7 +17,7 @@ python3 make_vectors.py && python3 test_tapnft.py
 ```
 
 Needs Python 3.9 or later and the standard library only. To re-pin the chain input from a fresh snapshot, run
-`python3 make_vectors.py --import ../chain-snapshot.json`. This changes `chain.block`, `source.block` and therefore the hash below.
+`python3 make_vectors.py --import chain-snapshot.json`. This changes `chain.block`, `source.block` and therefore the hash below.
 
 SHA-256 of `vectors.json`:
 

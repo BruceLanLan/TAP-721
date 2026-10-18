@@ -1,17 +1,19 @@
 # Security
 
-**Nothing in this repository is deployed or audited.** The contracts are reference implementations of draft
-standards. Do not deploy them with real value before the open findings below are fixed and an independent
-audit is done.
+**Nothing in this repository is deployed or externally audited.** The contracts are reference implementations
+of draft standards (TAP-721 and its extension TAPs, status Draft). They have had four internal review passes and
+two final rounds (r1, r2); r2 found no high, medium or low issue, and the one accepted low finding (L-9) is
+disclosed below. Do not deploy them with real value before an independent audit.
 
 ## Reporting a vulnerability
 
 Open an issue in this repository's GitHub issue tracker. For a problem in a draft's specification (as opposed to
-this code), use the discussion issue linked from the draft's `discussions-to` field at
-[TapeOutProtocol/TAPs](https://github.com/TapeOutProtocol/TAPs). Because nothing is deployed, there are no
+this code), use the Idea issue [TapeOutProtocol/TAPs#66](https://github.com/TapeOutProtocol/TAPs/issues/66)
+(every draft's `discussions-to`) or the draft's PR (#67–#70). Because nothing is deployed, there are no
 funds at risk and public disclosure is fine. If you believe a finding also affects a live TapeOut contract
-(listed in [FACTS.md](FACTS.md)), contact that contract's operators first and only describe it here once they
-have had a chance to respond.
+(listed in [FACTS.md](FACTS.md)), do not post it publicly first: send a direct message to the maintainer on X
+([@BruceBlue](https://x.com/BruceBlue)) or contact that contract's operators, and only describe it here once
+they have had a chance to respond. Maintainer: GitHub [@BruceLanLan](https://github.com/BruceLanLan).
 
 ## Internal review summary
 
@@ -66,7 +68,8 @@ a zero value, a commit emits ERC-4906, an adapter drops its owner only through `
 manifest field) or in the text; `contracts/test/audit/AuditFinalR1.t.sol` asserts the resulting behaviour.
 **Final round r2** ([`reviews/final-r2-summary.md`](../reviews/final-r2-summary.md)) found no high, medium or low
 issue; three of its informational notes were applied (no duplicate ERC-4906 event on a no-reveal commit, an adapter
-constructor rejects a zero owner, test names).
+constructor rejects a zero owner, test names). L-9 remains accepted and disclosed (NatSpec and the trust map below).
+After r2: `forge test` 198/198 in 24 suites, X Layer fork test 2/2, Python 31 / 18 / 26 (see [TESTING.md](TESTING.md)).
 
 ### Withheld review
 
@@ -74,7 +77,15 @@ One further review (fairness and economics of PoD-based rarity) is **withheld fr
 disclosure to the TapeOut team**, because it names specific miner circuits whose netlists compute a different
 function than their task's reference circuit despite being marked verified on chain. It will be published once
 the TapeOut team has had the chance to respond. The general rule it motivated (rankings should require a
-functional check, `functionCheck` in draft C) is in the drafts.
+functional check, `functionCheck` in draft C) is in the drafts. The `verifiedButWrong` example in
+`assets/tap-draft-pod-attributes/synthetic/verified-but-wrong.json` is **synthetic** (hand-built, fictional processor and
+id), not chain data; no real instance is published here.
+
+### Not in this repository
+
+Per-token holder data from the TapeCode-Test1 owner scan (`owners.json`, `owner_classes.json`,
+`transfers_sample.json`; only their SHA-256 hashes are in `tools/tokenset/README.md`) and internal working
+documents (an operations handbook for the first adopter and internal reviews) are not published.
 
 ## Trust map
 

@@ -50,7 +50,7 @@ flowchart TD
   end
 
   PROC -->|"tools/fetch_chain.py<br/>tapnft.file_from_chain"| TAPNET["tapnet/1 file<br/>'TAPNET' 01 00 · nIn · nOut · records<br/>netlistHash = SHA-256(file)"]
-  MINE -->|"assets/tap-pod-attributes/pod_snapshot.py<br/>fixed block"| POD["PoD snapshot (extension C)"]
+  MINE -->|"assets/tap-draft-pod-attributes/pod_snapshot.py<br/>fixed block"| POD["PoD snapshot (extension C)"]
   TAPNET -->|"canon.py (extension D)"| SH["structuralHash"]
 
   TAPNET --> POOLS["tools/collection/build_pools.py<br/>IMAGE_V1 + NETLIST_V1 pools"]
@@ -140,6 +140,8 @@ sequenceDiagram
 - **Message ids** are `keccak256(srcEndpoint ‖ payload)`, so a redeployed endpoint cannot collide with an old one.
 - **TAP-10 hub profile** is **[Open]**: the hub stores messages only on the sender's chain, so the reference
   adapter accepts relayed payloads with K-of-N EIP-712 attestations from a fixed attester set.
+- **Test coverage:** the bridge contracts are tested with mock endpoints and adapters and with the shared
+  payload vectors only; nothing has been run over real LayerZero V2 or hub messages, and nothing is deployed.
 - The official TapeOut rig bridge (BSC vault → X Layer voucher over LayerZero V2) is an existing, separate
   system; addresses in [FACTS.md](FACTS.md).
 
@@ -147,13 +149,13 @@ sequenceDiagram
 
 | Component | Family part | Reference code | Tests |
 |---|---|---|---|
-| `tapnet/1`, manifest, Merkle, permutation, metadata | Core | `assets/tap-netlist-bound-nft/tapnft.py`, `tap02_reference.py` | `test_tapnft.py`, `contracts/test/core/CoreVectors.t.sol` |
+| `tapnet/1`, manifest, Merkle, permutation, metadata | Core | `assets/tap-draft-netlist-bound-nft/tapnft.py`, `tap02_reference.py` | `test_tapnft.py`, `contracts/test/core/CoreVectors.t.sol` |
 | L1 collection and Companion | Core §8.2, §8.3 | `contracts/src/core/` | `contracts/test/core/`, `contracts/test/audit/AuditCore.t.sol` |
 | Netlist VM (TAP-02 evaluation) | Eval extension §8.4 | `contracts/src/core/TapNetlistVM.sol` | `TapNetlistEval.t.sol`, `AuditVM.t.sol` (differential fuzz) |
-| Gateway, Mirror, adapters | Extension B | `contracts/src/bridge/`, `assets/tap-netlist-nft-bridging/make_vectors.py` | `contracts/test/bridge/`, `AuditBridge.t.sol` |
-| PoD attributes, functional check | Extension C | `assets/tap-pod-attributes/` (`function_check.py`), `tools/collection/verify_function.py` | `test_pod.py` |
+| Gateway, Mirror, adapters | Extension B | `contracts/src/bridge/`, `assets/tap-draft-netlist-nft-bridging/make_vectors.py` | `contracts/test/bridge/`, `AuditBridge.t.sol` |
+| PoD attributes, functional check | Extension C | `assets/tap-draft-pod-attributes/` (`function_check.py`), `tools/collection/verify_function.py` | `test_pod.py` |
 | Eager pool loading | Core §8.2 item 3 | `TapNetlistCore.loadPool` | `contracts/test/core/TapPoolLoad.t.sol`, `CoreGas.t.sol` |
-| Structural hash | Extension D | `assets/tap-netlist-structural-hash/canon.py` | `test_canon.py` |
+| Structural hash | Extension D | `assets/tap-draft-netlist-structural-hash/canon.py` | `test_canon.py` |
 | Collection pipeline | profile | `tools/collection/` | `test_pipeline.py` (network) |
 | Container upload, lock | profile | `tools/uploader/`, `contracts/src/tools/TapContainerLock.sol` | `test_e2e.py`, `test/fork/ContainerLock.t.sol` (fork) |
 | Server-side gateway | profile / TAP-10 | `tools/gateway/` | `test/unit.test.mjs`, `test/live.test.mjs` (network) |

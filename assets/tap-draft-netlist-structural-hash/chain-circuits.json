@@ -39,5 +39,5 @@
    "processor": "0x1f5cb4aeae1807bf60c3b9c0d8adbcc14e91f12c"
   }
  ],
- "note": "Pinned subset of ../chain-snapshot.json: read-only eth_call results; no transaction was sent."
+ "note": "Pinned subset of ../tap-draft-netlist-bound-nft/chain-snapshot.json: read-only eth_call results; no transaction was sent."
 }

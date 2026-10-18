@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: MIT
-"""Test vectors for the TAP draft "Moving Netlist-Bound NFTs between TapeOut chains".
+"""Test vectors for the TAP draft "Moving Netlist-Bound NFTs between TapeOut Chains".
 
 Dependency-free (includes a Keccak-256). Writes vectors.json next to this file; the output is
 byte-for-byte reproducible. Usage: python3 make_vectors.py [--check]

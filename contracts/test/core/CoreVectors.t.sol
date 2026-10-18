@@ -7,7 +7,7 @@ import {TapNetlistNFT} from "../../src/core/TapNetlistNFT.sol";
 import {LibHarness, MerkleBuilder} from "./CoreHelpers.sol";
 
 /// Cross-check against the Python reference: test/fixtures/core-vectors.json is written by
-/// test/fixtures/make_core_fixtures.py from assets/tap-netlist-bound-nft/tapnft.py.
+/// test/fixtures/make_core_fixtures.py from assets/tap-draft-netlist-bound-nft/tapnft.py.
 contract CoreVectorsTest is Test {
     LibHarness h;
     string json;

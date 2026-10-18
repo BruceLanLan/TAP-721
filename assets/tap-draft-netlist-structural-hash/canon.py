@@ -2,7 +2,7 @@
 
 MIT licence. Pure Python 3.9+, no dependencies besides the reference code of the
 "Netlist-Bound NFTs" draft (tapnft.py, tap02_reference.py), imported unchanged from
-../tap-netlist-bound-nft.
+../tap-draft-netlist-bound-nft.
 
 Specification steps (section numbers of the draft):
   §3  liveness
@@ -22,7 +22,7 @@ import os
 import sys
 from dataclasses import dataclass
 
-sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "tap-netlist-bound-nft"))
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "tap-draft-netlist-bound-nft"))
 
 import tap02_reference as tap02  # noqa: E402
 import tapnft  # noqa: E402

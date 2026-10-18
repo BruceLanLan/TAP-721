@@ -3,6 +3,21 @@
 All notable changes to this repository. The TAP texts are drafts; their numbers are assigned by the TAPs
 editors. Dates are UTC+8.
 
+## v0.1.1 (draft) — 2026-10-18
+
+Submitted to [TapeOutProtocol/TAPs](https://github.com/TapeOutProtocol/TAPs): Idea issue
+[#66](https://github.com/TapeOutProtocol/TAPs/issues/66) (number 721 requested for the flagship), flagship PR
+[#67](https://github.com/TapeOutProtocol/TAPs/pull/67), extension PRs
+[#68](https://github.com/TapeOutProtocol/TAPs/pull/68) (bridging), [#69](https://github.com/TapeOutProtocol/TAPs/pull/69)
+(PoD attributes) and [#70](https://github.com/TapeOutProtocol/TAPs/pull/70) (structural hash). The PRs link the
+reference implementation at commit `23dc425`.
+
+- `discussions-to` of every draft points at #66; `docs/submission/` holds the texts as posted.
+- Final review round r2 (`reviews/final-r2-summary.md`): no high, medium or low issue.
+- PoD vectors: the `verifiedButWrong` example is synthetic; the real instance is withheld until disclosed to the
+  TapeOut team. Per-token holder data and internal working documents are not published.
+- Contact: X [@BruceBlue](https://x.com/BruceBlue).
+
 ## v0.1 (draft) — 2026-10-18
 
 First public snapshot of **TAP-721 · Netlist-Bound NFTs** and its companion drafts. Not deployed. Audited
@@ -49,7 +64,7 @@ editors assign the real numbers.
 
 ### Repository
 
-- Ready-to-post submission drafts (`docs/submission/`: Idea issue and four PR bodies).
+- Submission texts (`docs/submission/`: Idea issue and four PR bodies).
 - Bilingual README, implementer's guide ([docs/STANDARD.md](docs/STANDARD.md)), architecture, on-chain facts,
   testing and security docs; introductory article in `docs/article/`.
 - CI for the offline suites; network suites behind a manual flag.

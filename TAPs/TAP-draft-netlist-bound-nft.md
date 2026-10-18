@@ -19,7 +19,7 @@ This TAP lets an NFT carry, next to its picture, a real TapeOut circuit that any
 
 ## Abstract
 
-A netlist-bound NFT is an ERC-721 token whose metadata, and optionally whose contract, bind it to an image and to a netlist in the `tapnet/1` format defined here (a TAP-02 netlist without REF records, with its input and output counts). The TAP specifies that format and its hash, how a netlist is traced back to the TapeOut circuit it was copied from, a global token identifier for the chains of TAP-10, a collection manifest that commits pools of images and netlists by Merkle roots before the reveal (over a token range or an explicit token set), a keyed permutation that assigns pool entries to tokens from one random seed, and the `tap` member of the token metadata. Like ERC-721, it has a mandatory core with two conformance levels, L0 (metadata only, reachable by an existing contract that can only change its base URI) and L1 (the on-chain interface `ITapNetlistNFT`, implemented by the collection or a companion contract), plus extensions: TokenSet (required in set mode), Companion (required of every companion), the optional Eval extension that lets contracts run a token's netlist, and rules for hosting content in TapeOut containers. Bridging, Proof-of-Design attributes and a structural netlist hash are separate TAP-721 extension proposals.
+A netlist-bound NFT is an ERC-721 token whose metadata, and optionally whose contract, bind it to an image and to a netlist in the `tapnet/1` format defined here (a TAP-02 netlist without REF records, with its input and output counts). The TAP specifies that format and its hash, how a netlist is traced back to the TapeOut circuit it was copied from, a global token identifier for the chains of TAP-10, a collection manifest that commits pools of images and netlists by Merkle roots before the reveal (over a token range or an explicit token set), a keyed permutation that assigns pool entries to tokens from one random seed, and the `tap` member of the token metadata. Like ERC-721, it has a mandatory core with two conformance levels, L0 (metadata only, reachable by an existing contract that can only change its base URI) and L1 (the on-chain interface `ITapNetlistNFT`, implemented by the collection or a companion contract), plus extensions: TokenSet (required of an L1 contract in set mode), Companion (required of every companion), the optional Eval extension that lets contracts run a token's netlist, and rules for hosting content in TapeOut containers. Bridging, Proof-of-Design attributes and a structural netlist hash are separate TAP-721 extension proposals.
 
 ## Motivation
 
@@ -39,9 +39,9 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 The core (§1–§8.2) is followed by extensions in the same document:
 
-- **TAP-721 Companion extension** (§8.3, `ITapCompanion`): REQUIRED of every companion contract;
-- **TAP-721 Eval extension** (§8.4, `ITapNetlistEval`): OPTIONAL for L1 contracts;
-- **TAP-721 TokenSet extension** (§8.5, `ITapNetlistTokenSet`): REQUIRED for an L1 contract whose manifest uses set mode (§5.4), OPTIONAL in range mode;
+- **TAP-721 Companion extension** (§8.3, `ITapCompanion`): every companion contract MUST implement it;
+- **TAP-721 Eval extension** (§8.4, `ITapNetlistEval`): an L1 contract MAY implement it;
+- **TAP-721 TokenSet extension** (§8.5, `ITapNetlistTokenSet`): an L1 contract whose manifest uses set mode (§5.4) MUST implement it, and one in range mode MAY;
 - **TAP-721 container hosting and locking** (§8.6): SHOULD-level rules for collections that serve content from TapeOut containers.
 
 ### Conformance summary
@@ -264,7 +264,7 @@ Requirements:
 3. Every input that affects how tokens are assigned or labelled — pool order, the token set, tiers and rarity rules, eligibility rules, and the snapshot blocks of attribute sources such as `TAP-draft-pod-attributes` — MUST be fixed by the manifest (in its bytes, or in a file whose SHA-256 the manifest contains) before the master seed can be known;
 4. A collection whose `reveal.source` is not `none` SHOULD finish minting before the master seed can be known, because once it is known anyone can compute which unminted token id receives which entry;
 5. A collection SHOULD publish the revealed metadata promptly after the seed becomes known, and SHOULD warn holders in advance that from that moment anyone can compute every token's assignment;
-6. `blockhash` is NOT RECOMMENDED on a chain whose blocks are produced by a single sequencer, because that sequencer can choose among block contents; X Layer and Base are such chains (as of 2026-10-17 UTC). A block hash can be read on chain only during the 256 blocks after its block; a reveal not recorded in that window cannot happen under this manifest;
+6. `blockhash` SHOULD NOT be used on a chain whose blocks are produced by a single sequencer, because that sequencer can choose among block contents; X Layer and Base are such chains (as of 2026-10-17 UTC). A block hash can be read on chain only during the 256 blocks after its block; a reveal not recorded in that window cannot happen under this manifest;
 7. A tool that checks a `drand` seed MUST confirm that the `randomness` equals SHA-256 of the round's `signature`, MUST obtain the same signature from at least two independent drand relays whose chain information hashes to `chainHash`, and SHOULD verify the BLS signature against the chain's public key;
 8. How the master seed is written on chain is implementation-defined; an L1 contract MUST set it to the value this section defines for the manifest's source, and its `Revealed(masterSeed)` event lets anyone compare.
 
@@ -391,7 +391,7 @@ A collection conforms at L0 if its token metadata follows §7 and, when it revea
 A contract conforms at L1 if it implements `ITapNetlistNFT` below, ERC-165 (reporting the interface identifiers of `ITapNetlistNFT` `0x282b67f6`, ERC-165 `0x01ffc9a7` and ERC-4906 `0x49064906`) and ERC-4906, and if:
 
 1. `manifestHash()` and `masterSeed()` once non-zero, and `pools()` and `tokenRange()` once set (non-empty, `supply` ≥ 1), never change; `pools()[i]` equals the label, field mask and root of the manifest's `pools[i]`;
-2. `entryIndexOf(t, p)` returns `permute(poolSeed_p, n, x)` with the index `x` of §6.3 once `masterSeed()` is non-zero, and reverts before, for a token that is not covered (§5.4), and for a pool index that does not exist. If the manifest's `reveal.source` is `none`, the contract sets `masterSeed()` to `0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff` when the manifest is committed, `entryIndexOf(t, p)` returns the index `x`, and the seed counts as set for item 5. For any other source the contract MUST NOT record zero or that value as the master seed;
+2. `entryIndexOf(t, p)` returns `permute(poolSeed_p, n, x)` with the index `x` of §6.3 once `masterSeed()` is non-zero, and reverts before, for a token that is not covered (outside the range, or outside the token set, §5.4), and for a pool index that does not exist. If the manifest's `reveal.source` is `none`, the contract sets `masterSeed()` to `0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff` when the manifest is committed, `entryIndexOf(t, p)` returns the index `x`, and the seed counts as set for item 5. For any other source the contract MUST NOT record zero or that value as the master seed;
 3. `bind` records, for any caller, the entry a token receives, after verifying a Merkle proof (§5.3) against the pool root at index `entryIndexOf(t, p)`; it is idempotent. An implementation MAY also record every entry of a pool in one call or over several calls, after rebuilding the pool's root from the full list of values and checking it against the committed root; once the seed is set, `netlistHashOf` and `imageHashOf` then answer for every covered token without `bind`;
 4. A netlist hash is known when `bind` has recorded it; when, after `masterSeed()` is set, a permissionless function has recorded it by deriving it from a pool recorded under item 3 for a token that receives it (in the reference implementation, `markKnown(uint256 tokenId)`); or when it arrived with a token under a bridging TAP. `storeNetlist` accepts only files whose SHA-256 is a known netlist hash and whose length is at most 49,152 bytes, and makes them readable through `netlistFile` and `netlistOf`. It SHOULD check validity (§2.2) on chain, and MUST do so if the contract implements the TAP-721 Eval extension (§8.4). The layout behind `NetlistStored.pointer` is informative; clients read files through `netlistFile`. Revert data is not part of this interface;
 5. `frozen()` returns true only when the manifest is committed, the seed is set and no account can change `tokenURI`, the manifest, the pools or the seed; once true it never returns false. A contract behind an upgradeable proxy is not frozen while its upgrade path exists;
@@ -547,9 +547,9 @@ Netlist-bound NFTs are ERC-721 tokens; wallets and marketplaces that ignore `tap
 
 ## Test Cases
 
-`assets/tap-netlist-bound-nft/vectors.json` is generated by `assets/tap-netlist-bound-nft/make_vectors.py`, reproducible byte for byte, with SHA-256 `bb77433f2d3a5e89267eb590206beb2d17a67158ba4ad1f317ed663645dfb3fe`. Its members `format` and `generator` identify the file; its sections are:
+`assets/tap-draft-netlist-bound-nft/vectors.json` is generated by `assets/tap-draft-netlist-bound-nft/make_vectors.py`, reproducible byte for byte, with SHA-256 `bb77433f2d3a5e89267eb590206beb2d17a67158ba4ad1f317ed663645dfb3fe`. Its members `format` and `generator` identify the file; its sections are:
 
-- `chain`: the chain id and pinned block of the on-chain input (BNB Smart Chain block 128,200,681, `assets/chain-snapshot.json`);
+- `chain`: the chain id and pinned block of the on-chain input (BNB Smart Chain block 128,200,681, `assets/tap-draft-netlist-bound-nft/chain-snapshot.json`);
 - `tapnet`: netlist files built from four BNB Smart Chain mainnet circuits read at that block, with netlist hashes, metrics, on-chain names and validity (one circuit contains REF records and is listed as rejected);
 - `invalidFiles`: one rejected file per rule of §2.2, with the expected error;
 - `merkle`: pools of 1, 2, 3, 5 and 8 entries with one and two fields, roots, every proof, failing proofs and error cases;
@@ -557,6 +557,8 @@ Netlist-bound NFTs are ERC-721 tokens; wallets and marketplaces that ignore `tap
 - `metadata`: valid and invalid `tap` members, each invalid one breaking one rule of §7;
 - `manifests`: valid manifests (range mode and set mode, one and two pools, object-form `uris`) and invalid manifests, each breaking one rule of §5.1, §5.2, §5.4 or §6.1;
 - `tokenSets`: set mode (§5.4): a 10-of-20 set with its file, hash, manifest and the assignment of every token (none for tokens outside the set); a 7,000-of-10,000 set with its hash, the first 32 assignments and a hash of all of them; token set file and hash errors;
+- `content`: valid and invalid `tap.content` members (§7.5);
+- `placeholders`: metadata of tokens outside the token set and awaiting reveal (§5.4, §7.2);
 - `editions`: the collection-level edition check (§6.4, §7.3 item 3) over the example, and three failures;
 - `netlistChecks`: a fetched file checked against metadata (§7.4), one match and two rejects;
 - `example`: a complete eight-token collection with two pools, its manifest file and hash, a fixed master seed, the assignment and the metadata of every token (also under `example/`).
@@ -580,7 +582,7 @@ Measured costs of the reference implementation for a pool of 10,000 (informative
 
 ## Reference Implementation
 
-- Python, standard library only: `assets/tap-netlist-bound-nft/tapnft.py` (file check, hashes, source file construction, Merkle tree, pool seeds, permutation, manifest and token-set checks, assignment, metadata and edition checks), with the TAP-02 reference implementation `tap02_reference.py` copied unchanged, the generator `make_vectors.py` and the test suite `test_tapnft.py`.
+- Python, standard library only: `assets/tap-draft-netlist-bound-nft/tapnft.py` (file check, hashes, source file construction, Merkle tree, pool seeds, permutation, manifest and token-set checks, assignment, metadata and edition checks), with the TAP-02 reference implementation `tap02_reference.py`, copied from `assets/tap-02/reference.py` (TAPs repository) with only the header comment changed, the generator `make_vectors.py` and the test suite `test_tapnft.py`.
 - Solidity: https://github.com/BruceLanLan/TAP-721, to be linked at a fixed commit before Review (TAP-01 §7.2 item 8). It contains the interfaces of §8; `TapNetlistNFT` (an L1 collection), `TapCompanion` (L1 for an existing ERC-721), the libraries `TapPermutation`, `TapMerkle`, `TapNetlistCheck`, `TapNetlistStore` and `TapNetlistVM`, and their tests.
 - Implementation-defined entry points of the reference L1 contract, which clients will meet: `commitManifest`, `commitManifestTokenSet` and `commitManifestNoReveal` (§5.1, §6.1); `scheduleBlockhashReveal` and `revealFromBlockhash`, with a delay of at most 1,000,000 blocks; `loadTokenSet` and `loadTokenSetChunk` (§8.5); `loadPool` and `loadPoolChunk` (§8.2 item 3); `markKnown(uint256 tokenId)` (§8.2 item 4); `poolSeed(uint256)` (§6.2). The reference contract accepts at most 100,000 covered tokens, a limit of the implementation, not of this TAP.
 - The reference library does not implement the network checks of §3.2 (steps 1, 2 and 5), the publication block of §5.1, §6.1 item 7 or §7.5. Paths under `assets/` are updated when a number is assigned.

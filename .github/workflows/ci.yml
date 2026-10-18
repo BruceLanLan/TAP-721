@@ -27,10 +27,10 @@ jobs:
       fail-fast: false
       matrix:
         suite:
-          - { dir: assets/tap-netlist-bound-nft,       cmd: "python make_vectors.py && python test_tapnft.py" }
-          - { dir: assets/tap-netlist-structural-hash, cmd: "python make_vectors.py && python test_canon.py" }
-          - { dir: assets/tap-pod-attributes,          cmd: "python make_vectors.py && python test_pod.py" }
-          - { dir: assets/tap-netlist-nft-bridging,    cmd: "python make_vectors.py --check" }
+          - { dir: assets/tap-draft-netlist-bound-nft,       cmd: "python make_vectors.py && python test_tapnft.py" }
+          - { dir: assets/tap-draft-netlist-structural-hash, cmd: "python make_vectors.py && python test_canon.py" }
+          - { dir: assets/tap-draft-pod-attributes,          cmd: "python make_vectors.py && python test_pod.py" }
+          - { dir: assets/tap-draft-netlist-nft-bridging,    cmd: "python make_vectors.py --check" }
           - { dir: contracts,                          cmd: "python test/fixtures/make_core_fixtures.py" }
     steps:
       - uses: actions/checkout@v4

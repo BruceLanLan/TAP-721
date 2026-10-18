@@ -8,8 +8,8 @@ CC0 1.0 Universal (public domain dedication) -- full text in LICENSE-CC0
   - TAPs/                         TAP draft texts and their translations (as TAP-01 requires)
   - contracts/src/interfaces/     Solidity interfaces normative for the drafts (SPDX CC0-1.0)
   - Data: assets/**/vectors.json, assets/**/chain-circuits.json,
-    assets/chain-snapshot.json, assets/tap-pod-attributes/raw/,
-    assets/tap-pod-attributes/trait-metadata.json, assets/tap-netlist-bound-nft/example/,
+    assets/tap-draft-netlist-bound-nft/chain-snapshot.json, assets/tap-draft-pod-attributes/raw/,
+    assets/tap-draft-pod-attributes/trait-metadata.json, assets/tap-draft-netlist-bound-nft/example/,
     contracts/test/fixtures/*.json, tools/collection/template.example.json,
     tools/collection/rarity-7000.json, tools/tokenset/*.json, tools/tokenset/tokens.bin
 

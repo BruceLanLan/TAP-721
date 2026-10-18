@@ -23,7 +23,7 @@ import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, "..", "tap-netlist-bound-nft"))
+sys.path.insert(0, os.path.join(HERE, "..", "tap-draft-netlist-bound-nft"))
 import tap02_reference as tap02  # noqa: E402
 
 PROCEDURE = "tap-pod-fc/1"

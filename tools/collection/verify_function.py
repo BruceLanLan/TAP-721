@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Check that BEM miner circuits compute their task's function (stdlib + Foundry `cast`, MIT).
 
-  verify_function.py --snapshot ../../assets/chain-snapshot.json
+  verify_function.py --snapshot ../../assets/tap-draft-netlist-bound-nft/chain-snapshot.json
   verify_function.py --csv miners.csv [--block 128200681] [--rpc URL] [--random 16384] [--seq every-beat]
                      [--confirm] [--out result.json]
 
@@ -10,7 +10,7 @@ Why: PoD mining verifies a miner against `getTask(taskId).vectorCount` sampled v
 reference circuit (`getTask(taskId).refCircuits`, `refCircuitId`), both read at one pinned block.
 
 Input rows: `processor, circuitId[, taskId]` (CSV with a header row), or the `circuits` list of
-`assets/chain-snapshot.json` (taskId from `miner.taskId`). A missing taskId is read with
+`assets/tap-draft-netlist-bound-nft/chain-snapshot.json` (taskId from `miner.taskId`). A missing taskId is read with
 `getMiner(minerKey(processor, circuitId))` on the mining contract.
 
 Method (TAP-02 semantics: signal 0 = 0, 1 = 1, 2.. = inputs, then element outputs; outputs = last nOut

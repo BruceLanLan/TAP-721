@@ -4,7 +4,7 @@
 
 [中文](#中文) · [English](#english)
 
-> **状态 / Status:** Draft · TAP 编号未分配 / TAP numbers not assigned · 未部署 / not deployed · 仅内部审计 / audited internally only
+> **状态 / Status:** Draft · 已提交（2026-10-18），待编辑格式审核与编号分配 / submitted 2026-10-18, awaiting editor format review and number assignment · 未部署 / not deployed · 仅内部审查，未经外部审计 / reviewed internally only, not externally audited
 
 ---
 
@@ -12,7 +12,7 @@
 
 ### 定义
 
-**TAP-721**（正式标题 *Netlist-Bound NFTs*，草案见 [`TAPs/TAP-draft-netlist-bound-nft.md`](TAPs/TAP-draft-netlist-bound-nft.md)；TAP-721 是社区昵称，正式编号由 TAPs 编辑分配）扩展 ERC-721，让每枚 token 在图片之外绑定一份真实的 TapeOut 电路：一个自包含的 `tapnet/1` 网表文件（TAP-02 的 NAND/LATCH 记录加 16 字节文件头，其 SHA-256 即网表哈希）。任何人都能下载它、对照来源链核验、仿真、在合约里运行，并在任一 TapeOut 链上重新流片。标准还规定了 CAIP-19 全局标识、元数据中的 `tap` 对象、先承诺后随机的公平揭示（Merkle 承诺的清单 + drand 种子 + 带密钥置换），以及 L0/L1 两个一致性等级。标准不涉及任何收益：NFT 提供的是绑定、公平分配与来源证明。
+**TAP-721**（正式标题 *Netlist-Bound NFTs*，草案见 [`TAPs/TAP-draft-netlist-bound-nft.md`](TAPs/TAP-draft-netlist-bound-nft.md)；TAP-721 是提案名称：申请编号 721，TAPs 编辑也可能分配其他编号）扩展 ERC-721，让每枚 token 在图片之外绑定一份真实的 TapeOut 电路：一个自包含的 `tapnet/1` 网表文件（TAP-02 的 NAND/LATCH 记录加 16 字节文件头，其 SHA-256 即网表哈希）。任何人都能下载它、对照来源链核验、仿真、在合约里运行，并在任一 TapeOut 链上重新流片。标准还规定了 CAIP-19 全局标识、元数据中的 `tap` 对象、先承诺后随机的公平揭示（Merkle 承诺的清单 + drand 种子 + 带密钥置换），以及 L0/L1 两个一致性等级。标准不涉及任何收益：NFT 提供的是绑定、公平分配与来源证明。
 
 ### 一致性摘要
 
@@ -58,7 +58,7 @@ TAP-721 是一个标准，不是四份并列的草案：一份**主标准**（�
 
 **为什么不是四合一。** 放进主标准的，是每个实现者都要一起读、直接用到核心哈希、清单和接口的部分。独立成扩展 TAP 的，各有外部依赖或独立受众：跨链依赖消息层和可升级合约，而按 TAP-01 §5.1，依赖可升级合约的 TAP 只能停在 Candidate 直到该合约封存；PoD 属性依赖 BSC 挖矿合约；结构哈希只依赖 TAP-02、对任何网表都有用。合成一份，主标准会被这些依赖拖住，而首个采用者只需要主标准；TAPs 编辑也按"一份 TAP 一个主题"审核。
 
-**已提交（2026-10-18）。** 整个家族的讨论在 Idea issue [TapeOutProtocol/TAPs#66](https://github.com/TapeOutProtocol/TAPs/issues/66)，申请主标准编号 721（接受编辑另行分配）。主标准 PR：[#67](https://github.com/TapeOutProtocol/TAPs/pull/67)；扩展 PR：跨链 [#68](https://github.com/TapeOutProtocol/TAPs/pull/68)、PoD 属性 [#69](https://github.com/TapeOutProtocol/TAPs/pull/69)、结构哈希 [#70](https://github.com/TapeOutProtocol/TAPs/pull/70)。提交时的正文见 [`docs/submission/`](docs/submission/)。
+**已提交（2026-10-18）。** 整个家族的讨论在 Idea issue [TapeOutProtocol/TAPs#66](https://github.com/TapeOutProtocol/TAPs/issues/66)，申请主标准编号 721（接受编辑另行分配）。主标准 PR：[#67](https://github.com/TapeOutProtocol/TAPs/pull/67)；扩展 PR：跨链 [#68](https://github.com/TapeOutProtocol/TAPs/pull/68)、PoD 属性 [#69](https://github.com/TapeOutProtocol/TAPs/pull/69)、结构哈希 [#70](https://github.com/TapeOutProtocol/TAPs/pull/70)。各 PR 引用的参考实现固定在本仓库提交 `23dc425`。当前状态为 Draft，等待编辑做格式审核并分配编号。提交时的正文见 [`docs/submission/`](docs/submission/)。
 
 ```mermaid
 flowchart LR
@@ -75,41 +75,45 @@ flowchart LR
   L1 -->|"B"| X["其他 TapeOut 链"]
 ```
 
+### 多链
+
+核心标准与链无关：token 用 CAIP-19 标识（`eip155:<chainId>/erc721:<地址>/<tokenId>`），适用于 TAP-10 链表中的每条 TapeOut 链——BNB Smart Chain（56）、Base（8453）、X Layer（196）。跨链移动属于扩展 B：LayerZero V2 适配器已实现；TAP-10 hub 方案标为 **[Open]**，因为 hub 消息目前无法在目标链上核验。跨链代码只用模拟端点 / 适配器和载荷向量测试过，没有在真实跨链消息上运行；所有合约均未部署。
+
 ### 快速验证一枚 token
 
 1. 取 `tokenURI` 的 JSON，读 `tap`（标识、状态、清单、图片、网表）。
-2. 从 `tap.netlist.uris` 任一地址取网表，核对 SHA-256、文件有效性与指标（`python3 assets/tap-netlist-bound-nft/tapnft.py token.json file.tapnet` 逐个检查文件）。
+2. 从 `tap.netlist.uris` 任一地址取网表，核对 SHA-256、文件有效性与指标（`python3 assets/tap-draft-netlist-bound-nft/tapnft.py token.json file.tapnet` 逐个检查文件）。
 3. 取清单（代币集模式下还有 token 集合文件），核对哈希，用 drand 轮次复算该 token 分到的条目：`python3 tools/collection/verify_collection.py --manifest … --base-url …/ --beacon beacon.json`。
 4. 若声明了来源，读来源链的 `circuitInfo` / `netlist` 重建文件并比对哈希。
 5. L1：直接读合约的 `netlistHashOf`、`imageHashOf`、`frozen()`；L0 必须标注"仅元数据"。
 
 ### 快速开始
 
-需要 Python 3.11、[Foundry](https://getfoundry.sh) v1.8.3、Node 20+。
+需要 Python 3.9+、[Foundry](https://getfoundry.sh) v1.8.3、Node 20+。
 
 ```bash
 git clone --recurse-submodules <repo-url> && cd TAP-721
 pip install pycryptodome
-(cd assets/tap-netlist-bound-nft       && python3 make_vectors.py && python3 test_tapnft.py)
-(cd assets/tap-netlist-structural-hash && python3 make_vectors.py && python3 test_canon.py)
-(cd assets/tap-pod-attributes          && python3 make_vectors.py && python3 test_pod.py)
-(cd assets/tap-netlist-nft-bridging    && python3 make_vectors.py --check)
+(cd assets/tap-draft-netlist-bound-nft       && python3 make_vectors.py && python3 test_tapnft.py)
+(cd assets/tap-draft-netlist-structural-hash && python3 make_vectors.py && python3 test_canon.py)
+(cd assets/tap-draft-pod-attributes          && python3 make_vectors.py && python3 test_pod.py)
+(cd assets/tap-draft-netlist-nft-bridging    && python3 make_vectors.py --check)
 (cd contracts && forge build && forge test)
 (cd contracts && XLAYER_RPC=https://rpc.xlayer.tech forge test --evm-version cancun --match-path test/fork/ContainerLock.t.sol)
 (cd tools/gateway && npm test)
 ```
 
-当前结果与向量哈希见 [docs/TESTING.md](docs/TESTING.md)（forge 198/198）。
+当前结果与向量哈希见 [docs/TESTING.md](docs/TESTING.md)：forge 198/198（24 个测试套件），Python 参考实现 31 / 18 / 26 项，X Layer 分叉测试 2/2。
 
 ### 仓库结构
 
 | 路径 | 内容 |
 |---|---|
 | `TAPs/` | 主标准与三个扩展 TAP（英文 + 中文译本） |
-| `assets/tap-*/` | 各草案的 Python 参考实现、生成器、测试与 `vectors.json`；`assets/chain-snapshot.json` 为 BSC 只读快照 |
+| `assets/tap-draft-*/` | 各草案的 Python 参考实现、生成器、测试与 `vectors.json`；`assets/tap-draft-netlist-bound-nft/chain-snapshot.json` 为 BSC 只读快照 |
 | `contracts/` | Foundry 工程：`src/core`（L1 集合、伴生合约、求值器）、`src/bridge`、`src/interfaces`、`src/tools`（容器锁）；测试含审查 PoC |
 | `tools/collection/` | 集合流水线：建池、清单、drand 揭示、校验、功能检查、稀有度规则 |
-| `tools/tokenset/` | 在固定区块扫描 TapeCode-Test1 持有人，生成 token 集合 |
+| `tools/tokenset/` | 在固定区块扫描 TapeCode-Test1 持有人，生成 token 集合（逐枚持有人数据如 `owners.json` 不公开，只发布哈希） |
 | `tools/uploader/`、`tools/gateway/` | 容器上传工具；服务器端 TAP-10 网关 |
 | `profiles/` | TapeCode-Test1 配额工具 `tct1_quota.py` |
 | `reviews/` | 编辑、安全、架构、跨链与定稿复审 |
@@ -118,7 +122,7 @@ pip install pycryptodome
 
 ### 状态
 
-**Draft**。TAP 编号未分配（`tap: TBD`）；合约**未部署**；**仅内部审计**（`reviews/security-contracts.md`，四轮：首轮 0 严重 / 0 高 / 3 中 / 9 低，中低危已修复或接受，后续各轮发现已在代码中处理，最新一处修复尚未复审）。一份公平性与经济性评审在向 TapeOut 团队披露前暂不公开（见 [docs/SECURITY.md](docs/SECURITY.md)）。版本记录见 [CHANGELOG.md](CHANGELOG.md)。
+**Draft**。已于 2026-10-18 提交，等待编辑格式审核与编号分配（草案中仍为 `tap: TBD`）；合约**未部署**；**仅内部审查，未经外部审计**（`reviews/security-contracts.md`，四轮：首轮 0 严重 / 0 高 / 3 中 / 9 低，中低危已修复或接受，后续各轮发现已在代码中修复；定稿复审 r1、r2 之后，r2 未发现高、中、低危问题，见 `reviews/final-r2-summary.md`；L-9（锁定依赖可升级的 TapeOut 合约）已接受并在文档中披露）。PoD 扩展中的 `verifiedButWrong` 示例向量是人工合成的。一份公平性与经济性评审在向 TapeOut 团队披露前暂不公开（见 [docs/SECURITY.md](docs/SECURITY.md)）。版本记录见 [CHANGELOG.md](CHANGELOG.md)。
 
 ### 首个采用者：TapeCode-Test1
 
@@ -142,7 +146,7 @@ X Layer 上已领完的 10,000 枚集合 TapeCode-Test1（`0x0e91…1614`）是�
 
 ### Definition
 
-**TAP-721** (formal title *Netlist-Bound NFTs*, draft in [`TAPs/TAP-draft-netlist-bound-nft.md`](TAPs/TAP-draft-netlist-bound-nft.md); TAP-721 is the proposal name, the number is assigned by the TAPs editors) extends ERC-721 so that each token carries, next to its image, a real TapeOut circuit: a self-contained `tapnet/1` netlist file (TAP-02 NAND/LATCH records behind a 16-byte header; its SHA-256 is the netlist hash). Anyone can download it, check it against its source chain, simulate it, run it inside a contract and tape it out again on any TapeOut chain. The standard also defines a CAIP-19 identifier, the `tap` member of token metadata, a commit-then-randomise reveal (a Merkle-committed manifest, a drand seed and a keyed permutation), and two conformance levels, L0 and L1. It makes no claim of yield: a token carries a binding, a fair assignment and provenance.
+**TAP-721** (formal title *Netlist-Bound NFTs*, draft in [`TAPs/TAP-draft-netlist-bound-nft.md`](TAPs/TAP-draft-netlist-bound-nft.md); TAP-721 is the proposal name: number 721 is requested, and the TAPs editors may assign another) extends ERC-721 so that each token carries, next to its image, a real TapeOut circuit: a self-contained `tapnet/1` netlist file (TAP-02 NAND/LATCH records behind a 16-byte header; its SHA-256 is the netlist hash). Anyone can download it, check it against its source chain, simulate it, run it inside a contract and tape it out again on any TapeOut chain. The standard also defines a CAIP-19 identifier, the `tap` member of token metadata, a commit-then-randomise reveal (a Merkle-committed manifest, a drand seed and a keyed permutation), and two conformance levels, L0 and L1. It makes no claim of yield: a token carries a binding, a fair assignment and provenance.
 
 ### Conformance summary
 
@@ -180,15 +184,15 @@ TAP-721 is one standard, not four parallel drafts: a **flagship standard** (core
 
 | Part | Document | Type | Scope | Status |
 |---|---|---|---|---|
-| **Flagship TAP-721** | [Netlist-Bound NFTs](TAPs/TAP-draft-netlist-bound-nft.md) | Standards | Core §1–§8.2 (table above); number 721 requested | Required |
+| **Flagship TAP-721** | [Netlist-Bound NFTs](TAPs/TAP-draft-netlist-bound-nft.md) ([Chinese](TAPs/TAP-draft-netlist-bound-nft.zh.md)) | Standards | Core §1–§8.2 (table above); number 721 requested | Required |
 | Companion / Eval / TokenSet / container hosting | Flagship §8.3–§8.6 | — | In-document extensions | Optional or conditional |
-| **Extension B — bridging** | [Bridging](TAPs/TAP-draft-netlist-nft-bridging.md) | Standards | Gateway / Mirror, payload, ONE/ALL routes, LayerZero V2 and TAP-10 hub adapters | Optional; not deployed for the first collection |
-| **Extension C — PoD attributes** | [PoD Attributes](TAPs/TAP-draft-pod-attributes.md) | Application | Fixed-block mining snapshot into `tap.pod` and ERC-7496 traits, with a functional check | Optional |
-| **Extension D — structural hash** | [Structural Hash](TAPs/TAP-draft-netlist-structural-hash.md) | Standards | A hash invariant under renumbering, input swaps, dead and duplicated gates | Optional |
+| **Extension B — bridging** | [Bridging](TAPs/TAP-draft-netlist-nft-bridging.md) ([Chinese](TAPs/TAP-draft-netlist-nft-bridging.zh.md)) | Standards | Gateway / Mirror, payload, ONE/ALL routes, LayerZero V2 and TAP-10 hub adapters | Optional; not deployed for the first collection |
+| **Extension C — PoD attributes** | [PoD Attributes](TAPs/TAP-draft-pod-attributes.md) ([Chinese](TAPs/TAP-draft-pod-attributes.zh.md)) | Application | Fixed-block mining snapshot into `tap.pod` and ERC-7496 traits, with a functional check | Optional |
+| **Extension D — structural hash** | [Structural Hash](TAPs/TAP-draft-netlist-structural-hash.md) ([Chinese](TAPs/TAP-draft-netlist-structural-hash.zh.md)) | Standards | A hash invariant under renumbering, input swaps, dead and duplicated gates, exposing false scarcity | Optional |
 
 **Why not four-in-one.** The flagship holds what every implementer reads together and what uses the core's hashes, manifest and interface directly. The extension TAPs each have outside dependencies or their own audience: bridging depends on a message layer and upgradeable contracts, and under TAP-01 §5.1 a TAP that depends on an upgradeable contract stays at Candidate until it is sealed; PoD attributes depend on the BSC mining contract; the structural hash depends only on TAP-02 and is useful for any netlist. Merged, the flagship would be held back by those dependencies, while the first adopter needs only the flagship; TAP editors also review one topic per TAP.
 
-**Submitted (2026-10-18).** The family is discussed in Idea issue [TapeOutProtocol/TAPs#66](https://github.com/TapeOutProtocol/TAPs/issues/66), which requests number 721 for the flagship (another number is accepted). Flagship PR: [#67](https://github.com/TapeOutProtocol/TAPs/pull/67); extension PRs: bridging [#68](https://github.com/TapeOutProtocol/TAPs/pull/68), PoD attributes [#69](https://github.com/TapeOutProtocol/TAPs/pull/69), structural hash [#70](https://github.com/TapeOutProtocol/TAPs/pull/70). The posted texts are in [`docs/submission/`](docs/submission/).
+**Submitted (2026-10-18).** The family is discussed in Idea issue [TapeOutProtocol/TAPs#66](https://github.com/TapeOutProtocol/TAPs/issues/66), which requests number 721 for the flagship (another number is accepted). Flagship PR: [#67](https://github.com/TapeOutProtocol/TAPs/pull/67); extension PRs: bridging [#68](https://github.com/TapeOutProtocol/TAPs/pull/68), PoD attributes [#69](https://github.com/TapeOutProtocol/TAPs/pull/69), structural hash [#70](https://github.com/TapeOutProtocol/TAPs/pull/70). The PRs pin the reference implementation at commit `23dc425` of this repository. Status: Draft, awaiting editor format review and number assignment. The posted texts are in [`docs/submission/`](docs/submission/).
 
 ```mermaid
 flowchart LR
@@ -205,27 +209,31 @@ flowchart LR
   L1 -->|"B"| X["Other TapeOut chains"]
 ```
 
+### Multi-chain
+
+The core standard is chain-agnostic: tokens are identified by CAIP-19 (`eip155:<chainId>/erc721:<address>/<tokenId>`), and it applies on every TapeOut chain in the TAP-10 chain table — BNB Smart Chain (56), Base (8453) and X Layer (196). Moving tokens between chains is extension B: the LayerZero V2 adapter is implemented; the TAP-10 hub profile is marked **[Open]**, because hub messages cannot yet be verified on the destination chain. The cross-chain code has been tested only with mock endpoints / adapters and payload vectors, not over real cross-chain messages; none of the contracts is deployed.
+
 ### Verify a token end to end
 
 1. Fetch the `tokenURI` JSON and read `tap` (identifier, state, manifest, image, netlist).
-2. Fetch the netlist from any of `tap.netlist.uris`; check its SHA-256, validity and metrics (`python3 assets/tap-netlist-bound-nft/tapnft.py token.json file.tapnet` checks each file).
+2. Fetch the netlist from any of `tap.netlist.uris`; check its SHA-256, validity and metrics (`python3 assets/tap-draft-netlist-bound-nft/tapnft.py token.json file.tapnet` checks each file).
 3. Fetch the manifest (and the token-set file in set mode), check their hashes and recompute the token's entry from the drand round: `python3 tools/collection/verify_collection.py --manifest … --base-url …/ --beacon beacon.json`.
 4. If a source is declared, read `circuitInfo` / `netlist` on the source chain, rebuild the file and compare hashes.
 5. At L1, read `netlistHashOf`, `imageHashOf` and `frozen()` from the contract; an L0 token must be labelled "metadata only".
 
 ### Quick start
 
-Requirements: Python 3.9+, [Foundry](https://getfoundry.sh) v1.8.3, Node 20+. Clone with `--recurse-submodules`, `pip install pycryptodome`, then run the commands in the Chinese section above. Current results and vector hashes: [docs/TESTING.md](docs/TESTING.md) (forge 198/198).
+Requirements: Python 3.9+, [Foundry](https://getfoundry.sh) v1.8.3, Node 20+. Clone with `--recurse-submodules`, `pip install pycryptodome`, then run the commands in the Chinese section above. Current results and vector hashes: [docs/TESTING.md](docs/TESTING.md): forge 198/198 (24 suites), Python reference implementations 31 / 18 / 26 tests, X Layer fork test 2/2.
 
 ### Repository map
 
 | Path | Content |
 |---|---|
 | `TAPs/` | The flagship and three extension TAPs (English + Chinese) |
-| `assets/tap-*/` | Python reference implementations, generators, tests and `vectors.json`; `assets/chain-snapshot.json` is a read-only BSC snapshot |
+| `assets/tap-draft-*/` | Python reference implementations, generators, tests and `vectors.json`; `assets/tap-draft-netlist-bound-nft/chain-snapshot.json` is a read-only BSC snapshot |
 | `contracts/` | Foundry project: `src/core` (L1 collection, companion, evaluator), `src/bridge`, `src/interfaces`, `src/tools` (container lock); tests include the review PoCs |
 | `tools/collection/` | Collection pipeline: pools, manifest, drand reveal, verification, functional check, rarity rule |
-| `tools/tokenset/` | TapeCode-Test1 owner scan at a pinned block; token-set builder |
+| `tools/tokenset/` | TapeCode-Test1 owner scan at a pinned block; token-set builder (per-token holder data such as `owners.json` is not published, only its hash) |
 | `tools/uploader/`, `tools/gateway/` | Container uploader; server-side TAP-10 gateway |
 | `profiles/` | TapeCode-Test1 quota tool `tct1_quota.py` |
 | `reviews/` | Editorial, security, architecture, cross-chain and final reviews |
@@ -234,7 +242,7 @@ Requirements: Python 3.9+, [Foundry](https://getfoundry.sh) v1.8.3, Node 20+. Cl
 
 ### Status
 
-**Draft.** TAP numbers not assigned (`tap: TBD`); contracts **not deployed**; **audited internally only** (`reviews/security-contracts.md`, four passes: first pass 0 critical / 0 high / 3 medium / 9 low; medium and low findings fixed or accepted; later findings fixed in code; a final re-review found no high, medium or low issues, see `reviews/final-r2-summary.md`). A fairness and economics review is withheld pending disclosure to the TapeOut team (see [docs/SECURITY.md](docs/SECURITY.md)). Release notes: [CHANGELOG.md](CHANGELOG.md).
+**Draft.** Submitted on 2026-10-18 and awaiting editor format review and number assignment (the drafts still say `tap: TBD`); contracts **not deployed**; **reviewed internally only, not externally audited** (`reviews/security-contracts.md`, four passes: first pass 0 critical / 0 high / 3 medium / 9 low; medium and low findings fixed or accepted; later findings fixed in code; after final rounds r1 and r2, r2 found no high, medium or low issues, see `reviews/final-r2-summary.md`; L-9 (the lock depends on upgradeable TapeOut contracts) is accepted and disclosed in the documentation). The `verifiedButWrong` example vector in the PoD extension is synthetic. A fairness and economics review is withheld pending disclosure to the TapeOut team (see [docs/SECURITY.md](docs/SECURITY.md)). Release notes: [CHANGELOG.md](CHANGELOG.md).
 
 ### First adopter: TapeCode-Test1
 

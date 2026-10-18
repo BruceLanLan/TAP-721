@@ -2,7 +2,7 @@
 """Build vectors.json for the PoD-attributes draft from recorded mainnet reads (no network).
 
 Inputs:
-  ../chain-snapshot.json   read by tools/fetch_chain.py at one pinned BNB Smart Chain block
+  ../tap-draft-netlist-bound-nft/chain-snapshot.json   read by tools/fetch_chain.py at one pinned BNB Smart Chain block
   raw/raw<id>.json          read by pod_snapshot.py --raw at the same block (adds bestSlot, bonusOf,
                             the block header and the proxy implementation; also optimal-slot holders)
   synthetic/*.json          hand-built SYNTHETIC examples in the raw-read shape (verifiedButWrong); not chain data
@@ -20,7 +20,7 @@ from pod_snapshot import MINING, RIG_VOUCHER, TRAITS, build_pod, cross_checks, t
 from pod_validate import validate_pod, validate_tap
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, "..", "tap-netlist-bound-nft"))
+sys.path.insert(0, os.path.join(HERE, "..", "tap-draft-netlist-bound-nft"))
 
 COMPARE = ["miner", "task", "circuitBurn", "cachedDepth", "netlist", "nIn", "nOut", "nState", "gateCount"]
 
@@ -127,7 +127,7 @@ def metadata_example(entry, pod, processor_number, rig_id):
 
 
 def main():
-    snap = json.load(open(os.path.join(HERE, "..", "chain-snapshot.json"), encoding="utf-8"))
+    snap = json.load(open(os.path.join(HERE, "..", "tap-draft-netlist-bound-nft", "chain-snapshot.json"), encoding="utf-8"))
     raws = load_raw()
     block = snap["block"]
     any_raw = next(iter(raws.values()))[1]
