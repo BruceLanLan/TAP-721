@@ -13,6 +13,8 @@ node_modules/
 contracts/out/
 contracts/cache/
 contracts/broadcast/
+# written by script/anvil-dry-run.sh (local node); real testnet files deployments/<chainId>.json are committed
+**/deployments/31337.json
 
 # Tool outputs and local state
 work/
@@ -26,3 +28,4 @@ anvil*.log
 assets/*/contracts/lib/
 assets/*/contracts/out/
 assets/*/contracts/cache/
+assets/*/contracts/broadcast/

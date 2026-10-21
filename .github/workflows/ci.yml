@@ -74,6 +74,12 @@ jobs:
           mkdir -p lib && ln -sfn ../../../../contracts/lib/forge-std lib/forge-std
           forge build
           forge test
+      - name: Deployment scripts, anvil dry run (DEPLOY.md §8; local node, anvil's public dev key)
+        working-directory: contracts
+        run: ./script/anvil-dry-run.sh
+      - name: Soulbound deployment script, anvil dry run
+        working-directory: assets/tap-draft-soulbound-credentials/contracts
+        run: ./script/anvil-dry-run.sh
       - name: X Layer fork test (network)
         if: env.RUN_NETWORK == 'true'
         working-directory: contracts
