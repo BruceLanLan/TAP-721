@@ -32,6 +32,13 @@ class Invalid(ValueError):
     """Raised for any input this TAP says MUST be rejected."""
 
 
+class Unverifiable(Exception):
+    """Raised when a token's netlist is in a format defined under §2.5 that this tool does not support.
+
+    Not a subclass of Invalid: §2.5 requires such a netlist to be displayed as unverifiable, not as invalid.
+    """
+
+
 @dataclass(frozen=True)
 class Metrics:
     n_in: int
@@ -368,6 +375,15 @@ def check_metadata(doc: dict, outside_token_set: bool = False) -> dict:
         _req(state == "unrevealed", "a token outside the token set MUST be unrevealed")
         _req("image" not in tap, "a token outside the token set MUST NOT carry tap.image")
     _check_optional(tap)
+    if man is None:
+        # §6.4: a collection without a manifest does not form editions; §5.1/§7.1: it MAY name its freeze probe
+        _req("edition" not in tap, "a token without tap.manifest MUST NOT carry tap.edition")
+        if "freeze" in tap:
+            _check_freeze(tap["freeze"], "tap.freeze")
+            # §5.1: the probe reads the chain and contract of tap.id
+            _req(tap["freeze"]["chainId"] == int(m.group(1)) and tap["freeze"]["contract"] == m.group(2),
+                 "tap.freeze.chainId and tap.freeze.contract must equal those of tap.id")
+    # with a manifest, tools take the probe from the manifest's `freeze` and ignore tap.freeze (§7.2)
     if "image" in tap or state != "unrevealed":
         img = tap.get("image")
         _req(isinstance(img, dict) and isinstance(img.get("sha256"), str) and HEX32.match(img["sha256"]) is not None,
@@ -380,7 +396,17 @@ def check_metadata(doc: dict, outside_token_set: bool = False) -> dict:
 
     net = tap.get("netlist")
     _req(isinstance(net, dict), "tap.netlist is required once revealed")
-    _req(net.get("format") == FORMAT_ID, f"tap.netlist.format must be {FORMAT_ID!r}")
+    fmt = net.get("format")
+    _req(isinstance(fmt, str) and fmt != "", "tap.netlist.format must be a non-empty string")
+    # §2.5: a format string that differs from "tapnet/1" only by case or whitespace is invalid
+    _req(fmt == FORMAT_ID or "".join(fmt.split()).lower() != FORMAT_ID,
+         "tap.netlist.format differs from tapnet/1 only by case or whitespace")
+    if fmt != FORMAT_ID:
+        # §2.5: another format defines the members that replace sha256 and bytes; this tool supports
+        # tapnet/1 only, so it checks the members every format keeps and reports the netlist as
+        # unverifiable (netlist_status), never as invalid.
+        _uris(net.get("uris"), "tap.netlist")
+        return tap
     _req(isinstance(net.get("sha256"), str) and HEX32.match(net["sha256"]) is not None, "tap.netlist.sha256 is required")
     for k in ("bytes", "nIn", "nOut", "nand", "latch"):
         _uint(net.get(k), f"tap.netlist.{k}")
@@ -393,12 +419,60 @@ def check_metadata(doc: dict, outside_token_set: bool = False) -> dict:
     return tap
 
 
-def check_editions(docs: list) -> None:
-    """§6.4 at collection level: every netlist hash used by n > 1 tokens needs edition index/of on each."""
-    by_hash = {}
+def netlist_status(tap: dict) -> str:
+    """After check_metadata: "none" (no netlist yet), "tapnet/1" (checkable by this tool, §7.4), or
+    "unverifiable" (a format defined under §2.5 that this tool does not support; not invalid)."""
+    net = tap.get("netlist")
+    if net is None:
+        return "none"
+    return FORMAT_ID if net.get("format") == FORMAT_ID else "unverifiable"
+
+
+def check_manifest_consistency(docs: list, manifest_sha256: str | None = None) -> str | None:
+    """§7.1: within one collection either every token carries tap.manifest with the same sha256, or none does.
+
+    `manifest_sha256` is the manifest hash the tool knows from elsewhere (at L1 a non-zero `manifestHash()`;
+    or the manifest it fetched); every token's tap.manifest.sha256 must then equal it. Returns the
+    collection's manifest hash, or None for a collection without a manifest.
+    """
+    hashes = {d["tap"]["manifest"]["sha256"] if "manifest" in d["tap"] else None for d in docs}
+    _req(not (None in hashes and len(hashes) > 1), "collection mixes tokens with and without tap.manifest")
+    _req(len(hashes) <= 1, "tokens of one collection carry different tap.manifest.sha256")
+    found = next(iter(hashes), None)
+    if manifest_sha256 is not None and docs:
+        _req(found == manifest_sha256, "tap.manifest.sha256 differs from the collection's manifest hash")
+    return found
+
+
+def check_freeze_probes(docs: list) -> dict | None:
+    """§5.1, §7.1: in a collection without a manifest every token carries the same tap.freeze, or none does.
+
+    Returns the probe a tool may read, or None. With a manifest, tap.freeze is ignored (§7.2) and None is returned.
+    """
+    if check_manifest_consistency(docs) is not None:
+        return None
+    probes = [json.dumps(d["tap"].get("freeze"), sort_keys=True) for d in docs]
+    _req(len(set(probes)) <= 1, "tokens of one collection name different tap.freeze probes, or only some name one")
+    return docs[0]["tap"].get("freeze") if docs else None
+
+
+def check_editions(docs: list, manifest_sha256: str | None = None) -> str:
+    """§6.4 at collection level: every netlist hash used by n > 1 tokens needs edition index/of on each.
+
+    First checks that the collection does not mix tokens with and without tap.manifest (§7.1; with
+    `manifest_sha256`, against that hash). A collection without a manifest forms no editions (§6.4).
+    Tokens whose netlist is in a format this tool does not support (§2.5) are skipped, since their
+    netlist hash cannot be compared; the result is then "unverifiable" rather than "valid".
+    """
+    if check_manifest_consistency(docs, manifest_sha256) is None:
+        return "valid"
+    by_hash, skipped = {}, False
     for d in docs:
         t = d["tap"]
         if t["state"] == "unrevealed":
+            continue
+        if netlist_status(t) != FORMAT_ID:
+            skipped = True
             continue
         tid = int(t["id"].rsplit("/", 1)[1])
         by_hash.setdefault(t["netlist"]["sha256"], []).append((tid, t.get("edition")))
@@ -410,10 +484,22 @@ def check_editions(docs: list) -> None:
                 _req(ed is None or ed == {"index": 1, "of": 1}, f"token {tid}: edition must be absent or 1/1")
             else:
                 _req(ed == {"index": rank, "of": n}, f"token {tid}: edition must be {rank}/{n}")
+    return "unverifiable" if skipped else "valid"
 
 
-def check_netlist_against_metadata(tap: dict, data: bytes) -> Metrics:
-    """§7.4: a fetched file MUST hash to tap.netlist.sha256 and match the declared metrics."""
+def check_netlist_against_metadata(tap: dict, data: bytes | None) -> Metrics:
+    """§7.4: a fetched file MUST hash to tap.netlist.sha256 and match the declared metrics.
+
+    For a format this tool does not support (§2.5), `data` is the fetched file, or None if it could not be
+    fetched: a file whose bytes 0-5 are not TAPNET or whose byte 6 is 0x01 is invalid; otherwise the
+    netlist is unverifiable (Unverifiable, not Invalid).
+    """
+    if tap["netlist"].get("format") != FORMAT_ID:
+        if data is not None:
+            _req(len(data) >= 7 and data[:6] == MAGIC, "netlist file of another format does not start with TAPNET")
+            _req(data[6] != VERSION, "netlist file of another format has the tapnet/1 version byte 0x01")
+        raise Unverifiable(f"netlist format {tap['netlist'].get('format')!r} is not supported by this tool (§2.5)")
+    _req(data is not None, "netlist file could not be fetched")
     _req(hex32(netlist_hash(data)) == tap["netlist"]["sha256"], "netlist file does not hash to tap.netlist.sha256")
     mt = check_file(data)
     net = tap["netlist"]
@@ -440,6 +526,18 @@ def _uri_list(v, where: str) -> None:
 def _hash_value(v, where: str) -> None:
     _req(isinstance(v, str) and HEX32.match(v) is not None, f"{where} must be 0x + 64 lowercase hex digits")
     _req(v != ZERO32, f"{where} must not be zero")
+
+
+def _check_freeze(fr, where: str) -> None:
+    """The freeze probe: the manifest's `freeze` (§5.1), or `tap.freeze` of a collection without a manifest."""
+    _req(isinstance(fr, dict), f"{where} must be an object")
+    _uint(fr.get("chainId"), f"{where}.chainId")
+    _req(fr["chainId"] > 0, f"{where}.chainId must be non-zero")
+    _req(isinstance(fr.get("contract"), str) and ADDR.match(fr["contract"]) is not None,
+         f"{where}.contract must be a lowercase address")
+    _req(isinstance(fr.get("call"), str) and CALL_SIG.match(fr["call"]) is not None,
+         f"{where}.call must be a function signature without arguments, e.g. uriFrozen()")
+    _req(fr.get("expect") is True, f"{where}.expect must be true")
 
 
 def check_manifest(doc_bytes: bytes) -> dict:
@@ -531,14 +629,7 @@ def check_manifest(doc_bytes: bytes) -> dict:
 
     fr = doc.get("freeze")
     if fr is not None:
-        _req(isinstance(fr, dict), "freeze must be an object")
-        _uint(fr.get("chainId"), "freeze.chainId")
-        _req(fr["chainId"] > 0, "freeze.chainId must be non-zero")
-        _req(isinstance(fr.get("contract"), str) and ADDR.match(fr["contract"]) is not None,
-             "freeze.contract must be a lowercase address")
-        _req(isinstance(fr.get("call"), str) and CALL_SIG.match(fr["call"]) is not None,
-             "freeze.call must be a function signature without arguments, e.g. uriFrozen()")
-        _req(fr.get("expect") is True, "freeze.expect must be true")
+        _check_freeze(fr, "freeze")
     return doc
 
 
@@ -620,7 +711,8 @@ if __name__ == "__main__":
             print(path, "ok: manifest", hex32(sha256(raw)), size)
         elif path.endswith(".json"):
             t = check_metadata(json.loads(raw))
-            print(path, "ok:", t["state"])
+            st = netlist_status(t)
+            print(path, "ok:", t["state"] + (", netlist unverifiable (format not supported, §2.5)" if st == "unverifiable" else ""))
         else:
             mt = check_file(raw)
             print(path, "ok:", hex32(netlist_hash(raw)), mt.as_json())

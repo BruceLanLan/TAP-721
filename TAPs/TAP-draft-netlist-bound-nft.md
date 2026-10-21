@@ -19,7 +19,7 @@ This TAP lets an NFT carry, next to its picture, a real TapeOut circuit that any
 
 ## Abstract
 
-A netlist-bound NFT is an ERC-721 token whose metadata, and optionally whose contract, bind it to an image and to a netlist in the `tapnet/1` format defined here (a TAP-02 netlist without REF records, with its input and output counts). The TAP specifies that format and its hash, how a netlist is traced back to the TapeOut circuit it was copied from, a global token identifier for the chains of TAP-10, a collection manifest that commits pools of images and netlists by Merkle roots before the reveal (over a token range or an explicit token set), a keyed permutation that assigns pool entries to tokens from one random seed, and the `tap` member of the token metadata. Like ERC-721, it has a mandatory core with two conformance levels, L0 (metadata only, reachable by an existing contract that can only change its base URI) and L1 (the on-chain interface `ITapNetlistNFT`, implemented by the collection or a companion contract), plus extensions: TokenSet (required of an L1 contract in set mode), Companion (required of every companion), the optional Eval extension that lets contracts run a token's netlist, and rules for hosting content in TapeOut containers. Bridging, Proof-of-Design attributes and a structural netlist hash are separate TAP-721 extension proposals.
+A netlist-bound NFT is an ERC-721 token whose metadata, and optionally whose contract, bind it to an image and to a netlist in the `tapnet/1` format defined here (a TAP-02 netlist without REF records, with its input and output counts). The TAP specifies that format and its hash, a hook through which other Standards TAPs define further netlist formats, how a netlist is traced back to the TapeOut circuit it was copied from, a global token identifier for the chains of TAP-10, a collection manifest that commits pools of images and netlists by Merkle roots before the reveal (over a token range or an explicit token set), a keyed permutation that assigns pool entries to tokens from one random seed, and the `tap` member of the token metadata. Like ERC-721, it has a mandatory core with two conformance levels, L0 (metadata only, reachable by an existing contract that can only change its base URI) and L1 (the on-chain interface `ITapNetlistNFT`, implemented by the collection or a companion contract), plus extensions: TokenSet (required of an L1 contract in set mode), Companion (required of every companion), the optional Eval extension that lets contracts run a token's netlist, and rules for hosting content in TapeOut containers. Bridging, Proof-of-Design attributes and a structural netlist hash are separate TAP-721 extension proposals.
 
 ## Motivation
 
@@ -35,7 +35,7 @@ ERC-721 became the common base for NFTs because it is one short document that ev
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174 when, and only when, they appear in all capitals.
 
-**Every L1 contract MUST implement the `ITapNetlistNFT` and ERC-165 interfaces** (and ERC-4906), subject to the rules of §8.2. An existing ERC-721 contract that cannot be changed reaches L1 through a companion contract (§8.3), or conforms at L0 (§8.1), the metadata-only conformance path for existing contracts: an L0 collection implements no TAP-721 interface and conforms by publishing token metadata that follows §7, with a manifest and reveal that follow §5 and §6. At both levels, the token metadata of every TAP-721 token MUST follow §7.
+**Every L1 contract MUST implement the `ITapNetlistNFT` and ERC-165 interfaces** (and ERC-4906), subject to the rules of §8.2. An existing ERC-721 contract that cannot be changed reaches L1 through a companion contract (§8.3), or conforms at L0 (§8.1), the metadata-only conformance path for existing contracts: an L0 collection implements no TAP-721 interface and conforms by publishing token metadata that follows §7, with, when it reveals, a manifest and reveal that follow §5 and §6. At both levels, the token metadata of every TAP-721 token MUST follow §7.
 
 The core (§1–§8.2) is followed by extensions in the same document:
 
@@ -50,10 +50,10 @@ This table is a guide to the sections below; where it and a section differ, the 
 
 | Part | Status | Sections | Interface (ERC-165 id) |
 |---|---|---|---|
-| `tapnet/1` files, netlist hash | Core: every implementation and tool | §2 | — |
+| `tapnet/1` files, netlist hash, other formats | Core: every implementation and tool | §2 (other formats: §2.5) | — |
 | Source circuits | Optional to declare; verification rules apply when declared | §3 | — |
 | Token identifier, content locations | Core | §4 | — |
-| Manifest, pools, Merkle tree | Core for a collection that reveals or implements L1 | §5.1–§5.3 | — |
+| Manifest, pools, Merkle tree | Core for a collection that reveals or implements L1 (except bridged copies and mint-bound contracts, §8.2) | §5.1–§5.3 | — |
 | Token sets (set mode) | Conditional: a collection whose tokens are not one contiguous range | §5.4 | — |
 | Reveal (master seed, pool seeds, permutation, editions) | Core for a collection with a manifest | §6 | — |
 | Token metadata (`tap` member) | Core: L0 and L1 | §7 | — |
@@ -70,8 +70,8 @@ This table is a guide to the sections below; where it and a section differ, the 
 |---|---|
 | Collection | The ERC-721 contract whose tokens are bound |
 | Netlist-bound NFT | A token of a collection that follows this TAP |
-| Netlist file | A byte string in the `tapnet/1` format (§2) |
-| Netlist hash | SHA-256 of a netlist file |
+| Netlist file | A byte string in the `tapnet/1` format (§2), or in a format defined under §2.5 |
+| Netlist hash | The identifier of a netlist file under its format: `SHA-256` of the file for `tapnet/1` (§2.3), or the hash a format defined under §2.5 specifies |
 | Source circuit | A TapeOut circuit (chain, processor contract, circuit id) whose netlist a netlist file reproduces (§3) |
 | Container | The TapeOut container of a circuit (TAP-10), whose site store can hold files |
 | Manifest | The collection's JSON file listing every image and netlist the collection can assign (§5) |
@@ -123,6 +123,16 @@ The netlist hash identifies a netlist file byte for byte. Two files that compute
 
 The metrics of a valid file are `nIn`, `nOut`, `nand`, `latch` and `gates = nand + latch`. Because the file has no REF records, `latch` equals the circuit's state size `nState` and `gates` equals TAP-02's `gateCount`.
 
+#### 2.5 Other netlist formats
+
+A Standards TAP MAY define another netlist format. Such a format MUST be identified by bytes 0–5 `TAPNET` and a byte 6 that differs from `0x01` and from byte 6 of every format previously defined under this section, and by a `tap.netlist.format` string other than `"tapnet/1"` and other than that of every such format; it MUST define its validity, its metrics, its netlist hash rule and the members of `tap.netlist` that replace `sha256` and `bytes`. Its netlist hash rule MUST be such that, without a SHA-256 collision, no hash it produces equals `SHA-256(f)` for a valid `tapnet/1` file `f` or the netlist hash of a valid file in a format previously defined under this section (for example `TAP-draft-large-netlists` hashes a 41-byte preimage starting with `0x03`, while every `tapnet/1` file starts with `0x54`). Rationale lists the values already taken.
+
+For a token whose netlist is in such a format: the netlist value in pool entries (§5.2), the value of `netlistHashOf` and the known netlist hashes (§8.2 item 4) are that format's netlist hash; and the requirements of §2.2, §2.4, §5.2, §7.1, §7.3 items 2 and 3, §7.4 and §7.5 item 2 that refer to `tapnet/1`, to `SHA-256(file)`, to `sha256` or to the `bytes` formula apply with that format's validity, metrics, hash and members in their place. A `tap.netlist.format` string that differs from `"tapnet/1"` only in letter case or whitespace is invalid.
+
+A tool that does not support the format MUST still fetch the netlist file when it can, and MUST treat the token as invalid if bytes 0–5 of that file are not `TAPNET` or its byte 6 is `0x01`. Otherwise it MUST display the token's netlist as unverifiable, not as invalid, and MUST report the edition check (§6.4, §7.3 item 3) of such tokens as unverifiable. It MUST NOT display an unverifiable netlist as verified; because it cannot perform the checks of §7.4, it does not show such a token as a checked netlist-bound NFT.
+
+`storeNetlist`, `netlistFile`, `netlistOf`, source verification (§3.2, and with it `tap.source`), the TAP-721 Eval extension (§8.4) and TAPs written for `tapnet/1` apply to `tapnet/1` files only, unless a TAP states otherwise.
+
 ### 3. Source circuits
 
 #### 3.1 Declaring a source
@@ -173,7 +183,7 @@ Marketplaces usually fetch `tokenURI` and `image` from their servers, where a br
 
 #### 5.1 Manifest file
 
-A collection that assigns content to tokens through a reveal, or that implements L1, MUST publish a manifest: a UTF-8 JSON file. Its hash is
+A collection that assigns content to tokens through a reveal, or that implements L1 other than as a bridged copy or a mint-bound contract (§8.2), MUST publish a manifest: a UTF-8 JSON file. Its hash is
 
 ```
 manifestHash = SHA-256(manifest file bytes, exactly as published)
@@ -190,6 +200,8 @@ No canonical JSON form is defined; the published bytes are what is hashed. The m
 | `freeze` | object, optional | For L0: how a tool checks that `tokenURI` can no longer change. `chainId`, `contract`, `call` (a function signature without arguments returning `bool`, for example `"uriFrozen()"`) and `expect` (`true`) |
 
 In range mode the tokens covered are `firstTokenId … firstTokenId + supply − 1`; in set mode they are the ids of the token set (§5.4). `supply` (range mode) and `count` (set mode), written `n` below, MUST satisfy 1 ≤ `n` ≤ 2^32. Other TAPs MAY define further members of the manifest (for example `pod` in `TAP-draft-pod-attributes`); tools MUST ignore members they do not know.
+
+A collection without a manifest that conforms at L0 MAY name the probe of `freeze` in the member `tap.freeze` of its token metadata (§7.1), with the same members. The member names a check, not a state: tools derive the frozen state from the chain (§7.2) and MUST NOT treat its presence as evidence of a freeze. `tap.freeze.chainId` and `tap.freeze.contract` MUST equal the chain id and collection address of `tap.id`. `tap.freeze` MUST either be present, with the same members, in the metadata of every token of the collection, or absent from all of them; tools MUST NOT report a freeze for a collection whose tokens name different probes.
 
 An L0 collection SHOULD make the time of publication provable, by uploading the manifest to a TapeOut container or by committing its hash in a companion (§8.3). For a container upload, the publication block is the block of the earliest site-store event `FileSet(address indexed container, string path, uint32 size, bytes32 sha256Hash, string contentType)` (topic `0x13b9b0f05b22c496a9d9a29e7041c56c04670dc98ab327448870f18eb07b6773`, TAP-10 Appendix A) for that container and path whose `sha256Hash` equals the manifest hash; for a companion, it is the block of `ManifestCommitted`. A tool checks that this block precedes the moment the master seed became known; a tool that cannot find the block treats the publication time as unproven and says so.
 
@@ -208,7 +220,7 @@ Each entry is an object with one member per field, named `image` or `netlist`, w
 
 Every pool entry MUST carry a non-zero value for each of its pool's fields, and every netlist hash in a netlist field MUST belong to a valid `tapnet/1` file. A collection that pairs each image with a fixed netlist uses one pool with both fields; a collection whose images and netlists are assigned independently uses two pools.
 
-The field bit mask used on chain is `image = 1`, `netlist = 2`. Inside a leaf, values appear in the order image, then netlist. Each field appears in at most one pool, so a manifest has one pool or two. A collection MAY use a single pool with one field (an image-only or netlist-only reveal). A field that no pool carries is not assigned by the reveal: the collection fixes it in each token's metadata, §7.3 item 3 does not apply to it, and at L1 the matching getter (`imageHashOf` or `netlistHashOf`) returns zero for it permanently (§8.2). Roots and entry values MUST NOT be zero; on chain, zero means "not bound".
+The field bit mask used on chain is `image = 1`, `netlist = 2`. Inside a leaf, values appear in the order image, then netlist. Each field appears in at most one pool, so a manifest has one pool or two. A collection MAY use a single pool with one field (an image-only or netlist-only reveal). A field that no pool carries is not assigned by the reveal: the collection fixes it in each token's metadata, §7.3 item 3 does not apply to it, and at L1 the matching getter (`imageHashOf` or `netlistHashOf`) returns zero for it permanently, except in a bridged copy or a mint-bound contract, which return the hashes recorded for the token (§8.2). Roots and entry values MUST NOT be zero; on chain, zero means "not bound".
 
 #### 5.3 Merkle tree
 
@@ -303,6 +315,8 @@ permute(seed, n, x):
 
 When the same netlist hash appears more than once in the netlist fields of a collection, the tokens that receive it form an edition. The edition of such a token is `(index, of)`, where `of` is the number of tokens that receive that netlist hash and `index` is the token's rank among them by ascending token id, starting at 1. Editions are determined by the reveal; a collection MUST NOT make one netlist appear as several by changing gate numbering or encoding (Security Considerations).
 
+Collections without a manifest do not form editions, even when several of their tokens carry the same netlist hash, and their metadata MUST NOT contain `tap.edition`.
+
 ### 7. Token metadata
 
 #### 7.1 The `tap` member
@@ -316,14 +330,17 @@ The JSON document returned by `tokenURI` MUST contain the ERC-721 metadata membe
 | `state` | yes | string | `unrevealed` or `revealed` |
 | `manifest` | when the collection has a manifest | object | `sha256` (manifest hash), `uris` |
 | `image` | when `revealed` | object | `sha256`, `uris` |
-| `netlist` | when `revealed` | object | `format` (`"tapnet/1"`), `sha256` (netlist hash), `bytes`, `nIn`, `nOut`, `nand`, `latch` (numbers), `uris`; optionally `structuralHash` (the structural hash of the file under `TAP-draft-netlist-structural-hash`, `0x` + 64 lowercase hex digits) |
-| `edition` | when `of > 1` | object | `index`, `of` (§6.4) |
+| `netlist` | when `revealed` | object | `format` (`"tapnet/1"`), `sha256` (netlist hash), `bytes`, `nIn`, `nOut`, `nand`, `latch` (numbers), `uris`; optionally `structuralHash`: the structural hash of the file under `TAP-draft-netlist-structural-hash`, for formats and files for which that TAP defines one (`0x` + 64 lowercase hex digits) |
+| `edition` | when `of > 1`; never without `manifest` (§6.4) | object | `index`, `of` (§6.4) |
 | `source` | no | object | `chainId` (number), `processor` (lowercase address), `circuitId` (decimal string) and `block` (number), all required; `name` (on-chain name) and `container` (the source circuit's container address, lowercase) optional |
 | `content` | no | object | Where the collection's files are stored in a TapeOut container (§7.5) |
 | `license` | no | object | `image`, `netlist`: an SPDX identifier or a URI each |
 | `companion` | when the collection names its companion through metadata (§8.3, way 1) | object | `chainId`, `address` (§8.3) |
+| `freeze` | no; used only without `manifest` (§7.2) | object | The freeze probe of a collection without a manifest: `chainId`, `contract`, `call` and `expect`, as in the manifest's `freeze` (§5.1) |
 
-In `manifest`, `image` and `netlist`, every listed member is required except `structuralHash`; `uris` is a non-empty array of URI strings. A collection that gives `structuralHash` for one netlist SHOULD give it for every netlist. Numbers are JSON integers between 0 and 2^53 − 1. Members not listed here MAY appear; tools MUST ignore members they do not know. Other TAPs MAY define further members of `tap`.
+In `manifest`, `image` and `netlist`, every listed member is required except `structuralHash`; `uris` is a non-empty array of URI strings. A collection that gives `structuralHash` for one netlist SHOULD give it for every netlist that has one. For a netlist in a format defined under §2.5, `format` is that format's identifier and the members that replace `sha256` and `bytes` are those the format defines. Numbers are JSON integers between 0 and 2^53 − 1. Members not listed here MAY appear; tools MUST ignore members they do not know. Other TAPs MAY define further members of `tap`.
+
+Within one collection, `tap.manifest` MUST either be present, with the same `sha256`, in the metadata of every token (including tokens outside the token set, §5.4), or absent from the metadata of every token. At L1, when `manifestHash()` is non-zero, every token's `tap.manifest.sha256` MUST equal it. An indexer that finds tokens of one collection both with and without `tap.manifest`, or with different `tap.manifest.sha256`, MUST treat the collection as invalid.
 
 Example (informative; the `tap` member of token 4 of the worked example in `vectors.json`, URIs shortened):
 
@@ -345,7 +362,7 @@ Example (informative; the `tap` member of token 4 of the worked example in `vect
 - `unrevealed`: the token has no content yet, or it is outside the token set (§5.4). `netlist` MUST be absent and `manifest` MUST be present (a collection without a manifest assigns content at mint and never uses this state). A placeholder `tap.image` member MAY be present for a token awaiting a reveal and MUST be absent for a token outside the token set (§5.4); the ERC-721 `image` remains required (§7.1) and MAY be a placeholder; any other member that is present MUST still follow §7.1;
 - `revealed`: the content is assigned.
 
-Whether content can still change is not a metadata state: a file written before a freeze cannot truthfully announce it. Tools derive it from the chain (§8): `frozen()` at L1, or for L0 the probe the manifest names in `freeze` (§5.1).
+Whether content can still change is not a metadata state: a file written before a freeze cannot truthfully announce it. Tools derive it from the chain (§8): `frozen()` at L1, or for L0 the probe the manifest names in `freeze` (§5.1) or, for a collection without a manifest, the probe named in `tap.freeze` (§7.1). Tools MUST NOT use `tap.freeze` for a token whose metadata carries `tap.manifest`, nor at L1, where they read `frozen()` and ignore `tap.freeze`.
 
 #### 7.3 Consistency
 
@@ -384,7 +401,7 @@ A tool that uses `tap.content`:
 
 #### 8.1 L0: metadata
 
-A collection conforms at L0 if its token metadata follows §7 and, when it reveals, its manifest and reveal follow §5 and §6. L0 requires no contract change: a collection that can only set a base URI conforms by publishing the metadata files. At L0 the guarantee that content will not change rests on the collection giving up the power to change `tokenURI` (for example an irreversible `freezeBaseURI()`); tools MUST label such collections as "L0 (metadata only)".
+A collection conforms at L0 if its token metadata follows §7 and, when it reveals, its manifest and reveal follow §5 and §6. L0 requires no contract change: a collection that can only set a base URI conforms by publishing the metadata files. At L0 the guarantee that content will not change rests on the collection giving up the power to change `tokenURI` (for example an irreversible `freezeBaseURI()`); tools MUST label such collections as "L0 (metadata only)"; for a collection without a manifest they MUST also show that no manifest commits its content (for example "L0 (metadata only), no manifest: content not committed").
 
 #### 8.2 L1: on-chain interface
 
@@ -393,7 +410,7 @@ A contract conforms at L1 if it implements `ITapNetlistNFT` below, ERC-165 (repo
 1. `manifestHash()` and `masterSeed()` once non-zero, and `pools()` and `tokenRange()` once set (non-empty, `supply` ≥ 1), never change; `pools()[i]` equals the label, field mask and root of the manifest's `pools[i]`;
 2. `entryIndexOf(t, p)` returns `permute(poolSeed_p, n, x)` with the index `x` of §6.3 once `masterSeed()` is non-zero, and reverts before, for a token that is not covered (outside the range, or outside the token set, §5.4), and for a pool index that does not exist. If the manifest's `reveal.source` is `none`, the contract sets `masterSeed()` to `0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff` when the manifest is committed, `entryIndexOf(t, p)` returns the index `x`, and the seed counts as set for item 5. For any other source the contract MUST NOT record zero or that value as the master seed;
 3. `bind` records, for any caller, the entry a token receives, after verifying a Merkle proof (§5.3) against the pool root at index `entryIndexOf(t, p)`; it is idempotent. An implementation MAY also record every entry of a pool in one call or over several calls, after rebuilding the pool's root from the full list of values and checking it against the committed root; once the seed is set, `netlistHashOf` and `imageHashOf` then answer for every covered token without `bind`;
-4. A netlist hash is known when `bind` has recorded it; when, after `masterSeed()` is set, a permissionless function has recorded it by deriving it from a pool recorded under item 3 for a token that receives it (in the reference implementation, `markKnown(uint256 tokenId)`); or when it arrived with a token under a bridging TAP. `storeNetlist` accepts only files whose SHA-256 is a known netlist hash and whose length is at most 49,152 bytes, and makes them readable through `netlistFile` and `netlistOf`. It SHOULD check validity (§2.2) on chain, and MUST do so if the contract implements the TAP-721 Eval extension (§8.4). The layout behind `NetlistStored.pointer` is informative; clients read files through `netlistFile`. Revert data is not part of this interface;
+4. A netlist hash is known when `bind` has recorded it; when, after `masterSeed()` is set, a permissionless function has recorded it by deriving it from a pool recorded under item 3 for a token that receives it (in the reference implementation, `markKnown(uint256 tokenId)`); when it arrived with a token under a bridging TAP; or, in a mint-bound contract (below), when a token minted with it exists. `storeNetlist` accepts only `tapnet/1` files whose SHA-256 is a known netlist hash and whose length is at most 49,152 bytes, and makes them readable through `netlistFile` and `netlistOf`. It SHOULD check validity (§2.2) on chain, and MUST do so if the contract implements the TAP-721 Eval extension (§8.4). The layout behind `NetlistStored.pointer` is informative; clients read files through `netlistFile`. Revert data is not part of this interface;
 5. `frozen()` returns true only when the manifest is committed, the seed is set and no account can change `tokenURI`, the manifest, the pools or the seed; once true it never returns false. A contract behind an upgradeable proxy is not frozen while its upgrade path exists;
 6. It emits ERC-4906 `MetadataUpdate` or `BatchMetadataUpdate` whenever the metadata of a token may have changed (commit, reveal, bind, recording a pool or a token set, freeze), so that marketplaces refresh. In set mode a `BatchMetadataUpdate` over `0 … 2^256 − 1` satisfies this.
 
@@ -404,6 +421,8 @@ How the manifest is committed, the seed written, pools and token sets recorded a
 An L1 contract whose manifest uses set mode (§5.4) MUST also implement the TAP-721 TokenSet extension (§8.5).
 
 **Bridged copies.** A copy of the collection on another chain, created by a bridging TAP that builds on this one, MAY implement `ITapNetlistNFT` without the manifest: there `entryIndexOf` and `bind` MAY revert with an error that the bridging TAP defines, and `netlistHashOf` and `imageHashOf` return the hashes that arrived with the token. In such a copy, `collection()` returns the copy itself, `tokenRange()` MAY return `supply` = 0 for an unbounded range, `frozen()` MAY stay false, and the metadata's `tap.id` is the identifier of the home token (§4.1). In every implementation `netlistHashOf` and `imageHashOf` return zero only while no hash is known for the token, or permanently for a field that no pool carries (§5.2).
+
+**Mint-bound collections.** A contract that records the netlist hash of each token id at the token's mint, at most once over the contract's lifetime, MAY implement `ITapNetlistNFT` without a manifest. In such a contract: no function changes a recorded hash, and a token id that was burned MUST NOT be minted again with another netlist hash; `manifestHash()` and `masterSeed()` return zero and `pools()` is empty, permanently, so item 1 holds without a manifest; `entryIndexOf` and `bind` revert for every token, in place of items 2 and 3; `tokenRange()` MAY return `supply` = 0; `netlistHashOf` returns the hash recorded at mint; `imageHashOf` returns the image hash recorded at mint, or zero if the contract records none, and in the latter case the exception for a field that no pool carries (above) applies to the image; `storeNetlist` MAY, in addition to the files item 4 allows, accept any valid `tapnet/1` file of at most 49,152 bytes; and `frozen()` returns true only when no account can change `tokenURI` or a recorded hash, in place of the conditions of item 5 on the manifest and the seed, and once true never returns false. `frozen()` does not imply that minting has ended. A mint-bound contract reports `ITapNetlistNFT` only if it implements this profile in full. The metadata of its tokens has no `tap.manifest` and never uses the state `unrevealed` (§7.2).
 
 ```solidity
 // SPDX-License-Identifier: CC0-1.0
@@ -517,6 +536,12 @@ Tools SHOULD show whether the container that serves a collection's content is lo
 
 **One master seed, several pools.** Image rarity and netlist rarity often need to be independent. Domain-separated pool seeds give that from one randomness request, and also allow collections that pair images and netlists in a single pool.
 
+**No domain tag in pool seeds and the round function.** The Merkle tree prefixes leaves and nodes with `0x00` and `0x01` (§5.3) because both are compared with a committed root, and §2.5 keeps other formats' netlist hashes apart from each other and from `SHA-256` of `tapnet/1` files because both land in the same places: pool entries, `netlistHashOf` and the known netlist hashes. The outputs of `poolSeed` (§6.2) and `F` (§6.3) land in none of those places: they are used only as a permutation key and as round values masked to at most 16 bits, and are never stored, committed or compared with another hash. A collision between them and a hash of another kind would therefore let nobody substitute one value for another, so they carry no domain tag; their inputs are also fixed by the manifest and a public seed, and `F` has a fixed 37-byte input.
+
+**A hook for other formats.** `tapnet/1` is kept small so that contracts can check and evaluate it; netlists with memories or of many megabytes need other encodings and other hashes. §2.5 lets a Standards TAP add such a format without changing `tapnet/1` or its hash. Requiring a version byte and a hash space that differ from those of `tapnet/1` and of every format defined before means that, without a SHA-256 collision, a value in a pool entry or in `netlistHashOf` names one file in one format. Requiring tools to show an unsupported format as unverifiable, while still rejecting a fetched file that is not a `TAPNET` file of another version, keeps a valid token from being reported as broken by an older tool without letting an invalid one pass as unverifiable. A format string that differs from `tapnet/1` only in case or whitespace is invalid, so that it cannot turn a broken `tapnet/1` token into an unverifiable one.
+
+**Mint-bound collections and the freeze probe.** Collections that bind a netlist at mint have no reveal to commit to. The mint-bound profile (§8.2) lets them offer the same reads as other L1 contracts without a manifest. They form no editions (§6.4): with no manifest, the number of tokens that share a netlist hash is not fixed in advance and can change with every mint, so an edition count would be misleading until minting ends. `tap.freeze` (§7.1) gives an L0 collection without a manifest the same way to point tools at its freeze check as a manifest gives, while the frozen state itself is still read from the chain.
+
 **Token sets by rank.** A collection whose usable tokens have gaps would otherwise either assign content to tokens nobody can use, which wastes scarce netlists and misstates scarcity, or redeploy. Set mode keeps the permutation unchanged and only changes the index: the rank of a token in an ascending list. A packed `u32be` list is trivial to hash on chain and off chain, and a rank needs no extra data beyond the list. A bounding range with holes was rejected because the pool size would no longer equal the number of tokens served. Fixing the set before the seed (§6.1, item 3) prevents the producer from including or excluding tokens after seeing the assignment. Separate files for excluded tokens (§5.4) keep marketplaces working without implying that content will come.
 
 **Containers, names and locks.** Community shorthand for the three TapeOut primitives is C/N/L: container (电容), NAND and LATCH. This TAP uses the last two in `tapnet/1` and the first for storage. A container is an attractive home for content because TAP-10 clients verify its files against the chain, but its holder can change files, and its site store is upgradeable. The design therefore relies on hashes for integrity and on a lock contract only to stop casual changes; `tap.content` names the container by its on-chain name, from which a tool derives the address, so a wrong or malicious address in metadata cannot redirect a tool.
@@ -527,7 +552,7 @@ Tools SHOULD show whether the container that serves a collection's content is lo
 
 **A reserved seed for collections without a reveal.** With `reveal.source` `none` there is no random value, but L1 needs a non-zero `masterSeed()` to signal that assignments are final. The all-ones value cannot be confused with "not revealed" (zero), and a random source producing it is negligible; contracts refuse it as a random seed.
 
-**A size limit for stored netlists.** 49,152 bytes is the largest file that the reference implementation stores and checks for validity within a 16,777,216-gas transaction, the cap of BNB Smart Chain. A staged upload for larger files is an open question.
+**A size limit for stored netlists.** 49,152 bytes is the largest file that the reference implementation stores and checks for validity within a 16,777,216-gas transaction, the cap of BNB Smart Chain. Larger netlists are the subject of `TAP-draft-large-netlists`, which defines the `tapnet/2` format under §2.5 and its chunk-by-chunk on-chain storage (its §3).
 
 **Manifest bytes are hashed as published.** A canonical JSON form would add a dependency for no gain: the manifest is published once and never re-serialised.
 
@@ -539,28 +564,50 @@ Tools SHOULD show whether the container that serves a collection's content is lo
 
 **Relationship to other TAPs.** Three proposals extend TAP-721 and require it, as ERC-4906 and ERC-7496 extend ERC-721: `TAP-draft-netlist-nft-bridging` (moving TAP-721 tokens between chains), `TAP-draft-pod-attributes` (Proof-of-Design attributes for TAP-721 tokens) and `TAP-draft-netlist-structural-hash` (a structural hash of `tapnet/1` files). They are separate TAPs for four reasons. One topic per TAP: each can be reviewed, accepted or rejected without reopening this one. Upgradeable dependencies: bridging depends on a message layer and its own security analysis, and the PoD attributes read contracts that can be upgraded; neither should hold this core back or tie it to their changes. Application type: PoD facts (task, burns, cost, optimal-first status) change over time and belong to one application, so they are an Application TAP, while this one is a Standards TAP. Algorithm evolution: recognising one design under renumbered gates has known limits, and its algorithm can change without changing the netlist hash of §2.3.
 
+**Names used by other drafts (informative).** §7.1 lets other TAPs define further members of `tap`, and §5.1 further members of the manifest. The following names are used by drafts that build on this one (some not yet submitted); a new member should not reuse them.
+
+| Name | Where | Draft | Content |
+|---|---|---|---|
+| `tap.bridge` | token metadata | `TAP-draft-netlist-nft-bridging` | The home collection's bridge gateway: `chainId`, `gateway` |
+| `tap.pod` | token metadata | `TAP-draft-pod-attributes` | A snapshot of the source circuit's Proof-of-Design facts at one block |
+| `tap.rig` | token metadata | `TAP-draft-pod-attributes` | An unverified reference to a rig voucher on X Layer |
+| `pod` | manifest | `TAP-draft-pod-attributes` | Snapshot parameters fixed before the seed |
+| `tap.credits` | token metadata | `TAP-draft-design-credits` | A credit bundle: publication facts and signed credit, lineage and revocation statements |
+| `tap.credential` | token metadata | `TAP-draft-soulbound-credentials` | The credential record of a soulbound credential, in a collection without a manifest, at L0 (§6.4, §8.1) |
+
+**Netlist formats defined under §2.5 (informative).** Each new format takes a byte 6 and a netlist hash space that no earlier format uses. The values taken so far:
+
+| `tap.netlist.format` | Byte 6 | Netlist hash | First byte of the hashed preimage | Defined in |
+|---|---|---|---|---|
+| `tapnet/1` | `0x01` | `SHA-256(file)` | `0x54` (`T` of `TAPNET`) | this TAP, §2 |
+| `tapnet/2` | `0x02` | `netlistHash2 = SHA-256(0x03 ‖ u64be(len) ‖ chunkRoot)`, a 41-byte preimage | `0x03` | `TAP-draft-large-netlists` §1, §2.1 |
+
 **What is left out.** PNG files that embed a netlist are allowed as additional content but are not a source of truth, because marketplaces and messengers re-encode images and drop ancillary chunks.
 
 ## Backwards Compatibility
 
 Netlist-bound NFTs are ERC-721 tokens; wallets and marketplaces that ignore `tap` show the name, image and attributes as before. TapeOut circuit tokens are unaffected; they can be sources (§3). Existing collections reach L0 by changing their metadata and L1 through a companion, without redeployment.
 
+An existing collection without a manifest cannot reach L1 through a companion, because a companion implements `ITapNetlistNFT` with a manifest (§5.1, §8.3), and the mint-bound profile (§8.2) is open only to the contract that mints the tokens; such a collection stays at L0 unless it publishes a manifest for its tokens while it can still change their metadata.
+
 ## Test Cases
 
-`assets/tap-draft-netlist-bound-nft/vectors.json` is generated by `assets/tap-draft-netlist-bound-nft/make_vectors.py`, reproducible byte for byte, with SHA-256 `bb77433f2d3a5e89267eb590206beb2d17a67158ba4ad1f317ed663645dfb3fe`. Its members `format` and `generator` identify the file; its sections are:
+`assets/tap-draft-netlist-bound-nft/vectors.json` is generated by `assets/tap-draft-netlist-bound-nft/make_vectors.py`, reproducible byte for byte, with SHA-256 `9808f32ae21d911e377de09aa9f5df862715e9d1286041033f225a54c70031e8`. Its members `format` and `generator` identify the file; its sections are:
 
 - `chain`: the chain id and pinned block of the on-chain input (BNB Smart Chain block 128,200,681, `assets/tap-draft-netlist-bound-nft/chain-snapshot.json`);
 - `tapnet`: netlist files built from four BNB Smart Chain mainnet circuits read at that block, with netlist hashes, metrics, on-chain names and validity (one circuit contains REF records and is listed as rejected);
 - `invalidFiles`: one rejected file per rule of §2.2, with the expected error;
 - `merkle`: pools of 1, 2, 3, 5 and 8 entries with one and two fields, roots, every proof, failing proofs and error cases;
 - `permutation`: pool seeds and `permute` outputs for pool sizes 1, 2, 3, 7, 10, 255, 256, 257 and 1,000 in full, and for 10,000 the first 64 outputs and a hash of the whole permutation, with error cases and intermediate values for debugging ports;
-- `metadata`: valid and invalid `tap` members, each invalid one breaking one rule of §7;
+- `metadata`: valid and invalid `tap` members, each invalid one breaking one rule of §7 (a `tap.netlist.format` other than `tapnet/1` is not one of them, §2.5);
 - `manifests`: valid manifests (range mode and set mode, one and two pools, object-form `uris`) and invalid manifests, each breaking one rule of §5.1, §5.2, §5.4 or §6.1;
 - `tokenSets`: set mode (§5.4): a 10-of-20 set with its file, hash, manifest and the assignment of every token (none for tokens outside the set); a 7,000-of-10,000 set with its hash, the first 32 assignments and a hash of all of them; token set file and hash errors;
 - `content`: valid and invalid `tap.content` members (§7.5);
 - `placeholders`: metadata of tokens outside the token set and awaiting reveal (§5.4, §7.2);
-- `editions`: the collection-level edition check (§6.4, §7.3 item 3) over the example, and three failures;
+- `editions`: the collection-level edition check (§6.4, §7.3 item 3) over the example, three failures, and three collections that drop `tap.manifest` from some or all tokens or carry two manifest hashes (§7.1);
 - `netlistChecks`: a fetched file checked against metadata (§7.4), one match and two rejects;
+- `noManifest`: metadata of collections without a manifest, such as a mint-bound token (§8.2), with and without `tap.freeze` (§5.1, §7.1), a `tap.freeze` ignored next to a manifest (§7.2), invalid `tap.freeze` members, including a probe of another chain or contract (§5.1), a `tap.edition` without a manifest (§6.4), two tokens with the same netlist hash and no edition, which pass the edition check, and two collections whose tokens name different probes or where only some tokens name one (§5.1);
+- `otherFormats`: a token whose netlist is a `tapnet/2` file (`TAP-draft-large-netlists`), which the reference implementation, supporting `tapnet/1` only, accepts and reports as unverifiable, not invalid (§2.5); five fetched files for that token, two unverifiable (another version's header, no file) and three invalid (a `tapnet/1` file, a file without `TAPNET`, a truncated header); two such tokens under one manifest with the same netlist hash and no edition, whose edition check is reported as unverifiable, since a tool that supports `tapnet/2` would require editions (§2.5, §6.4); and five documents that break the members every format keeps or write `tapnet/1` with other case or whitespace (§2.5);
 - `example`: a complete eight-token collection with two pools, its manifest file and hash, a fixed master seed, the assignment and the metadata of every token (also under `example/`).
 
 The Solidity reference implementation's tests reproduce these values from a fixture generated from `vectors.json`, including evaluation (§8.4) of the mainnet circuits #17851 (XOR, all 4 inputs), #3151 (popcount8, all 256 inputs) and #17852 (Johnson counter, 20 beats from the zero state) against the TAP-02 reference implementation.
@@ -582,7 +629,7 @@ Measured costs of the reference implementation for a pool of 10,000 (informative
 
 ## Reference Implementation
 
-- Python, standard library only: `assets/tap-draft-netlist-bound-nft/tapnft.py` (file check, hashes, source file construction, Merkle tree, pool seeds, permutation, manifest and token-set checks, assignment, metadata and edition checks), with the TAP-02 reference implementation `tap02_reference.py`, copied from `assets/tap-02/reference.py` (TAPs repository) with only the header comment changed, the generator `make_vectors.py` and the test suite `test_tapnft.py`.
+- Python, standard library only: `assets/tap-draft-netlist-bound-nft/tapnft.py` (file check, hashes, source file construction, Merkle tree, pool seeds, permutation, manifest and token-set checks, assignment, metadata and edition checks, and the unverifiable status of other formats), with the TAP-02 reference implementation `tap02_reference.py`, copied from `assets/tap-02/reference.py` (TAPs repository) with only the header comment changed, the generator `make_vectors.py` and the test suite `test_tapnft.py`.
 - Solidity: https://github.com/BruceLanLan/TAP-721, to be linked at a fixed commit before Review (TAP-01 §7.2 item 8). It contains the interfaces of §8; `TapNetlistNFT` (an L1 collection), `TapCompanion` (L1 for an existing ERC-721), the libraries `TapPermutation`, `TapMerkle`, `TapNetlistCheck`, `TapNetlistStore` and `TapNetlistVM`, and their tests.
 - Implementation-defined entry points of the reference L1 contract, which clients will meet: `commitManifest`, `commitManifestTokenSet` and `commitManifestNoReveal` (§5.1, §6.1); `scheduleBlockhashReveal` and `revealFromBlockhash`, with a delay of at most 1,000,000 blocks; `loadTokenSet` and `loadTokenSetChunk` (§8.5); `loadPool` and `loadPoolChunk` (§8.2 item 3); `markKnown(uint256 tokenId)` (§8.2 item 4); `poolSeed(uint256)` (§6.2). The reference contract accepts at most 100,000 covered tokens, a limit of the implementation, not of this TAP.
 - The reference library does not implement the network checks of §3.2 (steps 1, 2 and 5), the publication block of §5.1, §6.1 item 7 or §7.5. Paths under `assets/` are updated when a number is assigned.
@@ -593,7 +640,8 @@ This TAP depends on no deployed contract of its own. Verifying a source (§3.2) 
 
 ## Security Considerations
 
-- **Content replaced before freezing.** At L0, and at L1 before `frozen()`, the collection owner can change `tokenURI`. The manifest hash, published before the seed, makes any substitution detectable: a token whose content does not match its pool entry under §6 fails §7.3. Tools must show the conformance level and the frozen state.
+- **Content replaced before freezing.** At L0, and at L1 before `frozen()`, the collection owner can change `tokenURI`. The manifest hash, published before the seed, makes any substitution detectable: a token whose content does not match its pool entry under §6 fails §7.3. Tools must show the conformance level and the frozen state. Collections without a manifest have no such commitment: until `tokenURI` is frozen, their content can change without failing any check of §7.3, and tools label them accordingly (§8.1).
+- **Mint-bound contracts.** A mint-bound contract (§8.2) commits to no manifest or Merkle root. Which netlist a later token receives, and how many tokens end up sharing a netlist hash, depend only on the contract's code, and `frozen()` does not mean that minting has ended; before a freeze, even the recorded hashes are protected only by that code. Tools and holders have to read the contract to know what it can still mint.
 - **Seed grinding.** If the party that publishes the manifest could see the seed first, it could choose a manifest that favours chosen tokens. §6.1 requires the manifest first and one seed only; `blockhash` on single-sequencer chains is not recommended because the sequencer can grind.
 - **Lost block-hash reveals.** A block hash is available on chain for 256 blocks only. A collection that schedules a `blockhash` reveal and misses that window cannot be revealed under its manifest, and choosing another block would be a second seed (§6.1, items 2 and 6).
 - **Choices made after the seed.** A token set, label or rule computed from a block or formula chosen after the seed lets the producer favour chosen tokens; §6.1 items 2 and 3 forbid it.
@@ -614,11 +662,10 @@ This TAP depends on no deployed contract of its own. Verifying a source (§3.2) 
 
 ### Open questions
 
-1. Should `tapnet/2` allow REF records flattened under a defined rule, and if so, should that rule live here or in `TAP-draft-netlist-structural-hash`?
+1. Should a later netlist format (§2.5) allow REF records flattened under a defined rule?
 2. Should the manifest require a licence for each pool rather than per token?
-3. Should a staged upload be defined for netlist files above 49,152 bytes?
-4. Should a minimal lock-contract interface (for example `locked()`) be standardized, so that tools can show a container as locked without knowing the lock's code?
-5. Should a `vrf` seed source be defined, and against which fixed version of which VRF service?
+3. Should a minimal lock-contract interface (for example `locked()`) be standardized, so that tools can show a container as locked without knowing the lock's code?
+4. Should a `vrf` seed source be defined, and against which fixed version of which VRF service?
 
 ## Copyright
 

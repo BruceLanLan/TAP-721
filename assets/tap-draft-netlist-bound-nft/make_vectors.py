@@ -351,7 +351,7 @@ INVALID_METADATA = [
     ("image_uri_without_scheme", lambda: mutate(R, ["tap", "image", "uris"], ["images/1.png"]),
      "tap.image.uris: bad URI 'images/1.png'"),
     ("revealed_without_netlist", lambda: mutate(R, ["tap", "netlist"], delete=True), "tap.netlist is required once revealed"),
-    ("netlist_format", lambda: mutate(R, ["tap", "netlist", "format"], "tapnet/2"), "tap.netlist.format must be 'tapnet/1'"),
+    ("netlist_format_not_string", lambda: mutate(R, ["tap", "netlist", "format"], 1), "tap.netlist.format must be a non-empty string"),
     ("netlist_sha_short", lambda: mutate(R, ["tap", "netlist", "sha256"], H("netlist")[:-2]), "tap.netlist.sha256 is required"),
     ("netlist_bytes_string", lambda: mutate(R, ["tap", "netlist", "bytes"], "41"), "tap.netlist.bytes must be an integer 0..2^53-1"),
     ("netlist_nand_negative", lambda: mutate(R, ["tap", "netlist", "nand"], -1), "tap.netlist.nand must be an integer 0..2^53-1"),
@@ -853,7 +853,174 @@ def section_editions(example: dict) -> dict:
             t["edition"] = new
         T.check_metadata(ds[tid - 1])  # each mutated document is still valid on its own
         invalid.append({"name": name, "tokenId": tid, "edition": new, "error": expect_error(lambda d=ds: T.check_editions(d), want, name)})
-    return {"collection": "example (documents in example.tokens[*].metadata)", "valid": True, "invalid": invalid}
+    # §7.1: a collection either carries tap.manifest (one sha256) on every token or on none; stripping
+    # tap.manifest (and with it tap.edition) from some or all tokens must not evade the edition check
+    man_hash = example["manifestSha256"]
+    pair = next(t["netlistHash"] for t in example["tokens"] if t["edition"] and t["edition"]["of"] == 2)
+
+    def stripped(pred):
+        ds = copy.deepcopy(docs)
+        for d in ds:
+            if pred(d["tap"]):
+                del d["tap"]["manifest"]
+                d["tap"].pop("edition", None)
+            T.check_metadata(d)  # each document is still valid on its own
+        return ds
+
+    other = copy.deepcopy(docs)
+    other[-1]["tap"]["manifest"]["sha256"] = H("another manifest")
+    T.check_metadata(other[-1])
+    all_stripped = stripped(lambda t: True)
+    assert T.check_editions(all_stripped) == "valid"  # without the manifest hash it looks like a collection without a manifest
+    collection_errors = []
+    for name, ds, ref, expect in [
+        ("manifest_stripped_from_one_edition", stripped(lambda t: t["netlist"]["sha256"] == pair), None,
+         "collection mixes tokens with and without tap.manifest"),
+        ("manifest_stripped_from_all_tokens", all_stripped, man_hash,
+         "tap.manifest.sha256 differs from the collection's manifest hash"),
+        ("two_manifest_hashes", other, None, "tokens of one collection carry different tap.manifest.sha256"),
+    ]:
+        collection_errors.append({"name": name, "documents": ds, "manifestSha256": ref,
+                                  "error": expect_error(lambda d=ds, r=ref: T.check_editions(d, r), expect, name)})
+    assert T.check_editions(docs, man_hash) == "valid"
+    return {"collection": "example (documents in example.tokens[*].metadata)", "valid": True, "result": "valid",
+            "manifestSha256": man_hash, "invalid": invalid, "collectionErrors": collection_errors,
+            "note": "collectionErrors: manifestSha256 is the hash a tool knows from manifestHash() or the manifest "
+                    "file; null means check_editions(documents) without it"}
+
+
+# ---------------------------------------------------------------- collections without a manifest (§6.4, §7.1, §8.2)
+
+FREEZE_PROBE = {"chainId": 196, "contract": "0x00000000000000000000000000000000000000aa", "call": "uriFrozen()", "expect": True}
+
+
+def base_mint_bound() -> dict:
+    """A token of a mint-bound collection (§8.2): netlist recorded at mint, no manifest, no reveal."""
+    d = base_revealed()
+    d["tap"]["freeze"] = dict(FREEZE_PROBE)
+    return d
+
+
+def section_no_manifest() -> dict:
+    """Metadata of collections without a manifest: tap.freeze (§5.1, §7.1), no editions (§6.4)."""
+    import copy
+    valid = []
+    for name, fn in [("mint_bound", base_revealed), ("mint_bound_with_freeze", base_mint_bound)]:
+        d = fn()
+        assert T.check_metadata(d)["state"] == "revealed"
+        valid.append({"name": name, "document": d})
+    # with a manifest, the probe comes from the manifest; a tap.freeze member is ignored (§7.2)
+    d = base_edition_source()
+    d["tap"]["freeze"] = "ignored with a manifest"
+    T.check_metadata(d)
+    valid.append({"name": "manifest_with_ignored_tap_freeze", "document": d})
+    cases = [
+        ("edition_without_manifest", lambda: mutate(base_mint_bound, ["tap", "edition"], {"index": 1, "of": 2}),
+         "a token without tap.manifest MUST NOT carry tap.edition"),
+        ("edition_1_of_1_without_manifest", lambda: mutate(R, ["tap", "edition"], {"index": 1, "of": 1}),
+         "a token without tap.manifest MUST NOT carry tap.edition"),
+        ("freeze_not_object", lambda: mutate(base_mint_bound, ["tap", "freeze"], "uriFrozen()"), "tap.freeze must be an object"),
+        ("freeze_expect_false", lambda: mutate(base_mint_bound, ["tap", "freeze", "expect"], False), "tap.freeze.expect must be true"),
+        ("freeze_call_with_argument", lambda: mutate(base_mint_bound, ["tap", "freeze", "call"], "uriFrozen(uint256)"),
+         "tap.freeze.call must be a function signature without arguments, e.g. uriFrozen()"),
+        ("freeze_contract_mixed_case", lambda: mutate(base_mint_bound, ["tap", "freeze", "contract"], "0x00000000000000000000000000000000000000AA"),
+         "tap.freeze.contract must be a lowercase address"),
+        ("freeze_other_contract", lambda: mutate(base_mint_bound, ["tap", "freeze", "contract"], "0x" + "11" * 20),
+         "tap.freeze.chainId and tap.freeze.contract must equal those of tap.id"),
+        ("freeze_other_chain", lambda: mutate(base_mint_bound, ["tap", "freeze", "chainId"], 1),
+         "tap.freeze.chainId and tap.freeze.contract must equal those of tap.id"),
+    ]
+    invalid = []
+    for name, fn, expect in cases:
+        d = fn()
+        invalid.append({"name": name, "document": d, "error": expect_error(lambda d=d: T.check_metadata(d), expect, name)})
+    # two mint-bound tokens with the same netlist hash and no edition: the collection check passes (§6.4)
+    a, b = base_mint_bound(), base_mint_bound()
+    b["name"] = "Example #2"
+    b["tap"]["id"] = BASE_ID.rsplit("/", 1)[0] + "/2"
+    assert T.check_editions([a, b]) == "valid"
+    assert T.check_freeze_probes([a, b]) == FREEZE_PROBE
+    # §5.1, §7.1: every token of a collection without a manifest names the same probe, or none does
+    freeze_errors = []
+    for name, change in [("freeze_probes_differ", lambda d: d["tap"]["freeze"].__setitem__("call", "frozen()")),
+                         ("freeze_on_some_tokens_only", lambda d: d["tap"].pop("freeze"))]:
+        x, y = copy.deepcopy(a), copy.deepcopy(b)
+        change(y)
+        T.check_metadata(y)
+        freeze_errors.append({"name": name, "documents": [x, y], "error": expect_error(
+            lambda ds=[x, y]: T.check_freeze_probes(ds),
+            "tokens of one collection name different tap.freeze probes, or only some name one", name)})
+    return {"valid": valid, "invalid": invalid,
+            "editions": {"documents": [a, b], "valid": True, "result": "valid",
+                         "note": "same netlist hash, no tap.manifest: no edition is formed or required (§6.4)"},
+            "freezeProbe": {"documents": [a, b], "probe": FREEZE_PROBE, "invalid": freeze_errors}}
+
+
+# ---------------------------------------------------------------- other netlist formats (§2.5)
+
+# The `message` example of TAP-draft-large-netlists (vectors.json, files.message): a tapnet/2 file of one chunk.
+TAPNET2_MESSAGE = {"format": "tapnet/2",
+                   "netlistHash2": "0xf5cd90005f48bc1eac7173c4f05c1af9710a1b6bd689d9377709c522627095b0",
+                   "bytes": 336, "nIn": 1, "nOut": 8, "nand": 30, "latch": 6, "romBits": 512, "romRecords": 1,
+                   "uris": ["https://example.invalid/netlists/message.tapnet2"]}
+
+
+def section_other_formats() -> dict:
+    """A tapnet/1-only tool and a token whose netlist is in another format: unverifiable, not invalid."""
+    import copy
+    d = base_revealed()
+    d["tap"]["netlist"] = copy.deepcopy(TAPNET2_MESSAGE)
+    assert T.check_metadata(d)["state"] == "revealed"
+    status = T.netlist_status(d["tap"])
+    assert status == "unverifiable"
+    def unverifiable(data):
+        try:
+            T.check_netlist_against_metadata(d["tap"], data)
+        except T.Unverifiable:
+            return "unverifiable"
+        raise SystemExit("tapnet/2 netlist was checked by a tapnet/1-only tool")
+    # §2.5: a tool that does not support the format still checks bytes 0-6 of the fetched file
+    tapnet1 = T.encode_file(bytes([0, 0, 0, 0, 0, 0, 0]), 1, 1)  # NAND(in0, in0): a valid tapnet/1 file
+    fetched = [{"name": "header_of_another_format", "file": "0x" + b"TAPNET\x02\x00".hex(), "result": unverifiable(b"TAPNET\x02\x00")},
+               {"name": "not_fetched", "file": None, "result": unverifiable(None)}]
+    for name, data, expect in [
+        ("tapnet1_file_under_other_format", tapnet1, "netlist file of another format has the tapnet/1 version byte 0x01"),
+        ("not_tapnet", b"PK\x03\x04\x00\x00\x00\x00", "netlist file of another format does not start with TAPNET"),
+        ("too_short", b"TAPNET", "netlist file of another format does not start with TAPNET"),
+    ]:
+        fetched.append({"name": name, "file": "0x" + data.hex(), "result": "invalid",
+                        "error": expect_error(lambda x=data: T.check_netlist_against_metadata(d["tap"], x), expect, name)})
+    # editions cannot be counted by a tool that cannot read the netlist hash: such tokens are skipped
+    e = copy.deepcopy(d)
+    e["tap"]["manifest"] = {"sha256": H("manifest"), "uris": ["https://example.invalid/manifest.json"]}
+    e2 = copy.deepcopy(e)
+    e2["name"] = "Example #2"
+    e2["tap"]["id"] = BASE_ID.rsplit("/", 1)[0] + "/2"
+    assert T.check_editions([e, e2]) == "unverifiable"  # a tool that supports tapnet/2 would require editions 1/2 and 2/2
+    invalid = []
+    for name, fn, expect in [
+        ("format_empty", lambda: mutate(lambda: copy.deepcopy(d), ["tap", "netlist", "format"], ""), "tap.netlist.format must be a non-empty string"),
+        ("format_missing", lambda: mutate(lambda: copy.deepcopy(d), ["tap", "netlist", "format"], delete=True),
+         "tap.netlist.format must be a non-empty string"),
+        ("other_format_uris_missing", lambda: mutate(lambda: copy.deepcopy(d), ["tap", "netlist", "uris"], delete=True),
+         "tap.netlist.uris must be a non-empty list"),
+        ("format_tapnet1_trailing_space", lambda: mutate(lambda: copy.deepcopy(d), ["tap", "netlist", "format"], "tapnet/1 "),
+         "tap.netlist.format differs from tapnet/1 only by case or whitespace"),
+        ("format_tapnet1_upper_case", lambda: mutate(lambda: copy.deepcopy(d), ["tap", "netlist", "format"], "TAPNET/1"),
+         "tap.netlist.format differs from tapnet/1 only by case or whitespace"),
+    ]:
+        doc = fn()
+        invalid.append({"name": name, "document": doc, "error": expect_error(lambda x=doc: T.check_metadata(x), expect, name)})
+    return {"tool": "supports tapnet/1 only (this reference implementation)",
+            "tokens": [{"name": "tapnet2_token", "document": d, "netlistStatus": status,
+                        "note": "netlist from TAP-draft-large-netlists vectors files.message; a tool that supports "
+                                "tapnet/2 checks it under that TAP"}],
+            "fetchedFiles": fetched,
+            "editionsSkipped": {"documents": [e, e2], "result": "unverifiable",
+                                "note": "same netlistHash2 under one manifest without tap.edition: a tool that supports "
+                                        "tapnet/2 requires editions 1/2 and 2/2 (§6.4); a tool that does not reports the "
+                                        "edition check of these tokens as unverifiable (§2.5)"},
+            "invalid": invalid}
 
 
 # ---------------------------------------------------------------- build
@@ -880,6 +1047,8 @@ def build(chain: dict | None = None) -> tuple:
     doc["tokenSets"] = ts
     doc["content"] = section_content()
     doc["placeholders"] = section_placeholders(ts)
+    doc["noManifest"] = section_no_manifest()
+    doc["otherFormats"] = section_other_formats()
     doc["manifests"]["valid"] += mvalid      # appended so earlier vectors keep their positions
     doc["manifests"]["invalid"] += minvalid
     files["vectors.json"] = dumps(doc).encode()

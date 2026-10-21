@@ -457,6 +457,1345 @@
  },
  "editions": {
   "collection": "example (documents in example.tokens[*].metadata)",
+  "collectionErrors": [
+   {
+    "documents": [
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Silicon"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 1
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 9
+       }
+      ],
+      "description": "Worked example token 1 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/5.png",
+      "name": "TAP Example #1",
+      "tap": {
+       "edition": {
+        "index": 1,
+        "of": 3
+       },
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+       "image": {
+        "sha256": "0x65dbb7a716bf0fb4a88460aa41ab350498106c1638de0f3f77881053e67c930a",
+        "uris": [
+         "https://example.invalid/tap-example/images/5.png"
+        ]
+       },
+       "manifest": {
+        "sha256": "0x231570124fd096137b329f71472ce4ac06c8195f457c20d485bfce4605ca5983",
+        "uris": [
+         "https://example.invalid/tap-example/manifest.json"
+        ]
+       },
+       "netlist": {
+        "bytes": 59,
+        "format": "tapnet/1",
+        "latch": 9,
+        "nIn": 0,
+        "nOut": 8,
+        "nand": 1,
+        "sha256": "0x9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "17852",
+        "name": "17852.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     },
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Silicon"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 1
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 9
+       }
+      ],
+      "description": "Worked example token 2 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/1.png",
+      "name": "TAP Example #2",
+      "tap": {
+       "edition": {
+        "index": 2,
+        "of": 3
+       },
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/2",
+       "image": {
+        "sha256": "0xbc628b1b449d889f9a84e161ef2c4b775287f3151d7428bd0c40c5de64886f9f",
+        "uris": [
+         "https://example.invalid/tap-example/images/1.png"
+        ]
+       },
+       "manifest": {
+        "sha256": "0x231570124fd096137b329f71472ce4ac06c8195f457c20d485bfce4605ca5983",
+        "uris": [
+         "https://example.invalid/tap-example/manifest.json"
+        ]
+       },
+       "netlist": {
+        "bytes": 59,
+        "format": "tapnet/1",
+        "latch": 9,
+        "nIn": 0,
+        "nOut": 8,
+        "nand": 1,
+        "sha256": "0x9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "17852",
+        "name": "17852.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     },
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Gold"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 55
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 0
+       }
+      ],
+      "description": "Worked example token 3 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/2.png",
+      "name": "TAP Example #3",
+      "tap": {
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/3",
+       "image": {
+        "sha256": "0x2a5756153a9c6f520b2454f277c0a6da614d13803cf6b44b8af5bb311b7a5f62",
+        "uris": [
+         "https://example.invalid/tap-example/images/2.png"
+        ]
+       },
+       "netlist": {
+        "bytes": 401,
+        "format": "tapnet/1",
+        "latch": 0,
+        "nIn": 8,
+        "nOut": 4,
+        "nand": 55,
+        "sha256": "0x1013cbe316b27f41c70910deaaa266b296222db6b128c368a6b750f25c4a5abd",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/1013cbe316b27f41c70910deaaa266b296222db6b128c368a6b750f25c4a5abd.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "3151",
+        "name": "3151.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     },
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Copper"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 4
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 0
+       }
+      ],
+      "description": "Worked example token 4 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/0.png",
+      "name": "TAP Example #4",
+      "tap": {
+       "edition": {
+        "index": 1,
+        "of": 3
+       },
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/4",
+       "image": {
+        "sha256": "0x2da1fc59339f21ea2cd41bffc0136e4a399f64ce690e0ca06e0bb90f6e589b9e",
+        "uris": [
+         "https://example.invalid/tap-example/images/0.png"
+        ]
+       },
+       "manifest": {
+        "sha256": "0x231570124fd096137b329f71472ce4ac06c8195f457c20d485bfce4605ca5983",
+        "uris": [
+         "https://example.invalid/tap-example/manifest.json"
+        ]
+       },
+       "netlist": {
+        "bytes": 44,
+        "format": "tapnet/1",
+        "latch": 0,
+        "nIn": 2,
+        "nOut": 1,
+        "nand": 4,
+        "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/ecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "17851",
+        "name": "17851.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     },
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Gold"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 4
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 0
+       }
+      ],
+      "description": "Worked example token 5 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/6.png",
+      "name": "TAP Example #5",
+      "tap": {
+       "edition": {
+        "index": 2,
+        "of": 3
+       },
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/5",
+       "image": {
+        "sha256": "0x7ce5c7d18a0c70108affc398de26a800e1a6c7b06addc3647c9e7a262e69344f",
+        "uris": [
+         "https://example.invalid/tap-example/images/6.png"
+        ]
+       },
+       "manifest": {
+        "sha256": "0x231570124fd096137b329f71472ce4ac06c8195f457c20d485bfce4605ca5983",
+        "uris": [
+         "https://example.invalid/tap-example/manifest.json"
+        ]
+       },
+       "netlist": {
+        "bytes": 44,
+        "format": "tapnet/1",
+        "latch": 0,
+        "nIn": 2,
+        "nOut": 1,
+        "nand": 4,
+        "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/ecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "17851",
+        "name": "17851.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     },
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Glass"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 4
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 0
+       }
+      ],
+      "description": "Worked example token 6 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/7.png",
+      "name": "TAP Example #6",
+      "tap": {
+       "edition": {
+        "index": 3,
+        "of": 3
+       },
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/6",
+       "image": {
+        "sha256": "0x8a12a9f6185ebc9b237cf47971028e576f0e6e5a1b1a5ed0ea7b5bb1810f15b3",
+        "uris": [
+         "https://example.invalid/tap-example/images/7.png"
+        ]
+       },
+       "manifest": {
+        "sha256": "0x231570124fd096137b329f71472ce4ac06c8195f457c20d485bfce4605ca5983",
+        "uris": [
+         "https://example.invalid/tap-example/manifest.json"
+        ]
+       },
+       "netlist": {
+        "bytes": 44,
+        "format": "tapnet/1",
+        "latch": 0,
+        "nIn": 2,
+        "nOut": 1,
+        "nand": 4,
+        "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/ecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "17851",
+        "name": "17851.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     },
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Copper"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 1
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 9
+       }
+      ],
+      "description": "Worked example token 7 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/4.png",
+      "name": "TAP Example #7",
+      "tap": {
+       "edition": {
+        "index": 3,
+        "of": 3
+       },
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/7",
+       "image": {
+        "sha256": "0x24744ffe324368ca88a2c18ca68e0beac0fbdee5526a848920655de7bc4562c3",
+        "uris": [
+         "https://example.invalid/tap-example/images/4.png"
+        ]
+       },
+       "manifest": {
+        "sha256": "0x231570124fd096137b329f71472ce4ac06c8195f457c20d485bfce4605ca5983",
+        "uris": [
+         "https://example.invalid/tap-example/manifest.json"
+        ]
+       },
+       "netlist": {
+        "bytes": 59,
+        "format": "tapnet/1",
+        "latch": 9,
+        "nIn": 0,
+        "nOut": 8,
+        "nand": 1,
+        "sha256": "0x9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "17852",
+        "name": "17852.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     },
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Glass"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 55
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 0
+       }
+      ],
+      "description": "Worked example token 8 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/3.png",
+      "name": "TAP Example #8",
+      "tap": {
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/8",
+       "image": {
+        "sha256": "0xbdd231155a420bbc7d7bbe67c216d9201952c7ba24c2c6d9adc2cee20c45d111",
+        "uris": [
+         "https://example.invalid/tap-example/images/3.png"
+        ]
+       },
+       "netlist": {
+        "bytes": 401,
+        "format": "tapnet/1",
+        "latch": 0,
+        "nIn": 8,
+        "nOut": 4,
+        "nand": 55,
+        "sha256": "0x1013cbe316b27f41c70910deaaa266b296222db6b128c368a6b750f25c4a5abd",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/1013cbe316b27f41c70910deaaa266b296222db6b128c368a6b750f25c4a5abd.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "3151",
+        "name": "3151.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     }
+    ],
+    "error": "collection mixes tokens with and without tap.manifest",
+    "manifestSha256": null,
+    "name": "manifest_stripped_from_one_edition"
+   },
+   {
+    "documents": [
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Silicon"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 1
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 9
+       }
+      ],
+      "description": "Worked example token 1 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/5.png",
+      "name": "TAP Example #1",
+      "tap": {
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+       "image": {
+        "sha256": "0x65dbb7a716bf0fb4a88460aa41ab350498106c1638de0f3f77881053e67c930a",
+        "uris": [
+         "https://example.invalid/tap-example/images/5.png"
+        ]
+       },
+       "netlist": {
+        "bytes": 59,
+        "format": "tapnet/1",
+        "latch": 9,
+        "nIn": 0,
+        "nOut": 8,
+        "nand": 1,
+        "sha256": "0x9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "17852",
+        "name": "17852.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     },
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Silicon"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 1
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 9
+       }
+      ],
+      "description": "Worked example token 2 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/1.png",
+      "name": "TAP Example #2",
+      "tap": {
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/2",
+       "image": {
+        "sha256": "0xbc628b1b449d889f9a84e161ef2c4b775287f3151d7428bd0c40c5de64886f9f",
+        "uris": [
+         "https://example.invalid/tap-example/images/1.png"
+        ]
+       },
+       "netlist": {
+        "bytes": 59,
+        "format": "tapnet/1",
+        "latch": 9,
+        "nIn": 0,
+        "nOut": 8,
+        "nand": 1,
+        "sha256": "0x9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "17852",
+        "name": "17852.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     },
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Gold"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 55
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 0
+       }
+      ],
+      "description": "Worked example token 3 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/2.png",
+      "name": "TAP Example #3",
+      "tap": {
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/3",
+       "image": {
+        "sha256": "0x2a5756153a9c6f520b2454f277c0a6da614d13803cf6b44b8af5bb311b7a5f62",
+        "uris": [
+         "https://example.invalid/tap-example/images/2.png"
+        ]
+       },
+       "netlist": {
+        "bytes": 401,
+        "format": "tapnet/1",
+        "latch": 0,
+        "nIn": 8,
+        "nOut": 4,
+        "nand": 55,
+        "sha256": "0x1013cbe316b27f41c70910deaaa266b296222db6b128c368a6b750f25c4a5abd",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/1013cbe316b27f41c70910deaaa266b296222db6b128c368a6b750f25c4a5abd.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "3151",
+        "name": "3151.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     },
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Copper"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 4
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 0
+       }
+      ],
+      "description": "Worked example token 4 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/0.png",
+      "name": "TAP Example #4",
+      "tap": {
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/4",
+       "image": {
+        "sha256": "0x2da1fc59339f21ea2cd41bffc0136e4a399f64ce690e0ca06e0bb90f6e589b9e",
+        "uris": [
+         "https://example.invalid/tap-example/images/0.png"
+        ]
+       },
+       "netlist": {
+        "bytes": 44,
+        "format": "tapnet/1",
+        "latch": 0,
+        "nIn": 2,
+        "nOut": 1,
+        "nand": 4,
+        "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/ecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "17851",
+        "name": "17851.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     },
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Gold"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 4
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 0
+       }
+      ],
+      "description": "Worked example token 5 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/6.png",
+      "name": "TAP Example #5",
+      "tap": {
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/5",
+       "image": {
+        "sha256": "0x7ce5c7d18a0c70108affc398de26a800e1a6c7b06addc3647c9e7a262e69344f",
+        "uris": [
+         "https://example.invalid/tap-example/images/6.png"
+        ]
+       },
+       "netlist": {
+        "bytes": 44,
+        "format": "tapnet/1",
+        "latch": 0,
+        "nIn": 2,
+        "nOut": 1,
+        "nand": 4,
+        "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/ecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "17851",
+        "name": "17851.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     },
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Glass"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 4
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 0
+       }
+      ],
+      "description": "Worked example token 6 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/7.png",
+      "name": "TAP Example #6",
+      "tap": {
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/6",
+       "image": {
+        "sha256": "0x8a12a9f6185ebc9b237cf47971028e576f0e6e5a1b1a5ed0ea7b5bb1810f15b3",
+        "uris": [
+         "https://example.invalid/tap-example/images/7.png"
+        ]
+       },
+       "netlist": {
+        "bytes": 44,
+        "format": "tapnet/1",
+        "latch": 0,
+        "nIn": 2,
+        "nOut": 1,
+        "nand": 4,
+        "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/ecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "17851",
+        "name": "17851.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     },
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Copper"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 1
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 9
+       }
+      ],
+      "description": "Worked example token 7 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/4.png",
+      "name": "TAP Example #7",
+      "tap": {
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/7",
+       "image": {
+        "sha256": "0x24744ffe324368ca88a2c18ca68e0beac0fbdee5526a848920655de7bc4562c3",
+        "uris": [
+         "https://example.invalid/tap-example/images/4.png"
+        ]
+       },
+       "netlist": {
+        "bytes": 59,
+        "format": "tapnet/1",
+        "latch": 9,
+        "nIn": 0,
+        "nOut": 8,
+        "nand": 1,
+        "sha256": "0x9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "17852",
+        "name": "17852.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     },
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Glass"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 55
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 0
+       }
+      ],
+      "description": "Worked example token 8 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/3.png",
+      "name": "TAP Example #8",
+      "tap": {
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/8",
+       "image": {
+        "sha256": "0xbdd231155a420bbc7d7bbe67c216d9201952c7ba24c2c6d9adc2cee20c45d111",
+        "uris": [
+         "https://example.invalid/tap-example/images/3.png"
+        ]
+       },
+       "netlist": {
+        "bytes": 401,
+        "format": "tapnet/1",
+        "latch": 0,
+        "nIn": 8,
+        "nOut": 4,
+        "nand": 55,
+        "sha256": "0x1013cbe316b27f41c70910deaaa266b296222db6b128c368a6b750f25c4a5abd",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/1013cbe316b27f41c70910deaaa266b296222db6b128c368a6b750f25c4a5abd.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "3151",
+        "name": "3151.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     }
+    ],
+    "error": "tap.manifest.sha256 differs from the collection's manifest hash",
+    "manifestSha256": "0x231570124fd096137b329f71472ce4ac06c8195f457c20d485bfce4605ca5983",
+    "name": "manifest_stripped_from_all_tokens"
+   },
+   {
+    "documents": [
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Silicon"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 1
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 9
+       }
+      ],
+      "description": "Worked example token 1 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/5.png",
+      "name": "TAP Example #1",
+      "tap": {
+       "edition": {
+        "index": 1,
+        "of": 3
+       },
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+       "image": {
+        "sha256": "0x65dbb7a716bf0fb4a88460aa41ab350498106c1638de0f3f77881053e67c930a",
+        "uris": [
+         "https://example.invalid/tap-example/images/5.png"
+        ]
+       },
+       "manifest": {
+        "sha256": "0x231570124fd096137b329f71472ce4ac06c8195f457c20d485bfce4605ca5983",
+        "uris": [
+         "https://example.invalid/tap-example/manifest.json"
+        ]
+       },
+       "netlist": {
+        "bytes": 59,
+        "format": "tapnet/1",
+        "latch": 9,
+        "nIn": 0,
+        "nOut": 8,
+        "nand": 1,
+        "sha256": "0x9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "17852",
+        "name": "17852.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     },
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Silicon"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 1
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 9
+       }
+      ],
+      "description": "Worked example token 2 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/1.png",
+      "name": "TAP Example #2",
+      "tap": {
+       "edition": {
+        "index": 2,
+        "of": 3
+       },
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/2",
+       "image": {
+        "sha256": "0xbc628b1b449d889f9a84e161ef2c4b775287f3151d7428bd0c40c5de64886f9f",
+        "uris": [
+         "https://example.invalid/tap-example/images/1.png"
+        ]
+       },
+       "manifest": {
+        "sha256": "0x231570124fd096137b329f71472ce4ac06c8195f457c20d485bfce4605ca5983",
+        "uris": [
+         "https://example.invalid/tap-example/manifest.json"
+        ]
+       },
+       "netlist": {
+        "bytes": 59,
+        "format": "tapnet/1",
+        "latch": 9,
+        "nIn": 0,
+        "nOut": 8,
+        "nand": 1,
+        "sha256": "0x9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "17852",
+        "name": "17852.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     },
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Gold"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 55
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 0
+       }
+      ],
+      "description": "Worked example token 3 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/2.png",
+      "name": "TAP Example #3",
+      "tap": {
+       "edition": {
+        "index": 1,
+        "of": 2
+       },
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/3",
+       "image": {
+        "sha256": "0x2a5756153a9c6f520b2454f277c0a6da614d13803cf6b44b8af5bb311b7a5f62",
+        "uris": [
+         "https://example.invalid/tap-example/images/2.png"
+        ]
+       },
+       "manifest": {
+        "sha256": "0x231570124fd096137b329f71472ce4ac06c8195f457c20d485bfce4605ca5983",
+        "uris": [
+         "https://example.invalid/tap-example/manifest.json"
+        ]
+       },
+       "netlist": {
+        "bytes": 401,
+        "format": "tapnet/1",
+        "latch": 0,
+        "nIn": 8,
+        "nOut": 4,
+        "nand": 55,
+        "sha256": "0x1013cbe316b27f41c70910deaaa266b296222db6b128c368a6b750f25c4a5abd",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/1013cbe316b27f41c70910deaaa266b296222db6b128c368a6b750f25c4a5abd.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "3151",
+        "name": "3151.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     },
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Copper"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 4
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 0
+       }
+      ],
+      "description": "Worked example token 4 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/0.png",
+      "name": "TAP Example #4",
+      "tap": {
+       "edition": {
+        "index": 1,
+        "of": 3
+       },
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/4",
+       "image": {
+        "sha256": "0x2da1fc59339f21ea2cd41bffc0136e4a399f64ce690e0ca06e0bb90f6e589b9e",
+        "uris": [
+         "https://example.invalid/tap-example/images/0.png"
+        ]
+       },
+       "manifest": {
+        "sha256": "0x231570124fd096137b329f71472ce4ac06c8195f457c20d485bfce4605ca5983",
+        "uris": [
+         "https://example.invalid/tap-example/manifest.json"
+        ]
+       },
+       "netlist": {
+        "bytes": 44,
+        "format": "tapnet/1",
+        "latch": 0,
+        "nIn": 2,
+        "nOut": 1,
+        "nand": 4,
+        "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/ecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "17851",
+        "name": "17851.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     },
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Gold"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 4
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 0
+       }
+      ],
+      "description": "Worked example token 5 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/6.png",
+      "name": "TAP Example #5",
+      "tap": {
+       "edition": {
+        "index": 2,
+        "of": 3
+       },
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/5",
+       "image": {
+        "sha256": "0x7ce5c7d18a0c70108affc398de26a800e1a6c7b06addc3647c9e7a262e69344f",
+        "uris": [
+         "https://example.invalid/tap-example/images/6.png"
+        ]
+       },
+       "manifest": {
+        "sha256": "0x231570124fd096137b329f71472ce4ac06c8195f457c20d485bfce4605ca5983",
+        "uris": [
+         "https://example.invalid/tap-example/manifest.json"
+        ]
+       },
+       "netlist": {
+        "bytes": 44,
+        "format": "tapnet/1",
+        "latch": 0,
+        "nIn": 2,
+        "nOut": 1,
+        "nand": 4,
+        "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/ecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "17851",
+        "name": "17851.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     },
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Glass"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 4
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 0
+       }
+      ],
+      "description": "Worked example token 6 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/7.png",
+      "name": "TAP Example #6",
+      "tap": {
+       "edition": {
+        "index": 3,
+        "of": 3
+       },
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/6",
+       "image": {
+        "sha256": "0x8a12a9f6185ebc9b237cf47971028e576f0e6e5a1b1a5ed0ea7b5bb1810f15b3",
+        "uris": [
+         "https://example.invalid/tap-example/images/7.png"
+        ]
+       },
+       "manifest": {
+        "sha256": "0x231570124fd096137b329f71472ce4ac06c8195f457c20d485bfce4605ca5983",
+        "uris": [
+         "https://example.invalid/tap-example/manifest.json"
+        ]
+       },
+       "netlist": {
+        "bytes": 44,
+        "format": "tapnet/1",
+        "latch": 0,
+        "nIn": 2,
+        "nOut": 1,
+        "nand": 4,
+        "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/ecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "17851",
+        "name": "17851.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     },
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Copper"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 1
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 9
+       }
+      ],
+      "description": "Worked example token 7 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/4.png",
+      "name": "TAP Example #7",
+      "tap": {
+       "edition": {
+        "index": 3,
+        "of": 3
+       },
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/7",
+       "image": {
+        "sha256": "0x24744ffe324368ca88a2c18ca68e0beac0fbdee5526a848920655de7bc4562c3",
+        "uris": [
+         "https://example.invalid/tap-example/images/4.png"
+        ]
+       },
+       "manifest": {
+        "sha256": "0x231570124fd096137b329f71472ce4ac06c8195f457c20d485bfce4605ca5983",
+        "uris": [
+         "https://example.invalid/tap-example/manifest.json"
+        ]
+       },
+       "netlist": {
+        "bytes": 59,
+        "format": "tapnet/1",
+        "latch": 9,
+        "nIn": 0,
+        "nOut": 8,
+        "nand": 1,
+        "sha256": "0x9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/9ee488f5ea17ae0366572417b5535504c116b60da3e3a876212ef43718cd5e3f.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "17852",
+        "name": "17852.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     },
+     {
+      "attributes": [
+       {
+        "trait_type": "Background",
+        "value": "Glass"
+       },
+       {
+        "trait_type": "NAND",
+        "value": 55
+       },
+       {
+        "trait_type": "LATCH",
+        "value": 0
+       }
+      ],
+      "description": "Worked example token 8 of the Netlist-Bound NFT draft.",
+      "image": "https://example.invalid/tap-example/images/3.png",
+      "name": "TAP Example #8",
+      "tap": {
+       "edition": {
+        "index": 2,
+        "of": 2
+       },
+       "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/8",
+       "image": {
+        "sha256": "0xbdd231155a420bbc7d7bbe67c216d9201952c7ba24c2c6d9adc2cee20c45d111",
+        "uris": [
+         "https://example.invalid/tap-example/images/3.png"
+        ]
+       },
+       "manifest": {
+        "sha256": "0xe7b0c7ca59efa17fc92e5aafb66a8109dd8bac6baf3db6e56c926dfa263ec1ea",
+        "uris": [
+         "https://example.invalid/tap-example/manifest.json"
+        ]
+       },
+       "netlist": {
+        "bytes": 401,
+        "format": "tapnet/1",
+        "latch": 0,
+        "nIn": 8,
+        "nOut": 4,
+        "nand": 55,
+        "sha256": "0x1013cbe316b27f41c70910deaaa266b296222db6b128c368a6b750f25c4a5abd",
+        "uris": [
+         "https://example.invalid/tap-example/netlists/1013cbe316b27f41c70910deaaa266b296222db6b128c368a6b750f25c4a5abd.tapnet"
+        ]
+       },
+       "source": {
+        "block": 128200681,
+        "chainId": 56,
+        "circuitId": "3151",
+        "name": "3151.30.tape",
+        "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+       },
+       "state": "revealed",
+       "v": 1
+      }
+     }
+    ],
+    "error": "tokens of one collection carry different tap.manifest.sha256",
+    "manifestSha256": null,
+    "name": "two_manifest_hashes"
+   }
+  ],
   "invalid": [
    {
     "edition": null,
@@ -483,6 +1822,9 @@
     "tokenId": 1
    }
   ],
+  "manifestSha256": "0x231570124fd096137b329f71472ce4ac06c8195f457c20d485bfce4605ca5983",
+  "note": "collectionErrors: manifestSha256 is the hash a tool knows from manifestHash() or the manifest file; null means check_editions(documents) without it",
+  "result": "valid",
   "valid": true
  },
  "example": {
@@ -2484,7 +3826,7 @@
       },
       "netlist": {
        "bytes": 41,
-       "format": "tapnet/2",
+       "format": 1,
        "latch": 1,
        "nIn": 2,
        "nOut": 1,
@@ -2498,8 +3840,8 @@
       "v": 1
      }
     },
-    "error": "tap.netlist.format must be 'tapnet/1'",
-    "name": "netlist_format"
+    "error": "tap.netlist.format must be a non-empty string",
+    "name": "netlist_format_not_string"
    },
    {
     "document": {
@@ -3768,6 +5110,1028 @@
    }
   }
  ],
+ "noManifest": {
+  "editions": {
+   "documents": [
+    {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #1",
+     "tap": {
+      "freeze": {
+       "call": "uriFrozen()",
+       "chainId": 196,
+       "contract": "0x00000000000000000000000000000000000000aa",
+       "expect": true
+      },
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "netlist": {
+       "bytes": 41,
+       "format": "tapnet/1",
+       "latch": 1,
+       "nIn": 2,
+       "nOut": 1,
+       "nand": 3,
+       "sha256": "0xfc026475b8786a706f6831d13838bb256ab0e1be5ae65e2ded1ae39a99420900",
+       "uris": [
+        "https://example.invalid/netlists/1.tapnet"
+       ]
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    },
+    {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #2",
+     "tap": {
+      "freeze": {
+       "call": "uriFrozen()",
+       "chainId": 196,
+       "contract": "0x00000000000000000000000000000000000000aa",
+       "expect": true
+      },
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/2",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "netlist": {
+       "bytes": 41,
+       "format": "tapnet/1",
+       "latch": 1,
+       "nIn": 2,
+       "nOut": 1,
+       "nand": 3,
+       "sha256": "0xfc026475b8786a706f6831d13838bb256ab0e1be5ae65e2ded1ae39a99420900",
+       "uris": [
+        "https://example.invalid/netlists/1.tapnet"
+       ]
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    }
+   ],
+   "note": "same netlist hash, no tap.manifest: no edition is formed or required (\u00a76.4)",
+   "result": "valid",
+   "valid": true
+  },
+  "freezeProbe": {
+   "documents": [
+    {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #1",
+     "tap": {
+      "freeze": {
+       "call": "uriFrozen()",
+       "chainId": 196,
+       "contract": "0x00000000000000000000000000000000000000aa",
+       "expect": true
+      },
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "netlist": {
+       "bytes": 41,
+       "format": "tapnet/1",
+       "latch": 1,
+       "nIn": 2,
+       "nOut": 1,
+       "nand": 3,
+       "sha256": "0xfc026475b8786a706f6831d13838bb256ab0e1be5ae65e2ded1ae39a99420900",
+       "uris": [
+        "https://example.invalid/netlists/1.tapnet"
+       ]
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    },
+    {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #2",
+     "tap": {
+      "freeze": {
+       "call": "uriFrozen()",
+       "chainId": 196,
+       "contract": "0x00000000000000000000000000000000000000aa",
+       "expect": true
+      },
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/2",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "netlist": {
+       "bytes": 41,
+       "format": "tapnet/1",
+       "latch": 1,
+       "nIn": 2,
+       "nOut": 1,
+       "nand": 3,
+       "sha256": "0xfc026475b8786a706f6831d13838bb256ab0e1be5ae65e2ded1ae39a99420900",
+       "uris": [
+        "https://example.invalid/netlists/1.tapnet"
+       ]
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    }
+   ],
+   "invalid": [
+    {
+     "documents": [
+      {
+       "image": "https://example.invalid/images/1.png",
+       "name": "Example #1",
+       "tap": {
+        "freeze": {
+         "call": "uriFrozen()",
+         "chainId": 196,
+         "contract": "0x00000000000000000000000000000000000000aa",
+         "expect": true
+        },
+        "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+        "image": {
+         "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+         "uris": [
+          "https://example.invalid/images/1.png"
+         ]
+        },
+        "netlist": {
+         "bytes": 41,
+         "format": "tapnet/1",
+         "latch": 1,
+         "nIn": 2,
+         "nOut": 1,
+         "nand": 3,
+         "sha256": "0xfc026475b8786a706f6831d13838bb256ab0e1be5ae65e2ded1ae39a99420900",
+         "uris": [
+          "https://example.invalid/netlists/1.tapnet"
+         ]
+        },
+        "state": "revealed",
+        "v": 1
+       }
+      },
+      {
+       "image": "https://example.invalid/images/1.png",
+       "name": "Example #2",
+       "tap": {
+        "freeze": {
+         "call": "frozen()",
+         "chainId": 196,
+         "contract": "0x00000000000000000000000000000000000000aa",
+         "expect": true
+        },
+        "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/2",
+        "image": {
+         "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+         "uris": [
+          "https://example.invalid/images/1.png"
+         ]
+        },
+        "netlist": {
+         "bytes": 41,
+         "format": "tapnet/1",
+         "latch": 1,
+         "nIn": 2,
+         "nOut": 1,
+         "nand": 3,
+         "sha256": "0xfc026475b8786a706f6831d13838bb256ab0e1be5ae65e2ded1ae39a99420900",
+         "uris": [
+          "https://example.invalid/netlists/1.tapnet"
+         ]
+        },
+        "state": "revealed",
+        "v": 1
+       }
+      }
+     ],
+     "error": "tokens of one collection name different tap.freeze probes, or only some name one",
+     "name": "freeze_probes_differ"
+    },
+    {
+     "documents": [
+      {
+       "image": "https://example.invalid/images/1.png",
+       "name": "Example #1",
+       "tap": {
+        "freeze": {
+         "call": "uriFrozen()",
+         "chainId": 196,
+         "contract": "0x00000000000000000000000000000000000000aa",
+         "expect": true
+        },
+        "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+        "image": {
+         "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+         "uris": [
+          "https://example.invalid/images/1.png"
+         ]
+        },
+        "netlist": {
+         "bytes": 41,
+         "format": "tapnet/1",
+         "latch": 1,
+         "nIn": 2,
+         "nOut": 1,
+         "nand": 3,
+         "sha256": "0xfc026475b8786a706f6831d13838bb256ab0e1be5ae65e2ded1ae39a99420900",
+         "uris": [
+          "https://example.invalid/netlists/1.tapnet"
+         ]
+        },
+        "state": "revealed",
+        "v": 1
+       }
+      },
+      {
+       "image": "https://example.invalid/images/1.png",
+       "name": "Example #2",
+       "tap": {
+        "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/2",
+        "image": {
+         "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+         "uris": [
+          "https://example.invalid/images/1.png"
+         ]
+        },
+        "netlist": {
+         "bytes": 41,
+         "format": "tapnet/1",
+         "latch": 1,
+         "nIn": 2,
+         "nOut": 1,
+         "nand": 3,
+         "sha256": "0xfc026475b8786a706f6831d13838bb256ab0e1be5ae65e2ded1ae39a99420900",
+         "uris": [
+          "https://example.invalid/netlists/1.tapnet"
+         ]
+        },
+        "state": "revealed",
+        "v": 1
+       }
+      }
+     ],
+     "error": "tokens of one collection name different tap.freeze probes, or only some name one",
+     "name": "freeze_on_some_tokens_only"
+    }
+   ],
+   "probe": {
+    "call": "uriFrozen()",
+    "chainId": 196,
+    "contract": "0x00000000000000000000000000000000000000aa",
+    "expect": true
+   }
+  },
+  "invalid": [
+   {
+    "document": {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #1",
+     "tap": {
+      "edition": {
+       "index": 1,
+       "of": 2
+      },
+      "freeze": {
+       "call": "uriFrozen()",
+       "chainId": 196,
+       "contract": "0x00000000000000000000000000000000000000aa",
+       "expect": true
+      },
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "netlist": {
+       "bytes": 41,
+       "format": "tapnet/1",
+       "latch": 1,
+       "nIn": 2,
+       "nOut": 1,
+       "nand": 3,
+       "sha256": "0xfc026475b8786a706f6831d13838bb256ab0e1be5ae65e2ded1ae39a99420900",
+       "uris": [
+        "https://example.invalid/netlists/1.tapnet"
+       ]
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    },
+    "error": "a token without tap.manifest MUST NOT carry tap.edition",
+    "name": "edition_without_manifest"
+   },
+   {
+    "document": {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #1",
+     "tap": {
+      "edition": {
+       "index": 1,
+       "of": 1
+      },
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "netlist": {
+       "bytes": 41,
+       "format": "tapnet/1",
+       "latch": 1,
+       "nIn": 2,
+       "nOut": 1,
+       "nand": 3,
+       "sha256": "0xfc026475b8786a706f6831d13838bb256ab0e1be5ae65e2ded1ae39a99420900",
+       "uris": [
+        "https://example.invalid/netlists/1.tapnet"
+       ]
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    },
+    "error": "a token without tap.manifest MUST NOT carry tap.edition",
+    "name": "edition_1_of_1_without_manifest"
+   },
+   {
+    "document": {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #1",
+     "tap": {
+      "freeze": "uriFrozen()",
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "netlist": {
+       "bytes": 41,
+       "format": "tapnet/1",
+       "latch": 1,
+       "nIn": 2,
+       "nOut": 1,
+       "nand": 3,
+       "sha256": "0xfc026475b8786a706f6831d13838bb256ab0e1be5ae65e2ded1ae39a99420900",
+       "uris": [
+        "https://example.invalid/netlists/1.tapnet"
+       ]
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    },
+    "error": "tap.freeze must be an object",
+    "name": "freeze_not_object"
+   },
+   {
+    "document": {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #1",
+     "tap": {
+      "freeze": {
+       "call": "uriFrozen()",
+       "chainId": 196,
+       "contract": "0x00000000000000000000000000000000000000aa",
+       "expect": false
+      },
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "netlist": {
+       "bytes": 41,
+       "format": "tapnet/1",
+       "latch": 1,
+       "nIn": 2,
+       "nOut": 1,
+       "nand": 3,
+       "sha256": "0xfc026475b8786a706f6831d13838bb256ab0e1be5ae65e2ded1ae39a99420900",
+       "uris": [
+        "https://example.invalid/netlists/1.tapnet"
+       ]
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    },
+    "error": "tap.freeze.expect must be true",
+    "name": "freeze_expect_false"
+   },
+   {
+    "document": {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #1",
+     "tap": {
+      "freeze": {
+       "call": "uriFrozen(uint256)",
+       "chainId": 196,
+       "contract": "0x00000000000000000000000000000000000000aa",
+       "expect": true
+      },
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "netlist": {
+       "bytes": 41,
+       "format": "tapnet/1",
+       "latch": 1,
+       "nIn": 2,
+       "nOut": 1,
+       "nand": 3,
+       "sha256": "0xfc026475b8786a706f6831d13838bb256ab0e1be5ae65e2ded1ae39a99420900",
+       "uris": [
+        "https://example.invalid/netlists/1.tapnet"
+       ]
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    },
+    "error": "tap.freeze.call must be a function signature without arguments, e.g. uriFrozen()",
+    "name": "freeze_call_with_argument"
+   },
+   {
+    "document": {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #1",
+     "tap": {
+      "freeze": {
+       "call": "uriFrozen()",
+       "chainId": 196,
+       "contract": "0x00000000000000000000000000000000000000AA",
+       "expect": true
+      },
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "netlist": {
+       "bytes": 41,
+       "format": "tapnet/1",
+       "latch": 1,
+       "nIn": 2,
+       "nOut": 1,
+       "nand": 3,
+       "sha256": "0xfc026475b8786a706f6831d13838bb256ab0e1be5ae65e2ded1ae39a99420900",
+       "uris": [
+        "https://example.invalid/netlists/1.tapnet"
+       ]
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    },
+    "error": "tap.freeze.contract must be a lowercase address",
+    "name": "freeze_contract_mixed_case"
+   },
+   {
+    "document": {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #1",
+     "tap": {
+      "freeze": {
+       "call": "uriFrozen()",
+       "chainId": 196,
+       "contract": "0x1111111111111111111111111111111111111111",
+       "expect": true
+      },
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "netlist": {
+       "bytes": 41,
+       "format": "tapnet/1",
+       "latch": 1,
+       "nIn": 2,
+       "nOut": 1,
+       "nand": 3,
+       "sha256": "0xfc026475b8786a706f6831d13838bb256ab0e1be5ae65e2ded1ae39a99420900",
+       "uris": [
+        "https://example.invalid/netlists/1.tapnet"
+       ]
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    },
+    "error": "tap.freeze.chainId and tap.freeze.contract must equal those of tap.id",
+    "name": "freeze_other_contract"
+   },
+   {
+    "document": {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #1",
+     "tap": {
+      "freeze": {
+       "call": "uriFrozen()",
+       "chainId": 1,
+       "contract": "0x00000000000000000000000000000000000000aa",
+       "expect": true
+      },
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "netlist": {
+       "bytes": 41,
+       "format": "tapnet/1",
+       "latch": 1,
+       "nIn": 2,
+       "nOut": 1,
+       "nand": 3,
+       "sha256": "0xfc026475b8786a706f6831d13838bb256ab0e1be5ae65e2ded1ae39a99420900",
+       "uris": [
+        "https://example.invalid/netlists/1.tapnet"
+       ]
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    },
+    "error": "tap.freeze.chainId and tap.freeze.contract must equal those of tap.id",
+    "name": "freeze_other_chain"
+   }
+  ],
+  "valid": [
+   {
+    "document": {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #1",
+     "tap": {
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "netlist": {
+       "bytes": 41,
+       "format": "tapnet/1",
+       "latch": 1,
+       "nIn": 2,
+       "nOut": 1,
+       "nand": 3,
+       "sha256": "0xfc026475b8786a706f6831d13838bb256ab0e1be5ae65e2ded1ae39a99420900",
+       "uris": [
+        "https://example.invalid/netlists/1.tapnet"
+       ]
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    },
+    "name": "mint_bound"
+   },
+   {
+    "document": {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #1",
+     "tap": {
+      "freeze": {
+       "call": "uriFrozen()",
+       "chainId": 196,
+       "contract": "0x00000000000000000000000000000000000000aa",
+       "expect": true
+      },
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "netlist": {
+       "bytes": 41,
+       "format": "tapnet/1",
+       "latch": 1,
+       "nIn": 2,
+       "nOut": 1,
+       "nand": 3,
+       "sha256": "0xfc026475b8786a706f6831d13838bb256ab0e1be5ae65e2ded1ae39a99420900",
+       "uris": [
+        "https://example.invalid/netlists/1.tapnet"
+       ]
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    },
+    "name": "mint_bound_with_freeze"
+   },
+   {
+    "document": {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #1",
+     "tap": {
+      "companion": {
+       "address": "0x00000000000000000000000000000000000000bb",
+       "chainId": 56
+      },
+      "edition": {
+       "index": 2,
+       "of": 3
+      },
+      "freeze": "ignored with a manifest",
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "license": {
+       "image": "CC-BY-4.0",
+       "netlist": "MIT"
+      },
+      "manifest": {
+       "sha256": "0x05b3abf2579a5eb66403cd78be557fd860633a1fe2103c7642030defe32c657f",
+       "uris": [
+        "https://example.invalid/manifest.json",
+        "ipfs://bafyexample"
+       ]
+      },
+      "netlist": {
+       "bytes": 41,
+       "format": "tapnet/1",
+       "latch": 1,
+       "nIn": 2,
+       "nOut": 1,
+       "nand": 3,
+       "sha256": "0xfc026475b8786a706f6831d13838bb256ab0e1be5ae65e2ded1ae39a99420900",
+       "uris": [
+        "https://example.invalid/netlists/1.tapnet"
+       ]
+      },
+      "source": {
+       "block": 1,
+       "chainId": 56,
+       "circuitId": "3151",
+       "name": "3151.30.tape",
+       "processor": "0xb1024b89886b9a34aa4ff5f31c411d708b20a14c"
+      },
+      "state": "revealed",
+      "v": 1,
+      "x-unknown-member": {
+       "ignored": true
+      }
+     }
+    },
+    "name": "manifest_with_ignored_tap_freeze"
+   }
+  ]
+ },
+ "otherFormats": {
+  "editionsSkipped": {
+   "documents": [
+    {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #1",
+     "tap": {
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "manifest": {
+       "sha256": "0x05b3abf2579a5eb66403cd78be557fd860633a1fe2103c7642030defe32c657f",
+       "uris": [
+        "https://example.invalid/manifest.json"
+       ]
+      },
+      "netlist": {
+       "bytes": 336,
+       "format": "tapnet/2",
+       "latch": 6,
+       "nIn": 1,
+       "nOut": 8,
+       "nand": 30,
+       "netlistHash2": "0xf5cd90005f48bc1eac7173c4f05c1af9710a1b6bd689d9377709c522627095b0",
+       "romBits": 512,
+       "romRecords": 1,
+       "uris": [
+        "https://example.invalid/netlists/message.tapnet2"
+       ]
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    },
+    {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #2",
+     "tap": {
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/2",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "manifest": {
+       "sha256": "0x05b3abf2579a5eb66403cd78be557fd860633a1fe2103c7642030defe32c657f",
+       "uris": [
+        "https://example.invalid/manifest.json"
+       ]
+      },
+      "netlist": {
+       "bytes": 336,
+       "format": "tapnet/2",
+       "latch": 6,
+       "nIn": 1,
+       "nOut": 8,
+       "nand": 30,
+       "netlistHash2": "0xf5cd90005f48bc1eac7173c4f05c1af9710a1b6bd689d9377709c522627095b0",
+       "romBits": 512,
+       "romRecords": 1,
+       "uris": [
+        "https://example.invalid/netlists/message.tapnet2"
+       ]
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    }
+   ],
+   "note": "same netlistHash2 under one manifest without tap.edition: a tool that supports tapnet/2 requires editions 1/2 and 2/2 (\u00a76.4); a tool that does not reports the edition check of these tokens as unverifiable (\u00a72.5)",
+   "result": "unverifiable"
+  },
+  "fetchedFiles": [
+   {
+    "file": "0x5441504e45540200",
+    "name": "header_of_another_format",
+    "result": "unverifiable"
+   },
+   {
+    "file": null,
+    "name": "not_fetched",
+    "result": "unverifiable"
+   },
+   {
+    "error": "netlist file of another format has the tapnet/1 version byte 0x01",
+    "file": "0x5441504e45540100000000010000000100000000000000",
+    "name": "tapnet1_file_under_other_format",
+    "result": "invalid"
+   },
+   {
+    "error": "netlist file of another format does not start with TAPNET",
+    "file": "0x504b030400000000",
+    "name": "not_tapnet",
+    "result": "invalid"
+   },
+   {
+    "error": "netlist file of another format does not start with TAPNET",
+    "file": "0x5441504e4554",
+    "name": "too_short",
+    "result": "invalid"
+   }
+  ],
+  "invalid": [
+   {
+    "document": {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #1",
+     "tap": {
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "netlist": {
+       "bytes": 336,
+       "format": "",
+       "latch": 6,
+       "nIn": 1,
+       "nOut": 8,
+       "nand": 30,
+       "netlistHash2": "0xf5cd90005f48bc1eac7173c4f05c1af9710a1b6bd689d9377709c522627095b0",
+       "romBits": 512,
+       "romRecords": 1,
+       "uris": [
+        "https://example.invalid/netlists/message.tapnet2"
+       ]
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    },
+    "error": "tap.netlist.format must be a non-empty string",
+    "name": "format_empty"
+   },
+   {
+    "document": {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #1",
+     "tap": {
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "netlist": {
+       "bytes": 336,
+       "latch": 6,
+       "nIn": 1,
+       "nOut": 8,
+       "nand": 30,
+       "netlistHash2": "0xf5cd90005f48bc1eac7173c4f05c1af9710a1b6bd689d9377709c522627095b0",
+       "romBits": 512,
+       "romRecords": 1,
+       "uris": [
+        "https://example.invalid/netlists/message.tapnet2"
+       ]
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    },
+    "error": "tap.netlist.format must be a non-empty string",
+    "name": "format_missing"
+   },
+   {
+    "document": {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #1",
+     "tap": {
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "netlist": {
+       "bytes": 336,
+       "format": "tapnet/2",
+       "latch": 6,
+       "nIn": 1,
+       "nOut": 8,
+       "nand": 30,
+       "netlistHash2": "0xf5cd90005f48bc1eac7173c4f05c1af9710a1b6bd689d9377709c522627095b0",
+       "romBits": 512,
+       "romRecords": 1
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    },
+    "error": "tap.netlist.uris must be a non-empty list",
+    "name": "other_format_uris_missing"
+   },
+   {
+    "document": {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #1",
+     "tap": {
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "netlist": {
+       "bytes": 336,
+       "format": "tapnet/1 ",
+       "latch": 6,
+       "nIn": 1,
+       "nOut": 8,
+       "nand": 30,
+       "netlistHash2": "0xf5cd90005f48bc1eac7173c4f05c1af9710a1b6bd689d9377709c522627095b0",
+       "romBits": 512,
+       "romRecords": 1,
+       "uris": [
+        "https://example.invalid/netlists/message.tapnet2"
+       ]
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    },
+    "error": "tap.netlist.format differs from tapnet/1 only by case or whitespace",
+    "name": "format_tapnet1_trailing_space"
+   },
+   {
+    "document": {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #1",
+     "tap": {
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "netlist": {
+       "bytes": 336,
+       "format": "TAPNET/1",
+       "latch": 6,
+       "nIn": 1,
+       "nOut": 8,
+       "nand": 30,
+       "netlistHash2": "0xf5cd90005f48bc1eac7173c4f05c1af9710a1b6bd689d9377709c522627095b0",
+       "romBits": 512,
+       "romRecords": 1,
+       "uris": [
+        "https://example.invalid/netlists/message.tapnet2"
+       ]
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    },
+    "error": "tap.netlist.format differs from tapnet/1 only by case or whitespace",
+    "name": "format_tapnet1_upper_case"
+   }
+  ],
+  "tokens": [
+   {
+    "document": {
+     "image": "https://example.invalid/images/1.png",
+     "name": "Example #1",
+     "tap": {
+      "id": "eip155:196/erc721:0x00000000000000000000000000000000000000aa/1",
+      "image": {
+       "sha256": "0x6105d6cc76af400325e94d588ce511be5bfdbb73b437dc51eca43917d7a43e3d",
+       "uris": [
+        "https://example.invalid/images/1.png"
+       ]
+      },
+      "netlist": {
+       "bytes": 336,
+       "format": "tapnet/2",
+       "latch": 6,
+       "nIn": 1,
+       "nOut": 8,
+       "nand": 30,
+       "netlistHash2": "0xf5cd90005f48bc1eac7173c4f05c1af9710a1b6bd689d9377709c522627095b0",
+       "romBits": 512,
+       "romRecords": 1,
+       "uris": [
+        "https://example.invalid/netlists/message.tapnet2"
+       ]
+      },
+      "state": "revealed",
+      "v": 1
+     }
+    },
+    "name": "tapnet2_token",
+    "netlistStatus": "unverifiable",
+    "note": "netlist from TAP-draft-large-netlists vectors files.message; a tool that supports tapnet/2 checks it under that TAP"
+   }
+  ],
+  "tool": "supports tapnet/1 only (this reference implementation)"
+ },
  "permutation": {
   "large": {
    "bijective": true,

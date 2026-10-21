@@ -1,6 +1,7 @@
 """Tests for tapnft.py and the published vectors. Run: python3 test_tapnft.py (Python 3.9+, stdlib only)."""
 from __future__ import annotations
 
+import hashlib
 import json
 import random
 import unittest
@@ -231,6 +232,19 @@ class Metadata(unittest.TestCase):
                 with self.assertRaises(T.Invalid) as cm:
                     T.check_editions(ds)
                 self.assertEqual(str(cm.exception), c["error"])
+        self.assertEqual(T.check_editions(docs, ed["manifestSha256"]), ed["result"])
+
+    def test_mixed_manifest_collections(self):
+        """§7.1: tap.manifest on every token with one sha256, or on none; stripping it cannot evade §6.4."""
+        cases = self.vec["editions"]["collectionErrors"]
+        self.assertEqual(len(cases), 3)
+        for c in cases:
+            with self.subTest(name=c["name"]):
+                for d in c["documents"]:
+                    T.check_metadata(d)
+                with self.assertRaises(T.Invalid) as cm:
+                    T.check_editions(c["documents"], c["manifestSha256"])
+                self.assertEqual(str(cm.exception), c["error"])
 
     def test_netlist_checks(self):
         files = {v["source"]["name"]: unhex(v["file"]) for v in self.vec["tapnet"]}
@@ -241,6 +255,65 @@ class Metadata(unittest.TestCase):
                 with self.assertRaises(T.Invalid) as cm:
                     T.check_netlist_against_metadata({"netlist": c["netlist"]}, files[c["file"]])
                 self.assertEqual(str(cm.exception), c["error"])
+
+
+class NoManifestAndOtherFormats(unittest.TestCase):
+    """Collections without a manifest (§6.4, §7.1 `freeze`, §8.2 mint-bound) and other formats (§2.5)."""
+
+    def setUp(self):
+        self.vec = json.loads((HERE / "vectors.json").read_text(encoding="utf-8"))
+
+    def _invalid(self, cases):
+        for v in cases:
+            with self.subTest(name=v["name"]):
+                with self.assertRaises(T.Invalid) as cm:
+                    T.check_metadata(v["document"])
+                self.assertEqual(str(cm.exception), v["error"])
+
+    def test_no_manifest(self):
+        nm = self.vec["noManifest"]
+        for v in nm["valid"]:
+            self.assertEqual(T.check_metadata(v["document"])["state"], "revealed")
+        self._invalid(nm["invalid"])
+        self.assertEqual(T.check_editions(nm["editions"]["documents"]), nm["editions"]["result"])
+        fp = nm["freezeProbe"]
+        self.assertEqual(T.check_freeze_probes(fp["documents"]), fp["probe"])
+        for c in fp["invalid"]:
+            with self.subTest(name=c["name"]):
+                with self.assertRaises(T.Invalid) as cm:
+                    T.check_freeze_probes(c["documents"])
+                self.assertEqual(str(cm.exception), c["error"])
+        # with a manifest, tap.freeze is ignored (§7.2): no probe is reported
+        docs = [t["metadata"] for t in self.vec["example"]["tokens"]]
+        self.assertIsNone(T.check_freeze_probes(docs))
+
+    def test_other_format_is_unverifiable_not_invalid(self):
+        of = self.vec["otherFormats"]
+        for v in of["tokens"]:
+            tap = T.check_metadata(v["document"])
+            self.assertEqual(T.netlist_status(tap), v["netlistStatus"])
+            self.assertEqual(v["netlistStatus"], "unverifiable")
+            with self.assertRaises(T.Unverifiable):
+                T.check_netlist_against_metadata(tap, None)
+            self.assertFalse(issubclass(T.Unverifiable, T.Invalid))
+            for c in of["fetchedFiles"]:
+                with self.subTest(name=c["name"]):
+                    data = None if c["file"] is None else unhex(c["file"])
+                    if c["result"] == "unverifiable":
+                        with self.assertRaises(T.Unverifiable):
+                            T.check_netlist_against_metadata(tap, data)
+                    else:
+                        with self.assertRaises(T.Invalid) as cm:
+                            T.check_netlist_against_metadata(tap, data)
+                        self.assertEqual(str(cm.exception), c["error"])
+        self.assertEqual(T.check_editions(of["editionsSkipped"]["documents"]), of["editionsSkipped"]["result"])
+        self.assertEqual(of["editionsSkipped"]["result"], "unverifiable")
+        self._invalid(of["invalid"])
+
+    def test_status_of_tapnet1_tokens(self):
+        for v in self.vec["metadata"]["valid"]:
+            tap = T.check_metadata(v["document"])
+            self.assertEqual(T.netlist_status(tap), "none" if tap["state"] == "unrevealed" else "tapnet/1")
 
 
 class Manifests(unittest.TestCase):
@@ -406,6 +479,54 @@ class Example(unittest.TestCase):
                     self.assertIsNone(ed)
         self.assertTrue(any(len(v) > 1 for v in seen.values()), "example should contain editions")
         T.check_editions([json.loads(p.read_bytes()) for p in sorted((HERE / MV.EXAMPLE_DIR / "token").glob("*.json"))])
+
+
+class ReviewProbes(unittest.TestCase):
+    """Regression tests for review probes P1, P1b, P2 and P3 against the example collection."""
+
+    def setUp(self):
+        import copy
+        self.copy = copy.deepcopy
+        self.docs = [json.loads(p.read_bytes()) for p in sorted((HERE / MV.EXAMPLE_DIR / "token").glob("*.json"))]
+        self.man = "0x" + hashlib.sha256((HERE / MV.EXAMPLE_DIR / "manifest.json").read_bytes()).hexdigest()
+
+    def _strip(self, docs, pred):
+        for d in docs:
+            if pred(d["tap"]):
+                d["tap"].pop("manifest", None)
+                d["tap"].pop("edition", None)
+            T.check_metadata(d)
+        return docs
+
+    def test_p1_manifest_stripped_from_every_token(self):
+        ev = self._strip(self.copy(self.docs), lambda t: True)
+        with self.assertRaises(T.Invalid):
+            T.check_editions(ev, self.man)
+
+    def test_p1b_manifest_stripped_from_repeated_hashes(self):
+        from collections import Counter
+        c = Counter(d["tap"]["netlist"]["sha256"] for d in self.docs)
+        # every netlist hash of the example repeats, so this strips every token, as in P1
+        mx = self._strip(self.copy(self.docs), lambda t: c[t["netlist"]["sha256"]] > 1)
+        with self.assertRaises(T.Invalid):
+            T.check_editions(mx, self.man)
+        # a truly mixed collection is rejected without knowing the manifest hash
+        mixed = self._strip(self.copy(self.docs), lambda t: c[t["netlist"]["sha256"]] == 2)
+        with self.assertRaises(T.Invalid):
+            T.check_editions(mixed)
+
+    def test_p2_format_differing_by_whitespace(self):
+        d = self.copy(self.docs[0])
+        d["tap"]["netlist"]["format"] = "tapnet/1 "
+        d["tap"]["netlist"]["bytes"] = 999
+        with self.assertRaises(T.Invalid):
+            T.check_metadata(d)
+
+    def test_p3_freeze_probe_of_another_contract(self):
+        d = self._strip(self.copy(self.docs[:1]), lambda t: True)[0]
+        d["tap"]["freeze"] = {"chainId": 1, "contract": "0x" + "11" * 20, "call": "alwaysTrue()", "expect": True}
+        with self.assertRaises(T.Invalid):
+            T.check_metadata(d)
 
 
 if __name__ == "__main__":
