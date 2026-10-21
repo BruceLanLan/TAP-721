@@ -95,11 +95,17 @@ user-facing Chinese translations come last.
 | A [`TAPs/TAP-draft-netlist-bound-nft.md`](../TAPs/TAP-draft-netlist-bound-nft.md) — Netlist-Bound NFTs | Standards | ERC-721, ERC-165, ERC-4906, TAP-02, TAP-10 | lead |
 | B [`TAPs/TAP-draft-netlist-nft-bridging.md`](../TAPs/TAP-draft-netlist-nft-bridging.md) — Moving Netlist-Bound NFTs between TapeOut Chains | Standards | A, TAP-10, ERC-721 | bridge agent |
 | C [`TAPs/TAP-draft-pod-attributes.md`](../TAPs/TAP-draft-pod-attributes.md) — Proof-of-Design attributes for Netlist-Bound NFTs | Application | A, ERC-7496 | lead (tools by python agent) |
-| D [`TAPs/TAP-draft-netlist-structural-hash.md`](../TAPs/TAP-draft-netlist-structural-hash.md) — Structural hash of flat netlists | Standards | TAP-02, A | canon agent |
+| D [`TAPs/TAP-draft-netlist-structural-hash.md`](../TAPs/TAP-draft-netlist-structural-hash.md) — Structural hash of flat netlists | Standards | TAP-02, A, `TAP-draft-large-netlists` (version 2) | canon agent |
+| E [`TAPs/TAP-draft-design-credits.md`](../TAPs/TAP-draft-design-credits.md) — Design Credits and Lineage for TapeOut Netlists (number 5375 requested) | Application | TAP-02, TAP-10, A, D, EIP-712, ERC-721, ERC-1271 | lead |
+| F [`TAPs/TAP-draft-soulbound-credentials.md`](../TAPs/TAP-draft-soulbound-credentials.md) — Soulbound Netlist Credentials (number 5192 requested) | Standards | TAP-02, A, E, ERC-165, ERC-721, ERC-1271, ERC-5192, EIP-712 | lead |
+
+`TAP-draft-large-netlists` (Large Netlists and Verifiable Execution, number 7007 requested; it defines `tapnet/2` under
+A §2.5) is kept in its own repository, https://github.com/BruceLanLan/tap-large-netlists.
 
 Assets: `assets/tap-<short>/`. Contracts (one Foundry project): `contracts/src/core/*` (core agent),
 `contracts/src/bridge/*` (bridge agent), `contracts/src/interfaces/*` (lead; agents may ADD files, not edit
-others'). Tests in `contracts/test/core/*`, `contracts/test/bridge/*`. Python under the asset folders.
+others'). Tests in `contracts/test/core/*`, `contracts/test/bridge/*`. Python under the asset folders. The soulbound reference
+contracts (draft F) are a separate Foundry project under [`assets/tap-draft-soulbound-credentials/contracts/`](../assets/tap-draft-soulbound-credentials/contracts/).
 Nobody edits another owner's files; ask the lead.
 
 ## 2. Netlist file `tapnet/1` (draft A §2)

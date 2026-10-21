@@ -7,7 +7,17 @@
 # profiles/, reviews/, publish/ and DESIGN.md.
 # The source tree is scanned for secrets BEFORE anything is copied; any hit aborts the sync
 # and leaves the repository untouched. Synced subtrees are mirrored with --delete, so files
-# removed at the source disappear here too (contracts/lib, the forge-std submodule, is never touched).
+# removed at the source disappear here too. lib/, out/ and cache/ are excluded everywhere, so the forge-std
+# submodules (contracts/lib/forge-std and assets/tap-draft-soulbound-credentials/contracts/lib/forge-std) are never
+# touched.
+#
+# Only TAPs/, assets/, contracts/, tools/, profiles/, reviews/ and DESIGN.md are read for copying. Nothing under
+# publish/ (articles, x-article*), local-drafts/ (working notes, unsubmitted revisions, promo) or any other folder
+# of the working folder is ever copied; publish/ is only read to check that the article's figures exist.
+#
+# The TAP-721 family drafts published here (TAPs/<draft>.md, TAPs/<draft>.zh.md, assets/<asset folder>/) are listed
+# in DRAFTS below; the sync aborts if the source lacks one of them, so that --delete cannot remove a draft from this
+# repository. TAP-draft-large-netlists (TAP-7007) lives in its own repository and is not synced here.
 set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -23,7 +33,7 @@ EXCLUDES=(
   --exclude 'node_modules/' --exclude '__pycache__/' --exclude '*.pyc'
   --exclude '*.log' --exclude 'anvil*' --exclude '.DS_Store'
   --exclude '.env' --exclude '.env.*' --exclude '.dev.vars' --exclude '.wrangler/'
-  --exclude 'work/'
+  --exclude 'work/' --exclude '.pytest_cache/'
 )
 # Withheld from publication for now (pending disclosure to the TapeOut team). Paths are relative
 # to the synced subtree root.
@@ -37,6 +47,15 @@ WITHHELD=(--exclude '/alt-fairness-economics.md'
 
 for d in "${DIRS[@]}"; do
   [ -d "$SRC/$d" ] || { echo "sync: missing $SRC/$d" >&2; exit 1; }
+done
+# TAP-721 family drafts: name of the draft (TAPs/<name>.md and .zh.md) and its asset folder (assets/<lower-case name>/).
+DRAFTS=(TAP-draft-netlist-bound-nft TAP-draft-netlist-nft-bridging TAP-draft-pod-attributes
+        TAP-draft-netlist-structural-hash TAP-draft-design-credits TAP-draft-soulbound-credentials)
+for n in "${DRAFTS[@]}"; do
+  a="assets/$(printf '%s' "$n" | tr '[:upper:]' '[:lower:]')"
+  for f in "TAPs/$n.md" "TAPs/$n.zh.md" "$a/vectors.json"; do
+    [ -f "$SRC/$f" ] || { echo "sync: missing $SRC/$f — nothing copied" >&2; exit 1; }
+  done
 done
 [ -f "$SRC/DESIGN.md" ] || { echo "sync: missing $SRC/DESIGN.md" >&2; exit 1; }
 # The published article: publish/standard.md when present (it replaces the older article.md).
