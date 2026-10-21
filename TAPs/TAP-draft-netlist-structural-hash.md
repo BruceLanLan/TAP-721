@@ -7,7 +7,7 @@ discussions-to: https://github.com/TapeOutProtocol/TAPs/issues/66
 status: Draft
 type: Standards
 created: 2026-10-18
-requires: TAP-02, TAP-draft-netlist-bound-nft
+requires: TAP-02, TAP-draft-netlist-bound-nft, TAP-draft-large-netlists
 license: CC0-1.0
 ---
 
@@ -19,7 +19,7 @@ This TAP extends TAP-721 (Netlist-Bound NFTs) with a fingerprint for every flat 
 
 ## Abstract
 
-This TAP is an extension of TAP-721 (Netlist-Bound NFTs, `TAP-draft-netlist-bound-nft`): it adds a design-level identifier for the netlists of TAP-721 tokens and changes nothing in TAP-721 itself. A netlist file (`tapnet/1`, defined by `TAP-draft-netlist-bound-nft`) is identified byte for byte by its SHA-256 hash. The same design can be written as many different files: gates can be numbered in another order, the two inputs of a NAND can be swapped, unused gates can be added and a gate can be duplicated. This TAP specifies a deterministic canonicalization of a `tapnet/1` file: it removes elements that cannot influence an output, gives every remaining element a structural label (by hashing for elements without feedback, by iterative refinement for elements that depend on LATCH feedback), merges elements with equal labels, and writes the result as a canonical `tapnet/1` file in a fixed element order. The `structuralHash` is the SHA-256 of that canonical file under a domain tag. Two netlists have the same structural hash exactly when their merged structures are isomorphic with the same ordered inputs and outputs. The structural hash is not a test of logical equivalence: two different implementations of the same function have different structural hashes. The TAP comes with test vectors, including BNB Smart Chain mainnet circuits, and a reference implementation.
+This TAP is an extension of TAP-721 (Netlist-Bound NFTs, `TAP-draft-netlist-bound-nft`): it adds a design-level identifier for the netlists of TAP-721 tokens and changes nothing in TAP-721 itself. A netlist file (`tapnet/1`, defined by `TAP-draft-netlist-bound-nft`) is identified byte for byte by its SHA-256 hash. The same design can be written as many different files: gates can be numbered in another order, the two inputs of a NAND can be swapped, unused gates can be added and a gate can be duplicated. This TAP specifies a deterministic canonicalization of a `tapnet/1` file: it removes elements that cannot influence an output, gives every remaining element a structural label (by hashing for elements without feedback, by iterative refinement for elements that depend on LATCH feedback), merges elements with equal labels, and writes the result as a canonical `tapnet/1` file in a fixed element order. The `structuralHash` is the SHA-256 of that canonical file under a domain tag. Two netlists have the same structural hash exactly when their merged structures are isomorphic with the same ordered inputs and outputs. The structural hash is not a test of logical equivalence: two different implementations of the same function have different structural hashes. The TAP comes with test vectors, including BNB Smart Chain mainnet circuits, and a reference implementation. Version 2 (§10) extends the structural hash, as a conservative extension, to `tapnet/2` files (`TAP-draft-large-netlists`) with ROM records, ROM read ports and RAM ports.
 
 ## Motivation
 
@@ -137,11 +137,83 @@ The structural hash changes under: a permutation of the inputs or of the outputs
 ### 9. Use by collections and tools
 
 1. A collection, marketplace or rarity tool that states how many distinct designs a set of netlists contains MUST count distinct structural hashes, and SHOULD state the netlist-hash count next to it.
-2. Metadata that carries a structural hash SHOULD place it as `"structuralHash"` in the `netlist` member of the `tap` object of `TAP-draft-netlist-bound-nft`, next to `sha256`, as `0x` + 64 lowercase hex digits. That draft defines this member (§7.1).
+2. Metadata that carries a structural hash SHOULD place it as `"structuralHash"` in the `netlist` member of the `tap` object of `TAP-draft-netlist-bound-nft`, next to `sha256` (for a netlist in a format defined under §2.5 of that draft, next to the member that replaces it), as `0x` + 64 lowercase hex digits. That draft defines this member (§7.1) for formats and files for which this TAP defines a structural hash: valid `tapnet/1` files (§2), and, in version 2, also valid `tapnet/2` files without a record that §10 does not define (§10.1).
 3. Tools MUST NOT describe two netlists with different structural hashes as having different functions, and MUST NOT describe two netlists with equal structural hashes as having the same metrics (gate count, `nState`): the hash identifies structure only.
 4. Tools that compute structural hashes of untrusted files MUST bound the number of records before computing (TAP-02 §7, requirement 1); Security Considerations give the cost.
 5. Implementations MUST complete the file check of §2 before allocating per-record structures (TAP-02 §7, requirement 2).
-6. A future version that changes any step MUST use a different domain tag than `tap-structural-hash/1` and a different label prefix than `TAPSH1`.
+6. A future version that changes any step MUST use a different domain tag than `tap-structural-hash/1` and a different label prefix than `TAPSH1`, unless it is a conservative extension: it leaves the canonical file and the structural hash of every input that has a version-1 structural hash unchanged, adds only new label tags for new record kinds, leaves every file with records it does not define without a structural hash, and uses a new domain tag for canonical files that contain the new record kinds. Version 2 (`tap-structural-hash/2`, §10) is such an extension.
+
+### 10. Version 2: `tapnet/2` files
+
+This section defines `tap-structural-hash/2` for the `tapnet/2` format of `TAP-draft-large-netlists` §1 (ROM records `0x10`, RAM read ports `0x11`, RAM write ports `0x12`, ROM read ports `0x13`, flags byte). Steps of §2–§8 that are not mentioned here apply unchanged. `u16be(x)` is `x` as a 2-byte unsigned big-endian integer, as in `TAP-draft-large-netlists` §0.
+
+**10.1 Scope.** Version 2 is defined for every valid `tapnet/1` file (§2) and every valid `tapnet/2` file (`TAP-draft-large-netlists` §1.2). It is a conservative extension of version 1: for every input whose merged structure (10.7) contains no ROM node and no RAM node, including every `tapnet/1` file, the canonical file and the structural hash are exactly those of §2–§7, byte for byte. A file with a record that this section does not define (for example a record kind added by a later format) has no structural hash in version 2; an implementation MUST reject it and MUST NOT reinterpret the record as another kind.
+
+**10.2 Elements and planes.** In a `tapnet/2` file:
+
+- each NAND and LATCH record is one element;
+- a ROM record with `w` output bits is `w` elements, one per output bit: the **ROM column** `j` (`0 ≤ j < w`) produces signal `first + j`, where `first` is the first signal the record creates; its inputs are the `a` address references of the record (`addr[0]` least significant) and its table is the `2^a` bits `T[m]` = stream bit `m·w + j` of the record's data;
+- a ROM read port is `w` ROM columns in the same way, with its own address references and the data of the ROM record at `romOffset` (it is a ROM column like any other; the indirection is not part of the structure);
+- a RAM read port of bank `b` with `w` output bits is `w` elements: the **RAM read column** `j` produces signal `first + j` and reads bit `j` of the bank;
+- a RAM write port creates no signal and is not an element.
+
+For each bank `b` of width `w` and each `j < w`, the **plane** `(b, j)` is bit `j` of all entries of bank `b`: a memory of `2^a` one-bit entries that only the read columns `j` of `b` read and that every write port of `b` writes with its `we`, its address and its `wdata[j]`. (Informative: bit `j` of an entry evolves independently of the other bits, so a `w`-bit bank is `w` one-bit memories sharing their address and enable wiring, as a `w`-bit ROM is `w` columns.) Planes are not signals; they are the state elements of memory, as LATCHes are of single bits.
+
+**10.3 Liveness.** §3 applies with these rules: a live ROM column makes the elements among its address references live; a live RAM read column makes the elements among its address references live and makes its plane live; a live plane `(b, j)` makes live, for every write port of bank `b` whose `we` is not signal 0, the elements among its `we`, its address references and its `wdata[j]`. Other columns of the same record, other planes of the same bank and write ports whose `we` is signal 0 are not made live. A plane that no live read column reads is not live, and neither are its writes.
+
+**10.4 ROM columns.** Given labels `λ` of its inputs, the **reduced form** of a ROM column with inputs `p_0 … p_{a−1}` and table `T` is:
+
+1. Let `q_0 < q_1 < … < q_{k−1}` be the distinct labels among `λ(p_i)` that are not `L(0x00 ‖ u8(0))` or `L(0x00 ‖ u8(1))`, in ascending order (`0 ≤ k ≤ a`).
+2. For `0 ≤ m < 2^k`, let `addr(m) = Σ_i b_i · 2^i`, where `b_i = 0` if `λ(p_i) = L(0x00 ‖ u8(0))`, `b_i = 1` if `λ(p_i) = L(0x00 ‖ u8(1))`, and otherwise `b_i` is bit `r` of `m` for the `r` with `q_r = λ(p_i)`. The reduced table is `t[m] = T[addr(m)]`.
+3. `tbytes` is `t` packed LSB first (bit `m` is bit `m mod 8` of byte `⌊m/8⌋`) into `⌈2^k / 8⌉` bytes, unused high bits zero (one byte when `k = 0`).
+
+The label of the ROM column is `L(0x06 ‖ u8(k) ‖ q_0 ‖ … ‖ q_{k−1} ‖ tbytes)`. (Informative: address references on signal 0 or 1 are folded into the table, references with equal labels are merged to the diagonal of the table, and the remaining pins are sorted by label with the table permuted accordingly. The reduction never looks at the table to decide which pins to keep.)
+
+**10.5 RAM planes.** For a live plane `P = (b, j)` of a bank with `a` address bits, the **ports** of `P` are its live read columns and the write ports of `b` whose `we` is not signal 0. Address position `i` is **fixed** in `P` if every port of `P` has the same constant signal (0, or 1) as `addr[i]`; the other positions, in ascending order, are the **kept** positions `i_0 < … < i_{k−1}` of `P` (`0 ≤ k ≤ a`). Kept positions are determined by signal indices and liveness only, before any label is computed.
+
+Given labels `λ`, the **write list** of `P` is obtained from the write ports of `b` whose `we` is not signal 0, in file order: each contributes the tuple `λ(we) ‖ λ(addr[i_0]) ‖ … ‖ λ(addr[i_{k−1}]) ‖ λ(wdata[j])` (`k + 2` labels); then every tuple that is equal to a later tuple of the list is removed, keeping the order of the rest. A RAM read column with plane `P` has the **inputs** `addr[i_0] … addr[i_{k−1}]` (its references at the kept positions of `P`).
+
+**10.6 Labels.** In §4.2 the dependency relation is extended: a ROM column depends on its inputs, a RAM read column on its inputs and its plane, and a plane on the `we`, the references at its kept positions and the `wdata[j]` of every write port of its bank whose `we` is not signal 0. A plane or element belongs to `A` if following these dependencies backwards from it never runs into a cycle. Labels of `A`:
+
+- ROM column: the label of 10.4 from the final labels of its inputs;
+- plane `P` with `k` kept positions: `L(0x07 ‖ u8(k) ‖ write list)`, where the write list (10.5) is written as the concatenation of its tuples;
+- RAM read column with plane `P` and inputs `x_0 … x_{k−1}`: `L(0x0A ‖ λ(P) ‖ λ(x_0) ‖ … ‖ λ(x_{k−1}))`.
+
+In §4.3 the planes not in `A` are refined like LATCHes and the ROM and RAM read columns not in `A` like NANDs: a plane `P` in `C` with `k` kept positions has `λ_0(P) = L(0x08 ‖ u8(k))` and `λ_{r+1}(P) = L(0x09 ‖ u8(k) ‖ write list computed from the round-`r` labels)`; a ROM column or RAM read column in `C` has as `λ_r` the label above computed from round-`r` labels (of its inputs and, for a read column, of its plane), which is well defined because its address references are smaller signal indices than itself. `n_r` counts the distinct values among `λ_r(e)` for the elements `e` of `C` together with `λ_r(P)` for the planes `P` of `C`; the definition of `R` is unchanged.
+
+**10.7 Merging.** In §5, a node whose elements are ROM columns has kind ROM, input labels `q_0 … q_{k−1}` (in this order) and reduced table `t`; a node whose elements are RAM read columns has kind RAM, the label of its plane and its input labels `λ(x_0) … λ(x_{k−1})` (in this order). Planes with the same final label form one **plane node**, with its number `k` of kept positions and its write list. All elements (or planes) with the same final label have the same kind and the same input labels, reduced table, plane label or write list; otherwise the implementation MUST stop with an error. A ROM node with `k = 0` is a **constant column**; it is a node, distinct from the constants (signals 0 and 1). A RAM node is never merged with a constant, even when its plane has an empty write list.
+
+**10.8 Canonical order.** In §6.1 the depth of a ROM or RAM node is `1 + max` of the depths of its input labels (`1` when it has none), where constants, inputs and LATCH nodes count as depth 0; plane nodes have no depth and are not part of the core. In §6.2, "a NAND node `w` reads node `v`" is replaced by "a NAND, ROM or RAM node `w` reads node `v`", where a ROM or RAM node reads its input labels. Plane nodes are numbered `0, 1, …` in ascending order of their labels; this number is their **bank** in the canonical file. If there are more than 256 plane nodes, the implementation MUST report an error instead of a hash.
+
+**10.9 Records.** In §6.5:
+
+- the record of a RAM node with plane bank `β` and inputs `(x_0 … x_{k−1})` is `0x11 ‖ u8(β) ‖ u8(max(k, 1)) ‖ u16be(1) ‖ u24(σ(x_0)) ‖ … ‖ u24(σ(x_{k−1}))`, with the single reference `u24(0)` when `k = 0`;
+- the record of a ROM node with inputs `q_0 … q_{k−1}` and reduced table `t` is `0x10 ‖ u8(k) ‖ u16be(1) ‖ u24(σ(q_0)) ‖ … ‖ u24(σ(q_{k−1})) ‖ tbytes` if `k ≥ 1`, and `0x10 ‖ u8(1) ‖ u16be(1) ‖ u24(0) ‖ u8(3·t[0])` if `k = 0` (one address bit on signal 0 and the table `[t[0], t[0]]`). If an earlier record of the canonical records is a ROM record (`0x10`) with the same address width and the same data bytes, the record is instead the ROM read port `0x13 ‖ u32be(o) ‖ u8(a) ‖ u16be(1) ‖ (the same address references)`, where `o` is the byte offset in the canonical file of the first such ROM record and `a` its address width.
+
+Copy records of ROM and RAM nodes are records of this form. The canonical records are the core records and the output-slot records of §6.5, followed by the **write records**: for each plane node in bank order, for each tuple `(we, y_0 … y_{k−1}, d)` of its write list in order, `0x12 ‖ u8(β) ‖ u8(max(k, 1)) ‖ u16be(1) ‖ u24(σ(we)) ‖ u24(σ(y_0)) ‖ … ‖ u24(σ(y_{k−1})) ‖ u24(σ(d))`, with the single address reference `u24(0)` when `k = 0`. (Write records create no signals, so the outputs remain the last `nOut` signals.)
+
+**10.10 Canonical file and hash.** If there is no ROM node and no RAM node, the canonical file and the structural hash are those of §7 (a `tapnet/1` file and the domain `tap-structural-hash/1`). Otherwise the canonical file is
+
+```
+"TAPNET" ‖ 0x02 ‖ u8(flags) ‖ u32be(nIn) ‖ u32be(nOut) ‖ canonical records
+```
+
+with `flags = 0x01` if there is at least one plane node and `0x00` otherwise, and
+
+```
+structuralHash = SHA-256(ASCII("tap-structural-hash/2") ‖ 0x00 ‖ canonical file)
+```
+
+An implementation MUST check this canonical file as a `tapnet/2` file (`TAP-draft-large-netlists` §1.2) and MUST report an error instead of a hash if the check fails (possible only when per-column records, write records or copy records push it over the 64 MiB or 2^24-signal limits). The structural hash is computed over the file bytes with SHA-256, not with `netlistHash2`.
+
+**10.11 Guarantees.** §8 holds with the merged structure of 10.7, where two ROM nodes correspond when they have the same reduced table and corresponding input labels, two RAM nodes when their planes and inputs correspond, and two plane nodes when they have the same `k` and corresponding write lists; behaviour (§8 item 3) is from the all-zero state and the all-zero memory (`TAP-draft-large-netlists` §1.3). In addition to the invariances of §8 item 2, the structural hash does not change under:
+
+- ROM: permuting the address references of a ROM together with its table; permuting, adding or removing unread output bits; splitting a ROM into several ROMs with the same address references, or joining such ROMs; duplicating a ROM or some of its columns and distributing its readers; adding an address reference on signal 0 or 1 with arbitrary table entries on the other value; adding a second address reference to a signal that is already one, with arbitrary entries off the diagonal;
+- ROM read ports: replacing a ROM read port by a ROM record holding a copy of the table, or the reverse;
+- RAM: renumbering banks; permuting the bits of a bank consistently in all its ports (the `wdata` of every write port and the columns of every read port, readers rewired); widening a bank by bits that no live read column reads; splitting a bank by bits into several banks with copies of every port, or joining such banks; duplicating a read port and distributing its readers; duplicating a write port immediately after itself (more generally, adding a write port equal to a later write port of the same bank); adding a write port whose `we` is signal 0; adding a bank, read ports or write ports that no live read column depends on; adding an address bit that every live port of the bank ties to the same constant; reordering records in any valid way that keeps the relative order of the write ports of each bank;
+- format: converting between `tapnet/1` and `tapnet/2` when no ROM or RAM node remains (for example a `tapnet/2` file whose ROMs and RAM ports are all unread).
+
+The structural hash changes under: replacing a ROM by NAND logic (including the expansion of `TAP-draft-large-netlists` §1.3) or the reverse; using a ROM column as a buffer, an inverter or a NAND; adding an address reference that the table does not depend on; splitting a ROM by address into smaller ROMs and a multiplexer; any change of a table entry, including entries that no reachable state addresses; replacing RAM by LATCHes and multiplexers or the reverse; exchanging two different write ports of one bank; adding a write port that can be enabled, even one that a later write always overrides; permuting the address bits of a bank; changing the address width of a bank other than by an address bit tied to the same constant in every live port; and placing two banks into one bank at different address regions. A RAM read column of a bank that is never written reads 0 in every beat but is not the constant 0: a NAND that reads it has a different label from a NAND that reads signal 0.
 
 ## Rationale
 
@@ -173,11 +245,28 @@ The structural hash changes under: a permutation of the inputs or of the outputs
 
 **Why REF is excluded.** A REF's structure lives in another circuit and depends on the processor at a block (TAP-02, Security Considerations). Defining a flattening rule is left to a later version (Open questions).
 
+**Version 2: ROM and RAM as nodes (§10).**
+
+- *ROM as a node.* Expanding ROMs to NAND would make the hash depend on an informative expansion that nests multiplexers by address bit order (so it is not invariant under address permutation), folds constants, which version 1 refuses for NAND, and exceeds 2^24 signals for large ROMs. A mask ROM and a NAND multiplexer are different designs, as two NAND implementations of XOR are.
+- *One node per ROM column and per RAM bit.* Each ROM column and each RAM read column produces one signal, so §5 and §6 apply unchanged; dead bits, column order, splitting and duplicated ROMs or ports are handled by liveness and merging without further rules. A node for a whole bank or a whole read port was rejected: a read port creates `w` consecutive signals, and an output that is one of its bits cannot be placed in a one-signal output slot or copied by a copy record, while §8 item 4 rules out inserting buffers. The canonical file writes every plane as a bank of width 1 and every live read bit as its own read port; it pays a header per column and per write tuple.
+- *Planes are state, read columns are combinational.* A read port returns the memory at the start of the beat, as a LATCH returns its state, but its address acts in the same beat. Planes are therefore refined like LATCHes (round-0 label from `k` only) and read columns like NANDs. Two planes with the same final label hold the same contents in every beat from the all-zero memory, by induction over beats as for LATCHes, so merging them preserves behaviour.
+- *Write order is structure.* When several write ports write one entry in one beat the last one wins (`TAP-draft-large-netlists` §1.3), so the write list keeps file order, and exchanging two different write ports changes the hash. Removing a tuple that equals a later tuple is sound: the later port writes the same entry with the same value under the same enable after it, and reads see only the memory at the start of the beat. It also stays label-driven and monotone: if two planes have equal round-`(r+1)` labels their reduced round-`r` write lists are equal; round-`(r−1)` labels are a coarsening, and removing tuples that become equal under a coarsening commutes with the removal already done, so the round-`r` labels are equal and the argument for `R` of version 1 holds, with planes counted like LATCHes. A write port that a later port always overrides but with different data is not removed: that is optimization, and its data cone, live by §10.3, could contain feedback that changes `R` and with it every label of `C` (the same obstacle as for don't-care ROM pins below).
+- *Static rules for memory.* Write ports with `we` on signal 0, and address bits that every live port of a plane ties to the same constant, are recognised from signal indices and liveness alone, before labels exist, so they cannot interact with refinement. Folding such a bit is safe because no port can address the other half of the plane. Two things are not done: permuting the address bits of a bank (a canonical bit order would have to be chosen jointly for all ports of a plane, which needs a tie-break among symmetric bits), and splitting a plane into regions at bits that are constant in every port but not equal (it would need a liveness rule that knows which writes can reach which reads); both are Open questions.
+- *ROM read ports.* A ROM read port is a second reader of a table. Treating its columns as ROM columns makes a file that shares a table through ports and a file that holds copies of the table have the same hash (`romports` and `romdup`). The canonical file stores each distinct reduced table once and reads the others through ROM read ports, so that a design that needs ports to fit into 64 MiB keeps a canonical file that fits too.
+- *Label-driven ROM pin reduction only.* Folding constant pins and merging equal-label pins depends only on input labels, never on table contents; merging is required anyway because sorting by label has no canonical tie-break. Removing pins on which the table does not depend, or replacing an all-equal column by a constant signal, would be logic optimization with no principled stopping point; it would also make raw-live elements effectively dead, so that dead feedback loops behind such pins could change `R` and with it every label of `C`, and constant outputs cannot be written in either format.
+- *Monotonicity of ROM columns.* If two ROM columns have equal round-`(r+1)` labels, their reduced forms are equal; their corresponding inputs then have equal round-`r` labels, and the round-`r` reduced forms follow from the round-`(r+1)` forms by the same further merging and re-sorting, so the round-`r` labels are equal. A ROM or RAM read column in `C` keeps at least one input or plane in `C`, so its label never equals a label of `A`, a constant or an input; plane labels in `C` use tags of their own.
+- *Idempotence.* The canonical file has the merged structure: plane nodes become banks of width 1 whose write records list exactly the write list, with no write port enabled by signal 0 and no fixed address bit except the single padding bit of `k = 0`, which every port of that bank ties to signal 0 and which is folded again; ROM tables shared through ROM read ports are read back as the same columns; copy records merge back as in version 1.
+- *Bank limit.* `tapnet/2` numbers banks with one byte, so a canonical file can hold at most 256 plane nodes. A design with more distinct RAM bits gets an error instead of a hash. Packing several planes into one bank by address regions would lift the limit but needs the region splitting above; it is an Open question.
+- *Cost.* Labelling a ROM column costs `O(k · 2^k)`; in `C` it is repeated in every round because the label order of the inputs changes. Planes cost one pass over their write tuples per round and never touch `2^a`. This has the shape of the `O(R·|C|)` cost of version 1. Services can cache structural hashes by `netlistHash2`.
+- *Conservative extension.* A format version is a representation detail; a design moved from `tapnet/1` to `tapnet/2` keeps its structural hash as long as it has no ROM or RAM node. Labels keep the prefix `TAPSH1`; the tags `0x06`–`0x0A` are new, so no existing label changes. Files with record kinds that version 2 does not define get no hash rather than a guessed one.
+
 ## Backwards Compatibility
 
 This TAP adds an identifier and changes nothing that exists. Netlist hashes, editions and metrics of `TAP-draft-netlist-bound-nft` are unaffected.
 
 This draft depends on TAP-721 (`TAP-draft-netlist-bound-nft`) and is submitted after it. TAP-721 is the requested number of the core draft; if editors assign another, this draft takes that number: every reference to `TAP-draft-netlist-bound-nft` and to "TAP-721" here, including the `requires` field, is replaced by it.
+
+Version 2 (§10) depends on the `tapnet/2` format of `TAP-draft-large-netlists`. It adds a second domain tag and new label tags and changes no version-1 canonical file or hash: every version-1 test vector is reproduced by the version-2 implementation, both as `tapnet/1` and re-headed as `tapnet/2`. If `TAP-draft-large-netlists` is assigned a number, every reference to it here, including the `requires` field, is replaced by that number.
 
 ## Test Cases
 
@@ -221,10 +310,44 @@ Two of them show the steps at work on real data. #3151 has 4 NAND that no output
 
 `test_canon.py` additionally checks, for 300 generated netlists with fixed seeds: invariance under random renumbering, NAND input swaps, dead elements (including dead LATCH loops), duplication (including LATCHes with redirected feedback) and their combination; equal outputs of input and canonical file under the TAP-02 reference evaluator for random input sequences from the all-zero state; idempotence; and validity of every canonical file.
 
+**Version 2.** `assets/tap-draft-netlist-structural-hash/vectors2.json` (format `tap-structural-hash-vectors/2`) is generated by `make_vectors2.py` and is reproducible byte for byte (SHA-256 `06bd3c06961bb4d87b60d3837591696f762b78ddd931cb5eb3a31a8c4564dbe8`). Each case gives the input file (`tapnet/1` or `tapnet/2`), the canonical file, its version, the structural hash and the counts `live`, `nodes`, `romNodes`, `ramNodes`, `planes`, `cyclic` (elements and planes in `C`), `rounds` and `copies`. Every implementation of version 2 has to reproduce the canonical file and the structural hash of every case, has to reject every file in `invalid` (RAM ports without the MEM flag, the MEM flag without RAM ports, a bank used with two different dimensions, a REF record, a ROM read port with a bad `romOffset`), and has to reproduce every case of `vectors.json` as above, both as given and re-headed as `tapnet/2`. Selected cases:
+
+| Case | nIn / nOut | canonical | live / nodes | ROM / RAM / planes | cyclic / rounds / copies | structuralHash |
+|---|---|---|---|---|---|---|
+| `xor_v2_dead_ram` (= `xor_v1`, `xor_v2`, `xor_v2_dead_rom`) | 2 / 1 | v1 | 4 / 4 | 0 / 0 / 0 | 0 / 0 / 0 | `0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b` |
+| `andnot_rom` (= `andnot_rom_pins_swapped`) | 2 / 1 | v2 | 1 / 1 | 1 / 0 / 0 | 0 / 0 / 0 | `0xf4779d46f1b063f3e863b3f11e8049092ec047d7c85c5587c1ffb808ac3c18e7` |
+| `andnot_nand` | 2 / 1 | v1 | 3 / 3 | 0 / 0 / 0 | 0 / 0 / 0 | `0xff38f0eecca6e6272de2fc4f23f9acaa251ce3c6b6996a3765c51a3c4bf09d53` |
+| `wide_rom` (= `wide_rom_narrow`, `wide_rom_split`) | 3 / 2 | v2 | 4 / 3 | 2 / 0 / 0 | 0 / 0 / 1 | `0x70b221b7824d66d9a75b7c24d023fbdf274886828592042a855eb8c4d0197720` |
+| `const_pin_plain` (= `const_pin_tied1`, `const_pin_tied0`) | 2 / 1 | v2 | 2 / 2 | 1 / 0 / 0 | 0 / 0 / 0 | `0x1b4b0592ac92f641b2befb3c40f1eacb8cc2ca9117662e6c190abd2787f869de` |
+| `const_column_two_pins` (= `const_column_one_pin`, `const_column_canonical`) | 1 / 1 | v2 | 2 / 2 | 1 / 0 / 0 | 0 / 0 / 0 | `0x1cc365f21aaeef54dd53d33e419e55fdc5f1d8674c6f18375b1c0996e4c158ac` |
+| `counter_rom` (= `counter_rom_permuted`) | 0 / 2 | v2 | 6 / 6 | 2 / 0 / 0 | 6 / 2 / 0 | `0x81c01c5aa1ff25e46009416db80f1ace46862f9ec367b7ed723450c262d5ccf0` |
+| `sbox` | 8 / 8 | v2 | 8 / 8 | 8 / 0 / 0 | 0 / 0 / 0 | `0x651982893d76d7c9fc86b3551fadf3d4aa22224c4030829e24978f5d63172bd7` |
+| `sbox_expanded` | 8 / 8 | v1 | 896 / 896 | 0 / 0 / 0 | 0 / 0 / 0 | `0x615132d97d974d6a950e2c90f533166958ba316d5055d183de06d64ed5af50e4` |
+| `rom_port` (= `rom_port_two_roms`) | 4 / 1 | v2 | 3 / 3 | 2 / 0 / 0 | 0 / 0 / 0 | `0x9e0e1922a93b0e1ddb8871b81e4552156063cb5b022eca3282a7a60d55e1263c` |
+| `romports` (= `romdup`) | 6 / 15 | v2 | 15 / 14 | 14 / 0 / 0 | 0 / 0 / 1 | `0xb44b176b4ca6308b3736a27fead61edd7c57d48e51c6da1b33848ffb437453b6` |
+| `ram_reg` (= `ram_reg_renumbered`, `ram_reg_dup_read`, `ram_reg_dup_write`, `ram_reg_disabled_write`, `ram_reg_const_bit`, `ram_reg_dead_bank`) | 4 / 1 | v2 | 2 / 2 | 0 / 1 / 1 | 0 / 0 / 0 | `0x7eef710a08c5864df681c438aaa27bd9ab5886638dc961408bfd07fc49a8c0b3` |
+| `ram_reg_wider_a` | 4 / 1 | v2 | 2 / 2 | 0 / 1 / 1 | 0 / 0 / 0 | `0x20cacc3bb19c9001221ce5d59f36913ca3128b4b6ecc3bb7f3b3e8e9e802eb18` |
+| `ram_reg_extra_write` | 4 / 1 | v2 | 2 / 2 | 0 / 1 / 1 | 0 / 0 / 0 | `0x1cfd8e3bec733c97e37585cd1155600cc474e04214477d21d6e114892d4fe309` |
+| `ram_two_writes` | 4 / 1 | v2 | 2 / 2 | 0 / 1 / 1 | 0 / 0 / 0 | `0x92ce5d40cc23bb3eb58f9d5726467b40dd6c4b718ebe36a326ac683b3e53c903` |
+| `ram_two_writes_swapped` | 4 / 1 | v2 | 2 / 2 | 0 / 1 / 1 | 0 / 0 / 0 | `0x63aa26f256e7c467dbbaf44bc8edea6dd4c883f880870e6e904523f93c53e1d0` |
+| `ram_wide` (= `ram_wide_col_perm`, `ram_wide_split`, `ram_wide_narrow`) | 6 / 2 | v2 | 4 / 3 | 0 / 2 / 2 | 0 / 0 / 1 | `0x14f8125b3baab914e4753d4860710e0500112c9ed375fc3ecb6ac94e318d1534` |
+| `ram_counter` (= `ram_counter_split`) | 0 / 2 | v2 | 6 / 6 | 2 / 2 / 2 | 8 / 2 / 0 | `0x60edbc3bf7d26b2f04ad7e31d7306e0571753223e2285526c71cc6fe24ede97f` |
+| `ram_counter_decrement` | 0 / 2 | v2 | 6 / 6 | 2 / 2 / 2 | 8 / 2 / 0 | `0x4d05e962cbe91a524fda2d62a6ab535bda3267c0d06d6f3dd764e47f923e9e3f` |
+| `ram_unwritten` | 1 / 1 | v2 | 2 / 2 | 0 / 1 / 1 | 0 / 0 / 0 | `0x4c977f3658342087502f94ac15eb7a1717718a8710a2cee5deeaa180cae9937c` |
+| `ram_out_equal_bits` (= `ram_out_two_ports`) | 3 / 2 | v2 | 2 / 1 | 0 / 1 / 1 | 0 / 0 / 1 | `0x76df1fdf8e37c02b9953d57123c57a6ecdda8e67b7c6179779b08177b4f24863` |
+| `ram16` | 14 / 12 | v2 | 103 / 100 | 0 / 8 / 4 | 99 / 3 / 0 | `0xcd4895c3e989d7aa17b994bfa1db537819b5b9dc3cb037093963f05b259038a5` |
+| `ram16_latch` | 14 / 12 | v1 | 959 / 792 | 0 / 0 / 0 | 703 / 3 / 0 | `0x6297e6c9259e7c91b9d3c78f0c90f0fcf6c8a025dce3feab3a44cb840ada621a` |
+| `rammix` | 12 / 29 | v2 | 164 / 163 | 24 / 13 / 13 | 165 / 3 / 0 | `0x2505378f810f6d7a1b08babffa34ee6e5401f8db108e1b953712d175a90684f0` |
+
+The file also contains `equalGroups` (13 hand-made groups and four seeded random netlists with live RAM, each with three variants) and `distinct` (13 pairs that must differ: table not permuted with its pins, ROM versus NAND, constant column versus signal 1, up versus down counter, S-box versus its NAND expansion, a ROM port on another address, a RAM bank with a wider address, an extra enabled write port, two write ports exchanged, RAM versus LATCH counters, a never-written bank versus signal 0, and the 16 × 4-bit memory of `TAP-draft-large-netlists` built from RAM ports versus built from LATCHes). The LATCH version of the RAM counter (`ram_counter_latch`) has the hash of `counter_rom`, which is the same design.
+
+`test_canon2.py` checks, besides the vectors: every case of `vectors.json` and 300 random version-1 netlists with their transformed variants give the same canonical file, hash, rounds and copies under both implementations; a `tapnet/2` file whose ROMs and RAM ports are all unread hashes as version 1; for 300 random `tapnet/2` netlists with ROMs, ROM read ports, RAM banks and LATCH feedback through memory, invariance under renumbering, NAND input swaps, ROM pin and column permutations, dead ROM columns, ROM splits, replacing ROM read ports by ROM copies, duplication (including adjacent write ports), dead elements (including disabled write ports and unread banks), constant and duplicated ROM pins, bank renumbering, RAM bit permutations, dead RAM bits, constant RAM address bits, bank splits and their combination; validity, idempotence and equal outputs (from the all-zero state and memory) of every canonical file, including more than 30 with planes in `C`; that exchanging two write ports, redirecting a read port to another bank or flipping a ROM table bit in a canonical file changes the hash; that unknown opcodes are rejected; and that more than 256 plane nodes give an error.
+
 ## Reference Implementation
 
-- `assets/tap-draft-netlist-structural-hash/canon.py` (MIT): about 250 lines of dependency-free Python (including a command line); `canonicalize(file)` returns the canonical file, the structural hash and the counts above. It uses the file check of `assets/tap-draft-netlist-bound-nft/tapnft.py` and the TAP-02 decoder `tap02_reference.py`, unchanged. These paths (`assets/tap-draft-netlist-bound-nft/tapnft.py`, `tap02_reference.py`, and `assets/tap-draft-netlist-bound-nft/chain-snapshot.json` in Test Cases) cross asset folders; they are updated when the folders are renamed `assets/tap-<nn>/` on number assignment. Command line: `python3 canon.py <file.tapnet>` or `python3 canon.py 0x<netlist> --n-in N --n-out M`.
+- `assets/tap-draft-netlist-structural-hash/canon.py` (MIT): about 250 lines of dependency-free Python (including a command line); `canonicalize(file)` returns the canonical file, the structural hash and the counts above. It uses the file check `tapnft.py` and the TAP-02 decoder `tap02_reference.py` of `TAP-draft-netlist-bound-nft`, unchanged; copies of both are included in `assets/tap-draft-netlist-structural-hash/` so that the folder runs on its own (their origin and SHA-256 are listed in its README). The path `assets/tap-draft-netlist-bound-nft/chain-snapshot.json` in Test Cases refers to that draft's asset folder and is updated when the folders are renamed `assets/tap-<nn>/` on number assignment. Command line: `python3 canon.py <file.tapnet>` or `python3 canon.py 0x<netlist> --n-in N --n-out M`.
 - `make_vectors.py` regenerates `vectors.json`; `test_canon.py` runs the tests above (`python3 make_vectors.py && python3 test_canon.py`).
+- `canon2.py` (MIT): version 2 (§10), about 450 lines of dependency-free Python; `canonicalize(file)` accepts `tapnet/1` and `tapnet/2` files and returns the canonical file, its version, the structural hash and the counts above. It imports `canon.py` unchanged and uses the `tapnet/2` decoder `tapnet2.py` of `TAP-draft-large-netlists` unchanged; a copy of it, and of that draft's `examples.py` used by `make_vectors2.py`, is included in the same folder. `make_vectors2.py` regenerates `vectors2.json`; `test_canon2.py` runs the version-2 tests (`python3 make_vectors2.py && python3 test_canon2.py`).
 
 ## Deployments
 
@@ -242,9 +365,12 @@ This TAP depends on no deployed contract.
 ### Open questions
 
 1. Whether a quasi-linear canonical labelling of the feedback region (for example partition refinement in the style of Hopcroft or Paige and Tarjan, which finds the same classes in `O(n log n)`, combined with a canonical naming of the classes) should replace the rounds of §4.3 in a later version.
-2. A flattening rule for REF circuits, so that netlists with sub-circuits get a structural hash, and whether it belongs here or in a `tapnet/2` format.
+2. A flattening rule for REF circuits, so that netlists with sub-circuits get a structural hash, and whether it belongs here or in a later format.
 3. Whether a second, pin-order-free hash (canonical under input and output permutations) is wanted for rarity tools, given that it needs a tie-break among symmetric pins.
 4. Whether a small, fixed set of sound simplifications (for example constant inputs of NAND) should be offered as a separate, explicitly named hash rather than changing this one.
+5. An ordering of ROM inputs in `C` by the lexicographic history `(λ_0, …, λ_r)`, which never changes once two inputs are told apart and reduces the per-round cost of a ROM column from `O(k·2^k)` to `O(k)`, at the price of ranks kept across rounds.
+6. Packing planes into fewer banks of the canonical file (by address regions, with a rule that splits a plane at address bits that every port ties to constants), which would lift the limit of 256 plane nodes, and regrouping ROM columns with the same inputs into wider ROM records.
+7. Whether a bank-wide permutation of address bits should be an invariance, given that it needs a joint canonical order of the address bits of all ports of a plane.
 
 ## Copyright
 
