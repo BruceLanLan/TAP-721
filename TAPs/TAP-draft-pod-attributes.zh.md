@@ -7,6 +7,7 @@ discussions-to: https://github.com/TapeOutProtocol/TAPs/issues/66
 status: Draft
 type: Application
 created: 2026-10-18
+updated: 2026-10-21
 requires: TAP-02, TAP-10, TAP-draft-netlist-bound-nft, ERC-7496 (ethereum/ERCs commit b7520ddde9f659fa40cda2e0849d987a4ff88bf5)
 license: CC0-1.0
 ---
@@ -184,7 +185,7 @@ license: CC0-1.0
    | `reference` | 除 `unconfirmed` 外 | object | 参考电路的 `processor`（地址）与 `circuitId`（十进制字符串） |
 
    只有当 `design.stateCount` 为 0 时才允许 `method` 为 `"exhaustive"`；穷举一致时 `vectors` = 2^nIn。除非 `result` 为 `"match"`，工具 MUST NOT 把网表展示为正确；工具 SHOULD 显示方法，对 `sampled` 还应显示向量数。
-4. 程序 `tap-pod-fc/1`。求值按 TAP-02 §4；输入 `j` 是信号 `2 + j`。候选电路与参考电路的 `nIn` 和 `nOut` 必须相等，否则结果为 `"mismatch"`，`vectors` 为 0。`stream(seed, i_1, …, i_k)` 是比特串 SHA-256(seed ‖ u32be(i_1) ‖ … ‖ u32be(i_k) ‖ u32be(0)) ‖ SHA-256(… ‖ u32be(1)) ‖ …，按字节读取，每字节最低位在先。
+4. 程序 `tap-pod-fc/1`。求值按 TAP-02 §4；输入 `j` 是信号 `2 + j`。若候选电路与参考电路的 `nIn` 或 `nOut` 不同，结果为 `"mismatch"`，`vectors` 为 0。`stream(seed, i_1, …, i_k)` 是比特串 SHA-256(seed ‖ u32be(i_1) ‖ … ‖ u32be(i_k) ‖ u32be(0)) ‖ SHA-256(… ‖ u32be(1)) ‖ …，按字节读取，每字节最低位在先。
    - 两者都是组合电路且 nIn ≤ 16（`exhaustive`）：模式 `i`，`i` = 0 … 2^nIn − 1，输入 `j` = `i` 的第 `j` 位。
    - 两者都是组合电路且 nIn > 16（`sampled`）：16,384 个模式；模式 `k` 的输入取自 `stream(seed, k)`。
    - 其它情况（`sampled`）：64 轮（nIn = 0 时 1 轮）；每轮让两个电路都从全零状态开始，施加 max(`cycles`, 32) 个节拍，`cycles` 取自 `getTask`；第 `r` 轮第 `t` 拍的输入取自 `stream(seed, r, t)`；每一拍都比较输出。
@@ -366,7 +367,7 @@ Python 3.9，位于 `assets/tap-draft-pod-attributes/`（MIT）；ABI 处理使�
 
 使用 `assets/tap-draft-netlist-bound-nft/tapnft.py`、`tap02_reference.py` 与 `assets/tap-draft-netlist-bound-nft/chain-snapshot.json`；分配编号后这些文件夹改名为 `assets/tap-<nn>/` 时，这些路径随之更新。
 
-将在 Review 之前（TAP-01 §7.2 第 8 条）补上指向固定提交的链接。
+同一目录也以固定提交保存在 [BruceLanLan/TAP-721，提交 `a39f30b538e723e918bf9c3bb2998ee95f8e2f1a`](https://github.com/BruceLanLan/TAP-721/tree/a39f30b538e723e918bf9c3bb2998ee95f8e2f1a) 的 `assets/tap-draft-pod-attributes/` 下（逐字节相同），同一提交中还有在一个固定区块上对一组矿机电路运行 §3.9 功能检查的 `tools/collection/verify_function.py`。
 
 ## 部署
 

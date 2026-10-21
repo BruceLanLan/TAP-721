@@ -7,6 +7,7 @@ discussions-to: https://github.com/TapeOutProtocol/TAPs/issues/66
 status: Draft
 type: Standards
 created: 2026-10-18
+updated: 2026-10-21
 requires: TAP-02, TAP-10, ERC-165, ERC-173, ERC-721, ERC-4906, CAIP-19 (ChainAgnostic/CAIPs commit 1a897eede982d3d4eb68982f3798ebb0878c6ef5)
 license: CC0-1.0
 ---
@@ -412,9 +413,9 @@ permute(seed, n, x):
 1. `manifestHash()` 与 `masterSeed()` 一旦非零、`pools()` 与 `tokenRange()` 一旦设定（非空，`supply` ≥ 1），就永不改变；`pools()[i]` 等于清单 `pools[i]` 的标签、字段掩码与根；
 2. 一旦 `masterSeed()` 非零，`entryIndexOf(t, p)` 返回以 §6.3 的序号 `x` 计算的 `permute(poolSeed_p, n, x)`；在此之前、对未被覆盖的代币（在区间之外，或在代币集之外，§5.4）、以及对不存在的池序号，它回滚。若清单的 `reveal.source` 为 `none`，合约在承诺清单时把 `masterSeed()` 设为 `0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff`，`entryIndexOf(t, p)` 返回序号 `x`，并且对第 5 条而言种子视为已设定。对任何其它来源，合约 MUST NOT 把零或该值记录为主种子；
 3. `bind` 在按条目序号 `entryIndexOf(t, p)` 对照池根核验一个 Merkle 证明（§5.3）之后，为任何调用者记录一枚代币获得的条目；它是幂等的。实现 MAY 在用完整值列表重建池根并与已承诺的根核对之后，一次调用或分多次调用记录一个池的全部条目；种子设定后，`netlistHashOf` 与 `imageHashOf` 即可无需 `bind` 地为每枚被覆盖代币作答；
-4. 一个网表哈希为已知，当它已由 `bind` 记录；或在 `masterSeed()` 设定之后，某个无需许可的函数为获得它的某枚代币、从按第 3 条记录的池中推导出它并加以记录（参考实现中为 `markKnown(uint256 tokenId)`）；或它随代币按某个跨链 TAP 到达；或在铸造即绑定的合约（见下文）中，存在以它铸造的代币。`storeNetlist` 只接受 SHA-256 为已知网表哈希、且长度至多 49,152 字节的 `tapnet/1` 文件，并使其可通过 `netlistFile` 与 `netlistOf` 读取。它 SHOULD 在链上检查有效性（§2.2），若合约实现了 TAP-721 求值扩展（§8.4）则 MUST 检查。`NetlistStored.pointer` 背后的布局仅供参考；客户端通过 `netlistFile` 读取文件。回滚数据不属于本接口；
+4. 一个网表哈希为已知，当它已由 `bind` 记录；或在 `masterSeed()` 设定之后，某个无需许可的函数为获得它的某枚代币、从按第 3 条记录的池中推导出它并加以记录（参考实现中为 `markKnown(uint256 tokenId)`）；或它随代币按某个跨链 TAP 到达；或在铸造即绑定的合约（见下文）中，已有代币以它铸造；该代币之后被销毁，哈希仍为已知。`storeNetlist` 只接受 SHA-256 为已知网表哈希、且长度至多 49,152 字节的 `tapnet/1` 文件，并使其可通过 `netlistFile` 与 `netlistOf` 读取。它 SHOULD 在链上检查有效性（§2.2），若合约实现了 TAP-721 求值扩展（§8.4）则 MUST 检查。`NetlistStored.pointer` 背后的布局仅供参考；客户端通过 `netlistFile` 读取文件。回滚数据不属于本接口；
 5. 只有当清单已承诺、种子已设定，且没有任何账户能改变 `tokenURI`、清单、池或种子时，`frozen()` 才返回 true；一旦为 true，就永不再返回 false。位于可升级代理之后的合约，只要其升级路径存在，就不是冻结的；
-6. 每当代币的元数据可能已改变（承诺、揭示、绑定、记录池或代币集、冻结）时，它发出 ERC-4906 的 `MetadataUpdate` 或 `BatchMetadataUpdate`，以便交易市场刷新。在代币集模式下，覆盖 `0 … 2^256 − 1` 的 `BatchMetadataUpdate` 即满足此条。
+6. 每当代币的元数据可能已改变（承诺、揭示、绑定、记录池或代币集、冻结）时，它发出 ERC-4906 的 `MetadataUpdate` 或 `BatchMetadataUpdate`，以便交易市场刷新。在代币集模式下，或当 `tokenRange()` 返回 `supply` = 0 时，覆盖 `0 … 2^256 − 1` 的 `BatchMetadataUpdate` 即满足此条。铸造即绑定的合约（见下文）在每次铸造时发出 `MetadataUpdate(tokenId)`，并 MAY 发出它自己的记录哈希的事件。
 
 如何承诺清单、写入种子、记录池与代币集以及冻结合约，由实现决定；`ITapNetlistNFT` 的事件让任何人都能核对结果。
 
@@ -424,7 +425,7 @@ L1 集合的 `tokenURI` 仍 MUST 遵循 §7，且其元数据中的值 MUST 等�
 
 **跨链副本。** 由建立在本 TAP 之上的某个跨链 TAP 在另一条链上创建的集合副本，MAY 在没有清单的情况下实现 `ITapNetlistNFT`：在那里，`entryIndexOf` 与 `bind` MAY 以该跨链 TAP 定义的错误回滚，`netlistHashOf` 与 `imageHashOf` 返回随代币到达的哈希。在这样的副本中，`collection()` 返回副本本身，`tokenRange()` MAY 对无界区间返回 `supply` = 0，`frozen()` MAY 一直为 false，元数据的 `tap.id` 是原链代币的标识符（§4.1）。在任何实现中，`netlistHashOf` 与 `imageHashOf` 只在某代币尚无已知哈希时返回零，或对没有任何池携带的字段（§5.2）永久返回零。
 
-**铸造即绑定的集合。** 一个在每个代币编号的代币铸造时记录其网表哈希、且在合约整个生命周期内对每个代币编号至多记录一次的合约，MAY 在没有清单的情况下实现 `ITapNetlistNFT`。在这样的合约中：没有任何函数改变已记录的哈希，已被销毁的代币编号 MUST NOT 以另一个网表哈希重新铸造；`manifestHash()` 与 `masterSeed()` 永久返回零，`pools()` 永久为空，因此第 1 条在没有清单时成立；`entryIndexOf` 与 `bind` 对每枚代币都回滚，以此取代第 2 与第 3 条；`tokenRange()` MAY 返回 `supply` = 0；`netlistHashOf` 返回铸造时记录的哈希；`imageHashOf` 返回铸造时记录的图片哈希，合约未记录图片哈希时返回零，在后一种情况下，上文关于没有任何池携带的字段的例外适用于图片；`storeNetlist` 除第 4 条允许的文件外，MAY 接受任何至多 49,152 字节的有效 `tapnet/1` 文件；`frozen()` 只在没有任何账户能改变 `tokenURI` 或已记录的哈希时返回 true，以此取代第 5 条关于清单与种子的条件，且一旦为 true 就永不再返回 false。`frozen()` 并不意味着铸造已经结束。铸造即绑定的合约只有在完整实现本配置时才报告 `ITapNetlistNFT`。其代币的元数据没有 `tap.manifest`，也从不使用 `unrevealed` 状态（§7.2）。
+**铸造即绑定的集合。** 一个在每个代币编号的代币铸造时记录其网表哈希、且在合约整个生命周期内对每个代币编号至多记录一次的合约，MAY 在没有清单的情况下实现 `ITapNetlistNFT`。在这样的合约中：没有任何函数改变已记录的哈希，已被销毁的代币编号 MAY 重新铸造，但只能以相同的网表哈希与相同的图片哈希；`manifestHash()` 与 `masterSeed()` 永久返回零，`pools()` 永久为空，因此第 1 条在没有清单时成立；`entryIndexOf` 与 `bind` 对每枚代币都回滚，以此取代第 2 与第 3 条；`tokenRange()` MAY 返回 `(firstTokenId, 0)`（其中 `firstTokenId` 仅供参考）或 `(0, 0)`，工具 MUST NOT 据此推导覆盖范围；`netlistHashOf` 返回铸造时记录的哈希；`imageHashOf` 返回铸造时记录的图片哈希，合约未记录图片哈希时返回零（合约要么为每枚代币记录图片哈希，要么都不记录），在后一种情况下，上文关于没有任何池携带的字段的例外适用于图片；`storeNetlist` 除第 4 条允许的文件外，MAY 接受任何至多 49,152 字节的有效 `tapnet/1` 文件；`frozen()` 只在没有任何账户能改变既有代币的元数据（含其已记录的哈希）或 `tokenURI` 规则时返回 true（铸造与销毁不属于这类改变），以此取代第 5 条关于清单与种子的条件，且一旦为 true 就永不再返回 false。`frozen()` 并不意味着铸造已经结束。铸造即绑定的合约只有在完整实现本配置时才报告 `ITapNetlistNFT`。其代币的元数据没有 `tap.manifest`，也从不使用 `unrevealed` 状态（§7.2）。
 
 ```solidity
 // SPDX-License-Identifier: CC0-1.0
@@ -564,9 +565,9 @@ TapeOut 容器中的文件可以被该容器电路的持有人、或持有人设
 
 **现有规范。** 代币标识符采用 CAIP-19，因为钱包和索引器已经能解析它。哈希由专用函数提供而不是 ERC-7496 特征，因为它们由清单固定并由 Merkle 证明证实，而 ERC-7496 特征是所有者可以设置的值；`TAP-draft-pod-attributes` 用 ERC-7496 表示作为另一合约快照的事实。没有现成的 ERC 定义一种经承诺、可公开重算的揭示，因此 §5–§6 用所有链上都可用的最少原语定义了一种。
 
-**与其它 TAP 的关系。** 有三份提案扩展 TAP-721 并以它为前提，正如 ERC-4906 与 ERC-7496 扩展 ERC-721：`TAP-draft-netlist-nft-bridging`（在链间转移 TAP-721 代币）、`TAP-draft-pod-attributes`（TAP-721 代币的设计证明属性）与 `TAP-draft-netlist-structural-hash`（`tapnet/1` 文件的结构哈希）。它们单独成文，原因有四。一个 TAP 一个主题：每一份都可以单独评审、接受或拒绝，而无需重开本 TAP。可升级的依赖：跨链转移依赖一个消息层及其自身的安全分析，PoD 属性读取的合约可以升级；二者都不应拖住本核心，也不应把本核心绑在它们的变化上。应用类型：设计证明事实（任务、燃烧、成本、首个最优状态）会随时间变化且专属于一个应用，因此是 Application TAP，而本 TAP 是 Standards TAP。算法演进：在门重新编号后识别同一设计有已知局限，其算法可以改变，而不改变 §2.3 的网表哈希。
+**与其它 TAP 的关系。** 有五份提案扩展 TAP-721 并以它为前提，正如 ERC-4906 与 ERC-7496 扩展 ERC-721：`TAP-draft-netlist-nft-bridging`（在链间转移 TAP-721 代币）、`TAP-draft-pod-attributes`（TAP-721 代币的设计证明属性）、`TAP-draft-netlist-structural-hash`（`tapnet/1` 文件的结构哈希）、`TAP-draft-design-credits`（关于网表的经核验的发布事实与经签名的署名声明）与 `TAP-draft-soulbound-credentials`（铸造时绑定网表的不可转让代币）。它们单独成文，原因有四。一个 TAP 一个主题：每一份都可以单独评审、接受或拒绝，而无需重开本 TAP。可升级的依赖：跨链转移依赖一个消息层及其自身的安全分析，PoD 属性读取的合约可以升级；二者都不应拖住本核心，也不应把本核心绑在它们的变化上。应用类型：设计证明事实（任务、燃烧、成本、首个最优状态）会随时间变化且专属于一个应用，因此是 Application TAP，而本 TAP 是 Standards TAP。算法演进：在门重新编号后识别同一设计有已知局限，其算法可以改变，而不改变 §2.3 的网表哈希。
 
-**其它草案使用的名称（仅供参考）。** §7.1 允许其它 TAP 定义 `tap` 的更多成员，§5.1 允许定义清单的更多成员。下列名称已被建立在本 TAP 之上的草案使用（其中一些尚未提交）；新成员不应重复使用它们。
+**其它草案使用的名称（仅供参考）。** §7.1 允许其它 TAP 定义 `tap` 的更多成员，§5.1 允许定义清单的更多成员。下列名称已被建立在本 TAP 之上的草案使用（均已作为拉取请求提交至 TAPs 仓库）；新成员不应重复使用它们。
 
 | 名称 | 位置 | 草案 | 内容 |
 |---|---|---|---|
@@ -632,13 +633,15 @@ Solidity 参考实现的测试从一个由 `vectors.json` 生成的数据文件�
 ## 参考实现
 
 - Python，仅用标准库：`assets/tap-draft-netlist-bound-nft/tapnft.py`（文件检查、哈希、来源文件构造、Merkle 树、池种子、置换、清单与代币集检查、分配、元数据与版次检查，以及其它格式的不可核验状态），附 TAP-02 参考实现 `tap02_reference.py`（复制自 TAPs 仓库的 `assets/tap-02/reference.py`，仅改动了头部注释）、生成器 `make_vectors.py` 与测试套件 `test_tapnft.py`。
-- Solidity：https://github.com/BruceLanLan/TAP-721，将在进入 Review 之前以一个固定提交链接（TAP-01 §7.2 第 8 条）。其中包含 §8 的各接口；`TapNetlistNFT`（一个 L1 集合）、`TapCompanion`（为现有 ERC-721 实现 L1）、库 `TapPermutation`、`TapMerkle`、`TapNetlistCheck`、`TapNetlistStore` 与 `TapNetlistVM`，以及它们的测试。
+- Solidity：[BruceLanLan/TAP-721，提交 `a39f30b538e723e918bf9c3bb2998ee95f8e2f1a`](https://github.com/BruceLanLan/TAP-721/tree/a39f30b538e723e918bf9c3bb2998ee95f8e2f1a)（MIT；Foundry 项目 `contracts/`，solc 0.8.28）。其中包含 §8 的各接口（`contracts/src/interfaces/ITapNetlistNFT.sol`、`ITapCompanion.sol`、`ITapNetlistEval.sol`、`ITapNetlistTokenSet.sol`）；`contracts/src/core/` 下的 `TapNetlistNFT.sol`（一个 L1 集合）、`TapCompanion.sol`（为现有 ERC-721 实现 L1）以及库 `TapPermutation.sol`、`TapMerkle.sol`、`TapNetlistCheck.sol`、`TapNetlistStore.sol` 与 `TapNetlistVM.sol`；`contracts/src/tools/TapContainerLock.sol`（§8.6）；铸造即绑定合约 `TapMintBoundNFT.sol`（§8.2；位于同一仓库更晚的提交中，合并后在此固定）；以及 `contracts/test/` 下的测试，它们读取与 Python 测试套件相同的 `vectors.json`。同一提交中还有 `assets/tap-draft-netlist-bound-nft/` 的逐字节相同副本。这些合约未部署，也未经外部审计。
 - 参考 L1 合约中由实现决定、客户端会遇到的入口：`commitManifest`、`commitManifestTokenSet` 与 `commitManifestNoReveal`（§5.1、§6.1）；`scheduleBlockhashReveal` 与 `revealFromBlockhash`，延迟至多 1,000,000 个区块；`loadTokenSet` 与 `loadTokenSetChunk`（§8.5）；`loadPool` 与 `loadPoolChunk`（§8.2 第 3 条）；`markKnown(uint256 tokenId)`（§8.2 第 4 条）；`poolSeed(uint256)`（§6.2）。参考合约至多接受 100,000 枚被覆盖代币，这是实现的限制，不是本 TAP 的限制。
 - 参考库未实现 §3.2（第 1、2、5 步）、§5.1 的发布区块、§6.1 第 7 条与 §7.5 的网络核验。`assets/` 下的路径在分配编号时更新。
 
 ## 部署
 
 本 TAP 不依赖它自己的任何已部署合约。核验来源（§3.2）使用 TAP-02 与 TAP-10 在其 Deployments 中列出的处理器工厂与处理器合约；在 BNB Smart Chain 上，处理器工厂是一个未封存的可升级代理（TAP-02，Deployments），因此核验者在固定区块上读取，并依赖 NFT 中固定的网表哈希，而不是工厂将来的行为。
+
+本 TAP 的合约（参考 L1 集合、伴生合约与各库）目前均未部署。进入 Review 之前，本节将加入参考实现的一次测试网部署，并附上只读核验其地址、代码与接口标识符的步骤；在此之前，没有任何部署是客户端必须识别的。
 
 ## 安全考虑
 

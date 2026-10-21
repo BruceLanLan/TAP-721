@@ -7,6 +7,7 @@ discussions-to: https://github.com/TapeOutProtocol/TAPs/issues/66
 status: Draft
 type: Standards
 created: 2026-10-18
+updated: 2026-10-21
 requires: TAP-02, TAP-draft-netlist-bound-nft, TAP-draft-large-netlists
 license: CC0-1.0
 ---
@@ -348,6 +349,7 @@ The file also contains `equalGroups` (13 hand-made groups and four seeded random
 - `assets/tap-draft-netlist-structural-hash/canon.py` (MIT): about 250 lines of dependency-free Python (including a command line); `canonicalize(file)` returns the canonical file, the structural hash and the counts above. It uses the file check `tapnft.py` and the TAP-02 decoder `tap02_reference.py` of `TAP-draft-netlist-bound-nft`, unchanged; copies of both are included in `assets/tap-draft-netlist-structural-hash/` so that the folder runs on its own (their origin and SHA-256 are listed in its README). The path `assets/tap-draft-netlist-bound-nft/chain-snapshot.json` in Test Cases refers to that draft's asset folder and is updated when the folders are renamed `assets/tap-<nn>/` on number assignment. Command line: `python3 canon.py <file.tapnet>` or `python3 canon.py 0x<netlist> --n-in N --n-out M`.
 - `make_vectors.py` regenerates `vectors.json`; `test_canon.py` runs the tests above (`python3 make_vectors.py && python3 test_canon.py`).
 - `canon2.py` (MIT): version 2 (§10), about 450 lines of dependency-free Python; `canonicalize(file)` accepts `tapnet/1` and `tapnet/2` files and returns the canonical file, its version, the structural hash and the counts above. It imports `canon.py` unchanged and uses the `tapnet/2` decoder `tapnet2.py` of `TAP-draft-large-netlists` unchanged; a copy of it, and of that draft's `examples.py` used by `make_vectors2.py`, is included in the same folder. `make_vectors2.py` regenerates `vectors2.json`; `test_canon2.py` runs the version-2 tests (`python3 make_vectors2.py && python3 test_canon2.py`).
+- The same folder is held at a fixed commit in [BruceLanLan/TAP-721, commit `a39f30b538e723e918bf9c3bb2998ee95f8e2f1a`](https://github.com/BruceLanLan/TAP-721/tree/a39f30b538e723e918bf9c3bb2998ee95f8e2f1a) under `assets/tap-draft-netlist-structural-hash/` (byte-identical). The file `reviews/editorial.md` at that commit records an implementation of the version-1 canonicalisation written from §3 to §7 alone, which reproduced the canonical file, the structural hash and the counts `live`, `nodes` and `rounds` of all 37 cases and 3 mainnet circuits of `vectors.json`.
 
 ## Deployments
 

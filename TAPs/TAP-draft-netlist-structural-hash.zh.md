@@ -7,6 +7,7 @@ discussions-to: https://github.com/TapeOutProtocol/TAPs/issues/66
 status: Draft
 type: Standards
 created: 2026-10-18
+updated: 2026-10-21
 requires: TAP-02, TAP-draft-netlist-bound-nft, TAP-draft-large-netlists
 license: CC0-1.0
 ---
@@ -350,6 +351,7 @@ structuralHash = SHA-256(ASCII("tap-structural-hash/2") ‖ 0x00 ‖ 规范文�
 - `assets/tap-draft-netlist-structural-hash/canon.py`（MIT）：约 250 行无依赖的 Python（含命令行）；`canonicalize(file)` 返回规范文件、结构哈希以及上述计数。它原样使用 `TAP-draft-netlist-bound-nft` 的文件检查 `tapnft.py` 和 TAP-02 解码器 `tap02_reference.py`；两者的副本都放在 `assets/tap-draft-netlist-structural-hash/` 中，使该目录可以独立运行（来源与 SHA-256 列在该目录的 README 中）。测试用例中的路径 `assets/tap-draft-netlist-bound-nft/chain-snapshot.json` 指向该草案的资产目录；编号分配、目录改名为 `assets/tap-<nn>/` 时一并更新。命令行：`python3 canon.py <file.tapnet>` 或 `python3 canon.py 0x<netlist> --n-in N --n-out M`。
 - `make_vectors.py` 重新生成 `vectors.json`；`test_canon.py` 运行上述测试（`python3 make_vectors.py && python3 test_canon.py`）。
 - `canon2.py`（MIT）：第 2 版（§10），约 450 行无依赖的 Python；`canonicalize(file)` 接受 `tapnet/1` 与 `tapnet/2` 文件，返回规范文件及其版本、结构哈希以及上述计数。它原样导入 `canon.py`，并原样使用 `TAP-draft-large-netlists` 的 `tapnet/2` 解码器 `tapnet2.py`；它的副本，以及 `make_vectors2.py` 用到的该草案的 `examples.py` 的副本，放在同一目录中。`make_vectors2.py` 重新生成 `vectors2.json`；`test_canon2.py` 运行第 2 版的测试（`python3 make_vectors2.py && python3 test_canon2.py`）。
+- 同一目录也以固定提交保存在 [BruceLanLan/TAP-721，提交 `a39f30b538e723e918bf9c3bb2998ee95f8e2f1a`](https://github.com/BruceLanLan/TAP-721/tree/a39f30b538e723e918bf9c3bb2998ee95f8e2f1a) 的 `assets/tap-draft-netlist-structural-hash/` 下（逐字节相同）。该提交中的 `reviews/editorial.md` 记录了一个仅依据 §3 至 §7 写成的第 1 版规范化实现，它复现了 `vectors.json` 中全部 37 个用例与 3 个主网电路的规范文件、结构哈希以及 `live`、`nodes`、`rounds` 计数。
 
 ## 部署
 

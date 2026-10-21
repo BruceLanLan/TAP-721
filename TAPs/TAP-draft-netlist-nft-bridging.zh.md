@@ -7,6 +7,7 @@ discussions-to: https://github.com/TapeOutProtocol/TAPs/issues/66
 status: Draft
 type: Standards
 created: 2026-10-18
+updated: 2026-10-21
 requires: TAP-10, TAP-draft-netlist-bound-nft, ERC-165, ERC-721, ERC-4906, EIP-712, EIP-7702, LayerZero V2 EndpointV2 (deployed bytecode, code hashes in Deployments)
 license: CC0-1.0
 ---
@@ -272,7 +273,7 @@ revert 的送达（错误的对端、错误的来源、`AlreadyLive`、`Manifest
 ### 7. 策略
 
 - **`ONE`**（默认值，SHOULD 采用）：唯一所列适配器的送达立即生效。
-- **`ALL`**：每个所列适配器都必须送达逐字节相同的载荷；代币在最后一次确认时释放或铸出。送达的载荷有任何一个字节不同的适配器，确认的是不同的消息 ID，两者都不会生效。
+- **`ALL`**：代币在最后一次确认时释放或铸出，即每个所列适配器都已送达逐字节相同的载荷之后。送达的载荷有任何一个字节不同的适配器，确认的是不同的消息 ID，两者都不会生效。
 - 不存在 `ANY` 策略（多个适配器中任意一个即可）。
 
 **卡住的适配器。** 端点 MUST NOT 自行从 `ALL` 退回到更少的适配器，也没有超时。若 `ALL` 路由的某个适配器始终不送达，消息保持挂起，代币保持退出流通。恢复途径，按优先顺序：
@@ -420,7 +421,7 @@ https://github.com/BruceLanLan/TAP-721 中的 Solidity 参考实现（见参考�
 
 ## 参考实现
 
-Solidity：https://github.com/BruceLanLan/TAP-721（Foundry 项目 `contracts/`，solc 0.8.28，优化器 10,000 runs，EVM `shanghai`），将在进入 Review 之前以一个固定提交链接（TAP-01 §7.2 第 8 条）。下表路径均相对于该仓库中的 `contracts/`。
+Solidity：[BruceLanLan/TAP-721，提交 `a39f30b538e723e918bf9c3bb2998ee95f8e2f1a`](https://github.com/BruceLanLan/TAP-721/tree/a39f30b538e723e918bf9c3bb2998ee95f8e2f1a)（MIT；Foundry 项目 `contracts/`，solc 0.8.28，优化器 10,000 runs，EVM `shanghai`）。下表路径均相对于该提交中的 `contracts/`。同一提交中还有 `assets/tap-draft-netlist-nft-bridging/` 的逐字节相同副本，跨链桥测试读取该目录中的 `vectors.json`。这些合约未部署，也未经外部审计。
 
 | 路径 | 内容 |
 |---|---|
@@ -449,7 +450,7 @@ Solidity：https://github.com/BruceLanLan/TAP-721（Foundry 项目 `contracts/`�
 
 ## 部署
 
-本 TAP 的合约均未部署，TapeCode-Test1 v1 也没有部署计划。每个端点和适配器的所有者都是构造函数参数；在某个拉取请求把地址加入此处之前，客户端不接受任何部署作为 TapeCode-Test1 的正式端点。本 TAP 记录部署，但不能下令部署。
+本 TAP 的合约均未部署，TapeCode-Test1 v1 也没有部署计划。每个端点和适配器的所有者都是构造函数参数；在某个拉取请求把地址加入此处之前，客户端不接受任何部署作为 TapeCode-Test1 的正式端点。本 TAP 记录部署，但不能下令部署。进入 Review 之前，本节将加入参考网关合约、镜像合约与 LayerZero V2 适配器的一次测试网部署，并附上只读核验其地址、代码哈希与路由的步骤。
 
 本 TAP 依赖以下已部署的合约。
 

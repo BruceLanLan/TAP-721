@@ -7,6 +7,7 @@ discussions-to: https://github.com/TapeOutProtocol/TAPs/issues/72
 status: Draft
 type: Application
 created: 2026-10-19
+updated: 2026-10-21
 requires: TAP-02, TAP-10, TAP-draft-netlist-bound-nft, TAP-draft-netlist-structural-hash, EIP-712, ERC-721, ERC-1271
 license: CC0-1.0
 ---
@@ -442,6 +443,7 @@ interface ITapCreditLog {
 - `make_vectors.py` 写出 `vectors.json`；`test_credits.py` 检查向量，检查本文（以及其译文，若存在）的附录 A 与向量一致，并在已安装时把 keccak-256 与 pycryptodome、签名与 `eth_keys`、EIP-712 摘要和附录 A 的签名与 `eth_account`、附录 A 的载荷与 Foundry `cast wallet sign --data` 交叉核对。
 - `fetch_reads.py` 记录示例和设计理由（选择器枚举、X Layer 容器）的链上读数；`scan_occurrences.py` 是用于最早出现示例的最小出现索引器。
 - `canon.py`、`tapnft.py` 和 `tap02_reference.py` 原样复制自 `TAP-draft-netlist-structural-hash` 和 `TAP-draft-netlist-bound-nft` 的参考实现（来源与 SHA-256 见该目录的 README），使该目录可以独立运行。
+- 同一目录也以固定提交保存在 [BruceLanLan/TAP-721，提交 `a39f30b538e723e918bf9c3bb2998ee95f8e2f1a`](https://github.com/BruceLanLan/TAP-721/tree/a39f30b538e723e918bf9c3bb2998ee95f8e2f1a) 的 `assets/tap-draft-design-credits/` 下（逐字节相同）。
 
 不提供署名日志合约；§5.2 的模式仅供参考。`credits.py` 不做网络读取（§3.2 和 §4.6 第 4 项使用记录的读数和注入的读取器），不从链上取锚点日志（§5.2），并把 §4.4 的 subject 与 source 检查留给调用方（`applies`、`consistent_with_file`），因为它们需要网表文件。
 

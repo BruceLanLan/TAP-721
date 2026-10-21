@@ -7,6 +7,7 @@ discussions-to: https://github.com/TapeOutProtocol/TAPs/issues/73
 status: Draft
 type: Standards
 created: 2026-10-20
+updated: 2026-10-21
 requires: TAP-02, TAP-draft-netlist-bound-nft, TAP-draft-design-credits, ERC-165, ERC-721, ERC-1271, ERC-5192, EIP-712
 license: CC0-1.0
 ---
@@ -642,10 +643,11 @@ Foundry 测试针对 Solidity 参考实现重放静态向量和整个场景，�
 
 - `assets/tap-draft-soulbound-credentials/soulbound.py`（MIT，Python 3.9+，仅标准库）：按位切片求值的真值表、设计键、规格 id 与工作量上限、承诺、提交检查、声称范围与声称所携带的 Design Credits 声明的展示、EIP-712 类型与签名检查、元数据检查、展示标签、接口标识符，以及参考合约的可执行模型；`make_vectors.py` 写出 `vectors.json`；`test_soulbound.py` 检查向量、在随机文件上检查设计键与结构哈希的等价性、按位切片求值与 TAP-02 求值的一致性、按承诺者记录承诺、系列对设计键的记录、失效与被替换的重新绑定请求、放弃之后的游标以及 attested 凭证的累积，并在已安装时用 `eth_account` 交叉检查签名、用 Foundry `cast` 交叉检查选择器。`canon.py`、`tapnft.py`、`tap02_reference.py` 和 `credits.py` 从 TAP-721 系列和 Design Credits 草案原样复制（来源与 SHA-256 见该目录的 README），使该目录可以独立运行。
 - `assets/tap-draft-soulbound-credentials/contracts/src/SoulboundNetlistCredential.sol`（MIT，Solidity 0.8.28）：实现全部四个接口，无所有者、无升级路径、无费用，基础 URI 在部署时固定；文件以合约代码形式存储，与 TAP-721 参考存储相同。`assets/tap-draft-soulbound-credentials/contracts/src/TapCredentialCheck.sol`：按位切片的真值表哈希和设计键。`assets/tap-draft-soulbound-credentials/contracts/test/`：Foundry 测试（读取 `../vectors.json`；forge-std v1.17.0 需另行安装，见该目录的 README），包括场景、差分测试、工作量上限各角落的 gas、ERC-1271 与 EIP-7702 签发者，以及两轮审阅的攻击回归测试。`ERC721Min.sol`、`IERC4906.sol` 和 `TapNetlistCheck.sol` 从 TAP-721 参考合约原样复制；凭证合约重写了 `supportsInterface`，使其不报告 ERC-4906，并且不发出任何 ERC-4906 事件（§3.2）。
+- 同一目录（含 `contracts/`）也以固定提交保存在 [BruceLanLan/TAP-721，提交 `a39f30b538e723e918bf9c3bb2998ee95f8e2f1a`](https://github.com/BruceLanLan/TAP-721/tree/a39f30b538e723e918bf9c3bb2998ee95f8e2f1a) 的 `assets/tap-draft-soulbound-credentials/` 下（逐字节相同）。
 
 ## 部署
 
-本 TAP 不依赖任何已部署的合约。任何人都可以部署凭证合约；由工具决定识别哪些合约代码（§10.1 第 4 项）。
+本 TAP 不依赖任何已部署的合约。任何人都可以部署凭证合约；由工具决定识别哪些合约代码（§10.1 第 4 项）。参考合约目前未部署；进入 Review 之前，本节将加入它的一次测试网部署，并附上只读核验其地址、代码哈希与接口标识符的步骤。
 
 ## 安全考虑
 

@@ -7,6 +7,7 @@ discussions-to: https://github.com/TapeOutProtocol/TAPs/issues/72
 status: Draft
 type: Application
 created: 2026-10-19
+updated: 2026-10-21
 requires: TAP-02, TAP-10, TAP-draft-netlist-bound-nft, TAP-draft-netlist-structural-hash, EIP-712, ERC-721, ERC-1271
 license: CC0-1.0
 ---
@@ -440,6 +441,7 @@ Under `assets/tap-draft-design-credits/` (MIT; Python 3.9+, standard library onl
 - `make_vectors.py` writes `vectors.json`; `test_credits.py` checks the vectors, checks that Appendix A of this text (and of its translation, when present) equals the vector, and cross-checks keccak-256 against pycryptodome, signatures against `eth_keys`, EIP-712 digests and the Appendix A signature against `eth_account`, and the Appendix A payload against Foundry `cast wallet sign --data`, each when installed.
 - `fetch_reads.py` records the chain reads of the worked example and of the Rationale (selector enumeration, X Layer container); `scan_occurrences.py` is a minimal occurrence indexer for the earliest-occurrence example.
 - `canon.py`, `tapnft.py` and `tap02_reference.py` are copied unchanged from the reference implementations of `TAP-draft-netlist-structural-hash` and `TAP-draft-netlist-bound-nft` (origin and SHA-256 in the folder's README), so that the folder runs on its own.
+- The same folder is held at a fixed commit in [BruceLanLan/TAP-721, commit `a39f30b538e723e918bf9c3bb2998ee95f8e2f1a`](https://github.com/BruceLanLan/TAP-721/tree/a39f30b538e723e918bf9c3bb2998ee95f8e2f1a) under `assets/tap-draft-design-credits/` (byte-identical).
 
 No credit log contract is provided; the pattern of §5.2 is informative. The reference implementation does not perform network reads in `credits.py` (§3.2 and §4.6 item 4 take recorded reads and injected readers), does not fetch anchor logs from a chain (§5.2), and leaves the subject and source checks of §4.4 to the caller (`applies`, `consistent_with_file`), because they need the netlist file.
 

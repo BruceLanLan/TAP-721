@@ -7,6 +7,7 @@ discussions-to: https://github.com/TapeOutProtocol/TAPs/issues/66
 status: Draft
 type: Standards
 created: 2026-10-18
+updated: 2026-10-21
 requires: TAP-10, TAP-draft-netlist-bound-nft, ERC-165, ERC-721, ERC-4906, EIP-712, EIP-7702, LayerZero V2 EndpointV2 (deployed bytecode, code hashes in Deployments)
 license: CC0-1.0
 ---
@@ -270,7 +271,7 @@ A delivery that reverts (wrong peer, wrong source, `AlreadyLive`, `ManifestConfl
 ### 7. Policies
 
 - **`ONE`** (the default, which SHOULD be used): the single listed adapter's delivery takes effect immediately.
-- **`ALL`**: every listed adapter must deliver the byte-identical payload; the token is released or minted on the last confirmation. Adapters that deliver payloads differing in any byte confirm different message ids, and neither takes effect.
+- **`ALL`**: the token is released or minted on the last confirmation, once every listed adapter has delivered the byte-identical payload. Adapters that deliver payloads differing in any byte confirm different message ids, and neither takes effect.
 - There is no `ANY` policy (any one of several adapters suffices).
 
 **Stuck adapters.** An endpoint MUST NOT fall back from `ALL` to fewer adapters on its own, and has no timeout. If one adapter of an `ALL` route never delivers, the message stays Pending and the token stays out of circulation. Recovery, in order of preference:
@@ -418,7 +419,7 @@ The mock EndpointV2 does not run DVN verification or EndpointV2's own nonce and 
 
 ## Reference Implementation
 
-Solidity: https://github.com/BruceLanLan/TAP-721 (Foundry project `contracts/`, solc 0.8.28, optimizer 10,000 runs, EVM `shanghai`), to be linked at a fixed commit before Review (TAP-01 §7.2 item 8). The paths below are relative to `contracts/` in that repository.
+Solidity: [BruceLanLan/TAP-721, commit `a39f30b538e723e918bf9c3bb2998ee95f8e2f1a`](https://github.com/BruceLanLan/TAP-721/tree/a39f30b538e723e918bf9c3bb2998ee95f8e2f1a) (MIT; Foundry project `contracts/`, solc 0.8.28, optimizer 10,000 runs, EVM `shanghai`). The paths below are relative to `contracts/` at that commit. The same commit holds a byte-identical copy of `assets/tap-draft-netlist-nft-bridging/`, whose `vectors.json` the bridge tests read. The contracts are not deployed and have not been audited externally.
 
 | Path | Content |
 |---|---|
@@ -447,7 +448,7 @@ Measured execution gas (Foundry, `gasleft()` around the call; *mock transport th
 
 ## Deployments
 
-None of the contracts of this TAP is deployed, and no deployment is planned for TapeCode-Test1 v1. Each endpoint's and adapter's owner is a constructor argument; until a pull request adds an address here, clients accept no deployment as the official endpoints of TapeCode-Test1. This TAP records deployments; it cannot order them.
+None of the contracts of this TAP is deployed, and no deployment is planned for TapeCode-Test1 v1. Each endpoint's and adapter's owner is a constructor argument; until a pull request adds an address here, clients accept no deployment as the official endpoints of TapeCode-Test1. This TAP records deployments; it cannot order them. A testnet deployment of the reference gateway, mirror and LayerZero V2 adapter, with read-only steps to verify their addresses, code hashes and routes, will be added to this section before Review.
 
 The TAP depends on the following deployed contracts.
 

@@ -7,6 +7,7 @@ discussions-to: https://github.com/TapeOutProtocol/TAPs/issues/66
 status: Draft
 type: Application
 created: 2026-10-18
+updated: 2026-10-21
 requires: TAP-02, TAP-10, TAP-draft-netlist-bound-nft, ERC-7496 (ethereum/ERCs commit b7520ddde9f659fa40cda2e0849d987a4ff88bf5)
 license: CC0-1.0
 ---
@@ -182,7 +183,7 @@ Implementations MUST use the member and trait names of this TAP (`nandBurn`, `la
    | `reference` | unless `unconfirmed` | object | `processor` (address) and `circuitId` (decimal string) of the reference circuit |
 
    `method` `"exhaustive"` is allowed only when `design.stateCount` is 0; an exhaustive match has `vectors` = 2^nIn. A tool MUST NOT present a netlist as correct unless `result` is `"match"`, and SHOULD show the method and, for `sampled`, the number of vectors.
-4. Procedure `tap-pod-fc/1`. Evaluation follows TAP-02 §4; input `j` is signal `2 + j`. The candidate and the reference must have equal `nIn` and `nOut`, otherwise the result is `"mismatch"` with `vectors` 0. `stream(seed, i_1, …, i_k)` is the bit string SHA-256(seed ‖ u32be(i_1) ‖ … ‖ u32be(i_k) ‖ u32be(0)) ‖ SHA-256(… ‖ u32be(1)) ‖ …, read byte by byte, least significant bit first.
+4. Procedure `tap-pod-fc/1`. Evaluation follows TAP-02 §4; input `j` is signal `2 + j`. If the candidate and the reference differ in `nIn` or `nOut`, the result is `"mismatch"` with `vectors` 0. `stream(seed, i_1, …, i_k)` is the bit string SHA-256(seed ‖ u32be(i_1) ‖ … ‖ u32be(i_k) ‖ u32be(0)) ‖ SHA-256(… ‖ u32be(1)) ‖ …, read byte by byte, least significant bit first.
    - Both combinational and nIn ≤ 16 (`exhaustive`): pattern `i` for `i` = 0 … 2^nIn − 1, input `j` = bit `j` of `i`.
    - Both combinational and nIn > 16 (`sampled`): 16,384 patterns; pattern `k` takes its inputs from `stream(seed, k)`.
    - Otherwise (`sampled`): 64 runs (1 run when nIn = 0); each run starts both circuits from the all-zero state and applies max(`cycles`, 32) beats, `cycles` from `getTask`; the inputs of beat `t` of run `r` come from `stream(seed, r, t)`; outputs are compared at every beat.
@@ -364,7 +365,7 @@ Python 3.9, in `assets/tap-draft-pod-attributes/` (MIT); ABI work uses Foundry's
 
 Uses `assets/tap-draft-netlist-bound-nft/tapnft.py`, `tap02_reference.py` and `assets/tap-draft-netlist-bound-nft/chain-snapshot.json`; these paths are updated when the folders are renamed `assets/tap-<nn>/` on number assignment.
 
-Links at a fixed commit will be added before Review (TAP-01 §7.2 item 8).
+The same folder is held at a fixed commit in [BruceLanLan/TAP-721, commit `a39f30b538e723e918bf9c3bb2998ee95f8e2f1a`](https://github.com/BruceLanLan/TAP-721/tree/a39f30b538e723e918bf9c3bb2998ee95f8e2f1a) under `assets/tap-draft-pod-attributes/` (byte-identical), together with `tools/collection/verify_function.py`, which runs the functional check of §3.9 over a list of miner circuits at one pinned block.
 
 ## Deployments
 

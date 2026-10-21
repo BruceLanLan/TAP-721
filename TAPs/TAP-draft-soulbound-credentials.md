@@ -7,6 +7,7 @@ discussions-to: https://github.com/TapeOutProtocol/TAPs/issues/73
 status: Draft
 type: Standards
 created: 2026-10-20
+updated: 2026-10-21
 requires: TAP-02, TAP-draft-netlist-bound-nft, TAP-draft-design-credits, ERC-165, ERC-721, ERC-1271, ERC-5192, EIP-712
 license: CC0-1.0
 ---
@@ -640,10 +641,11 @@ In this repository, under `assets/tap-draft-soulbound-credentials/`:
 
 - `assets/tap-draft-soulbound-credentials/soulbound.py` (MIT, Python 3.9+, standard library only): truth tables by bit-sliced evaluation, design keys, specification ids and work bounds, commitments, submission checks, claim scopes and the display of Design Credits statements carried by claims, EIP-712 types and signature checks, the metadata check, display labels, interface identifiers, and an executable model of the reference contract; `make_vectors.py` writes `vectors.json`; `test_soulbound.py` checks the vectors, the equivalence of design keys and structural hashes on random files, bit-sliced against TAP-02 evaluation, commitments per committer, the series record of design keys, lapsed and replaced rebind requests, cursors after a renounce and accumulating attested credentials, and cross-checks signatures with `eth_account` and selectors with Foundry `cast` when installed. `canon.py`, `tapnft.py`, `tap02_reference.py` and `credits.py` are copied unchanged from the TAP-721 family and the Design Credits draft (origin and SHA-256 in the folder's README), so that the folder runs on its own.
 - `assets/tap-draft-soulbound-credentials/contracts/src/SoulboundNetlistCredential.sol` (MIT, Solidity 0.8.28): all four interfaces, with no owner, no upgrade path, no fees and a base URI fixed at deployment; files are stored as contract code, as in the TAP-721 reference store. `assets/tap-draft-soulbound-credentials/contracts/src/TapCredentialCheck.sol`: the bit-sliced truth-table hash and the design key. `assets/tap-draft-soulbound-credentials/contracts/test/`: Foundry tests (they read `../vectors.json`; forge-std v1.17.0 is installed separately, as the folder's README describes), including the scenario, the differential test, the gas corners of the work bounds, ERC-1271 and EIP-7702 issuers, and the attack regressions of both reviews. `ERC721Min.sol`, `IERC4906.sol` and `TapNetlistCheck.sol` are copied unchanged from the TAP-721 reference contracts; the credential contract overrides `supportsInterface` so that it does not report ERC-4906, and emits no ERC-4906 event (§3.2).
+- The same folder, including `contracts/`, is held at a fixed commit in [BruceLanLan/TAP-721, commit `a39f30b538e723e918bf9c3bb2998ee95f8e2f1a`](https://github.com/BruceLanLan/TAP-721/tree/a39f30b538e723e918bf9c3bb2998ee95f8e2f1a) under `assets/tap-draft-soulbound-credentials/` (byte-identical).
 
 ## Deployments
 
-This TAP depends on no deployed contract. Anyone may deploy a credential contract; tools decide which contract code they recognise (§10.1 item 4).
+This TAP depends on no deployed contract. Anyone may deploy a credential contract; tools decide which contract code they recognise (§10.1 item 4). The reference contract is not deployed yet; a testnet deployment of it, with read-only steps to verify its address, code hash and interface identifiers, will be added to this section before Review.
 
 ## Security Considerations
 
