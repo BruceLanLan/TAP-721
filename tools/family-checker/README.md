@@ -79,6 +79,8 @@ python3 tapfam.py credential --rpc URL --contract 0x… --id N [--metadata FILE]
 - TAP-SB §10.4 claimed 凭证的 statement：需要 `--statement` 给出 envelope（在线则按 `uris` 抓 https）。
 - PoD §4.2 的双节点核对与 single-source 报告：离线夹具只有一组读数；在线按一个节点读。
 - 来源验证（§3.2）只知道 BNB Smart Chain 的工厂与 opener（docs/FACTS.md）；其他链报 "not known to this tool"。
+- TAP-721 §7.3 第 1 条 / §4.2 图片字节：不抓取 ERC-721 `image` 和 `tap.image.uris` 的字节与 `tap.image.sha256` 比对（离线模式无法抓取；§7.4 的最低要求只涉及网表文件），只比对 `imageHashOf` 与池条目。
+- TAP-BR §11 / Security：不读取端点是否已封印、各路由的策略和主链集合的权力（升级、销毁），这些是端点层面的读取，超出一枚代币的范围。
 
 ### 离线夹具与测试
 
@@ -87,8 +89,9 @@ python3 tapfam.py credential --rpc URL --contract 0x… --id N [--metadata FILE]
 **synthetic** 部分是不存在于任何链上的合约，按参考合约对向量的应答构造（`synthetic` 成员列出地址）：8 枚代币的示例集合（L1，0x…aa）、mint-bound 合约（0x…bb）、
 带 `uriFrozen()` 的 L0 合约（0x…cc）、跨链副本（0x…ee）、灵魂绑定参考合约在向量 scenario 结束后的状态（链 31337，0x…c1）。
 
-`python3 test_family_checker.py`：45 个测试，全部离线——示例 8 枚代币的完整报告、`noManifest` 与 `otherFormats` 向量、版次与清单一致性篡改、
-署名包与展示排序场景、凭证 7 枚代币的标签与状态、PoD 真实快照在录制读数下 `confirmed`、合成的 "verified but wrong"、结构哈希向量、ABI 编解码。CI 的 Python 矩阵运行它。
+`python3 test_family_checker.py`：47 个测试，全部离线——示例 8 枚代币的完整报告、`noManifest` 与 `otherFormats` 向量、版次与清单一致性篡改、
+全集合 `tap.freeze` 探针不一致时 `token` 不报告冻结、署名包与展示排序场景、凭证 7 枚代币的标签与状态、PoD 真实快照在录制读数下 `confirmed`、
+合成的 "verified but wrong"、结构哈希向量、跨链 collection key 向量、ABI 编解码。CI 的 Python 矩阵运行它（缺 pycryptodome 时 PoD 的 5 个测试跳过）。
 
 ### 完整示例报告（示例集合代币 4，离线）
 
@@ -223,6 +226,10 @@ Implemented: everything in the table. Not implemented (the report says so with `
 - TAP-SB §10.4 the statement of a claimed credential needs its envelope (`--statement`, or https `uris` online).
 - PoD §4.2 two-operator reads and single-source reporting: the fixture holds one set of reads; online one node is read.
 - Source verification (§3.2) knows the factory and opener of BNB Smart Chain only (docs/FACTS.md); other chains get "not known to this tool".
+- TAP-721 §7.3 item 1 / §4.2 image bytes: the bytes behind the ERC-721 `image` and `tap.image.uris` are not fetched and hashed against
+  `tap.image.sha256` (no fetch offline; §7.4's minimum concerns the netlist file); only `imageHashOf` and the pool entry are compared.
+- TAP-BR §11 / Security: whether the endpoints are sealed, each route's policy and the home collection's powers (upgrade, burn) are not
+  shown; they are endpoint-level reads beyond one token.
 
 ### Offline fixture and tests
 
@@ -233,10 +240,11 @@ answering as the reference contracts do for the vectors (the `synthetic` member 
 L1 collection (0x…aa), a mint-bound contract (0x…bb), an L0 contract with `uriFrozen()` (0x…cc), a bridged copy (0x…ee), and the soulbound
 reference contract after the vectors' scenario (chain 31337, 0x…c1).
 
-`python3 test_family_checker.py`: 45 tests, all offline — the full report of each of the eight example tokens, the `noManifest` and
-`otherFormats` vectors, tampered editions and manifest consistency, the credit bundle and the display-order scenario, the labels and
-statuses of seven credential tokens, real PoD snapshots `confirmed` against the recorded reads, the synthetic "verified but wrong" case,
-the structural-hash vectors, and the ABI helpers. CI runs it in the Python matrix.
+`python3 test_family_checker.py`: 47 tests, all offline — the full report of each of the eight example tokens, the `noManifest` and
+`otherFormats` vectors, tampered editions and manifest consistency, no freeze reported by `token` when a collection's `tap.freeze` probes
+differ, the credit bundle and the display-order scenario, the labels and statuses of seven credential tokens, real PoD snapshots
+`confirmed` against the recorded reads, the synthetic "verified but wrong" case, the structural-hash vectors, the bridging collection-key
+vectors, and the ABI helpers. CI runs it in the Python matrix (without pycryptodome the five PoD tests are skipped).
 
 The full example report (example token 4, offline) is shown in the Chinese section above; the contract 0x…aa is the fixture's synthetic
 L1 collection, while the reads for the source circuit 17851.30.tape are real recorded BNB Smart Chain reads.

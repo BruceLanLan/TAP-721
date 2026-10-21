@@ -226,7 +226,9 @@ def check_collection_dir(path: str, tap: dict, manifest_sha: str | None, rep: Re
         rep.fail(f"{T721} §5.1", "collection.freeze", f"{e}; no freeze is reported for this collection")
     try:
         res = tapnft.check_editions(docs, manifest_sha)
-        if res == "valid":
+        if found is None:
+            rep.ok(f"{T721} §6.4", "edition.check", "no editions: a collection without a manifest forms none, even where tokens share a netlist hash")
+        elif res == "valid":
             rep.ok(f"{T721} §6.4", "edition.check", "editions of every netlist hash are consistent across the collection (§7.3 item 3)")
         else:
             rep.unverifiable(f"{T721} §2.5", "edition.check", "edition check unverifiable: some tokens carry a netlist format this tool does not support")
@@ -796,6 +798,14 @@ def _check_pod_traits(pod: dict, rpc: C.Rpc, cid: int, contract: str, token_id: 
 
 # ---------------------------------------------------------------- bridge discovery (TAP-BR §5.2)
 
+def collection_key(home_chain_id: int, home_contract: str) -> str:
+    """TAP-BR §3: keccak256(abi.encode("TAP-NFT collection v1", uint64 homeChainId, address homeContract))."""
+    tag = b"TAP-NFT collection v1"
+    enc = ((96).to_bytes(32, "big") + home_chain_id.to_bytes(32, "big") + bytes(12) + bytes.fromhex(home_contract[2:])
+           + len(tag).to_bytes(32, "big") + tag.ljust(32, b"\0"))
+    return hx(keccak256(enc))
+
+
 def check_bridge(tap: dict, rpc: C.Rpc, rep: Report) -> None:
     b = tap.get("bridge")
     if not b:
@@ -811,9 +821,7 @@ def check_bridge(tap: dict, rpc: C.Rpc, rep: Report) -> None:
     except (C.RpcError, C.NotRecorded, ValueError) as e:
         rep.unverified(f"{TBR} §5.2", "bridge.gateway", f"gateway not checked ({e})")
         return
-    want = hx(keccak256(bytes.fromhex(
-        "0000000000000000000000000000000000000000000000000000000000000060" + tid[0].to_bytes(32, "big").hex() + tid[1][2:].rjust(64, "0")
-        + (21).to_bytes(32, "big").hex() + b"TAP-NFT collection v1".hex().ljust(64, "0"))))
+    want = collection_key(tid[0], tid[1])
     if home == tid[0] and key == want and cid == tid[0]:
         rep.ok(f"{TBR} §5.2", "bridge.gateway", f"gateway {b['gateway']}: homeChainId() = {home} and collectionKey() = {key} match the collection (§3)")
     else:
@@ -1246,6 +1254,14 @@ def cmd_token(args) -> Report:
     if lvl["credential"]:
         check_credential(rpc, cid, contract, token_id, doc, lvl, args, rep)
     man = check_manifest_file(args, tap, l1, rpc, token_id, rep)
+    # collection-level rules first (§7.1 manifest consistency, §5.1 freeze probes, §6.4 editions), so that a
+    # collection whose tokens name different probes gets no freeze reported below
+    if args.collection_dir:
+        if "manifest" in tap:
+            sha = (l1 or {}).get("manifestHash") if (l1 or {}).get("manifestHash", ZERO32) != ZERO32 else tap["manifest"]["sha256"]
+        else:
+            sha = None
+        check_collection_dir(args.collection_dir, tap, sha, rep)
     if lvl["level"] != "L1" and not lvl["credential"]:
         if "manifest" in tap:
             if man and man.get("freeze"):
@@ -1255,17 +1271,19 @@ def cmd_token(args) -> Report:
             else:
                 rep.skip(f"{T721} §7.2", "frozen", "frozen state not derived: the manifest (and its freeze probe) was not fetched")
         elif "freeze" in tap:
-            freeze_probe(rpc, tap["freeze"], "tap.freeze", rep)
+            if rep.has("collection.freeze", "fail"):
+                rep.skip(f"{T721} §5.1", "frozen", "no freeze reported: the collection's tokens name different tap.freeze probes, or only some name one")
+            else:
+                freeze_probe(rpc, tap["freeze"], "tap.freeze", rep)
         else:
             rep.info(f"{T721} §7.2", "frozen", "no freeze probe named: the frozen state cannot be derived; content not committed")
     # editions
     if "manifest" not in tap:
-        rep.info(f"{T721} §6.4", "edition.check", "no editions: a collection without a manifest forms none (tap.edition absent)")
+        if not args.collection_dir:
+            rep.info(f"{T721} §6.4", "edition.check", "no editions: a collection without a manifest forms none (tap.edition absent)")
     elif nres["status"] == "unverifiable":
         rep.unverifiable(f"{T721} §2.5", "edition.check", "edition check unverifiable for this token's format")
-    elif args.collection_dir:
-        check_collection_dir(args.collection_dir, tap, (l1 or {}).get("manifestHash") if (l1 or {}).get("manifestHash", ZERO32) != ZERO32 else tap["manifest"]["sha256"], rep)
-    else:
+    elif not args.collection_dir:
         rep.skip(f"{T721} §7.3", "edition.check", "collection-level edition check not run (needs every token's metadata: --collection-dir)")
     check_pod(tap, man, source, rpc, lvl, cid, contract, token_id, rep)
     check_bridge(tap, rpc, rep)

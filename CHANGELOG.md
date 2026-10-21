@@ -13,7 +13,7 @@ editors. Dates are UTC+8.
   (offline), `bundle` and `credential`; text and `--json` output, every line tagged with the section it implements.
   Chain access is a stdlib JSON-RPC client (read-only); `--offline` answers from `fixtures/recorded-rpc.json`, built by
   `make_fixture.py` from `chain-reads.json`, `chain-snapshot.json` and the vectors (synthetic contracts marked as such).
-  `test_family_checker.py`: 45 offline tests over the vectors of every asset folder. CI runs it in the Python matrix.
+  `test_family_checker.py`: 47 offline tests over the vectors of every asset folder. CI runs it in the Python matrix.
 
 - **Mint-bound collections profile implemented in Solidity (core §8.2).** New `contracts/src/core/TapMintBoundNFT.sol`:
   an L1 collection without a manifest (ERC-721 + `ITapNetlistNFT` + ERC-165 + ERC-4906 + ERC-173) that records

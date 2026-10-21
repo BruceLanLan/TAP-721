@@ -310,6 +310,30 @@ class NoManifest(unittest.TestCase):
         self.assertIn("uriFrozen() on " + MF.L0_FREEZE + " returns true = expect (tap.freeze)", line(rep, "frozen").text)
         self.assertIsNone(line(rep, "profile"))
 
+    def test_token_reports_no_freeze_when_probes_differ(self):
+        """§5.1 through the token subcommand: the single token's probe is not read when the collection's tokens name different probes."""
+        fp = V721["noManifest"]["freezeProbe"]
+        for v in fp["invalid"]:
+            with self.subTest(name=v["name"]):
+                d = os.path.join(TMP, "tfp-" + v["name"])
+                os.makedirs(d, exist_ok=True)
+                docs = [json.loads(json.dumps(doc).replace(MF.EXAMPLE, MF.L0_FREEZE)) for doc in v["documents"]]
+                for i, doc in enumerate(docs):
+                    write_json(os.path.join("tfp-" + v["name"], f"{i}.json"), doc)
+                rep = run("token", "--offline", "--contract", MF.L0_FREEZE, "--id", "1", "--metadata", write_json(f"tfp-{v['name']}-0.json", docs[0]),
+                          "--collection-dir", d)
+                self.assertEqual(line(rep, "collection.freeze").status, "fail")
+                self.assertEqual(statuses(rep, "frozen"), ["skip"], rep.render())
+        d = os.path.join(TMP, "tfp-ok")
+        os.makedirs(d, exist_ok=True)
+        docs = [json.loads(json.dumps(doc).replace(MF.EXAMPLE, MF.L0_FREEZE)) for doc in fp["documents"]]
+        for i, doc in enumerate(docs):
+            write_json(os.path.join("tfp-ok", f"{i}.json"), doc)
+        rep = run("token", "--offline", "--contract", MF.L0_FREEZE, "--id", "1", "--metadata", write_json("tfp-ok-0.json", docs[0]), "--collection-dir", d)
+        self.assertEqual(line(rep, "collection.freeze").status, "ok")
+        self.assertEqual(statuses(rep, "frozen"), ["ok"])
+        self.assertIn("no editions", line(rep, "edition.check").text)
+
     def test_l1_ignores_tap_freeze(self):
         """At L1 the tool reads frozen() and ignores tap.freeze (§7.2): the probe line comes from frozen()."""
         doc = json.loads(json.dumps(V721["noManifest"]["valid"][1]["document"]).replace(MF.EXAMPLE, MF.MINT_BOUND))
@@ -377,6 +401,15 @@ class BridgedCopy(unittest.TestCase):
         self.assertIn("home token", home.text)
         self.assertIn("a bridged copy may stay false", line(rep, "frozen").text)
         self.assertEqual(line(rep, "netlist.onchain").status, "ok")
+
+    def test_collection_key_and_mirror_id(self):
+        vb = json.load(open(os.path.join(P.BRIDGING_DIR, "vectors.json"), encoding="utf-8"))
+        for k in vb["collectionKeys"]:
+            self.assertEqual(tapfam.collection_key(k["homeChainId"], k["homeContract"]), k["collectionKey"])
+        self.assertEqual(tapfam.IID["ITapBridgeMirror"], vb["interfaces"]["interfaceIds"]["ITapBridgeMirror"])
+        for name in ("ITapCredential", "ITapCredentialProven", "ITapCredentialAttested", "ITapCredentialClaimed"):
+            self.assertEqual(tapfam.IID[name], VSB["interfaces"][name])
+        self.assertEqual(tapfam.IID["ERC5192"], VSB["interfaces"]["IERC5192"])
 
     def test_wrong_token_id_is_a_failure_elsewhere(self):
         t = V721["example"]["tokens"][3]
