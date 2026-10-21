@@ -9,7 +9,7 @@ and revised on 2026-10-21 ([TapeOutProtocol/TAPs#67](https://github.com/TapeOutP
 
 The 2026-10-21 revision adds §2.5 (other netlist formats: a tool that does not support a format shows the netlist
 as unverifiable, never as invalid or verified), the mint-bound collections profile of §8.2 (L1 without a manifest
-for a contract that records each token's netlist hash once, at mint; not yet in the Solidity reference),
+for a contract that records each token's netlist hash once, at mint; reference `contracts/src/core/TapMintBoundNFT.sol`),
 `tap.freeze` for L0 collections without a manifest, and the rules that collections without a manifest form no
 editions and that `tap.manifest` is on every token or on none (§6.4, §7.1). The checklists below predate it; the
 Python reference (`tapnft.netlist_status`, `check_manifest_consistency`, `check_freeze_probes`) implements it.
@@ -38,8 +38,21 @@ extensions add capabilities on top and never weaken the core.
 | You have | Target | Contract work |
 |---|---|---|
 | A new collection | **L1** native (reference: `contracts/src/core/TapNetlistNFT.sol`) | Implement `ITapNetlistNFT` + ERC-165 + ERC-4906 |
+| A new collection that fixes each token's netlist at mint (no reveal) | **L1 mint-bound** (§8.2; reference: `contracts/src/core/TapMintBoundNFT.sol`) | Implement `ITapNetlistNFT` + ERC-165 + ERC-4906 under the mint-bound profile (below) |
 | An existing ERC-721 that can only change its base URI | **L0**, then optionally **L1 via a Companion** (`TapCompanion.sol`) | None for L0; deploy a companion for L1 |
 | A copy of a collection on another TapeOut chain | Mirror profile of the bridging draft (`TapMirror.sol`) | See [`TAPs/TAP-draft-netlist-nft-bridging.md`](../TAPs/TAP-draft-netlist-nft-bridging.md) |
+
+**Mint-bound profile (§8.2).** A contract that records the netlist hash of each token id at its mint, once over
+its lifetime, may implement `ITapNetlistNFT` without a manifest. The reference `TapMintBoundNFT` applies the
+profile as follows: `manifestHash()`, `masterSeed()` zero and `pools()` empty forever; `entryIndexOf` and
+`bind` revert; `netlistHashOf` (and `imageHashOf`, when the collection records image hashes, for every token
+or for none) return what the mint recorded, also after a burn; a burned id can be re-minted only with the
+identical hashes; `tokenRange()` is fixed at construction (`supply` = 0 for an unbounded collection);
+`storeNetlist` accepts a valid `tapnet/1` file of at most 49,152 bytes whose hash a mint recorded; `frozen()`
+is true once the base URI is locked and nothing else can change `tokenURI` or a recorded hash, and does not
+mean that minting has ended (`endMinting()` does). Such tokens never use the state `unrevealed`, carry no
+`tap.manifest` and no `tap.edition`, and tools read `frozen()` rather than `tap.freeze` (§7.2). ERC-165 reports
+`ITapNetlistNFT` only because the whole profile is implemented.
 
 Interface identifiers (ERC-165):
 

@@ -3,6 +3,22 @@
 All notable changes to this repository. The TAP texts are drafts; their numbers are assigned by the TAPs
 editors. Dates are UTC+8.
 
+## Unreleased
+
+- **Mint-bound collections profile implemented in Solidity (core §8.2).** New `contracts/src/core/TapMintBoundNFT.sol`:
+  an L1 collection without a manifest (ERC-721 + `ITapNetlistNFT` + ERC-165 + ERC-4906 + ERC-173) that records
+  the netlist hash, and optionally the image hash, of each token id at its first mint and never changes them.
+  `manifestHash()`, `masterSeed()` are zero and `pools()` is empty permanently; `entryIndexOf` and `bind` revert
+  (`NoManifest`); `tokenRange()` is fixed at construction (`supply` = 0 for an unbounded collection); a burned id
+  can be re-minted only with the identical hashes, and `netlistHashOf` keeps answering for it; `storeNetlist`
+  reuses `TapNetlistStore` with the on-chain validity check and accepts only hashes recorded at a mint (known
+  after a burn too); `frozen()` latches when `freeze()` locks the base URI, does not end minting (`endMinting()`
+  does) and never returns to false; ownership can be renounced only once frozen. ERC-165 does not report the
+  Eval, TokenSet or Companion extensions. `contracts/test/core/TapMintBoundNFT.t.sol` adds 19 tests (16 unit and
+  gas tests, 3 differential tests that read `assets/tap-draft-netlist-bound-nft/vectors.json`: `tapnet`,
+  `invalidFiles`, `noManifest`); the Foundry suite grows from 198 to 217 tests in 26 suites. The core fixtures
+  are unchanged. No interface, selector, ERC-165 id or event of the draft changed.
+
 ## v0.2 (draft) — 2026-10-21
 
 This repository becomes the home of the whole TAP-721 family. All PRs are marked ready for review; numbers 721,
@@ -25,9 +41,10 @@ This repository becomes the home of the whole TAP-721 family. All PRs are marked
   `tap.*` names and format values. Breaking for collections without a manifest (the previous checker required
   `tap.edition` there). `tapnft.py` gains `netlist_status`, `check_manifest_consistency`, `check_freeze_probes` and
   `Unverifiable`; 39 tests. No interface, selector, ERC-165 id or event changed.
-- **Not yet implemented in Solidity:** the mint-bound collections profile (§8.2) has no reference contract in
-  `contracts/`. The existing contracts still conform (they use a manifest, and `storeNetlist` accepts only
-  `tapnet/1` files, as the revision requires); the Foundry suite (198 tests) and the core fixtures needed no change.
+- **Solidity status at v0.2:** the mint-bound collections profile (§8.2) had no reference contract in `contracts/`
+  at this release (added after it, see Unreleased: `TapMintBoundNFT`). The existing contracts conform to the
+  revision (they use a manifest, and `storeNetlist` accepts only `tapnet/1` files, as the revision requires); the
+  Foundry suite and the core fixtures needed no change for it.
 - **Structural hash version 2 (#70).** `tap-structural-hash/2` for `tapnet/2` files with ROM records, ROM read
   ports and RAM, as a conservative extension (§9 item 6, §10): files without ROM or RAM hash exactly as in version 1.
   New `canon2.py`, `make_vectors2.py`, `test_canon2.py`, `vectors2.json` (35 tests); the asset folder now holds
