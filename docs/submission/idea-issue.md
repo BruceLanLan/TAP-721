@@ -7,7 +7,7 @@
 - **Core.** A self-contained netlist file `tapnet/1` (TAP-02 NAND/LATCH records behind a 16-byte header, REF rejected) whose SHA-256 is the netlist hash; provenance checks against the source circuit (`isCPU`, `circuitInfo`, `netlist`) and its container (`accountOf`); a CAIP-19 token identifier; the `tap` member of token metadata; a manifest whose image and netlist pools are committed by Merkle roots before the seed; a drand-seeded keyed permutation (4-round Feistel with cycle walking) with every assignment input fixed before the seed; conformance levels **L0** (metadata only, reachable by a contract that can only set its base URI) and **L1** (`ITapNetlistNFT`, ERC-165 id `0x282b67f6`, plus ERC-165 and ERC-4906).
 - **In-document extensions.** Companion (§8.3, `ITapCompanion` `0x12b40a6c`: L1 for an existing, unchangeable ERC-721, endorsed by its owner); Eval (§8.4, `ITapNetlistEval` `0xec7d7e20`: any contract runs one TAP-02 beat of a token's netlist); TokenSet (§8.5, `ITapNetlistTokenSet` `0x3f7177c7`: collections whose valid tokens are not one contiguous range); container hosting and locking (§8.6, `tap.content`, SHOULD-level rules for content in TapeOut containers).
 
-*Extension TAPs (roadmap; each submitted as its own PR after the flagship):*
+*Extension TAPs (each its own PR: the flagship is #67; Bridging #68, Proof-of-Design attributes #69, Structural hash #70):*
 
 1. **Bridging** (Standards): moving TAP-721 tokens between TapeOut chains, hub-and-spoke (gateway on the home chain, mirrors elsewhere), one 320-byte payload, ONE/ALL route policies, a normative LayerZero V2 profile and an informative TAP-10 hub profile (marked [Open]).
 2. **Proof-of-Design attributes** (Application): a labelled snapshot of a miner circuit's PoD facts at a pinned BNB Smart Chain block, in `tap.pod` and optionally as ERC-7496 traits, with a functional check against the task's reference circuit.
@@ -27,7 +27,7 @@ Why not one document: the flagship holds what every implementer reads together. 
 - Flagship draft: https://github.com/BruceLanLan/TAP-721/blob/e4b922969521d21525940bf1dda0634c38a05b4e/TAPs/TAP-draft-netlist-bound-nft.md
 - Reference implementation: Python (standard library only) for every draft; a Foundry project with the L1 collection, companion, evaluator, bridge endpoints and adapters, and a container lock (198 tests, including PoCs from four internal review passes). Nothing is deployed; the code has been reviewed internally only.
 - Test results and vector hashes: https://github.com/BruceLanLan/TAP-721/blob/e4b922969521d21525940bf1dda0634c38a05b4e/docs/TESTING.md
-- First adopter: TapeCode-Test1 (X Layer, `0x0e91460d6823c711643e650a9a4c0cc21de41614`), via L0 plus a companion; the plan is being confirmed with its founders.
+- Existing collection: TapeCode-Test1 (X Layer, `0x0e91460d6823c711643e650a9a4c0cc21de41614`). Technically, a collection like it can be covered at L0 plus a companion (§8.3) without changing its contract.
 
 Once the editors are happy with the direction, every normative part will live in this repository, as CONTRIBUTING.md §3 requires; links to our repository will stay as background only.
 
@@ -39,7 +39,4 @@ Once the editors are happy with the direction, every normative part will live in
 4. Assets: the four drafts share one read-only chain snapshot (`assets/chain-snapshot.json`, BNB Smart Chain block 128,200,681). Should it be duplicated into each `assets/tap-…/` folder or kept as a shared file?
 5. The PoD extension depends on a mining contract whose implementation source is not publicly verified. Does that block the Application type, or only Review?
 6. Open questions already listed in the drafts that the editors may want settled early: a future `tapnet/2` with flattened REF records; a staged upload for netlist files above 49,152 bytes; a minimal lock-contract interface; a `vrf` seed source; and the verifier for the TAP-10 hub bridging profile.
-
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
-
 

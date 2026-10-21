@@ -3,6 +3,47 @@
 All notable changes to this repository. The TAP texts are drafts; their numbers are assigned by the TAPs
 editors. Dates are UTC+8.
 
+## v0.2 (draft) — 2026-10-21
+
+This repository becomes the home of the whole TAP-721 family. All PRs are marked ready for review; numbers 721,
+7007, 5375 and 5192 are requested and the TAPs editors assign the final numbers.
+
+| Draft | Idea | PR (head) | Vectors SHA-256 |
+|---|---|---|---|
+| TAP-721 flagship, Netlist-Bound NFTs (revised) | [#66](https://github.com/TapeOutProtocol/TAPs/issues/66) | [#67](https://github.com/TapeOutProtocol/TAPs/pull/67) (`6a05d1b`) | `9808f32ae21d911e377de09aa9f5df862715e9d1286041033f225a54c70031e8` |
+| Extension B, bridging (unchanged) | #66 | [#68](https://github.com/TapeOutProtocol/TAPs/pull/68) (`3b57b4d`) | `bcfd12c1a2f6d875ce602da32632c260afcd6c5b560a97297044f1f690224f51` |
+| Extension C, PoD attributes (unchanged) | #66 | [#69](https://github.com/TapeOutProtocol/TAPs/pull/69) (`997cbb2`) | `ade615b1a2e461d26bbf88b67eb93767eb88d26a189b824cf0c484108a4dbebb` |
+| Extension D, structural hash (version 2 added) | #66 | [#70](https://github.com/TapeOutProtocol/TAPs/pull/70) (`3efe452`) | v1 `35aaf41cbcff011290ba51ee9cc9f5ca7820345658069161bba74062914062aa`, v2 `06bd3c06961bb4d87b60d3837591696f762b78ddd931cb5eb3a31a8c4564dbe8` |
+| TAP-7007, Large Netlists and Verifiable Execution (new; [own repository](https://github.com/BruceLanLan/tap-large-netlists) at `4fa0c0b`) | [#71](https://github.com/TapeOutProtocol/TAPs/issues/71) | [#74](https://github.com/TapeOutProtocol/TAPs/pull/74) (`7425789`) | `b6ba365e912f149e1ab8e292588fac7f934cdb1fa1ba6d8d1b8ac3dabfd9f2d6` |
+| TAP-5375, Design Credits and Lineage for TapeOut Netlists (new) | [#72](https://github.com/TapeOutProtocol/TAPs/issues/72) | [#75](https://github.com/TapeOutProtocol/TAPs/pull/75) (`91819d8`) | `de1eda4fa7f1ca31449bb73af72a55e1f4416c00d20fd63512873858b11aae8c` |
+| TAP-5192, Soulbound Netlist Credentials (new) | [#73](https://github.com/TapeOutProtocol/TAPs/issues/73) | [#76](https://github.com/TapeOutProtocol/TAPs/pull/76) (`d13582c`) | `f33709c7e436ba68d89df9adb60f3251172397d82800ab2a0b2592a8f2a64e9b` |
+
+- **Core revision (#67).** §2.5 other netlist formats (tools show a netlist in an unsupported format as
+  unverifiable, never as invalid or verified); §8.2 mint-bound collections (L1 without a manifest for a contract
+  that records each token's netlist hash once, at mint); `tap.freeze` for L0 collections without a manifest; no
+  editions without a manifest, and `tap.manifest` on every token or on none (§6.4, §7.1); informative tables of
+  `tap.*` names and format values. Breaking for collections without a manifest (the previous checker required
+  `tap.edition` there). `tapnft.py` gains `netlist_status`, `check_manifest_consistency`, `check_freeze_probes` and
+  `Unverifiable`; 39 tests. No interface, selector, ERC-165 id or event changed.
+- **Not yet implemented in Solidity:** the mint-bound collections profile (§8.2) has no reference contract in
+  `contracts/`. The existing contracts still conform (they use a manifest, and `storeNetlist` accepts only
+  `tapnet/1` files, as the revision requires); the Foundry suite (198 tests) and the core fixtures needed no change.
+- **Structural hash version 2 (#70).** `tap-structural-hash/2` for `tapnet/2` files with ROM records, ROM read
+  ports and RAM, as a conservative extension (§9 item 6, §10): files without ROM or RAM hash exactly as in version 1.
+  New `canon2.py`, `make_vectors2.py`, `test_canon2.py`, `vectors2.json` (35 tests); the asset folder now holds
+  unchanged copies of `tapnft.py`, `tap02_reference.py`, `tapnet2.py` and `examples.py` so that it runs on its own.
+- **New drafts.** `TAPs/TAP-draft-design-credits.md` and `TAPs/TAP-draft-soulbound-credentials.md` with Chinese
+  translations and their asset folders, including the Solidity reference of the soulbound credentials
+  (`assets/tap-draft-soulbound-credentials/contracts/`, 29 Foundry tests). TAP-7007 is kept in its own repository.
+- Chinese translations of #67, #70, #75 and #76 match the submitted English section by section, including the
+  submission edits (`discussions-to`, asset paths, included copies).
+- CI runs the new Python suites (structural hash v2, design credits, soulbound credentials, with `eth-account`
+  for the optional cross-checks) and the soulbound Foundry tests, which link the existing forge-std submodule.
+- `scripts/sync-from-drafts.sh` lists the six family drafts and aborts if the source lacks one; `docs/submission/`
+  holds the live bodies of #66–#76.
+- The bodies of #67–#70 still link the reference implementation at commit `e4b9229`, which predates this revision;
+  the texts and reference implementations in the PRs, mirrored here, are authoritative.
+
 ## v0.1.1 (draft) — 2026-10-18
 
 Submitted to [TapeOutProtocol/TAPs](https://github.com/TapeOutProtocol/TAPs): Idea issue

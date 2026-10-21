@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you refer to these drafts or their reference implementation, please cite them as below."
-title: "TAP-721 · Netlist-Bound NFTs: TAP drafts and reference implementation"
+title: "TAP-721 family · Netlist-Bound NFTs and related TapeOut standards: TAP drafts and reference implementations"
 commit: "e4b9229"
 type: software
 authors:
@@ -12,17 +12,23 @@ license:
 version: "draft"
 url: "https://github.com/TapeOutProtocol/TAPs/issues/66"
 repository-code: "https://github.com/BruceLanLan/TAP-721"
-date-released: "2026-10-18"
+date-released: "2026-10-21"
 keywords:
   - TapeOut
   - TAP
   - NFT
   - netlist
   - ERC-721
+  - ERC-5192
+  - credentials
 abstract: >-
-  TAP-721 (proposal name; number 721 requested), a flagship TapeOut standard for Netlist-Bound NFTs,
-  plus three extension TAPs (bridging between TapeOut chains, Proof-of-Design attributes, and a
-  structural hash of flat netlists), with Python reference implementations, test vectors, Foundry
-  contracts and tools. Submitted to TapeOutProtocol/TAPs on 2026-10-18 (Idea issue #66, PRs #67-#70;
-  reference implementation pinned at commit e4b9229). Draft; not deployed; reviewed internally only,
-  not externally audited.
+  The TAP-721 family: TAP-721 (proposal name; number 721 requested), a flagship TapeOut standard for
+  Netlist-Bound NFTs, three extension TAPs (bridging between TapeOut chains, Proof-of-Design attributes,
+  and a structural hash of flat netlists, now with version 2 for tapnet/2), and the related drafts
+  TAP-5375 Design Credits and Lineage and TAP-5192 Soulbound Netlist Credentials, with Python reference
+  implementations, test vectors, Foundry contracts and tools. TAP-7007 Large Netlists and Verifiable
+  Execution is kept in its own repository (BruceLanLan/tap-large-netlists). Submitted to
+  TapeOutProtocol/TAPs on 2026-10-18 (Idea issue #66, PRs #67-#70) and 2026-10-21 (core and structural
+  hash revisions; Idea issues #71-#73, PRs #74-#76); all PRs ready for review. The bodies of #67-#70 pin
+  commit e4b9229 of this repository. Draft; not deployed; reviewed internally only, not externally
+  audited.

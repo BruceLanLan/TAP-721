@@ -4,8 +4,15 @@ A concise guide to implementing **TAP-721 · Netlist-Bound NFT**. "TAP-721" is t
 submission requests number 721 and the TAPs editors assign the real number. The normative text of the flagship
 standard is [`TAPs/TAP-draft-netlist-bound-nft.md`](../TAPs/TAP-draft-netlist-bound-nft.md); section numbers (§)
 below refer to it. Where this guide and the draft differ, the draft wins. Status: Draft, submitted on 2026-10-18
-([TapeOutProtocol/TAPs#67](https://github.com/TapeOutProtocol/TAPs/pull/67), discussion in
-[#66](https://github.com/TapeOutProtocol/TAPs/issues/66)) and awaiting editor format review and number assignment.
+and revised on 2026-10-21 ([TapeOutProtocol/TAPs#67](https://github.com/TapeOutProtocol/TAPs/pull/67), discussion in
+[#66](https://github.com/TapeOutProtocol/TAPs/issues/66)), ready for review and awaiting number assignment.
+
+The 2026-10-21 revision adds §2.5 (other netlist formats: a tool that does not support a format shows the netlist
+as unverifiable, never as invalid or verified), the mint-bound collections profile of §8.2 (L1 without a manifest
+for a contract that records each token's netlist hash once, at mint; not yet in the Solidity reference),
+`tap.freeze` for L0 collections without a manifest, and the rules that collections without a manifest form no
+editions and that `tap.manifest` is on every token or on none (§6.4, §7.1). The checklists below predate it; the
+Python reference (`tapnft.netlist_status`, `check_manifest_consistency`, `check_freeze_probes`) implements it.
 
 ## The TAP-721 family at a glance
 
@@ -19,6 +26,9 @@ below refer to it. Where this guide and the draft differ, the draft wins. Status
 | Extension TAP B — bridging | separate TAP | §4.5 below |
 | Extension TAP C — PoD attributes | separate TAP (Application) | §4.5 below |
 | Extension TAP D — structural hash | separate TAP | §4.5 below |
+| TAP-5375 — design credits and lineage | separate TAP (Application) | §4.5 below |
+| TAP-5192 — soulbound netlist credentials | separate TAP | §4.5 below |
+| TAP-7007 — large netlists (`tapnet/2`) | separate TAP, [own repository](https://github.com/BruceLanLan/tap-large-netlists) | §4.5 below |
 
 As with ERC-721, a wallet or marketplace that implements the core can display every TAP-721 collection; the
 extensions add capabilities on top and never weaken the core.
@@ -162,7 +172,10 @@ selectors and event topics are in its Test Cases section.
 |---|---|---|
 | [Bridging](../TAPs/TAP-draft-netlist-nft-bridging.md) | Gateway / Mirror endpoints, payload v1, ONE/ALL routes | Tokens must move between TapeOut chains |
 | [PoD attributes](../TAPs/TAP-draft-pod-attributes.md) | `tap.pod`, ERC-7496 traits from a fixed-block mining snapshot, `functionCheck` | Netlists come from PoD miners and you show mining facts or rank by them |
-| [Structural hash](../TAPs/TAP-draft-netlist-structural-hash.md) | `tap.netlist.structuralHash` | You advertise netlist rarity (count designs, not only files) |
+| [Structural hash](../TAPs/TAP-draft-netlist-structural-hash.md) | `tap.netlist.structuralHash` (version 2 also for `tapnet/2`) | You advertise netlist rarity (count designs, not only files) |
+| [Design credits and lineage](../TAPs/TAP-draft-design-credits.md) (TAP-5375) | First-publication facts from the chain, signed credit, lineage and revocation statements (EIP-712, ERC-1271), `tap.credits` | You show who designed or first published a netlist, or what it derives from |
+| [Soulbound netlist credentials](../TAPs/TAP-draft-soulbound-credentials.md) (TAP-5192) | Non-transferable TAP-721 tokens (ERC-5192) with proven / attested / claimed status, `tap.credential` | You issue skill, result or contribution credentials tied to a netlist |
+| [Large netlists](https://github.com/BruceLanLan/tap-large-netlists) (TAP-7007) | `tapnet/2` (ROM, RAM), chunked netlist hash, one-step verifiers, dispute rules | Netlists exceed `tapnet/1` limits or need ROM/RAM |
 
 ## 5. Checking a token (tools, §7.4)
 

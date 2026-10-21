@@ -9,7 +9,7 @@ disclosed below. Do not deploy them with real value before an independent audit.
 
 Open an issue in this repository's GitHub issue tracker. For a problem in a draft's specification (as opposed to
 this code), use the Idea issue [TapeOutProtocol/TAPs#66](https://github.com/TapeOutProtocol/TAPs/issues/66)
-(every draft's `discussions-to`) or the draft's PR (#67–#70). Because nothing is deployed, there are no
+(the `discussions-to` of the TAP-721 drafts; TAP-5375 uses [#72](https://github.com/TapeOutProtocol/TAPs/issues/72) and TAP-5192 [#73](https://github.com/TapeOutProtocol/TAPs/issues/73)) or the draft's PR (#67–#70, #75, #76). Because nothing is deployed, there are no
 funds at risk and public disclosure is fine. If you believe a finding also affects a live TapeOut contract
 (listed in [FACTS.md](FACTS.md)), do not post it publicly first: send a direct message to the maintainer on X
 ([@BruceBlue](https://x.com/BruceBlue)) or contact that contract's operators, and only describe it here once
@@ -110,3 +110,6 @@ What a holder or integrator must trust today, from most to least contained:
 - `contracts/src/vendor/` (minimal ERC-721, `Owned`) is written for this project; it was in scope of the review.
 - `forge-std` (submodule) is used only by tests.
 - The Python and JavaScript tools were not part of the security review.
+- The soulbound-credentials reference contracts (`assets/tap-draft-soulbound-credentials/contracts/`, added on
+  2026-10-21 with TAP-5192) are outside the review summarised above. They had two internal reviews of their own,
+  whose attack regressions are in that folder's `test/`; they are not externally audited either.

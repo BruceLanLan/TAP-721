@@ -26,17 +26,34 @@ flowchart TB
   end
   B["Extension TAP B<br/>Bridging"]
   C["Extension TAP C<br/>PoD attributes (Application)"]
-  D["Extension TAP D<br/>Structural hash"]
+  D["Extension TAP D<br/>Structural hash (v1, v2)"]
+  LN["TAP-7007 Large netlists<br/>tapnet/2 (own repository)"]
+  DC["TAP-5375 Design credits<br/>and lineage (Application)"]
+  SB["TAP-5192 Soulbound<br/>netlist credentials"]
   DEPS --> CORE
   CORE --> B
   CORE --> C
   CORE --> D
+  LN -->|"format under §2.5"| CORE
+  LN -->|"v2 hashes tapnet/2"| D
+  CORE --> DC
+  D --> DC
+  CORE --> SB
+  DC --> SB
 ```
 
 Like ERC-721 (which carries its metadata and enumeration extensions) with ERC-4906 and ERC-7496 as separate
 ERCs: in-document extensions use the core's hashes, manifest and interface directly; extension TAPs have outside
 dependencies (a message layer and upgradeable contracts for B, the BSC mining contract for C) or an audience
 beyond NFTs (D), so they advance separately and cannot hold the flagship back.
+
+Three related drafts were submitted on 2026-10-21, each with its own Idea issue and requested number:
+TAP-7007 Large Netlists and Verifiable Execution (`tapnet/2` with ROM and RAM, chunked netlist hash, one-step
+verifiers, dispute rules; #71 / PR #74; specification and reference implementation in
+[tap-large-netlists](https://github.com/BruceLanLan/tap-large-netlists)), TAP-5375 Design Credits and Lineage
+(`TAPs/TAP-draft-design-credits.md`; #72 / PR #75) and TAP-5192 Soulbound Netlist Credentials
+(`TAPs/TAP-draft-soulbound-credentials.md`; #73 / PR #76). TAP-7007 does not require TAP-721: the flagship's §2.5
+lets it register `tapnet/2`, and version 2 of extension D hashes `tapnet/2` files.
 
 ## 1. End-to-end data flow
 
@@ -155,7 +172,10 @@ sequenceDiagram
 | Gateway, Mirror, adapters | Extension B | `contracts/src/bridge/`, `assets/tap-draft-netlist-nft-bridging/make_vectors.py` | `contracts/test/bridge/`, `AuditBridge.t.sol` |
 | PoD attributes, functional check | Extension C | `assets/tap-draft-pod-attributes/` (`function_check.py`), `tools/collection/verify_function.py` | `test_pod.py` |
 | Eager pool loading | Core §8.2 item 3 | `TapNetlistCore.loadPool` | `contracts/test/core/TapPoolLoad.t.sol`, `CoreGas.t.sol` |
-| Structural hash | Extension D | `assets/tap-draft-netlist-structural-hash/canon.py` | `test_canon.py` |
+| Structural hash | Extension D | `assets/tap-draft-netlist-structural-hash/canon.py` (v1), `canon2.py` (v2, `tapnet/2`) | `test_canon.py`, `test_canon2.py` |
+| Design credits and lineage | TAP-5375 | `assets/tap-draft-design-credits/credits.py` | `test_credits.py` |
+| Soulbound credentials | TAP-5192 | `assets/tap-draft-soulbound-credentials/soulbound.py`, `contracts/src/` there (separate Foundry project) | `test_soulbound.py`, `contracts/test/` there (forge) |
+| Mint-bound collections (core §8.2, 2026-10-21 revision) | Core | not yet implemented in Solidity | — |
 | Collection pipeline | profile | `tools/collection/` | `test_pipeline.py` (network) |
 | Container upload, lock | profile | `tools/uploader/`, `contracts/src/tools/TapContainerLock.sol` | `test_e2e.py`, `test/fork/ContainerLock.t.sol` (fork) |
 | Server-side gateway | profile / TAP-10 | `tools/gateway/` | `test/unit.test.mjs`, `test/live.test.mjs` (network) |
