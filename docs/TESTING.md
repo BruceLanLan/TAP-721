@@ -34,8 +34,9 @@ and `tools/`), not on any absolute path.
 | 12 | TAP-5375 design credits (`assets/tap-draft-design-credits`) | `python3 make_vectors.py --check && python3 test_credits.py` | no (pycryptodome, eth-keys, eth-account and `cast` cross-checks when installed) | `vectors.json up to date`, 427 checks passed, none skipped (Appendix A of the English and Chinese text checked) |
 | 13 | TAP-5192 soulbound credentials, Python (`assets/tap-draft-soulbound-credentials`) | `python3 make_vectors.py --check && python3 test_soulbound.py` | no (eth-account and `cast` cross-checks when installed) | `vectors.json up to date`, 21 test functions OK (3,256 checks counted locally; the PR quotes about 3,250) |
 | 14 | TAP-5192 soulbound credentials, Solidity (`assets/tap-draft-soulbound-credentials/contracts`) | `mkdir -p lib && ln -sfn ../../../../contracts/lib/forge-std lib/forge-std && forge build && forge test` | no | 29 passed, 0 failed, 6 suites |
+| 15 | Family checker, tool-side display rules (`tools/family-checker`) | `python3 make_fixture.py --check && python3 test_family_checker.py` | no (recorded-RPC fixture; the PoD cases need pycryptodome) | 45 tests OK, `fixtures/recorded-rpc.json` up to date |
 
-Suites 1–8 and 12–14 run in CI on every push. Suites 9–11 (and 7 with a real RPC) need the network and run in CI only
+Suites 1–8 and 12–15 run in CI on every push. Suites 9–11 (and 7 with a real RPC) need the network and run in CI only
 when the workflow is started manually with `network: true` or the repository variable `RUN_NETWORK_TESTS` is
 `true` (see `.github/workflows/ci.yml`).
 

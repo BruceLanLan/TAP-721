@@ -140,6 +140,7 @@ pip install pycryptodome eth-account   # eth-account：可选的签名交叉核�
 | `tools/collection/` | 集合流水线：建池、清单、drand 揭示、校验、功能检查、稀有度规则 |
 | `tools/tokenset/` | 在固定区块扫描 TapeCode-Test1 持有人，生成 token 集合（逐枚持有人数据如 `owners.json` 不公开，只发布哈希） |
 | `tools/uploader/`、`tools/gateway/` | 容器上传工具；服务器端 TAP-10 网关 |
+| `tools/family-checker/` | 整个 TAP-721 家族工具侧展示规则的参考实现（`tapfam.py`）：一枚代币的完整报告，每行标注所依据的章节；只读链访问，离线用录制的 RPC 夹具 |
 | `profiles/` | TapeCode-Test1 配额工具 `tct1_quota.py` |
 | `reviews/` | 编辑、安全、架构、跨链与定稿复审 |
 | `docs/` | [STANDARD](docs/STANDARD.md)、[submission](docs/submission/)（提交草稿）、[ARCHITECTURE](docs/ARCHITECTURE.md)、[FACTS](docs/FACTS.md)、[TESTING](docs/TESTING.md)、[SECURITY](docs/SECURITY.md)、[DESIGN](docs/DESIGN.md) |
@@ -280,6 +281,7 @@ Requirements: Python 3.9+, [Foundry](https://getfoundry.sh) v1.8.3, Node 20+. Cl
 | `tools/collection/` | Collection pipeline: pools, manifest, drand reveal, verification, functional check, rarity rule |
 | `tools/tokenset/` | TapeCode-Test1 owner scan at a pinned block; token-set builder (per-token holder data such as `owners.json` is not published, only its hash) |
 | `tools/uploader/`, `tools/gateway/` | Container uploader; server-side TAP-10 gateway |
+| `tools/family-checker/` | Reference implementation of the tool-side display rules of the whole TAP-721 family (`tapfam.py`): one report per token, every line tagged with the section it implements; read-only chain access, offline against a recorded-RPC fixture |
 | `profiles/` | TapeCode-Test1 quota tool `tct1_quota.py` |
 | `reviews/` | Editorial, security, architecture, cross-chain and final reviews |
 | `docs/` | [STANDARD](docs/STANDARD.md), [submission](docs/submission/) (posting drafts), [ARCHITECTURE](docs/ARCHITECTURE.md), [FACTS](docs/FACTS.md), [TESTING](docs/TESTING.md), [SECURITY](docs/SECURITY.md), [DESIGN](docs/DESIGN.md) |

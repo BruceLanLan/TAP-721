@@ -5,6 +5,16 @@ editors. Dates are UTC+8.
 
 ## Unreleased
 
+- **Family checker (`tools/family-checker/`).** `tapfam.py`, a reference implementation of the tool-side display
+  rules of the whole family: `token` (conformance level by ERC-165, manifest / mint-bound / no-manifest / bridged-copy
+  classification, reveal and frozen state read from the chain per core §7.2, netlist verified / unverifiable / invalid
+  with the reason per §7.4 and §2.5, structural hash v1/v2, source verification §3.2, assignment §6, editions §6.4,
+  PoD snapshot display and re-verification, credit facts vs claims, credential kind labels and status), `metadata`
+  (offline), `bundle` and `credential`; text and `--json` output, every line tagged with the section it implements.
+  Chain access is a stdlib JSON-RPC client (read-only); `--offline` answers from `fixtures/recorded-rpc.json`, built by
+  `make_fixture.py` from `chain-reads.json`, `chain-snapshot.json` and the vectors (synthetic contracts marked as such).
+  `test_family_checker.py`: 45 offline tests over the vectors of every asset folder. CI runs it in the Python matrix.
+
 - **Mint-bound collections profile implemented in Solidity (core §8.2).** New `contracts/src/core/TapMintBoundNFT.sol`:
   an L1 collection without a manifest (ERC-721 + `ITapNetlistNFT` + ERC-165 + ERC-4906 + ERC-173) that records
   the netlist hash, and optionally the image hash, of each token id at its first mint and never changes them.

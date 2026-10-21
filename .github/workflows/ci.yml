@@ -33,6 +33,7 @@ jobs:
           - { dir: assets/tap-draft-netlist-nft-bridging,    cmd: "python make_vectors.py --check" }
           - { dir: assets/tap-draft-design-credits,          cmd: "python make_vectors.py --check && python test_credits.py" }
           - { dir: assets/tap-draft-soulbound-credentials,   cmd: "python make_vectors.py --check && python test_soulbound.py" }
+          - { dir: tools/family-checker,                     cmd: "python make_fixture.py --check && python test_family_checker.py" }
           - { dir: contracts,                          cmd: "python test/fixtures/make_core_fixtures.py" }
     steps:
       - uses: actions/checkout@v4
