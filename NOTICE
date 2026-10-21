@@ -7,7 +7,9 @@ Two licences apply, by kind of content. A licence header inside a file
 CC0 1.0 Universal (public domain dedication) -- full text in LICENSE-CC0
   - TAPs/                         TAP draft texts and their translations (as TAP-01 requires)
   - contracts/src/interfaces/     Solidity interfaces normative for the drafts (SPDX CC0-1.0)
-  - Data: assets/**/vectors.json, assets/**/chain-circuits.json,
+  - assets/tap-draft-soulbound-credentials/contracts/src/interfaces/  (SPDX CC0-1.0)
+  - Data: assets/**/vectors.json, assets/**/vectors2.json, assets/**/chain-circuits.json,
+    assets/tap-draft-design-credits/chain-reads.json, assets/tap-draft-design-credits/occurrences.json,
     assets/tap-draft-netlist-bound-nft/chain-snapshot.json, assets/tap-draft-pod-attributes/raw/,
     assets/tap-draft-pod-attributes/trait-metadata.json, assets/tap-draft-netlist-bound-nft/example/,
     contracts/test/fixtures/*.json, tools/collection/template.example.json,
@@ -15,7 +17,8 @@ CC0 1.0 Universal (public domain dedication) -- full text in LICENSE-CC0
 
 MIT -- full text in LICENSE
   - All other code: Python under assets/, tools/, profiles/ and contracts/test/fixtures/,
-    Solidity under contracts/src/ (except interfaces/) and contracts/test/,
+    Solidity under contracts/src/ (except interfaces/) and contracts/test/, and under
+    assets/tap-draft-soulbound-credentials/contracts/ (except src/interfaces/),
     JavaScript under tools/gateway/, shell scripts under scripts/.
   - Documentation that is not a TAP text (README.md, docs/, reviews/, profiles/*.md,
     tool READMEs) is also offered under MIT; you may
@@ -26,7 +29,10 @@ Third-party code
     commit f3dae6e6ee381f25eb6a246f7da9b85c91a68219): dual-licensed MIT OR Apache-2.0,
     see its LICENSE-MIT and LICENSE-APACHE. Used only by tests.
   - contracts/src/vendor/: minimal ERC-721, ERC-4906 events and Owned, MIT (SPDX header in
-    each file); see the file headers for any attribution.
+    each file); see the file headers for any attribution. Copies of some of these files are in
+    assets/tap-draft-soulbound-credentials/contracts/src/vendor/.
+  - The soulbound contracts use the same forge-std (linked from contracts/lib/forge-std at test
+    time, or installed locally; never committed).
 
 Nothing in this repository is deployed or audited. The software and data are provided
 "as is", without warranty of any kind.
