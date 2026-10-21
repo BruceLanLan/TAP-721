@@ -395,10 +395,8 @@ contract TapMintBoundNFTTest is Test {
         nft.mint(bob, 3, xorHash, IMG);
         assertTrue(nft.frozen());
 
-        // ownership stays (minter set, end of minting), can move, can never be renounced
+        // ownership stays (minter set, end of minting) and can move
         assertEq(nft.owner(), address(this));
-        vm.expectRevert(TapMintBoundNFT.ZeroOwner.selector);
-        nft.transferOwnership(address(0));
         nft.transferOwnership(alice);
         assertEq(nft.owner(), alice);
         assertTrue(nft.frozen());
@@ -411,6 +409,44 @@ contract TapMintBoundNFTTest is Test {
         nft.endMinting();
         assertTrue(nft.frozen());
         assertTrue(nft.mintingEnded());
+
+        // the terminal state: renounced after the freeze, nothing can change or mint again
+        vm.prank(alice);
+        nft.transferOwnership(address(0));
+        assertEq(nft.owner(), address(0));
+        assertTrue(nft.frozen());
+        vm.prank(alice);
+        vm.expectRevert(abi.encodeWithSelector(Owned.Unauthorized.selector, alice));
+        nft.setMinter(alice, true);
+        vm.prank(minter); // the minter set is fixed, but minting has ended
+        vm.expectRevert(TapMintBoundNFT.MintingHasEnded.selector);
+        nft.mint(bob, 4, xorHash, IMG);
+        assertEq(nft.tokenURI(1), "ipfs://v2/1");
+    }
+
+    function test_renounceOnlyWhenFrozen() public {
+        vm.expectRevert(TapMintBoundNFT.ZeroOwner.selector);
+        nft.transferOwnership(address(0));
+        nft.transferOwnership(alice);
+        vm.prank(alice);
+        vm.expectRevert(TapMintBoundNFT.ZeroOwner.selector);
+        nft.transferOwnership(address(0));
+        vm.prank(alice);
+        nft.setMinter(minter, true);
+        vm.prank(alice);
+        nft.freeze();
+        vm.prank(alice);
+        nft.transferOwnership(address(0));
+        assertEq(nft.owner(), address(0));
+        assertTrue(nft.frozen());
+        // without endMinting, the fixed minter set keeps minting after the renounce (frozen() does not imply
+        // that minting has ended); nobody else can
+        vm.expectRevert(abi.encodeWithSelector(Owned.Unauthorized.selector, address(this)));
+        nft.mint(bob, 1, NET, IMG);
+        vm.prank(minter);
+        nft.mint(bob, 1, NET, IMG);
+        assertEq(nft.netlistHashOf(1), NET);
+        assertTrue(nft.frozen());
     }
 
     function test_freezeBeforeAnyMint() public {

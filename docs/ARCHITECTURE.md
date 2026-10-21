@@ -175,7 +175,7 @@ sequenceDiagram
 | Structural hash | Extension D | `assets/tap-draft-netlist-structural-hash/canon.py` (v1), `canon2.py` (v2, `tapnet/2`) | `test_canon.py`, `test_canon2.py` |
 | Design credits and lineage | TAP-5375 | `assets/tap-draft-design-credits/credits.py` | `test_credits.py` |
 | Soulbound credentials | TAP-5192 | `assets/tap-draft-soulbound-credentials/soulbound.py`, `contracts/src/` there (separate Foundry project) | `test_soulbound.py`, `contracts/test/` there (forge) |
-| Mint-bound collections (core §8.2, 2026-10-21 revision) | Core | not yet implemented in Solidity | — |
+| Mint-bound collections (core §8.2, 2026-10-21 revision) | Core | `contracts/src/core/TapMintBoundNFT.sol` (L1 without a manifest: hashes recorded at mint, `storeNetlist` from `TapNetlistStore` with the on-chain check) | `contracts/test/core/TapMintBoundNFT.t.sol` (unit, gas, differential against `vectors.json`) |
 | Collection pipeline | profile | `tools/collection/` | `test_pipeline.py` (network) |
 | Container upload, lock | profile | `tools/uploader/`, `contracts/src/tools/TapContainerLock.sol` | `test_e2e.py`, `test/fork/ContainerLock.t.sol` (fork) |
 | Server-side gateway | profile / TAP-10 | `tools/gateway/` | `test/unit.test.mjs`, `test/live.test.mjs` (network) |

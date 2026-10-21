@@ -23,7 +23,8 @@ import {TapNetlistStore} from "./TapNetlistStore.sol";
 ///         - `frozen()` latches when `freeze()` locks the base URI. Minting and burning continue after a
 ///           freeze (the profile says a freeze does not imply that minting has ended); `endMinting()` ends them
 ///           for good. Ownership is kept after the freeze (only the minter set and the end of minting remain in
-///           the owner's power) and can never be renounced, so the contract is never orphaned unfrozen.
+///           the owner's power) and can be renounced only once frozen, so the contract is never orphaned
+///           unfrozen; after `freeze()`, `endMinting()` and a renounce nothing can ever change or mint again.
 ///
 ///         tokenURI = baseURI ‖ decimal token id. The contract does not implement the Eval or TokenSet
 ///         extensions and reports neither through ERC-165.
@@ -113,9 +114,10 @@ contract TapMintBoundNFT is ERC721Min, TapNetlistStore, Owned {
         emit MintingEnded();
     }
 
-    /// @notice Ownership can be transferred but never renounced.
+    /// @notice Ownership can be transferred at any time and renounced (ERC-173, `newOwner` = address(0)) only
+    ///         once frozen, so that no account can ever hold the power to change `tokenURI` after a renounce.
     function transferOwnership(address newOwner) public virtual override onlyOwner {
-        if (newOwner == address(0)) revert ZeroOwner();
+        if (newOwner == address(0) && !_frozen) revert ZeroOwner();
         _setOwner(newOwner);
     }
 
