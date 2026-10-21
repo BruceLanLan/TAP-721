@@ -28,17 +28,21 @@ jobs:
       matrix:
         suite:
           - { dir: assets/tap-draft-netlist-bound-nft,       cmd: "python make_vectors.py && python test_tapnft.py" }
-          - { dir: assets/tap-draft-netlist-structural-hash, cmd: "python make_vectors.py && python test_canon.py" }
+          - { dir: assets/tap-draft-netlist-structural-hash, cmd: "python make_vectors.py && python test_canon.py && python make_vectors2.py --check && python test_canon2.py" }
           - { dir: assets/tap-draft-pod-attributes,          cmd: "python make_vectors.py && python test_pod.py" }
           - { dir: assets/tap-draft-netlist-nft-bridging,    cmd: "python make_vectors.py --check" }
+          - { dir: assets/tap-draft-design-credits,          cmd: "python make_vectors.py --check && python test_credits.py" }
+          - { dir: assets/tap-draft-soulbound-credentials,   cmd: "python make_vectors.py --check && python test_soulbound.py" }
           - { dir: contracts,                          cmd: "python test/fixtures/make_core_fixtures.py" }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install pycryptodome
-      - name: Install Foundry (cast, used by test_pod.py)
+      # pycryptodome: keccak in test_pod.py and the keccak cross-check of test_credits.py; eth-account (with
+      # eth-keys): the optional signature and EIP-712 cross-checks of test_credits.py and test_soulbound.py.
+      - run: pip install pycryptodome eth-account
+      - name: Install Foundry (cast, used by test_pod.py and the cast cross-checks)
         uses: foundry-rs/foundry-toolchain@v1.9.1
         with:
           version: ${{ env.FOUNDRY_VERSION }}
@@ -49,7 +53,7 @@ jobs:
         run: git diff --exit-code
 
   forge:
-    name: Foundry build + test
+    name: Foundry build + test (contracts/ and soulbound credentials)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -64,6 +68,12 @@ jobs:
       - name: forge test (fork test returns early without XLAYER_RPC)
         working-directory: contracts
         run: forge test
+      - name: Soulbound credentials (forge-std from the contracts/lib submodule, same v1.17.0)
+        working-directory: assets/tap-draft-soulbound-credentials/contracts
+        run: |
+          mkdir -p lib && ln -sfn ../../../../contracts/lib/forge-std lib/forge-std
+          forge build
+          forge test
       - name: X Layer fork test (network)
         if: env.RUN_NETWORK == 'true'
         working-directory: contracts
