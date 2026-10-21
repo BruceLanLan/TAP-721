@@ -21,3 +21,8 @@ anvil*.log
 .env
 .env.*
 .DS_Store
+
+# Foundry projects inside asset folders (forge-std is linked or installed locally, never committed)
+assets/*/contracts/lib/
+assets/*/contracts/out/
+assets/*/contracts/cache/

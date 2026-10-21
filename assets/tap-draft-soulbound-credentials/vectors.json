@@ -1,0 +1,3740 @@
+{
+ "format": "tap-soulbound-credentials-vectors/1",
+ "note": "Synthetic test data. Private keys are public test keys; never use them for anything else.",
+ "chainId": 31337,
+ "contract": "0x00000000000000000000000000000000000000c1",
+ "keys": [
+  {
+   "n": 1,
+   "private": "0x50df60b3221c9841bf7a02ff0dda4ec5af5e5507eacfdbaa2b1343bdc24d9681",
+   "address": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+   "testOnly": true
+  },
+  {
+   "n": 2,
+   "private": "0x42b44293f0e451a2b683057a0e202c743196dcfecfde62678a2b067cd640623b",
+   "address": "0x395ebb005b9eaac007a228573abc9080bf09c205",
+   "testOnly": true
+  },
+  {
+   "n": 3,
+   "private": "0x14badeed895e87476df5a2de3a60105ade2e93ed775d272dee92c697fabf38ba",
+   "address": "0xa55e7b930ca75c4070687aa6ff9be37de088f80c",
+   "testOnly": true
+  },
+  {
+   "n": 4,
+   "private": "0x2506829056fd9f6d3d9c1d42045a6b6169b371bff0293972d92474a59a8a323c",
+   "address": "0xfb053b013087440dd0484bfae4368dae48765c52",
+   "testOnly": true
+  },
+  {
+   "n": 5,
+   "private": "0xe203b6f908a60d2cfe955e2b46455b425a32c2764285e6564337a926714cf503",
+   "address": "0x0e41c58894b187c987302c5208a36ea2d0c8e119",
+   "testOnly": true
+  }
+ ],
+ "interfaces": {
+  "ITapCredential": "0x5558759c",
+  "ITapCredentialProven": "0x07aaf2dc",
+  "ITapCredentialAttested": "0x7587c9da",
+  "ITapCredentialClaimed": "0x11e35684",
+  "IERC5192": "0xb45a3c0e",
+  "selectors": {
+   "credentialOf(uint256)": "0xd469e0c1",
+   "statusOf(uint256)": "0xad35efd4",
+   "credentialsOf(address,uint8,address,bytes32,bool,uint256,uint256)": "0xc9ec758d",
+   "netlistHashOf(uint256)": "0x32d9b670",
+   "netlistFile(bytes32)": "0x5267c429",
+   "storeNetlist(bytes)": "0xf8b0cc86",
+   "renounce(uint256)": "0x7de6b1db",
+   "registerSpec((address,uint32,uint32,bytes32,uint32,bool,bytes32,uint64,uint64,uint64,address,bytes32))": "0x7e327d6a",
+   "specOf(bytes32)": "0xf644206c",
+   "checkBounds()": "0x7f8f263e",
+   "commit(bytes32,bytes32)": "0xe3ce094d",
+   "reveal(bytes32,address,uint8,bytes,bytes32)": "0x24f04fb2",
+   "requestRebind((address,uint256,address,uint64,bytes32),bytes)": "0xe0c59c3a",
+   "vetoRebind(uint256)": "0xfe3ebe4b",
+   "completeRebind(uint256)": "0x2996ed6a",
+   "redeem((address,address,uint8,bytes32,bytes32,bytes32,uint64,uint64,uint64,uint256,bytes32),bytes)": "0xe67e7b79",
+   "revokeAttestation((address,address,uint8,bytes32,bytes32,bytes32,uint64,uint64,uint64,uint256,bytes32))": "0x711e75ab",
+   "attestationStatus(bytes32)": "0xe2e7c708",
+   "claim(bytes,bytes32,bytes32,uint8)": "0x11e35684",
+   "locked(uint256)": "0xb45a3c0e"
+  },
+  "topics": {
+   "CredentialIssued(uint256,address,uint8,uint8,address,bytes32,bytes32)": "0x1c36c1b316558b9ba89b18a089feecd3e7722b1420d748b3034ce8151369d8a8",
+   "CredentialStatusChanged(uint256,uint8)": "0x1a8bd152fd799d25ca8cfb4a7b49ecd2c9cf642beab8ed9f8bf8516cdac9fcf0",
+   "CredentialRebound(uint256,uint256)": "0x36ae0637bcb816696d685419d9623b7936e3c19ca6cb30d08557055b34b462ac",
+   "SpecRegistered(bytes32,address)": "0x324d0ee172ffe333aaef901ce059927ffee1ee241669fe95ce05825186825c14",
+   "Committed(bytes32,address,bytes32)": "0xef653a9608e4d816ce91da70712413a9d5c5bb473d42eb5b536babad2a41238e",
+   "Accepted(uint256,bytes32,address,bytes32,bytes32)": "0x138d00036e3094c53b7966d3c6929834be9440fed57b018698b48926eebfc0d6",
+   "RebindRequested(uint256,address,uint64)": "0xde7c74137ddfb5f27e3d687fecff0f473827fc04ac5e158a7c4fa75611ac54b9",
+   "RebindVetoed(uint256)": "0x86f88e94454b99e3ad02b8b84844ef372d359ab3bff0f6c2ad43950425eed716",
+   "AttestationRevoked(bytes32,address)": "0x59d1b98a5da8bbc1db92f7d8d2e21c3067da65edbe08f4ae23df11487ee4c8b0",
+   "Locked(uint256)": "0x032bc66be43dbccb7487781d168eb7bda224628a3b2c3388bdf69b532a3a1611"
+  }
+ },
+ "eip712": {
+  "domain": {
+   "name": "TAP Soulbound Credentials",
+   "version": "1",
+   "chainId": 31337,
+   "verifyingContract": "0x00000000000000000000000000000000000000c1"
+  },
+  "domainSeparator": "0x755b328ff65f3428bb3f6e2e59f1e83ad5ac34b67e98e431204365d3c1392b92",
+  "types": {
+   "EIP712Domain": {
+    "encodeType": "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)",
+    "typeHash": "0x8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f"
+   },
+   "Attestation": {
+    "encodeType": "Attestation(address issuer,address recipient,uint8 subject,bytes32 scope,bytes32 artifact,bytes32 evidence,uint64 issuedAt,uint64 expiresAt,uint64 deadline,uint256 replaces,bytes32 nonce)",
+    "typeHash": "0x228dbd1f2d086ffc2f8992a5c372964d588ea1745ce363fb4a770c7848126d5e"
+   },
+   "Rebind": {
+    "encodeType": "Rebind(address authority,uint256 oldTokenId,address newHolder,uint64 deadline,bytes32 nonce)",
+    "typeHash": "0x608e975c3778a409ea42f524f1487367e7114b1e711368291409ea557222972d"
+   }
+  }
+ },
+ "files": {
+  "xor": {
+   "file": "0x5441504e45540100000000020000000100000002000003000000020000040000000300000400000005000006",
+   "netlistHash": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+   "nIn": 2,
+   "nOut": 1,
+   "nand": 4,
+   "latch": 0,
+   "designKey": "0xd43c366efa3fffe4ce93f398212a4e3218a159802579c6f6914b5f8e68ebb885",
+   "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b",
+   "truthTableHash": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e"
+  },
+  "xorRenumbered": {
+   "file": "0x5441504e45540100000000020000000100000002000003000000030000040000000200000400000005000006",
+   "netlistHash": "0x6b90490a18ea09ab2ad0d126773444705dd23c9a9b8d619e5f7d1571b1872ab4",
+   "nIn": 2,
+   "nOut": 1,
+   "nand": 4,
+   "latch": 0,
+   "designKey": "0xd43c366efa3fffe4ce93f398212a4e3218a159802579c6f6914b5f8e68ebb885",
+   "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b",
+   "truthTableHash": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e"
+  },
+  "xorSwappedInputs": {
+   "file": "0x5441504e45540100000000020000000100000003000002000000040000020000000400000300000006000005",
+   "netlistHash": "0x66c37731f9b92c53cd5db6c0643a926e1fd56f4a0ac30ecbe3974c6194016b9b",
+   "nIn": 2,
+   "nOut": 1,
+   "nand": 4,
+   "latch": 0,
+   "designKey": "0xd43c366efa3fffe4ce93f398212a4e3218a159802579c6f6914b5f8e68ebb885",
+   "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b",
+   "truthTableHash": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e"
+  },
+  "xorDeadGate": {
+   "file": "0x5441504e4554010000000002000000010000000200000300000000000001000000020000040000000300000400000006000007",
+   "netlistHash": "0x0849eff76f9c8b011e33d1f8e7ae30df531a4aa7ea2d50ab8ce31632b253016a",
+   "nIn": 2,
+   "nOut": 1,
+   "nand": 5,
+   "latch": 0,
+   "designKey": "0xd43c366efa3fffe4ce93f398212a4e3218a159802579c6f6914b5f8e68ebb885",
+   "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b",
+   "truthTableHash": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e"
+  },
+  "xorDoubleNegation": {
+   "file": "0x5441504e455401000000000200000001000000020000030000000200000400000003000004000000050000060000000700000700000008000008",
+   "netlistHash": "0x822865442c3b78a049dd13cf96079087424516c35ee9d65f50a2dabedef10910",
+   "nIn": 2,
+   "nOut": 1,
+   "nand": 6,
+   "latch": 0,
+   "designKey": "0x1ae9aa7109a49cbca6e1e737cba9409899e48f90377dbb8492d271281052308f",
+   "structuralHash": "0x7b18905e6480163b679f1fc58379938be2ec065a776ba593ab8e773b818a3a70",
+   "truthTableHash": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e"
+  },
+  "and2": {
+   "file": "0x5441504e4554010000000002000000010000000200000300000004000004",
+   "netlistHash": "0xe3e1be431a22c2f3ce3aff1c1b71b90c69e7fa530cb92c0e8787c5604aa84a5a",
+   "nIn": 2,
+   "nOut": 1,
+   "nand": 2,
+   "latch": 0,
+   "designKey": "0x5ec450a9818affce4a2eadd41d57d2597d6a0950bcfd935e4f09772368b80024",
+   "structuralHash": "0x7cb7c186ee3d950005e5a6dbafd830cd83652d03ce7cec5bfd78aef8470ce4f6",
+   "truthTableHash": "0x52634c31bf1e00fb496ea94557ba0c7306eb84535785e9bf9e948c098aabfa4c"
+  },
+  "halfAdder": {
+   "file": "0x5441504e4554010000000002000000020000000200000300000002000004000000030000040000000500000600000004000004",
+   "netlistHash": "0xecd0ea7cb59b9dadf79a47fa952ce825f02847b8844c0e5d935e0e993763c98e",
+   "nIn": 2,
+   "nOut": 2,
+   "nand": 5,
+   "latch": 0,
+   "designKey": "0x5facfe29bb03932c0167423a211327c655ad4f6bb2d411be1c695209bf8388a6",
+   "structuralHash": "0x16f4b055772728defda86f4405124b99a766d830f3028bb8b3a5f34322e9aa7d",
+   "truthTableHash": "0x4d31a6383fc69c1445d24c747b217c2e2201644d900aa17ece55ab500dcaacd0"
+  },
+  "parity16": {
+   "file": "0x5441504e4554010000000010000000010000000200000300000002000012000000030000120000001300001400000004000005000000040000160000000500001600000017000018000000060000070000000600001a0000000700001a0000001b00001c000000080000090000000800001e0000000900001e0000001f0000200000000a00000b0000000a0000220000000b000022000000230000240000000c00000d0000000c0000260000000d000026000000270000280000000e00000f0000000e00002a0000000f00002a0000002b00002c000000100000110000001000002e0000001100002e0000002f000030000000150000190000001500003200000019000032000000330000340000001d0000210000001d0000360000002100003600000037000038000000250000290000002500003a0000002900003a0000003b00003c0000002d0000310000002d00003e0000003100003e0000003f000040000000350000390000003500004200000039000042000000430000440000003d0000410000003d0000460000004100004600000047000048000000450000490000004500004a0000004900004a0000004b00004c",
+   "netlistHash": "0x2868843a797a4f0291fe5381536db6b6a7afa195ea624571259a454624a2a85e",
+   "nIn": 16,
+   "nOut": 1,
+   "nand": 60,
+   "latch": 0,
+   "designKey": "0x14224ef3461466283a4dadd550cd75beab6c8fc51157768423abc6b282ab6b6e",
+   "structuralHash": "0xcc785ebc6ca21848865e8d00f6ba7b185105ffa480952c8ae73b034f688395f6",
+   "truthTableHash": "0xf38d7ca4ee17c5fc6cce743a88604208432162180808179ad04a72dae6ae0ddf"
+  },
+  "adder8": {
+   "file": "0x5441504e4554010000000010000000090000000200000a000000020000120000000a00001200000013000014000000120000120000000300000b000000030000170000000b000017000000180000190000001a0000160000001a00001b0000001600001b0000001c00001d0000001700001b0000000400000c000000040000200000000c000020000000210000220000002300001f000000230000240000001f00002400000025000026000000200000240000000500000d000000050000290000000d0000290000002a00002b0000002c0000280000002c00002d0000002800002d0000002e00002f0000002900002d0000000600000e000000060000320000000e0000320000003300003400000035000031000000350000360000003100003600000037000038000000320000360000000700000f0000000700003b0000000f00003b0000003c00003d0000003e00003a0000003e00003f0000003a00003f000000400000410000003b00003f000000080000100000000800004400000010000044000000450000460000004700004300000047000048000000430000480000004900004a00000044000048000000090000110000000900004d0000001100004d0000004e00004f0000005000004c000000500000510000004c000051000000520000530000004d000051000000150000150000001e00001e000000270000270000003000003000000039000039000000420000420000004b00004b0000005400005400000055000055000000560000560000005700005700000058000058000000590000590000005a00005a0000005b00005b0000005c00005c0000005d00005d0000005e00005e",
+   "netlistHash": "0x0592991ca6d4234c811d948925dde9cfc0a60edef3a1ef62ab345852c7fa5620",
+   "nIn": 16,
+   "nOut": 9,
+   "nand": 86,
+   "latch": 0,
+   "designKey": "0xace12cf0ba9ce21c3e754f606c255ab4b658ddaf667251ec93086afffc06673c",
+   "structuralHash": "0xf7d463e246bdab2186f56d3ef20c136f780b51327acb0dae875bb77dffea2283",
+   "truthTableHash": "0x916a3ec781cacff669839048f410c563488d093713add3c33459015d0203ae62"
+  },
+  "parity24": {
+   "file": "0x5441504e455401000000001800000001000000020000030000000200001a0000000300001a0000001b00001c0000001d0000040000001d00001e0000000400001e0000001f0000200000002100000500000021000022000000050000220000002300002400000025000006000000250000260000000600002600000027000028000000290000070000002900002a0000000700002a0000002b00002c0000002d0000080000002d00002e0000000800002e0000002f000030000000310000090000003100003200000009000032000000330000340000003500000a000000350000360000000a000036000000370000380000003900000b0000003900003a0000000b00003a0000003b00003c0000003d00000c0000003d00003e0000000c00003e0000003f0000400000004100000d000000410000420000000d000042000000430000440000004500000e000000450000460000000e000046000000470000480000004900000f0000004900004a0000000f00004a0000004b00004c0000004d0000100000004d00004e0000001000004e0000004f0000500000005100001100000051000052000000110000520000005300005400000055000012000000550000560000001200005600000057000058000000590000130000005900005a0000001300005a0000005b00005c0000005d0000140000005d00005e0000001400005e0000005f0000600000006100001500000061000062000000150000620000006300006400000065000016000000650000660000001600006600000067000068000000690000170000006900006a0000001700006a0000006b00006c0000006d0000180000006d00006e0000001800006e0000006f00007000000071000019000000710000720000001900007200000073000074",
+   "netlistHash": "0x90e7dfac187f82a6602abcdc5f4f8157d82edfb943b9ecc1903f0e5ca16fa6ee",
+   "nIn": 24,
+   "nOut": 1,
+   "nand": 92,
+   "latch": 0,
+   "designKey": "0x5a80d881a79d33a37a874ac7ecd24ed880f6587c2f914de558b96894d16ffa0f",
+   "structuralHash": "0xffd565b8543e05f7cbb8521a9db389a2817a566693c9af0e8753b12928ac9696"
+  }
+ },
+ "truthTables": [
+  {
+   "name": "xor",
+   "nIn": 2,
+   "nOut": 1,
+   "hash": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e"
+  },
+  {
+   "name": "halfAdder",
+   "nIn": 2,
+   "nOut": 2,
+   "hash": "0x4d31a6383fc69c1445d24c747b217c2e2201644d900aa17ece55ab500dcaacd0"
+  },
+  {
+   "name": "parity16",
+   "nIn": 16,
+   "nOut": 1,
+   "hash": "0xf38d7ca4ee17c5fc6cce743a88604208432162180808179ad04a72dae6ae0ddf"
+  },
+  {
+   "name": "adder8",
+   "nIn": 16,
+   "nOut": 9,
+   "hash": "0x916a3ec781cacff669839048f410c563488d093713add3c33459015d0203ae62"
+  },
+  {
+   "name": "and2",
+   "nIn": 2,
+   "nOut": 1,
+   "hash": "0x52634c31bf1e00fb496ea94557ba0c7306eb84535785e9bf9e948c098aabfa4c"
+  },
+  {
+   "name": "constOne0",
+   "nIn": 0,
+   "nOut": 1,
+   "bytes": "0x000000000000000180",
+   "hash": "0x8472918d4ba23746ba0a00f99baf7753d4a8abb3f5655e06632e89afa088dc3a"
+  },
+  {
+   "name": "xorBytes",
+   "nIn": 2,
+   "nOut": 1,
+   "bytes": "0x000000020000000160"
+  },
+  {
+   "name": "id3Bytes",
+   "nIn": 3,
+   "nOut": 1,
+   "bytes": "0x000000030000000155"
+  }
+ ],
+ "designKeyPairs": [
+  {
+   "a": "xor",
+   "b": "xorRenumbered",
+   "sameDesignKey": true,
+   "sameStructuralHash": true
+  },
+  {
+   "a": "xor",
+   "b": "xorSwappedInputs",
+   "sameDesignKey": true,
+   "sameStructuralHash": true
+  },
+  {
+   "a": "xor",
+   "b": "xorDeadGate",
+   "sameDesignKey": true,
+   "sameStructuralHash": true
+  },
+  {
+   "a": "xor",
+   "b": "xorDoubleNegation",
+   "sameDesignKey": false,
+   "sameStructuralHash": false
+  },
+  {
+   "a": "xor",
+   "b": "and2",
+   "sameDesignKey": false,
+   "sameStructuralHash": false
+  },
+  {
+   "a": "xorRenumbered",
+   "b": "xorSwappedInputs",
+   "sameDesignKey": true,
+   "sameStructuralHash": true
+  },
+  {
+   "a": "xorRenumbered",
+   "b": "xorDeadGate",
+   "sameDesignKey": true,
+   "sameStructuralHash": true
+  },
+  {
+   "a": "xorRenumbered",
+   "b": "xorDoubleNegation",
+   "sameDesignKey": false,
+   "sameStructuralHash": false
+  },
+  {
+   "a": "xorRenumbered",
+   "b": "and2",
+   "sameDesignKey": false,
+   "sameStructuralHash": false
+  },
+  {
+   "a": "xorSwappedInputs",
+   "b": "xorDeadGate",
+   "sameDesignKey": true,
+   "sameStructuralHash": true
+  },
+  {
+   "a": "xorSwappedInputs",
+   "b": "xorDoubleNegation",
+   "sameDesignKey": false,
+   "sameStructuralHash": false
+  },
+  {
+   "a": "xorSwappedInputs",
+   "b": "and2",
+   "sameDesignKey": false,
+   "sameStructuralHash": false
+  },
+  {
+   "a": "xorDeadGate",
+   "b": "xorDoubleNegation",
+   "sameDesignKey": false,
+   "sameStructuralHash": false
+  },
+  {
+   "a": "xorDeadGate",
+   "b": "and2",
+   "sameDesignKey": false,
+   "sameStructuralHash": false
+  },
+  {
+   "a": "xorDoubleNegation",
+   "b": "and2",
+   "sameDesignKey": false,
+   "sameStructuralHash": false
+  }
+ ],
+ "specs": {
+  "xor4": {
+   "spec": {
+    "registrant": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+    "nIn": 2,
+    "nOut": 1,
+    "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+    "maxGates": 4,
+    "unique": false,
+    "series": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "commitStart": 1000,
+    "commitEnd": 2000,
+    "revealEnd": 3000,
+    "recoveryAuthority": "0x0000000000000000000000000000000000000000",
+    "infoHash": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a"
+   },
+   "specBytes": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f080000000200000001d33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e0000000400000000000000000000000000000000000000000000000000000000000000000000000000000003e800000000000007d00000000000000bb8000000000000000000000000000000000000000000970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+   "specId": "0x6f41093deaa051ca9c77ffe5cbb02a20a99e05331f981ff956d5974bbfc28fdf"
+  },
+  "xor4Unique": {
+   "spec": {
+    "registrant": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+    "nIn": 2,
+    "nOut": 1,
+    "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+    "maxGates": 4,
+    "unique": true,
+    "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+    "commitStart": 1000,
+    "commitEnd": 2000,
+    "revealEnd": 3000,
+    "recoveryAuthority": "0x0e41c58894b187c987302c5208a36ea2d0c8e119",
+    "infoHash": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a"
+   },
+   "specBytes": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f080000000200000001d33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e0000000401257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a0800000000000003e800000000000007d00000000000000bb80e41c58894b187c987302c5208a36ea2d0c8e11900970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+   "specId": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f"
+  },
+  "xor4UniqueRound2": {
+   "spec": {
+    "registrant": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+    "nIn": 2,
+    "nOut": 1,
+    "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+    "maxGates": 4,
+    "unique": true,
+    "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+    "commitStart": 3000,
+    "commitEnd": 4000,
+    "revealEnd": 5000,
+    "recoveryAuthority": "0x0000000000000000000000000000000000000000",
+    "infoHash": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a"
+   },
+   "specBytes": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f080000000200000001d33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e0000000401257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a080000000000000bb80000000000000fa00000000000001388000000000000000000000000000000000000000000970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+   "specId": "0x7cb2880847c5ebb96c71e10c0a3ce35cf43de8541a9247596e93a7c490a2aad7"
+  },
+  "parity16": {
+   "spec": {
+    "registrant": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+    "nIn": 16,
+    "nOut": 1,
+    "target": "0xf38d7ca4ee17c5fc6cce743a88604208432162180808179ad04a72dae6ae0ddf",
+    "maxGates": 60,
+    "unique": false,
+    "series": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "commitStart": 1000,
+    "commitEnd": 2000,
+    "revealEnd": 3000,
+    "recoveryAuthority": "0x0000000000000000000000000000000000000000",
+    "infoHash": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a"
+   },
+   "specBytes": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f080000001000000001f38d7ca4ee17c5fc6cce743a88604208432162180808179ad04a72dae6ae0ddf0000003c00000000000000000000000000000000000000000000000000000000000000000000000000000003e800000000000007d00000000000000bb8000000000000000000000000000000000000000000970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+   "specId": "0xb2dee6d08d5b74ccd3f3f5763b09c8bc208029ee73c3b42dfadb55cf7a4dfc26"
+  },
+  "adder8": {
+   "spec": {
+    "registrant": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+    "nIn": 16,
+    "nOut": 9,
+    "target": "0x916a3ec781cacff669839048f410c563488d093713add3c33459015d0203ae62",
+    "maxGates": 200,
+    "unique": false,
+    "series": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "commitStart": 1000,
+    "commitEnd": 2000,
+    "revealEnd": 3000,
+    "recoveryAuthority": "0x0000000000000000000000000000000000000000",
+    "infoHash": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a"
+   },
+   "specBytes": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f080000001000000009916a3ec781cacff669839048f410c563488d093713add3c33459015d0203ae62000000c800000000000000000000000000000000000000000000000000000000000000000000000000000003e800000000000007d00000000000000bb8000000000000000000000000000000000000000000970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+   "specId": "0xc2b773a0feee3a0fd85fdd941b96ee6cdaf35008bbdeec144729163e1e3783c8"
+  }
+ },
+ "bounds": {
+  "maxGateWork": 65536,
+  "gateOverhead": 20,
+  "maxTableBytes": 131072,
+  "maxFileBytes": 49152,
+  "rebindDelay": 604800,
+  "examples": [
+   {
+    "nIn": 16,
+    "nOut": 16,
+    "maxGates": 237,
+    "gateWork": 65412,
+    "tableBytes": 131072
+   },
+   {
+    "nIn": 13,
+    "nOut": 128,
+    "maxGates": 1260,
+    "gateWork": 65520,
+    "tableBytes": 131072
+   },
+   {
+    "nIn": 8,
+    "nOut": 3120,
+    "maxGates": 3120,
+    "gateWork": 65520,
+    "tableBytes": 99840
+   },
+   {
+    "nIn": 2,
+    "nOut": 1,
+    "maxGates": 4,
+    "gateWork": 84,
+    "tableBytes": 1
+   }
+  ]
+ },
+ "specChecks": [
+  {
+   "name": "ok",
+   "spec": {
+    "registrant": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+    "nIn": 2,
+    "nOut": 1,
+    "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+    "maxGates": 4,
+    "unique": false,
+    "series": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "commitStart": 1000,
+    "commitEnd": 2000,
+    "revealEnd": 3000,
+    "recoveryAuthority": "0x0000000000000000000000000000000000000000",
+    "infoHash": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a"
+   },
+   "ok": true,
+   "result": "ok"
+  },
+  {
+   "name": "badWindows",
+   "spec": {
+    "registrant": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+    "nIn": 2,
+    "nOut": 1,
+    "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+    "maxGates": 4,
+    "unique": false,
+    "series": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "commitStart": 1000,
+    "commitEnd": 1000,
+    "revealEnd": 3000,
+    "recoveryAuthority": "0x0000000000000000000000000000000000000000",
+    "infoHash": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a"
+   },
+   "ok": false,
+   "error": "bad-windows"
+  },
+  {
+   "name": "tooManyInputs",
+   "spec": {
+    "registrant": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+    "nIn": 17,
+    "nOut": 1,
+    "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+    "maxGates": 4,
+    "unique": false,
+    "series": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "commitStart": 1000,
+    "commitEnd": 2000,
+    "revealEnd": 3000,
+    "recoveryAuthority": "0x0000000000000000000000000000000000000000",
+    "infoHash": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a"
+   },
+   "ok": false,
+   "error": "bad-pins"
+  },
+  {
+   "name": "uniqueWithoutSeries",
+   "spec": {
+    "registrant": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+    "nIn": 2,
+    "nOut": 1,
+    "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+    "maxGates": 4,
+    "unique": true,
+    "series": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "commitStart": 1000,
+    "commitEnd": 2000,
+    "revealEnd": 3000,
+    "recoveryAuthority": "0x0000000000000000000000000000000000000000",
+    "infoHash": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a"
+   },
+   "ok": false,
+   "error": "unique-without-series"
+  },
+  {
+   "name": "zeroTarget",
+   "spec": {
+    "registrant": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+    "nIn": 2,
+    "nOut": 1,
+    "target": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "maxGates": 4,
+    "unique": false,
+    "series": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "commitStart": 1000,
+    "commitEnd": 2000,
+    "revealEnd": 3000,
+    "recoveryAuthority": "0x0000000000000000000000000000000000000000",
+    "infoHash": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a"
+   },
+   "ok": false,
+   "error": "zero-target"
+  },
+  {
+   "name": "tooMuchGateWork",
+   "spec": {
+    "registrant": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+    "nIn": 16,
+    "nOut": 1,
+    "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+    "maxGates": 238,
+    "unique": false,
+    "series": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "commitStart": 1000,
+    "commitEnd": 2000,
+    "revealEnd": 3000,
+    "recoveryAuthority": "0x0000000000000000000000000000000000000000",
+    "infoHash": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a"
+   },
+   "ok": false,
+   "error": "too-much-gate-work"
+  },
+  {
+   "name": "largestGateWork16",
+   "spec": {
+    "registrant": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+    "nIn": 16,
+    "nOut": 1,
+    "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+    "maxGates": 237,
+    "unique": false,
+    "series": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "commitStart": 1000,
+    "commitEnd": 2000,
+    "revealEnd": 3000,
+    "recoveryAuthority": "0x0000000000000000000000000000000000000000",
+    "infoHash": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a"
+   },
+   "ok": true,
+   "result": "ok"
+  },
+  {
+   "name": "tableTooLarge",
+   "spec": {
+    "registrant": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+    "nIn": 16,
+    "nOut": 17,
+    "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+    "maxGates": 17,
+    "unique": false,
+    "series": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "commitStart": 1000,
+    "commitEnd": 2000,
+    "revealEnd": 3000,
+    "recoveryAuthority": "0x0000000000000000000000000000000000000000",
+    "infoHash": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a"
+   },
+   "ok": false,
+   "error": "table-too-large"
+  },
+  {
+   "name": "reviewerManyOutputs",
+   "spec": {
+    "registrant": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+    "nIn": 13,
+    "nOut": 4096,
+    "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+    "maxGates": 4096,
+    "unique": false,
+    "series": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "commitStart": 1000,
+    "commitEnd": 2000,
+    "revealEnd": 3000,
+    "recoveryAuthority": "0x0000000000000000000000000000000000000000",
+    "infoHash": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a"
+   },
+   "ok": false,
+   "error": "too-much-gate-work"
+  },
+  {
+   "name": "maxGatesBelowOutputs",
+   "spec": {
+    "registrant": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+    "nIn": 2,
+    "nOut": 2,
+    "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+    "maxGates": 1,
+    "unique": false,
+    "series": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "commitStart": 1000,
+    "commitEnd": 2000,
+    "revealEnd": 3000,
+    "recoveryAuthority": "0x0000000000000000000000000000000000000000",
+    "infoHash": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a"
+   },
+   "ok": false,
+   "error": "bad-max-gates"
+  }
+ ],
+ "commitments": [
+  {
+   "spec": "0x6f41093deaa051ca9c77ffe5cbb02a20a99e05331f981ff956d5974bbfc28fdf",
+   "recipient": "0x395ebb005b9eaac007a228573abc9080bf09c205",
+   "subject": 0,
+   "netlistHash": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+   "salt": "0x842b48120bfa97de6c642466fe5f6252b7dc4540c59935b5ba02508ce7f03b0c",
+   "commitment": "0x3dbe52b8b058466753a756a5772bcacd93e32425431ba7b13c989ef326e83a82"
+  },
+  {
+   "spec": "0x6f41093deaa051ca9c77ffe5cbb02a20a99e05331f981ff956d5974bbfc28fdf",
+   "recipient": "0xfb053b013087440dd0484bfae4368dae48765c52",
+   "subject": 1,
+   "netlistHash": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+   "salt": "0xe398d80a79e7d7cfc9afd66e37d45c6013ec1f49b6324a0ab109fc2b2d824579",
+   "commitment": "0xb05b1dd45105f4c08ae7bae2e6e8a931ce6aecaed21bfa02d75e1c0a4e3d9c94"
+  }
+ ],
+ "submissions": [
+  {
+   "spec": "xor4",
+   "file": "xor",
+   "ok": true,
+   "result": {
+    "netlistHash": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+    "designKey": "0xd43c366efa3fffe4ce93f398212a4e3218a159802579c6f6914b5f8e68ebb885",
+    "gates": 4
+   }
+  },
+  {
+   "spec": "xor4",
+   "file": "xorRenumbered",
+   "ok": true,
+   "result": {
+    "netlistHash": "0x6b90490a18ea09ab2ad0d126773444705dd23c9a9b8d619e5f7d1571b1872ab4",
+    "designKey": "0xd43c366efa3fffe4ce93f398212a4e3218a159802579c6f6914b5f8e68ebb885",
+    "gates": 4
+   }
+  },
+  {
+   "spec": "xor4",
+   "file": "xorDoubleNegation",
+   "ok": false,
+   "error": "too-many-gates"
+  },
+  {
+   "spec": "xor4",
+   "file": "and2",
+   "ok": false,
+   "error": "wrong-function"
+  },
+  {
+   "spec": "xor4",
+   "file": "halfAdder",
+   "ok": false,
+   "error": "pin-mismatch"
+  },
+  {
+   "spec": "parity16",
+   "file": "parity16",
+   "ok": true,
+   "result": {
+    "netlistHash": "0x2868843a797a4f0291fe5381536db6b6a7afa195ea624571259a454624a2a85e",
+    "designKey": "0x14224ef3461466283a4dadd550cd75beab6c8fc51157768423abc6b282ab6b6e",
+    "gates": 60
+   }
+  },
+  {
+   "spec": "adder8",
+   "file": "adder8",
+   "ok": true,
+   "result": {
+    "netlistHash": "0x0592991ca6d4234c811d948925dde9cfc0a60edef3a1ef62ab345852c7fa5620",
+    "designKey": "0xace12cf0ba9ce21c3e754f606c255ab4b658ddaf667251ec93086afffc06673c",
+    "gates": 86
+   }
+  }
+ ],
+ "attestations": {
+  "scopeLabel": "TapeOut Foundation / contributor / 2026-S1 (test)",
+  "scope": "0x5b844795f29c1276e64fb089a77e353dd4511e683923b27accccbebffbd2f4be",
+  "valid": {
+   "message": {
+    "issuer": "0xa55e7b930ca75c4070687aa6ff9be37de088f80c",
+    "recipient": "0x395ebb005b9eaac007a228573abc9080bf09c205",
+    "subject": 0,
+    "scope": "0x5b844795f29c1276e64fb089a77e353dd4511e683923b27accccbebffbd2f4be",
+    "artifact": "0xecd0ea7cb59b9dadf79a47fa952ce825f02847b8844c0e5d935e0e993763c98e",
+    "evidence": "0xd65d1dec8c63620c8832fa37c57c3f3eaffa644a4087437525dd0554179438f0",
+    "issuedAt": 1800000000,
+    "expiresAt": 1900000000,
+    "deadline": 0,
+    "replaces": 0,
+    "nonce": "0x654e2c87d7820cbeb1b5b550f43166549582b5b353e00e277283bfc72dadf1b4"
+   },
+   "structHash": "0x979d36a53708363420dcd0b275e7e2ab83b0612c61fab1928ab4305bf356c990",
+   "digest": "0xae13688d756a5fa0cf4c239b4cced477149f1b4115f6b6ea09efc7fc349fab6e",
+   "signer": 3,
+   "signature": "0x8adf6c9b7fe67a3efd531d70ebe43b448d2fc91a3f109e0beb81a3a9e444ef505a2b6c978a67e5721854a8f954631a75da1007c0c6a2e9e6a9da2fab742ccc341c"
+  },
+  "agent": {
+   "message": {
+    "issuer": "0xa55e7b930ca75c4070687aa6ff9be37de088f80c",
+    "recipient": "0xfb053b013087440dd0484bfae4368dae48765c52",
+    "subject": 1,
+    "scope": "0x5b844795f29c1276e64fb089a77e353dd4511e683923b27accccbebffbd2f4be",
+    "artifact": "0xecd0ea7cb59b9dadf79a47fa952ce825f02847b8844c0e5d935e0e993763c98e",
+    "evidence": "0xd65d1dec8c63620c8832fa37c57c3f3eaffa644a4087437525dd0554179438f0",
+    "issuedAt": 1800000000,
+    "expiresAt": 0,
+    "deadline": 0,
+    "replaces": 0,
+    "nonce": "0xe889d30b85421e8cc830d15f3b5008c1896600e9a9129e09bd301483cefe8981"
+   },
+   "structHash": "0x624749ac60251a3bef9ac1e75504905d59fc9bf63389353622b0ab71dab867e7",
+   "digest": "0x36cfdbc6db3df85f69c4aa8dcf0ab807677d9ff41bfa63beab883aeb73795988",
+   "signer": 3,
+   "signature": "0x19bff8e5101889f12b39a30eeccc8698225f0703b2fa7b7f7c49f4ed06c1094028208050c0e0ccef131616d6570438d54b99f0f03f0640718b005bd0ad371d1b1b"
+  },
+  "rebind": {
+   "message": {
+    "issuer": "0xa55e7b930ca75c4070687aa6ff9be37de088f80c",
+    "recipient": "0xfb053b013087440dd0484bfae4368dae48765c52",
+    "subject": 0,
+    "scope": "0x5b844795f29c1276e64fb089a77e353dd4511e683923b27accccbebffbd2f4be",
+    "artifact": "0xecd0ea7cb59b9dadf79a47fa952ce825f02847b8844c0e5d935e0e993763c98e",
+    "evidence": "0xd65d1dec8c63620c8832fa37c57c3f3eaffa644a4087437525dd0554179438f0",
+    "issuedAt": 1800000000,
+    "expiresAt": 1900000000,
+    "deadline": 0,
+    "replaces": 5,
+    "nonce": "0x801125136d32a6287ce42b2630f06d53dcb3a0c8de7d1ace094b016a950a04d2"
+   },
+   "structHash": "0x8d2ae14d6dc40fafd446e29d743cd62f7c4a128ddba5c830488e8774f09f79f1",
+   "digest": "0x10d75f9e0ca369016ec55da40f8ece3938ca24dfe3855697038fed0e6ee16e2e",
+   "signer": 3,
+   "signature": "0x0418b69b83ba0b193499c0c96ddd071e33e0490774bbdb8c4fe799cbf05ee17d118a3cb5950b6c3b9d297de81a848f38ecd3481ca6cba8539e7de5a2514373131c"
+  },
+  "wrongSigner": {
+   "message": {
+    "issuer": "0xa55e7b930ca75c4070687aa6ff9be37de088f80c",
+    "recipient": "0x395ebb005b9eaac007a228573abc9080bf09c205",
+    "subject": 0,
+    "scope": "0x5b844795f29c1276e64fb089a77e353dd4511e683923b27accccbebffbd2f4be",
+    "artifact": "0xecd0ea7cb59b9dadf79a47fa952ce825f02847b8844c0e5d935e0e993763c98e",
+    "evidence": "0xd65d1dec8c63620c8832fa37c57c3f3eaffa644a4087437525dd0554179438f0",
+    "issuedAt": 1800000000,
+    "expiresAt": 1900000000,
+    "deadline": 0,
+    "replaces": 0,
+    "nonce": "0x654e2c87d7820cbeb1b5b550f43166549582b5b353e00e277283bfc72dadf1b4"
+   },
+   "structHash": "0x979d36a53708363420dcd0b275e7e2ab83b0612c61fab1928ab4305bf356c990",
+   "digest": "0xae13688d756a5fa0cf4c239b4cced477149f1b4115f6b6ea09efc7fc349fab6e",
+   "signer": 2,
+   "signature": "0x714ee2b2976454bf0362e8eef6bb8ef36a1360ae4799e5ab7fb7a2a98893bc7351f052f28ea49cfe57e259d59393eeca19d661aa817dd01a80ba5102500a3fcc1b"
+  },
+  "highS": {
+   "signature": "0x8adf6c9b7fe67a3efd531d70ebe43b448d2fc91a3f109e0beb81a3a9e444ef50a5d4936875981a8de7ab5706ab9ce588e09ed525e8a5b65515f82ee15c09750d1b",
+   "ok": false,
+   "error": "high-s"
+  },
+  "agentLowV": {
+   "signature": "0x19bff8e5101889f12b39a30eeccc8698225f0703b2fa7b7f7c49f4ed06c1094028208050c0e0ccef131616d6570438d54b99f0f03f0640718b005bd0ad371d1b00",
+   "note": "the agent signature with v in {0, 1}",
+   "ok": true,
+   "result": "0xa55e7b930ca75c4070687aa6ff9be37de088f80c"
+  }
+ },
+ "rebind": {
+  "message": {
+   "authority": "0x0e41c58894b187c987302c5208a36ea2d0c8e119",
+   "oldTokenId": 1,
+   "newHolder": "0xa55e7b930ca75c4070687aa6ff9be37de088f80c",
+   "deadline": 0,
+   "nonce": "0x51609939ca64e1f95cdad0f0765bc33257f6ef98af33da43e813d6f8ded60d24"
+  },
+  "digest": "0xa29a7e939e2881daac9232307663c6edcc197e11e74e01ea03680806eb990307",
+  "signature": "0x645afa4f1d21b1181d6fd907e605fb4a70289844169cfd4578d06ccb04d97db561ff7e631133b49eef1a748e14cd2ebbf06f14fd2559e9502967ae43e79cd8321c"
+ },
+ "rebindToHolder": {
+  "message": {
+   "authority": "0x0e41c58894b187c987302c5208a36ea2d0c8e119",
+   "oldTokenId": 1,
+   "newHolder": "0xfb053b013087440dd0484bfae4368dae48765c52",
+   "deadline": 0,
+   "nonce": "0xa7df7fd240a239c3ca9df8ae3723e17ee2feba989bed25200011e9fdf47d625c"
+  },
+  "digest": "0xcfa7bf870ad8a7b967489c6952142802f6a11afcece94a8362270124f5178bc1",
+  "signature": "0xe7248b5ba7dcf4e0b786b2d0b160eacc6b767b5eea8435bae172283c6ec9dc1814180afb170874d19c62ffbeef2475c5f784b75e2bf4436f1311316f97e765401c"
+ },
+ "rebindVetoed": {
+  "message": {
+   "authority": "0x0e41c58894b187c987302c5208a36ea2d0c8e119",
+   "oldTokenId": 2,
+   "newHolder": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+   "deadline": 0,
+   "nonce": "0x771d8f970a87e3524ada2080c8bff7848ab0586b9ef04bc0eaa4a8002d8c32d5"
+  },
+  "digest": "0xb450ce720683f610c434681a9221012f8704c36270f69a367050a5de8e49b733",
+  "signature": "0x4d9ef8f175e795c23c5b7a12d7eebeffa8b3ef29873f249630f821a1c75203c860dd3daa9e31165b5d399895b860c0d55de65004a32c91be86f8edb223c63a1d1b"
+ },
+ "rebindLapsed": {
+  "message": {
+   "authority": "0x0e41c58894b187c987302c5208a36ea2d0c8e119",
+   "oldTokenId": 2,
+   "newHolder": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+   "deadline": 0,
+   "nonce": "0x5e6383e57d8f9bdf6366fc2fedc5c6fced961c124655be084162299a582b55d1"
+  },
+  "digest": "0x9cf25eb7b310bf8407f2f0a62e0e73a12f206f72b6d92eaed1c17c19a6e1f96a",
+  "signature": "0xac088e02156b3ff9cf9b8f7247d866056ddfd5ef0db3098f1fe8446c9ae88865300b3789f13c9d0670aab7ec75d7c496098a9a06e46dbfa6280a8d68b8684b0b1c"
+ },
+ "rebindReplacement": {
+  "message": {
+   "authority": "0x0e41c58894b187c987302c5208a36ea2d0c8e119",
+   "oldTokenId": 2,
+   "newHolder": "0x0e41c58894b187c987302c5208a36ea2d0c8e119",
+   "deadline": 0,
+   "nonce": "0x6415d906fcd30b2b77b4f22535988005e9cc64387ff3bc7e5e858cf64ed1592b"
+  },
+  "digest": "0x0f7ff9fb556a318822fdf0626a2fd595f42e134b2e195471ec5b8256709c4ea6",
+  "signature": "0x8cdf7cc26ceb61d159fd8a53ba309f29bd5ffe2dfeac0099bd4d0510adf9ad0e63db726e7a38a89c937aeed7c9b8b5ecd61c43777591b6f6f32826dddca90f981c"
+ },
+ "rebindReplacement2": {
+  "message": {
+   "authority": "0x0e41c58894b187c987302c5208a36ea2d0c8e119",
+   "oldTokenId": 2,
+   "newHolder": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+   "deadline": 0,
+   "nonce": "0xcfdf32a046922b250d15c175990f2fa8de963525d484c5bce1ba18ec54b7b7cf"
+  },
+  "digest": "0x4d28ffd084a1f217ee06ff7d8efec9a21c4e1f72aae005b34ef11ff39f35bc71",
+  "signature": "0xa9397fdfe597ead1b6699a8a5219f09d7aded02523590bd0ad2a938cea4933fb6e2d40782ca4dd5de6641a7aca7893496f71cca48ded4ae08cf08d3740cb975f1b"
+ },
+ "claimStatements": {
+  "statementId": "0xbbc7f9cf45c36a4a4f2b1067525e9bc3d52696aa260baea2a7a9c4c3e081507c",
+  "claimScope": "0xe649abd3265e07d59676dc3e8937f6495e0d647a0472cf1ef78f7ce75b4c8b40",
+  "zeroScope": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "artifact": {
+   "netlistHash": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+   "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+  },
+  "holder": "0x395ebb005b9eaac007a228573abc9080bf09c205",
+  "cases": [
+   {
+    "name": "holder signed, structural hash matches",
+    "message": {
+     "signer": "0x395ebb005b9eaac007a228573abc9080bf09c205",
+     "signerChainId": 0,
+     "subject": {
+      "netlistHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     }
+    },
+    "revoked": false,
+    "display": "consistent"
+   },
+   {
+    "name": "contract signer on this chain",
+    "message": {
+     "signer": "0x395ebb005b9eaac007a228573abc9080bf09c205",
+     "signerChainId": 31337,
+     "subject": {
+      "netlistHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     }
+    },
+    "revoked": false,
+    "display": "consistent"
+   },
+   {
+    "name": "signed by another account",
+    "message": {
+     "signer": "0xa55e7b930ca75c4070687aa6ff9be37de088f80c",
+     "signerChainId": 0,
+     "subject": {
+      "netlistHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     }
+    },
+    "revoked": false,
+    "display": "mismatch"
+   },
+   {
+    "name": "contract signer on another chain",
+    "message": {
+     "signer": "0x395ebb005b9eaac007a228573abc9080bf09c205",
+     "signerChainId": 1,
+     "subject": {
+      "netlistHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     }
+    },
+    "revoked": false,
+    "display": "mismatch"
+   },
+   {
+    "name": "subject is another design",
+    "message": {
+     "signer": "0x395ebb005b9eaac007a228573abc9080bf09c205",
+     "signerChainId": 0,
+     "subject": {
+      "netlistHash": "0xe3e1be431a22c2f3ce3aff1c1b71b90c69e7fa530cb92c0e8787c5604aa84a5a",
+      "structuralHash": "0x0000000000000000000000000000000000000000000000000000000000000000"
+     }
+    },
+    "revoked": false,
+    "display": "mismatch"
+   },
+   {
+    "name": "revoked by its signer",
+    "message": {
+     "signer": "0x395ebb005b9eaac007a228573abc9080bf09c205",
+     "signerChainId": 0,
+     "subject": {
+      "netlistHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     }
+    },
+    "revoked": true,
+    "display": "revoked"
+   }
+  ]
+ },
+ "scenario": [
+  {
+   "step": "register xor4Unique",
+   "ok": true,
+   "result": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f"
+  },
+  {
+   "step": "register xor4UniqueRound2",
+   "ok": true,
+   "result": "0x7cb2880847c5ebb96c71e10c0a3ce35cf43de8541a9247596e93a7c490a2aad7"
+  },
+  {
+   "step": "register overlapping round (rejected)",
+   "ok": false,
+   "error": "series-overlap"
+  },
+  {
+   "step": "register a specification beyond the gate-work bound (rejected)",
+   "ok": false,
+   "error": "too-much-gate-work"
+  },
+  {
+   "step": "commit before window (rejected)",
+   "ok": false,
+   "error": "not-commit-window"
+  },
+  {
+   "step": "account 1 copies account 2's pending commitment first (recorded for account 1 only)",
+   "ok": true,
+   "result": null
+  },
+  {
+   "step": "account 2 commits xor",
+   "ok": true,
+   "result": null
+  },
+  {
+   "step": "account 2 commits the same commitment twice (rejected)",
+   "ok": false,
+   "error": "commit-exists"
+  },
+  {
+   "step": "agent 4 commits renumbered xor",
+   "ok": true,
+   "result": null
+  },
+  {
+   "step": "reveal during commit window (rejected)",
+   "ok": false,
+   "error": "not-reveal-window"
+  },
+  {
+   "step": "reveal with wrong salt (rejected)",
+   "ok": false,
+   "error": "no-commitment"
+  },
+  {
+   "step": "reveal account 2 xor (token 1)",
+   "ok": true,
+   "result": {
+    "token": 1,
+    "netlistHash": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+    "designKey": "0xd43c366efa3fffe4ce93f398212a4e3218a159802579c6f6914b5f8e68ebb885",
+    "gates": 4
+   }
+  },
+  {
+   "step": "same-round renamed copy accepted (token 2)",
+   "ok": true,
+   "result": {
+    "token": 2,
+    "netlistHash": "0x6b90490a18ea09ab2ad0d126773444705dd23c9a9b8d619e5f7d1571b1872ab4",
+    "designKey": "0xd43c366efa3fffe4ce93f398212a4e3218a159802579c6f6914b5f8e68ebb885",
+    "gates": 4
+   }
+  },
+  {
+   "step": "round 2: account 3 commits input-swapped xor",
+   "ok": true,
+   "result": null
+  },
+  {
+   "step": "round 2: account 3 commits and2",
+   "ok": true,
+   "result": null
+  },
+  {
+   "step": "round 2: renamed copy of round-1 answer rejected",
+   "ok": false,
+   "error": "duplicate-design"
+  },
+  {
+   "step": "round 2: wrong function rejected",
+   "ok": false,
+   "error": "wrong-function"
+  },
+  {
+   "step": "proven: rebind requested by someone else (rejected)",
+   "ok": false,
+   "error": "not-new-holder"
+  },
+  {
+   "step": "proven: rebind to an account that already holds the specification (rejected)",
+   "ok": false,
+   "error": "already-holds"
+  },
+  {
+   "step": "proven: account 1 requests a rebind of token 2",
+   "ok": true,
+   "result": 609800
+  },
+  {
+   "step": "proven: veto by a non-holder (rejected)",
+   "ok": false,
+   "error": "not-holder"
+  },
+  {
+   "step": "proven: agent 4 vetoes the rebind of its token 2",
+   "ok": true,
+   "result": null
+  },
+  {
+   "step": "proven: completing a vetoed rebind (rejected)",
+   "ok": false,
+   "error": "no-pending-rebind"
+  },
+  {
+   "step": "proven: account 3 requests a rebind of token 1 (ready at 5000 + delay)",
+   "ok": true,
+   "result": 609800
+  },
+  {
+   "step": "proven: the same Rebind sent again while it is pending (rejected: digest used)",
+   "ok": false,
+   "error": "bad-signature"
+  },
+  {
+   "step": "proven: completion before the delay (rejected)",
+   "ok": false,
+   "error": "rebind-not-ready"
+  },
+  {
+   "step": "proven: completion after the delay (token 3)",
+   "ok": true,
+   "result": 3
+  },
+  {
+   "step": "proven: rebind request replayed (rejected)",
+   "ok": false,
+   "error": "not-rebindable"
+  },
+  {
+   "step": "claimed: account 2 claims xor with a statement id (token 4)",
+   "ok": true,
+   "result": 4
+  },
+  {
+   "step": "renounce by non-holder (rejected)",
+   "ok": false,
+   "error": "not-holder"
+  },
+  {
+   "step": "holder renounces token 4",
+   "ok": true,
+   "result": null
+  },
+  {
+   "step": "proven: account 1 requests a rebind of token 2 (ready at 800000 + delay)",
+   "ok": true,
+   "result": 1404800
+  },
+  {
+   "step": "proven: completion one delay after it became ready (rejected: lapsed)",
+   "ok": false,
+   "error": "rebind-lapsed"
+  },
+  {
+   "step": "proven: veto of a lapsed request (rejected: nothing pending)",
+   "ok": false,
+   "error": "no-pending-rebind"
+  },
+  {
+   "step": "proven: account 5 requests a rebind of token 2, replacing the lapsed request",
+   "ok": true,
+   "result": 2614400
+  },
+  {
+   "step": "proven: account 1 requests again with a new Rebind, replacing the pending request (delay restarts)",
+   "ok": true,
+   "result": 2614500
+  },
+  {
+   "step": "proven: the replaced new holder tries to complete (rejected)",
+   "ok": false,
+   "error": "not-new-holder"
+  },
+  {
+   "step": "proven: completion before the restarted delay (rejected)",
+   "ok": false,
+   "error": "rebind-not-ready"
+  },
+  {
+   "step": "proven: agent 4 vetoes the replacement request",
+   "ok": true,
+   "result": null
+  },
+  {
+   "step": "store badge netlist",
+   "ok": true,
+   "result": "0xecd0ea7cb59b9dadf79a47fa952ce825f02847b8844c0e5d935e0e993763c98e"
+  },
+  {
+   "step": "attested: redeem before its issuedAt (rejected)",
+   "ok": false,
+   "error": "issued-in-future"
+  },
+  {
+   "step": "attested: redeem after its expiry (rejected)",
+   "ok": false,
+   "error": "already-expired"
+  },
+  {
+   "step": "attested: redeem by non-recipient (rejected)",
+   "ok": false,
+   "error": "not-recipient"
+  },
+  {
+   "step": "attested: wrong signer (rejected)",
+   "ok": false,
+   "error": "bad-signature"
+  },
+  {
+   "step": "attested: redeem (token 5)",
+   "ok": true,
+   "result": 5
+  },
+  {
+   "step": "attested: redeem twice (rejected)",
+   "ok": false,
+   "error": "already-redeemed"
+  },
+  {
+   "step": "attested: agent redeem with a v in {0, 1} signature (token 6)",
+   "ok": true,
+   "result": 6
+  },
+  {
+   "step": "attested: revoke by non-issuer (rejected)",
+   "ok": false,
+   "error": "not-issuer"
+  },
+  {
+   "step": "attested: issuer revokes agent attestation",
+   "ok": true,
+   "result": null
+  },
+  {
+   "step": "attested: issuer re-issues token 5 to account 4 (token 7)",
+   "ok": true,
+   "result": 7
+  },
+  {
+   "step": "final token states",
+   "ok": true,
+   "result": {
+    "1": {
+     "holder": "0x395ebb005b9eaac007a228573abc9080bf09c205",
+     "credential": {
+      "kind": 1,
+      "subject": 0,
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "artifact": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "evidence": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "issuedAt": 2000,
+      "expiresAt": 0,
+      "replaces": 0
+     },
+     "status": {
+      "1800005000": "superseded",
+      "1900000000": "superseded"
+     }
+    },
+    "2": {
+     "holder": "0xfb053b013087440dd0484bfae4368dae48765c52",
+     "credential": {
+      "kind": 1,
+      "subject": 1,
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "artifact": "0x6b90490a18ea09ab2ad0d126773444705dd23c9a9b8d619e5f7d1571b1872ab4",
+      "evidence": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "issuedAt": 2100,
+      "expiresAt": 0,
+      "replaces": 0
+     },
+     "status": {
+      "1800005000": "active",
+      "1900000000": "active"
+     }
+    },
+    "3": {
+     "holder": "0xa55e7b930ca75c4070687aa6ff9be37de088f80c",
+     "credential": {
+      "kind": 1,
+      "subject": 0,
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "artifact": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "evidence": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "issuedAt": 609800,
+      "expiresAt": 0,
+      "replaces": 1
+     },
+     "status": {
+      "1800005000": "active",
+      "1900000000": "active"
+     }
+    },
+    "4": {
+     "holder": null,
+     "credential": {
+      "kind": 3,
+      "subject": 0,
+      "issuer": "0x395ebb005b9eaac007a228573abc9080bf09c205",
+      "scope": "0xe649abd3265e07d59676dc3e8937f6495e0d647a0472cf1ef78f7ce75b4c8b40",
+      "artifact": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "evidence": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "issuedAt": 700000,
+      "expiresAt": 0,
+      "replaces": 0
+     },
+     "status": {
+      "1800005000": "none",
+      "1900000000": "none"
+     }
+    },
+    "5": {
+     "holder": "0x395ebb005b9eaac007a228573abc9080bf09c205",
+     "credential": {
+      "kind": 2,
+      "subject": 0,
+      "issuer": "0xa55e7b930ca75c4070687aa6ff9be37de088f80c",
+      "scope": "0x5b844795f29c1276e64fb089a77e353dd4511e683923b27accccbebffbd2f4be",
+      "artifact": "0xecd0ea7cb59b9dadf79a47fa952ce825f02847b8844c0e5d935e0e993763c98e",
+      "evidence": "0xd65d1dec8c63620c8832fa37c57c3f3eaffa644a4087437525dd0554179438f0",
+      "issuedAt": 1800000000,
+      "expiresAt": 1900000000,
+      "replaces": 0
+     },
+     "status": {
+      "1800005000": "superseded",
+      "1900000000": "superseded"
+     }
+    },
+    "6": {
+     "holder": "0xfb053b013087440dd0484bfae4368dae48765c52",
+     "credential": {
+      "kind": 2,
+      "subject": 1,
+      "issuer": "0xa55e7b930ca75c4070687aa6ff9be37de088f80c",
+      "scope": "0x5b844795f29c1276e64fb089a77e353dd4511e683923b27accccbebffbd2f4be",
+      "artifact": "0xecd0ea7cb59b9dadf79a47fa952ce825f02847b8844c0e5d935e0e993763c98e",
+      "evidence": "0xd65d1dec8c63620c8832fa37c57c3f3eaffa644a4087437525dd0554179438f0",
+      "issuedAt": 1800000000,
+      "expiresAt": 0,
+      "replaces": 0
+     },
+     "status": {
+      "1800005000": "revoked",
+      "1900000000": "revoked"
+     }
+    },
+    "7": {
+     "holder": "0xfb053b013087440dd0484bfae4368dae48765c52",
+     "credential": {
+      "kind": 2,
+      "subject": 0,
+      "issuer": "0xa55e7b930ca75c4070687aa6ff9be37de088f80c",
+      "scope": "0x5b844795f29c1276e64fb089a77e353dd4511e683923b27accccbebffbd2f4be",
+      "artifact": "0xecd0ea7cb59b9dadf79a47fa952ce825f02847b8844c0e5d935e0e993763c98e",
+      "evidence": "0xd65d1dec8c63620c8832fa37c57c3f3eaffa644a4087437525dd0554179438f0",
+      "issuedAt": 1800000000,
+      "expiresAt": 1900000000,
+      "replaces": 5
+     },
+     "status": {
+      "1800005000": "active",
+      "1900000000": "expired"
+     }
+    }
+   }
+  },
+  {
+   "step": "credentialsOf(account 4, proven, any, any, activeOnly) at 1800005000",
+   "ok": true,
+   "result": [
+    2
+   ]
+  },
+  {
+   "step": "credentialsOf(account 4, attested, issuer 3, scope, all)",
+   "ok": true,
+   "result": [
+    6,
+    7
+   ]
+  },
+  {
+   "step": "credentialsOf(account 4, attested, any, any, activeOnly)",
+   "ok": true,
+   "result": [
+    7
+   ]
+  },
+  {
+   "step": "credentialsOf(account 4, kind 0) (rejected: one kind per query)",
+   "ok": false,
+   "error": "bad-query"
+  },
+  {
+   "step": "credentialsOf(account 4, proven, limit 0) (rejected)",
+   "ok": false,
+   "error": "bad-query"
+  },
+  {
+   "step": "claimed: account 2 claims and2 (token 8)",
+   "ok": true,
+   "result": 8
+  },
+  {
+   "step": "claimed: account 2 claims the half adder (token 9)",
+   "ok": true,
+   "result": 9
+  },
+  {
+   "step": "credentialsOf(account 2, claimed, cursor 0, limit 1) after renouncing token 4",
+   "ok": true,
+   "result": {
+    "tokenIds": [
+     8
+    ],
+    "nextCursor": 4
+   }
+  },
+  {
+   "step": "credentialsOf(account 2, claimed, cursor 4, limit 1)",
+   "ok": true,
+   "result": {
+    "tokenIds": [
+     9
+    ],
+    "nextCursor": 0
+   }
+  }
+ ],
+ "metadata": [
+  {
+   "name": "proven ok",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "proven",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "issuedAt": 2000,
+      "expiresAt": 0,
+      "spec": {
+       "id": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+       "nIn": 2,
+       "nOut": 1,
+       "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+       "maxGates": 4,
+       "unique": true,
+       "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+       "info": {
+        "sha256": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+        "uris": [
+         "https://example.invalid/sbt/xor-spec.md"
+        ]
+       }
+      }
+     }
+    }
+   },
+   "onchain": {
+    "kind": 1,
+    "subject": 0,
+    "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+    "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+    "artifact": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+    "evidence": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "issuedAt": 2000,
+    "expiresAt": 0,
+    "replaces": 0
+   },
+   "ok": true,
+   "result": "ok"
+  },
+  {
+   "name": "claimed with statement ok",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "claimed",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x395ebb005b9eaac007a228573abc9080bf09c205",
+      "scope": "0xe649abd3265e07d59676dc3e8937f6495e0d647a0472cf1ef78f7ce75b4c8b40",
+      "issuedAt": 700000,
+      "expiresAt": 0,
+      "statement": {
+       "id": "0xbbc7f9cf45c36a4a4f2b1067525e9bc3d52696aa260baea2a7a9c4c3e081507c",
+       "uris": [
+        "https://example.invalid/sbt/credit.json"
+       ]
+      }
+     }
+    }
+   },
+   "onchain": null,
+   "ok": true,
+   "result": "ok"
+  },
+  {
+   "name": "claimed, statement id not hashed into scope",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "claimed",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x395ebb005b9eaac007a228573abc9080bf09c205",
+      "scope": "0xbbc7f9cf45c36a4a4f2b1067525e9bc3d52696aa260baea2a7a9c4c3e081507c",
+      "issuedAt": 700000,
+      "expiresAt": 0,
+      "statement": {
+       "id": "0xbbc7f9cf45c36a4a4f2b1067525e9bc3d52696aa260baea2a7a9c4c3e081507c",
+       "uris": [
+        "https://example.invalid/sbt/credit.json"
+       ]
+      }
+     }
+    }
+   },
+   "onchain": null,
+   "ok": false,
+   "error": "credential-statement"
+  },
+  {
+   "name": "statement on attested",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "attested",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0xa55e7b930ca75c4070687aa6ff9be37de088f80c",
+      "scope": "0x5b844795f29c1276e64fb089a77e353dd4511e683923b27accccbebffbd2f4be",
+      "issuedAt": 1800000100,
+      "expiresAt": 1900000000,
+      "scopeLabel": "TapeOut Foundation / contributor / 2026-S1 (test)",
+      "issuerName": "TapeOut Foundation (self-declared, test)",
+      "evidence": {
+       "sha256": "0xd65d1dec8c63620c8832fa37c57c3f3eaffa644a4087437525dd0554179438f0",
+       "uris": [
+        "https://example.invalid/sbt/ev.json"
+       ]
+      },
+      "statement": {
+       "id": "0xbbc7f9cf45c36a4a4f2b1067525e9bc3d52696aa260baea2a7a9c4c3e081507c",
+       "uris": [
+        "https://example.invalid/sbt/credit.json"
+       ]
+      }
+     }
+    }
+   },
+   "onchain": null,
+   "ok": false,
+   "error": "credential-statement"
+  },
+  {
+   "name": "spec mode member (removed in version 1)",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "proven",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "issuedAt": 2000,
+      "expiresAt": 0,
+      "spec": {
+       "id": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+       "nIn": 2,
+       "nOut": 1,
+       "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+       "maxGates": 4,
+       "unique": true,
+       "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+       "info": {
+        "sha256": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+        "uris": [
+         "https://example.invalid/sbt/xor-spec.md"
+        ]
+       },
+       "mode": "optimistic"
+      }
+     }
+    }
+   },
+   "onchain": null,
+   "ok": false,
+   "error": "credential-spec"
+  },
+  {
+   "name": "tap.image missing",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "proven",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "issuedAt": 2000,
+      "expiresAt": 0,
+      "spec": {
+       "id": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+       "nIn": 2,
+       "nOut": 1,
+       "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+       "maxGates": 4,
+       "unique": true,
+       "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+       "info": {
+        "sha256": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+        "uris": [
+         "https://example.invalid/sbt/xor-spec.md"
+        ]
+       }
+      }
+     }
+    }
+   },
+   "onchain": null,
+   "ok": false,
+   "error": "credential-image"
+  },
+  {
+   "name": "reward member",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "proven",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "issuedAt": 2000,
+      "expiresAt": 0,
+      "spec": {
+       "id": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+       "nIn": 2,
+       "nOut": 1,
+       "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+       "maxGates": 4,
+       "unique": true,
+       "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+       "info": {
+        "sha256": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+        "uris": [
+         "https://example.invalid/sbt/xor-spec.md"
+        ]
+       }
+      },
+      "rewardPoints": 10
+     }
+    }
+   },
+   "onchain": null,
+   "ok": false,
+   "error": "credential-forbidden-member"
+  },
+  {
+   "name": "tier member outside the credential",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "proven",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "issuedAt": 2000,
+      "expiresAt": 0,
+      "spec": {
+       "id": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+       "nIn": 2,
+       "nOut": 1,
+       "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+       "maxGates": 4,
+       "unique": true,
+       "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+       "info": {
+        "sha256": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+        "uris": [
+         "https://example.invalid/sbt/xor-spec.md"
+        ]
+       }
+      }
+     }
+    },
+    "tier": "gold"
+   },
+   "onchain": null,
+   "ok": false,
+   "error": "credential-forbidden-member"
+  },
+  {
+   "name": "weight in ERC-721 attributes",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "proven",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "issuedAt": 2000,
+      "expiresAt": 0,
+      "spec": {
+       "id": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+       "nIn": 2,
+       "nOut": 1,
+       "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+       "maxGates": 4,
+       "unique": true,
+       "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+       "info": {
+        "sha256": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+        "uris": [
+         "https://example.invalid/sbt/xor-spec.md"
+        ]
+       }
+      }
+     }
+    },
+    "attributes": [
+     {
+      "trait_type": "Weight",
+      "value": 3
+     }
+    ]
+   },
+   "onchain": null,
+   "ok": false,
+   "error": "credential-forbidden-member"
+  },
+  {
+   "name": "neutral ERC-721 attributes ok",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "proven",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "issuedAt": 2000,
+      "expiresAt": 0,
+      "spec": {
+       "id": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+       "nIn": 2,
+       "nOut": 1,
+       "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+       "maxGates": 4,
+       "unique": true,
+       "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+       "info": {
+        "sha256": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+        "uris": [
+         "https://example.invalid/sbt/xor-spec.md"
+        ]
+       }
+      }
+     }
+    },
+    "attributes": [
+     {
+      "trait_type": "Kind",
+      "value": "proven"
+     },
+     {
+      "trait_type": "Cohort",
+      "value": "2026-S1 (test)"
+     }
+    ]
+   },
+   "onchain": null,
+   "ok": true,
+   "result": "ok"
+  },
+  {
+   "name": "cohort ok",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "proven",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "issuedAt": 2000,
+      "expiresAt": 0,
+      "spec": {
+       "id": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+       "nIn": 2,
+       "nOut": 1,
+       "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+       "maxGates": 4,
+       "unique": true,
+       "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+       "info": {
+        "sha256": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+        "uris": [
+         "https://example.invalid/sbt/xor-spec.md"
+        ]
+       }
+      },
+      "cohort": "2026 spring cohort (test)"
+     }
+    }
+   },
+   "onchain": null,
+   "ok": true,
+   "result": "ok"
+  },
+  {
+   "name": "edition present (credentials form no TAP-721 editions)",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "proven",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "issuedAt": 2000,
+      "expiresAt": 0,
+      "spec": {
+       "id": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+       "nIn": 2,
+       "nOut": 1,
+       "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+       "maxGates": 4,
+       "unique": true,
+       "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+       "info": {
+        "sha256": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+        "uris": [
+         "https://example.invalid/sbt/xor-spec.md"
+        ]
+       }
+      }
+     },
+     "edition": {
+      "index": 1,
+      "of": 2
+     }
+    }
+   },
+   "onchain": null,
+   "ok": false,
+   "error": "credential-edition"
+  },
+  {
+   "name": "tap.pod with mining names ok (exempt, its own non-entitlement rules)",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "proven",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "issuedAt": 2000,
+      "expiresAt": 0,
+      "spec": {
+       "id": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+       "nIn": 2,
+       "nOut": 1,
+       "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+       "maxGates": 4,
+       "unique": true,
+       "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+       "info": {
+        "sha256": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+        "uris": [
+         "https://example.invalid/sbt/xor-spec.md"
+        ]
+       }
+      }
+     },
+     "pod": {
+      "standing": {
+       "bonus": "0",
+       "multiplier": 1,
+       "verifWeight": "0"
+      }
+     }
+    }
+   },
+   "onchain": null,
+   "ok": true,
+   "result": "ok"
+  },
+  {
+   "name": "bonus member outside tap.pod",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "proven",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "issuedAt": 2000,
+      "expiresAt": 0,
+      "spec": {
+       "id": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+       "nIn": 2,
+       "nOut": 1,
+       "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+       "maxGates": 4,
+       "unique": true,
+       "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+       "info": {
+        "sha256": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+        "uris": [
+         "https://example.invalid/sbt/xor-spec.md"
+        ]
+       }
+      },
+      "bonus": "1"
+     }
+    }
+   },
+   "onchain": null,
+   "ok": false,
+   "error": "credential-forbidden-member"
+  },
+  {
+   "name": "tap.pod fact repeated in ERC-721 attributes (not exempt)",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "proven",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "issuedAt": 2000,
+      "expiresAt": 0,
+      "spec": {
+       "id": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+       "nIn": 2,
+       "nOut": 1,
+       "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+       "maxGates": 4,
+       "unique": true,
+       "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+       "info": {
+        "sha256": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+        "uris": [
+         "https://example.invalid/sbt/xor-spec.md"
+        ]
+       }
+      }
+     }
+    },
+    "attributes": [
+     {
+      "trait_type": "tap.pod.bonus",
+      "value": "0"
+     }
+    ]
+   },
+   "onchain": null,
+   "ok": false,
+   "error": "credential-forbidden-member"
+  },
+  {
+   "name": "reward wording in description (tool judgement)",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "proven",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "issuedAt": 2000,
+      "expiresAt": 0,
+      "spec": {
+       "id": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+       "nIn": 2,
+       "nOut": 1,
+       "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+       "maxGates": 4,
+       "unique": true,
+       "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+       "info": {
+        "sha256": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+        "uris": [
+         "https://example.invalid/sbt/xor-spec.md"
+        ]
+       }
+      }
+     }
+    },
+    "description": "Holders will share in future rewards (test)"
+   },
+   "onchain": null,
+   "ok": true,
+   "result": "ok",
+   "note": "tool judgement: §2 item 3 forbids this text and a tool MUST reject it (§9 item 4); the machine check covers member names only, so the result here is ok"
+  },
+  {
+   "name": "proven, on-chain mismatch",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "proven",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "issuedAt": 2000,
+      "expiresAt": 0,
+      "spec": {
+       "id": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+       "nIn": 2,
+       "nOut": 1,
+       "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+       "maxGates": 4,
+       "unique": true,
+       "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+       "info": {
+        "sha256": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+        "uris": [
+         "https://example.invalid/sbt/xor-spec.md"
+        ]
+       }
+      }
+     }
+    }
+   },
+   "onchain": {
+    "kind": 1,
+    "subject": 0,
+    "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+    "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+    "artifact": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+    "evidence": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "issuedAt": 2001,
+    "expiresAt": 0,
+    "replaces": 0
+   },
+   "ok": false,
+   "error": "credential-onchain-mismatch"
+  },
+  {
+   "name": "attested ok",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "attested",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0xa55e7b930ca75c4070687aa6ff9be37de088f80c",
+      "scope": "0x5b844795f29c1276e64fb089a77e353dd4511e683923b27accccbebffbd2f4be",
+      "issuedAt": 1800000100,
+      "expiresAt": 1900000000,
+      "scopeLabel": "TapeOut Foundation / contributor / 2026-S1 (test)",
+      "issuerName": "TapeOut Foundation (self-declared, test)",
+      "evidence": {
+       "sha256": "0xd65d1dec8c63620c8832fa37c57c3f3eaffa644a4087437525dd0554179438f0",
+       "uris": [
+        "https://example.invalid/sbt/ev.json"
+       ]
+      }
+     }
+    }
+   },
+   "onchain": null,
+   "ok": true,
+   "result": "ok"
+  },
+  {
+   "name": "attested agent ok",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "attested",
+      "subject": "agent",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0xa55e7b930ca75c4070687aa6ff9be37de088f80c",
+      "scope": "0x5b844795f29c1276e64fb089a77e353dd4511e683923b27accccbebffbd2f4be",
+      "issuedAt": 1800000100,
+      "expiresAt": 1900000000,
+      "scopeLabel": "TapeOut Foundation / contributor / 2026-S1 (test)",
+      "issuerName": "TapeOut Foundation (self-declared, test)",
+      "evidence": {
+       "sha256": "0xd65d1dec8c63620c8832fa37c57c3f3eaffa644a4087437525dd0554179438f0",
+       "uris": [
+        "https://example.invalid/sbt/ev.json"
+       ]
+      },
+      "agent": {
+       "registry": "eip155:8453:0x8004800480048004800480048004800480048004",
+       "agentId": "42"
+      }
+     }
+    }
+   },
+   "onchain": null,
+   "ok": true,
+   "result": "ok"
+  },
+  {
+   "name": "scopeLabel does not hash to scope",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "attested",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0xa55e7b930ca75c4070687aa6ff9be37de088f80c",
+      "scope": "0x5b844795f29c1276e64fb089a77e353dd4511e683923b27accccbebffbd2f4be",
+      "issuedAt": 1800000100,
+      "expiresAt": 1900000000,
+      "scopeLabel": "other",
+      "issuerName": "TapeOut Foundation (self-declared, test)",
+      "evidence": {
+       "sha256": "0xd65d1dec8c63620c8832fa37c57c3f3eaffa644a4087437525dd0554179438f0",
+       "uris": [
+        "https://example.invalid/sbt/ev.json"
+       ]
+      }
+     }
+    }
+   },
+   "onchain": null,
+   "ok": false,
+   "error": "credential-scope-label"
+  },
+  {
+   "name": "issuerName on proven",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "proven",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "issuedAt": 2000,
+      "expiresAt": 0,
+      "spec": {
+       "id": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+       "nIn": 2,
+       "nOut": 1,
+       "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+       "maxGates": 4,
+       "unique": true,
+       "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+       "info": {
+        "sha256": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+        "uris": [
+         "https://example.invalid/sbt/xor-spec.md"
+        ]
+       }
+      },
+      "issuerName": "Foundation"
+     }
+    }
+   },
+   "onchain": null,
+   "ok": false,
+   "error": "credential-issuer-name"
+  },
+  {
+   "name": "status in metadata",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "proven",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "issuedAt": 2000,
+      "expiresAt": 0,
+      "spec": {
+       "id": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+       "nIn": 2,
+       "nOut": 1,
+       "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+       "maxGates": 4,
+       "unique": true,
+       "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+       "info": {
+        "sha256": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+        "uris": [
+         "https://example.invalid/sbt/xor-spec.md"
+        ]
+       }
+      },
+      "status": "active"
+     }
+    }
+   },
+   "onchain": null,
+   "ok": false,
+   "error": "credential-forbidden-member"
+  },
+  {
+   "name": "payout member",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "proven",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "issuedAt": 2000,
+      "expiresAt": 0,
+      "spec": {
+       "id": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+       "nIn": 2,
+       "nOut": 1,
+       "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+       "maxGates": 4,
+       "unique": true,
+       "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+       "info": {
+        "sha256": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+        "uris": [
+         "https://example.invalid/sbt/xor-spec.md"
+        ]
+       }
+      },
+      "allocation": "100"
+     }
+    }
+   },
+   "onchain": null,
+   "ok": false,
+   "error": "credential-forbidden-member"
+  },
+  {
+   "name": "agent member on account subject",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "proven",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "issuedAt": 2000,
+      "expiresAt": 0,
+      "spec": {
+       "id": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+       "nIn": 2,
+       "nOut": 1,
+       "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+       "maxGates": 4,
+       "unique": true,
+       "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+       "info": {
+        "sha256": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+        "uris": [
+         "https://example.invalid/sbt/xor-spec.md"
+        ]
+       }
+      },
+      "agent": {
+       "registry": "eip155:1:0x1111111111111111111111111111111111111111",
+       "agentId": "1"
+      }
+     }
+    }
+   },
+   "onchain": null,
+   "ok": false,
+   "error": "credential-agent"
+  },
+  {
+   "name": "expiry before issuance",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "proven",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "issuedAt": 2000,
+      "expiresAt": 1000,
+      "spec": {
+       "id": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+       "nIn": 2,
+       "nOut": 1,
+       "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+       "maxGates": 4,
+       "unique": true,
+       "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+       "info": {
+        "sha256": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+        "uris": [
+         "https://example.invalid/sbt/xor-spec.md"
+        ]
+       }
+      }
+     }
+    }
+   },
+   "onchain": null,
+   "ok": false,
+   "error": "credential-times"
+  },
+  {
+   "name": "netlist over maxGates",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "proven",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "issuedAt": 2000,
+      "expiresAt": 0,
+      "spec": {
+       "id": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+       "nIn": 2,
+       "nOut": 1,
+       "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+       "maxGates": 3,
+       "unique": true,
+       "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+       "info": {
+        "sha256": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+        "uris": [
+         "https://example.invalid/sbt/xor-spec.md"
+        ]
+       }
+      }
+     }
+    }
+   },
+   "onchain": null,
+   "ok": false,
+   "error": "credential-spec"
+  },
+  {
+   "name": "manifest present",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "proven",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0x243d1e8bc2c6aee4bf41136cb139010bb6a20f08",
+      "scope": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+      "issuedAt": 2000,
+      "expiresAt": 0,
+      "spec": {
+       "id": "0xe56510eca6a8ec58dabdec3ed6b77cc1bcbd8cf99f6fa60edab6a8bb1b092b4f",
+       "nIn": 2,
+       "nOut": 1,
+       "target": "0xd33c6800252db2f67a985dbb4a7d7a68c0babd8b03d2f95bfea65d836990dd2e",
+       "maxGates": 4,
+       "unique": true,
+       "series": "0x257701a5698576646873ff4076098a935e8d4a9d98893ff762c11cceb1706a08",
+       "info": {
+        "sha256": "0x00970f5fdf5ab1ee0bccf717ef47824c13843f5f748bcbb6aed2fb73359ba98a",
+        "uris": [
+         "https://example.invalid/sbt/xor-spec.md"
+        ]
+       }
+      }
+     },
+     "manifest": {
+      "sha256": "0x1111111111111111111111111111111111111111111111111111111111111111",
+      "uris": [
+       "x"
+      ]
+     }
+    }
+   },
+   "onchain": null,
+   "ok": false,
+   "error": "credential-state"
+  },
+  {
+   "name": "bidi control in issuerName",
+   "doc": {
+    "name": "XOR in 4 NAND gates — proven credential (test)",
+    "image": "https://example.invalid/sbt/badge-xor.png",
+    "tap": {
+     "v": 1,
+     "id": "eip155:31337/erc721:0x00000000000000000000000000000000000000c1/1",
+     "state": "revealed",
+     "image": {
+      "sha256": "0xf61ec20bb80607c8788473cb061ec0f758f3ea20c0ff1bb7eb6953ffeea3250a",
+      "uris": [
+       "https://example.invalid/sbt/badge-xor.png"
+      ]
+     },
+     "netlist": {
+      "format": "tapnet/1",
+      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
+      "bytes": 44,
+      "nIn": 2,
+      "nOut": 1,
+      "nand": 4,
+      "latch": 0,
+      "uris": [
+       "https://example.invalid/sbt/xor.tapnet"
+      ],
+      "structuralHash": "0x74db11f36d199cb879579afd309cf617144eeddea574fba590c088fbf2fc559b"
+     },
+     "credential": {
+      "v": 1,
+      "kind": "attested",
+      "subject": "account",
+      "contract": {
+       "chainId": 31337,
+       "address": "0x00000000000000000000000000000000000000c1"
+      },
+      "issuer": "0xa55e7b930ca75c4070687aa6ff9be37de088f80c",
+      "scope": "0x5b844795f29c1276e64fb089a77e353dd4511e683923b27accccbebffbd2f4be",
+      "issuedAt": 1800000100,
+      "expiresAt": 1900000000,
+      "scopeLabel": "TapeOut Foundation / contributor / 2026-S1 (test)",
+      "issuerName": "Found‮ation",
+      "evidence": {
+       "sha256": "0xd65d1dec8c63620c8832fa37c57c3f3eaffa644a4087437525dd0554179438f0",
+       "uris": [
+        "https://example.invalid/sbt/ev.json"
+       ]
+      }
+     }
+    }
+   },
+   "onchain": null,
+   "ok": false,
+   "error": "credential-issuer-name"
+  }
+ ],
+ "differential": [
+  {
+   "nIn": 0,
+   "nOut": 8,
+   "file": "0x5441504e4554010000000000000000080000000000000000000002000002000000030000030000000400000300000001000000000000040000000000000100000400000001000007000000000000070000000a00000500000003000006000000040000050000000500000c0000000600000b0000000200000a000000020000090000000900000e00000004000012000000090000000000000b00000b0000000e00000d0000000200000c000000120000110000000f0000030000000d000010000000190000180000001b0000130000001c00000f",
+   "designKey": "0x557b1d05a1b90b18411726c51f0942ecdd9093d543b0ebf0ac777576d190bf6f",
+   "truthTableHash": "0x5f15f85e26b8387911163dd94509f98f197189dd98df101a9d9575e54fe86a15"
+  },
+  {
+   "nIn": 0,
+   "nOut": 26,
+   "file": "0x5441504e45540100000000000000001a0000000100000100000002000001000000000000010000000100000000000005000004000000050000000000000600000700000002000007000000030000010000000a0000070000000a0000070000000b000008000000040000080000000600000a0000000900000f0000000c00000d000000060000090000000800000000000001000004000000140000130000000e0000100000000f00000b000000060000080000001600000f0000000e0000100000001800001a0000000f0000190000000d0000110000001500001d0000000100001a000000120000140000001d0000060000001c0000200000001000001c0000000b00001b0000001e0000040000001100001f000000170000060000000c00001a0000000900001c000000000000050000000000001c00000025000022000000050000270000000c00000f00000007000027000000020000220000001100002a0000003000002800000016000009000000000000140000002a000025000000240000310000001f00002c0000002e0000080000002200000e0000001e000025000000080000260000003800002c000000200000120000000500001a0000002a00000a00000011000027000000400000340000003100001300000042000019000000300000010000000d000031000000090000060000002c00002d000000030000030000004100003c00000029000026000000390000290000000f00003f0000003b000049000000150000130000004b0000420000001a0000370000004f00002b0000003a00004c0000001d0000080000004600003300000004000019",
+   "designKey": "0x8b5604f48a383ad7b56adec2a2befe19d4233eb594d87732e51500c4b4baa729",
+   "truthTableHash": "0x1f7c5f5ef663f909c759e4893d1babedcea2b0d43120d39559ec09268d6675f4"
+  },
+  {
+   "nIn": 0,
+   "nOut": 12,
+   "file": "0x5441504e45540100000000000000000c000000000000010000000200000000000003000000000000010000040000000100000400000001000001000000020000060000000400000600000008000006000000010000060000000400000200000005000002000000040000070000000700000c",
+   "designKey": "0xc86ffdde8a25a222517645923021b95e98fb31dca23f35203d6564d70e4143c3",
+   "truthTableHash": "0xc2e1b1b0940ebbb221d4c93b32e949253aedbf7f013f95681e3de89e8e19d38c"
+  },
+  {
+   "nIn": 0,
+   "nOut": 27,
+   "file": "0x5441504e45540100000000000000001b000000010000000000000100000200000003000003000000000000040000000400000200000006000000000000030000030000000000000100000007000005000000060000080000000a000002000000000000050000000d0000020000000500000800000006000003000000080000060000000900000800000011000004000000030000080000000300000d00000005000003000000150000010000000b00001700000005000014000000140000030000001000000a000000080000120000001a0000020000000900001d0000000a00000500000010000010000000040000000000001a0000100000001a000000000000030000060000000f0000010000001300000700000006000023000000240000160000001400001d000000260000280000002900002700000002000019000000140000260000000d000026",
+   "designKey": "0x2c3962c61a57d9082bee4009aec51652bd40b4eacb099255911ca3ceb8fcb3ad",
+   "truthTableHash": "0xba881094af213cbee86e9c1294dff8d16ebff2bb1dede23572c0433449f4279b"
+  },
+  {
+   "nIn": 0,
+   "nOut": 30,
+   "file": "0x5441504e45540100000000000000001e000000000000010000000200000200000002000003000000020000020000000000000500000005000003000000000000040000000500000400000001000004000000060000050000000900000000000008000005000000030000080000000000000b0000000300000500000003000003000000010000040000001000000b000000130000090000000000000d000000120000040000000b00000d0000000c00000c000000070000180000000d000015000000070000180000000400000500000011000000000000150000160000001d000011000000190000100000000900000e00000001000001000000110000220000001e00001a00000010000014000000080000250000000500000b000000230000020000002000001000000015000028000000210000140000000300002a000000000000280000000f00001e0000000300000e0000002b0000200000000900002f0000001900002d000000170000320000000e000023000000110000150000000c0000170000001600001d0000002800001d000000230000330000001e000039",
+   "designKey": "0x4a8d32f688e4fe2850017aaef26fd3aecf45d2a1398e2a766105b4d22b000c3e",
+   "truthTableHash": "0x7a76f774827811b7acd452c6630f8825a0ab4edd648c0a62a88e2fbbb45c9a59"
+  },
+  {
+   "nIn": 0,
+   "nOut": 38,
+   "file": "0x5441504e455401000000000000000026000000000000000000000200000100000001000003000000000000020000000400000500000003000006000000000000020000000100000400000005000008000000040000020000000b00000b00000001000000000000080000030000000d00000d000000090000010000000c00000c0000001100001000000005000010000000030000020000000400000c0000000a0000110000000800000900000001000017000000120000150000001900000600000005000009000000090000110000000900000b0000000400000c000000060000170000000000001e0000001b0000160000000a0000210000000100000b000000140000220000000900000a000000010000070000002000000000000017000004000000170000130000000d000022000000090000260000002700000f000000080000060000001400001f0000000600002e000000040000180000001000002700000013000029000000070000160000001e00001f000000070000230000002100000f000000350000160000002b0000340000001d00002500000016000005",
+   "designKey": "0x6a16b66b17c4b18588b2da17670a56f625774aa6a1fed1ed25cbb59090a30d7f",
+   "truthTableHash": "0xb30891d49c3881633534601ff57863572ccb290e01f6c6e23cf7194486fb3912"
+  },
+  {
+   "nIn": 1,
+   "nOut": 5,
+   "file": "0x5441504e4554010000000001000000050000000000000100000002000002000000010000010000000200000300000004000004000000050000050000000700000600000005000002000000030000070000000300000b0000000500000c0000000c0000050000000600000d0000000c0000060000000400000e0000000400000d0000000800000a0000000300000a0000000800000e0000000800000400000011000014000000080000070000000a0000040000001100001800000003000008000000090000120000000e0000140000000c00000c000000000000110000001500001a000000150000060000001f0000210000000d00001b00000016000015000000030000190000000b000000000000110000230000001000000800000015000025000000290000270000001a00001e0000001e000015000000000000020000000e0000280000000700002a000000110000140000000100000d0000001d0000200000001100002700000028000017000000050000230000002c00000c0000002200003100000000000006",
+   "designKey": "0x8f6a248e097fc92bf681839ada672f85b9f707f9d930f8a14618b5d3cd623590",
+   "truthTableHash": "0x59dcef01cf00586c9f82a19bd1d91b1fb215ca68a318eb6d3051d17d563bb902"
+  },
+  {
+   "nIn": 1,
+   "nOut": 10,
+   "file": "0x5441504e45540100000000010000000a0000000000000100000001000001000000020000000000000400000300000005000004000000020000010000000000000400000006000000000000020000080000000b000008000000030000070000000a00000a000000050000050000000b00000a0000000f0000080000000f00000a000000080000010000000f0000040000000000000f0000000b0000080000000e0000060000000b000008000000100000170000000c000009000000060000120000000100001a0000000d00001b00000002000017000000170000140000001300001e00000005000020",
+   "designKey": "0xeb30ecfa05565df63f1a0dcf5c6011444347f1dd6b2202619bc3285ffd5d5ee7",
+   "truthTableHash": "0x9788a1a4c894aadd5c58f087af4af6866d417b37cbd958e586b97d4c4b4315ee"
+  },
+  {
+   "nIn": 1,
+   "nOut": 34,
+   "file": "0x5441504e4554010000000001000000220000000100000100000002000002000000020000010000000000000400000006000006000000020000040000000800000800000006000001000000090000030000000000000700000003000003000000060000080000000d000008000000040000060000000800000f000000040000110000000a00000b0000000c0000110000001300001100000006000004000000130000110000001600000400000017000004000000040000190000001a00001900000015000012000000010000190000001500001b000000010000080000001300000b00000008000011000000160000080000001d00000a0000000b0000030000000b0000090000001a00001f000000220000010000001300000e00000020000017000000220000050000001d00001a00000009000014000000090000200000000200001e00000000000003000000060000160000002500002d0000002c000010000000150000300000000100000a0000002000000c000000340000050000001b00002a0000001b00000c000000350000350000000a00000f0000000e00002a0000001f00000d0000001700000a000000220000370000001b00002e0000003600003a0000002e00001a000000270000380000003d00000b0000001b0000190000000e00000a0000002d0000140000000e0000160000001a0000370000001800003600000003000046",
+   "designKey": "0xa74b386a5e5fe036fe66ec78a7c16fbc0879f0e727373ba2d5da875e7071d4cc",
+   "truthTableHash": "0x652914738585593a238035916a4eb762f73e7c6eb01f735dc9c022de172fcaf9"
+  },
+  {
+   "nIn": 1,
+   "nOut": 10,
+   "file": "0x5441504e45540100000000010000000a000000020000010000000200000200000003000000000000030000040000000300000200000005000007000000020000010000000200000800000003000005000000070000060000000900000a000000090000000000000e00000b0000000a0000080000000200000e0000000e00000b0000001100001000000010000003000000080000090000000100000200000012000001000000020000100000000e0000120000000300000c00000019000014000000190000120000000e0000130000000f000011000000000000040000001400000800000001000006000000190000050000000a000022000000100000010000000200000400000021000007000000150000090000001300001e0000000f0000140000001d00000f0000001900000f000000200000140000001a0000020000001f00000f0000002600000b0000001c00000c000000070000250000001e0000250000001800001e000000210000010000001f00000d",
+   "designKey": "0x0322c09824dee6b37e77c2f56580cb7b7fd2a36fb4ec45883b2ab8fc1e237c90",
+   "truthTableHash": "0xf23b18da636bfd7030489511bc8b7f710179b1199114b7013ff19f4ab673752e"
+  },
+  {
+   "nIn": 1,
+   "nOut": 25,
+   "file": "0x5441504e45540100000000010000001900000000000002000000030000010000000200000100000004000002000000020000060000000600000000000005000008000000020000080000000100000900000005000003000000090000010000000800000200000007000006000000030000030000000d00000c000000000000070000000600000100000008000005000000100000080000000b00000200000008000005000000010000060000001600001400000019000016000000110000030000000e000011000000150000010000000b00001c0000001e0000160000001d0000020000000c00001e000000030000120000000500000a000000040000110000000d000000000000120000020000001e000010000000040000220000000a00002300000028000021000000250000220000000f00001f000000030000220000001600000e000000220000190000001d0000050000000f0000020000000000001a000000180000230000000500001c0000002b0000270000000b00000a0000000f00000a0000002300000c0000002000003000000015000019000000110000290000002900000a0000001d000005000000010000160000000400002f0000001000001f0000003c000013000000290000160000003f00000e000000110000000000003000000b0000003f0000350000002b0000410000002d00000a00000002000020",
+   "designKey": "0xf9f5fc87303cb71368a87006c1ace76e8f9c6be0bffb9345d4907b3340b87cd2",
+   "truthTableHash": "0x783d09cf046429523578a84c514175522f8a8e954968cc9361f46fe8d6a1dbde"
+  },
+  {
+   "nIn": 1,
+   "nOut": 16,
+   "file": "0x5441504e4554010000000001000000100000000100000000000002000001000000020000040000000000000000000002000005000000020000070000000100000300000007000002000000090000080000000a000007000000010000010000000200000000000009000008000000090000040000000d0000080000000000000e000000090000040000000c0000000000000e000012000000030000030000000700000a0000000e0000020000000c000008",
+   "designKey": "0x6cc111767a4fe36a90fd07704d58ff6d5ddad7b04bc2078cc9cc7ee5b75ea70e",
+   "truthTableHash": "0x8b9eb0008bde22c9650fad63f741c687ff74365e536a6bbcf65daaae871c5f47"
+  },
+  {
+   "nIn": 2,
+   "nOut": 29,
+   "file": "0x5441504e45540100000000020000001d00000003000002000000020000030000000500000400000003000003000000040000050000000200000100000009000008000000000000030000000300000b0000000400000b0000000c0000060000000300000d0000000a000005000000030000070000000c0000040000000a0000110000000c00000600000013000011000000090000110000001100000c000000160000080000000b00000e0000000700000500000010000009000000010000170000001300001a000000060000090000000500001b0000001b0000080000001c0000180000001f0000030000001300000200000020000015000000230000130000001a00000e000000220000200000001200002700000020000016000000160000180000002100000e0000000000001a0000002100001b000000180000270000001700000f00000023000025000000180000160000002f0000010000000600000f0000000d00000b0000001f0000270000001900001e0000003400000a0000001b0000200000000c00001700000001000022000000050000060000000700000d000000190000070000001d000026000000160000280000000c0000350000001e000029000000270000000000000c0000080000002b0000130000003a0000340000000c00000d000000180000460000003e00002b0000001700000f0000000b00002c0000001e0000130000003800003b0000000c000046000000360000100000000b0000020000003b00003600000008000038",
+   "designKey": "0xeb3e830ddb8a63f6988b91130517266292162abbc02e5006913f35d47df80c5b",
+   "truthTableHash": "0xc3f4de5cd1b8e0e79c495e646d81fc94a8a7c0336ed3bdd94324efff86ef46ed"
+  },
+  {
+   "nIn": 2,
+   "nOut": 32,
+   "file": "0x5441504e455401000000000200000020000000030000030000000200000000000000000003000000010000030000000100000400000008000008000000030000060000000100000500000002000000000000020000090000000900000c000000040000040000000d0000030000000700000b0000000200000d00000002000012000000130000080000000a00000d000000130000120000000900000700000017000013000000100000050000001000000d0000000800000100000011000013000000080000100000000e0000090000000d0000170000001000000d0000001c00000a0000001600002100000013000010000000130000070000000f0000000000000c000015",
+   "designKey": "0x6d9c5a0d0d7d304426b6685c9d6a80f4b558cf020eb13f8b9d8d3b24686c62cb",
+   "truthTableHash": "0x5ff53d1d4035cd850ab26662bd3766b07ddabb7cd840a33565efea5abdc161a8"
+  },
+  {
+   "nIn": 2,
+   "nOut": 21,
+   "file": "0x5441504e4554010000000002000000150000000000000200000003000003000000040000030000000400000300000001000005000000060000070000000900000500000009000006000000050000000000000c0000050000000600000b0000000500000c0000000800000f0000000000000b0000000d00000e0000000100000000000009000011000000110000010000000300000a0000000d0000080000000c00000900000016000008000000000000060000000600000100000002000007000000050000010000001600000b0000001d00001b0000001d00000600000003000012000000080000060000001a00000e000000070000040000000600000400000025000018000000020000080000001c000023000000010000120000001a0000170000002300001c0000000c0000030000001a00001300000009000011000000280000220000000a0000260000001900002d000000030000040000001d0000240000001a00001e0000001c00002800000028000009000000320000000000001200003100000031000006000000320000080000001b00000c0000001100002f0000001d000021000000270000090000000d000014000000140000250000000300000d0000001800003b000000310000090000002e000032000000090000010000002e00000b",
+   "designKey": "0xb0f3e264dce1222dc74d2a75314c44854706b28a7eef5ae9b0beec6834e7ea01",
+   "truthTableHash": "0x3c236e72f20a6d97ca27ba75a741f821d1de1d5f7c0b87978e8b40074221cbfe"
+  },
+  {
+   "nIn": 2,
+   "nOut": 18,
+   "file": "0x5441504e455401000000000200000012000000010000010000000200000200000000000002000000040000040000000100000100000003000007000000080000050000000200000200000002000003000000080000040000000a000001000000060000040000000f00000b000000060000060000000500000b0000000f0000020000001300000400000013000009000000110000010000001100000b000000070000170000000800000f00000014000001000000090000040000000800000e0000000c00001c0000001900001600000003000006000000130000070000001000001a0000000400001e0000001400001200000013000008000000030000040000001200001b0000000500000c0000000c000022000000000000010000001400000c00000001000028000000140000060000001000001f0000002100001a0000002b0000150000002200002f0000002700000e000000020000160000002b0000240000002d00001f0000002b00001f0000002c00001b0000000300002800000029000015",
+   "designKey": "0xd77aef8e3baa6f78ecf37229c23ed65215cf9d5bcc918dcb3189e20a5e2e0b9f",
+   "truthTableHash": "0x0a1415c97bb5bb1b5f85f04f8fa5bba27fb8678a630529ccda224afa609638e5"
+  },
+  {
+   "nIn": 2,
+   "nOut": 24,
+   "file": "0x5441504e45540100000000020000001800000002000002000000030000040000000000000500000005000006000000000000060000000700000000000009000000000000070000020000000a000007000000060000010000000b00000a0000000d00000500000003000008000000030000070000000d000007000000060000080000000600000e00000000000003000000010000100000000f00000b0000000500000c000000140000040000000600001600000013000009000000050000090000001800000d0000000900000d0000001a00000d0000001b00000c00000005000019000000180000170000000d0000220000001f0000100000001400000f000000150000230000000500000c",
+   "designKey": "0xd0b997398a5fd10dcf880a4eae65ff1f1b6b84dc445716853a20d013bcdb9bef",
+   "truthTableHash": "0xcdd9be5a34a1cf251482e09f1528a0d5560556083ea0020d811a3a283b9f8c35"
+  },
+  {
+   "nIn": 2,
+   "nOut": 18,
+   "file": "0x5441504e455401000000000200000012000000000000030000000100000100000005000001000000020000040000000600000700000007000000000000040000040000000100000a000000000000040000000c0000070000000500000b0000000c0000010000000c00000d0000000a00000d000000020000030000000800000300000001000010000000040000070000000a0000120000000a00000700000008000013000000150000080000000000001500000009000005000000120000080000001800000f0000000800000e0000001000001800000004000008",
+   "designKey": "0x1063b37dfcf884e6050c6d03d49615f5cfd689c931a1635f3f9de01a679d3117",
+   "truthTableHash": "0xc8ab6c0848e597b357d206f6c699d2d4474384ebd255b42c76fb97a75e1b028d"
+  },
+  {
+   "nIn": 3,
+   "nOut": 18,
+   "file": "0x5441504e455401000000000300000012000000020000030000000000000100000003000000000000050000060000000800000000000008000000000000010000000000000000000b0000000000000a0000000500000a000000020000000000000000000f000000010000000000000300000e00000001000006000000130000040000000f000006000000070000010000000b00000e0000000100000600000001000009000000100000100000000f00000e00000016000010000000160000180000000300001c0000000d00001e00000019000004000000060000130000001900000f00000016000005000000050000000000000b0000010000000f0000200000000f00000200000003000013000000000000280000000d000000000000000000130000000a0000180000000c00001c0000000500001b0000001f000006000000150000160000000b0000250000000f000002000000050000080000001a00001c000000020000200000002d0000050000003200000900000031000026000000370000330000001c00001e00000001000037000000150000320000001f0000260000002e00000b0000002500002d0000001500001a000000080000180000001900003e000000070000100000003e00000c000000410000350000000f00002f0000000f0000110000000d0000250000003e000002",
+   "designKey": "0x00a37d51535d21d71fbdc96b35e03b4b98bfe149516de33155d3822f715dd919",
+   "truthTableHash": "0x3b714822eeb654bf401cb36fad79ffaec2924e5c892a7838af1996be6e18a264"
+  },
+  {
+   "nIn": 3,
+   "nOut": 26,
+   "file": "0x5441504e45540100000000030000001a000000020000020000000200000400000002000000000000060000060000000300000500000001000006000000070000060000000800000200000005000009000000070000030000000400000800000002000004000000080000030000000e0000050000000c0000080000000700000d0000000c00000400000010000005000000120000000000001500001300000005000000000000100000170000001600000400000016000017000000090000040000001400000400000000000017000000120000080000001900000a0000002100000e0000001d000001000000170000020000001800000300000007000022000000210000250000002300001c00000000000013000000070000140000000700001d000000220000030000000600000e0000000e000028000000090000150000000b000018000000250000170000002f00001b0000002e00000c0000002900001e00000021000034000000330000080000001d0000190000002c00000200000029000020000000080000060000002c00003600000025000019",
+   "designKey": "0xeccfd39b81b747a704e790db8b5f68a542220d29fdea54a74d2dad111b78786a",
+   "truthTableHash": "0x5b9153ba851fdc138ee25f62e514b1322fca0f0d430c06033e20531a0bcd4aaf"
+  },
+  {
+   "nIn": 3,
+   "nOut": 7,
+   "file": "0x5441504e455401000000000300000007000000000000010000000400000200000003000000000000070000000000000000000200000002000003000000080000060000000b0000090000000600000900000005000003000000040000030000000400000f0000000900000c0000000a00000a000000010000020000000600000b000000030000010000000100000d",
+   "designKey": "0x10ce8ee2a2659ec9fe7184bf1988e3321434831e0465de2d45ae8439aa6a8670",
+   "truthTableHash": "0x8a31744afb39860fadf2bd00afc7b4ded1ea7f844ad56645e37dc72b2e8b02da"
+  },
+  {
+   "nIn": 3,
+   "nOut": 13,
+   "file": "0x5441504e45540100000000030000000d0000000300000000000005000005000000060000030000000100000100000002000004000000030000030000000a0000050000000100000600000005000008000000050000000000000900000d0000000d0000000000000300000a000000080000060000000300000c0000000200000100000006000014000000000000040000000500000b000000000000050000000300000b000000050000000000000b00001600000003000002000000080000110000001c00000400000013000014000000100000070000002000000d00000012000007000000010000210000000800000d000000200000190000000400000e00000017000008000000070000080000000b00000b0000000d0000210000002a0000180000000d00001f0000002200001d0000001f000019000000020000120000002d000000000000170000130000000a000012000000180000210000002c0000140000001200002b00000009000010000000080000300000001c00001b00000011000035000000390000040000002800002d0000000a00002700000033000039000000360000280000003800001f0000002700002000000038000033000000330000050000002300003b0000000b00001c0000001d0000320000000600002e0000002b000002000000240000320000002e00003a",
+   "designKey": "0xc4680d81ca1fa286867cc1d8aac97ed6c001be84a9a49f2b668a8dedf9d3417e",
+   "truthTableHash": "0x241086a53c0fc1ba872b41b59871c7c999cac70e761534524f66990cff718ab0"
+  },
+  {
+   "nIn": 3,
+   "nOut": 1,
+   "file": "0x5441504e455401000000000300000001000000030000000000000200000300000002000005000000030000030000000300000800000007000009000000020000060000000800000700000007000001000000000000090000000c00000e0000000c000009000000080000090000000c000009000000010000070000000e0000050000000000000a0000000d000011000000070000040000000d00000c000000150000000000000f00000a0000000c0000100000001200000c0000000b0000020000000d000017000000090000110000000300001f0000000b0000020000000f00001b0000000a00000b000000020000220000001c00001a000000240000150000000f00001f0000000500000700000000000001",
+   "designKey": "0x109dce75caf7e37d8404bb6d7d3a276968f6cba58644156d32d6ae0bcac7801a",
+   "truthTableHash": "0x80e9491e4b8ebb644ab1abe81a19ac1a157cadf479ff6dcc4ac0592b6fee75ca"
+  },
+  {
+   "nIn": 3,
+   "nOut": 37,
+   "file": "0x5441504e4554010000000003000000250000000400000300000003000005000000000000000000000200000200000002000000000000070000000000000100000a000000060000090000000200000900000008000004000000040000020000000f0000040000000100000c00000004000008000000080000060000000200000e0000000e0000080000000d00000c0000000800000600000005000014000000060000030000000d0000160000000f00000e0000000e00001300000005000002000000090000020000001600000b0000000d0000120000001300001c0000001900001c000000080000160000000b000004000000220000240000000200000d0000000d00000a000000040000080000001b0000190000002000001a0000002500000a0000000a00001d0000000500000e0000002100000c0000000700000b000000240000110000002f00001f000000050000170000002a0000010000002a0000080000002800002f00000031000027000000170000090000002700000b0000000300001f0000001200000a000000150000180000001400001f000000240000200000000c00001e0000000600001f0000003300001b0000002500002900000013000037000000040000360000002100002800000000000009000000090000250000002f000024000000340000040000003700002e00000044000024",
+   "designKey": "0x201ced637e2231a78133c7c22cb1a0e248b96e7e300acefc79f20901bf189950",
+   "truthTableHash": "0x565fbbb83d50c3e3189e6a5277a9cd787e58fb59769179561f56883f1aa41f3c"
+  },
+  {
+   "nIn": 4,
+   "nOut": 22,
+   "file": "0x5441504e455401000000000400000016000000000000000000000300000500000004000005000000010000040000000800000100000000000001000000030000030000000100000c0000000c00000500000006000000000000080000000000000600000e000000100000020000000a00000d0000000200000000000002000001000000030000120000001600000a00000016000009000000080000090000000c0000020000000b0000030000000b00000f0000000b0000170000001500000700000013000014000000080000040000000300000a000000160000120000000200000a000000040000230000002000000300000012000025000000260000150000000f0000040000001300000b0000000e00001f0000002800000e0000000d000029000000180000290000002400001c000000240000140000000600001a00000021000014000000120000090000001100001d000000130000100000002e0000200000000000001500000025000011000000260000200000000200002e0000001800001700000017000021000000360000160000003a00001b0000002f00003300000031000008000000290000170000002200002900000037000009000000420000350000001b0000210000000300002c0000003300000a0000001b00002f0000003f00002e0000000200003400000024000014",
+   "designKey": "0x520ff0ddcc6b72d52aeaf75ea331b69875ba4e59ad400d4755427b6b3d387b57",
+   "truthTableHash": "0x836ed965cb78afb7d183a22db5916f9a2ffb217b9251182c6ff891652002ecdf"
+  },
+  {
+   "nIn": 4,
+   "nOut": 27,
+   "file": "0x5441504e45540100000000040000001b000000030000050000000400000400000001000004000000030000030000000100000700000009000001000000040000030000000b00000000000007000004000000070000070000000e00000c000000060000100000000c0000020000001100000000000009000008000000020000100000000d00000200000007000014000000140000080000000100000d000000130000140000000a00000d00000007000003000000080000060000001a0000120000001500001b0000001700001100000019000007000000200000030000001c0000160000001800001c000000220000070000001f00000900000011000018000000190000120000000400000a000000090000000000000b00002000000011000023000000150000080000002a000015000000230000010000000a00002b000000170000280000001d0000300000002700002b0000001c0000220000000400001f000000180000210000002000001f0000002000001000000024000024000000250000190000003100002a0000000700001f0000002600001d00000022000037000000390000290000002c0000280000003e00002b000000340000360000000100002f0000002e000025000000430000180000003400003e000000070000450000004500003f0000004000002b",
+   "designKey": "0xbcc9d88e610a52b6aa8700ece9d39c7e0098560b590fb69124c37407b37de234",
+   "truthTableHash": "0x5e142e0e342f613d5b39d696cc977e61b95bdcbe6ebe6f9acb43b61134ceb3d0"
+  },
+  {
+   "nIn": 4,
+   "nOut": 13,
+   "file": "0x5441504e45540100000000040000000d0000000300000100000002000006000000040000070000000100000700000007000004000000080000030000000600000a000000040000000000000d00000300000002000000000000020000020000000e000005000000040000010000000600000a0000000e00000a0000000100000a00000010000001",
+   "designKey": "0xce20145467203136665ab19e33c98c74559bcbfd6c1ca7ac8df1632b3b20ac71",
+   "truthTableHash": "0xd0ef55a7eaa63b7b70d18742bd533c14c69c40b10e7c976a147df72af2f193e7"
+  },
+  {
+   "nIn": 4,
+   "nOut": 31,
+   "file": "0x5441504e45540100000000040000001f0000000300000300000004000006000000050000040000000500000700000009000001000000000000010000000600000900000009000002000000090000030000000b00000b000000060000040000000e0000020000000f0000080000000a000003000000080000060000000a0000030000000300000a000000120000060000000f0000140000001000000e0000000600000c0000000c00000f00000018000019000000190000160000000900000f000000020000090000001d00000c0000000800000e0000000500000a00000011000017000000080000230000001f00001e0000000700000e0000000b00001c00000011000010000000000000120000000e0000020000002400001a0000001100000b0000002100000a0000001300000d000000070000130000000d00000c00000015000024000000050000200000003000000d00000020000006000000280000120000002c000027000000150000330000001e00001200000037000030000000120000040000003200003200000014000022000000180000190000000a0000360000002900001e000000090000110000002e00001300000003000026000000120000320000002f0000080000000a000031000000170000320000002b0000450000001e00002d000000070000160000003c0000090000000600002e000000120000450000003200002d0000004a000027000000360000020000002900002c0000000b0000500000004100001c000000060000020000005000000400000039000008000000270000310000002900002e0000002a000039",
+   "designKey": "0xfe1e6c115d705f191c658e66bfb4a32b063be4679caa44ae75e09cec77d1aad1",
+   "truthTableHash": "0x32f5d5ca23b91318cc6ea153b0543fb7c52a74bbf1187d9c3c225ec82369be0c"
+  },
+  {
+   "nIn": 4,
+   "nOut": 12,
+   "file": "0x5441504e45540100000000040000000c00000001000001000000060000020000000300000000000002000002000000060000050000000400000900000000000008000000090000080000000200000300000003000008000000080000060000000000000a0000000000000d000000030000040000000400000e0000000b00000a0000000700000a00000009000011000000070000080000000900000f000000080000090000001500000b000000020000130000001c0000120000000a00001c0000001d0000190000001700000c0000000a0000050000001d0000020000000c00001a0000000500000c0000002300001c0000000d0000000000000f00001c000000170000090000001a000020000000000000140000001f0000210000001a000003000000140000070000002b0000290000002300000d0000002f00002a0000001e000019000000070000090000001500000f00000025000033000000230000330000002d00000b000000330000150000001e0000140000002c00000f0000001d0000020000002e00002f0000001e00000c00000001000020",
+   "designKey": "0xe0aa760e38551c22c0db532076cba21e5eeb9dd99ea5751980fcd5905a672ca0",
+   "truthTableHash": "0xf8afe14194a22bd418646bcc8ad2e88c3244b0c70afc4e8242fe601b46189729"
+  },
+  {
+   "nIn": 4,
+   "nOut": 1,
+   "file": "0x5441504e45540100000000040000000100000000000004000000030000010000000700000700000003000002000000060000040000000400000500000002000007000000040000030000000600000a0000000800000c0000000000000800000006000003000000010000090000000300000f0000000500000c0000000200000800000015000015000000040000050000000a0000030000000a0000040000000200000c0000001400000a0000000f00000c0000000e0000170000001900000b0000001500001e0000000900001a0000000100001700000005000021000000200000160000002200000c0000002100000e0000000a000025000000260000010000001c00001e000000020000260000000600000e",
+   "designKey": "0xa50c3bbe355912907a6cccf6d27972fee1f6724a6fbab2462d1e9569424530bc",
+   "truthTableHash": "0xe22114d47b37d809274c0e148e7f36abe396b3f3d227ec0e3c704c331c66850c"
+  },
+  {
+   "nIn": 5,
+   "nOut": 6,
+   "file": "0x5441504e4554010000000005000000060000000200000300000000000006000000000000010000000600000900000006000007000000060000040000000400000700000009000007000000080000030000000f00000d000000100000030000000e00000e0000000d00000100000006000009000000040000060000000c00000a000000160000120000000d0000160000000c0000010000000500000d000000150000110000000700000e0000000a0000080000001700000e00000008000003000000150000120000001f00001e0000000c00000d0000000c00001d0000001200000e0000001b0000180000000c0000000000001300001000000019000006",
+   "designKey": "0x8cb180a949a61d8818a24a1ae3abecc213fa9808294e33274f923096dc38fa0f",
+   "truthTableHash": "0x832a7955100610afa26645ba4551e3f9029eed51aaa73ff5ad0cec4cbeb30ff8"
+  },
+  {
+   "nIn": 5,
+   "nOut": 36,
+   "file": "0x5441504e4554010000000005000000240000000000000000000003000003000000010000070000000800000200000000000005000000040000000000000a00000b0000000a000004000000090000010000000b000006000000050000030000000d0000100000000f0000000000000e0000100000000900000800000015000006000000140000020000000e0000070000000d0000180000000f00000b00000002000019000000050000180000000f0000150000000500000b0000000b0000140000001400001b000000140000070000001c0000130000001f0000080000001a00000200000003000005000000080000030000000b0000180000001800000b0000001c0000260000001d00000d0000001a00001c0000002a00001b0000001900001b0000002700001e000000040000180000002500002a0000001e0000300000000c0000040000001b0000110000002200002400000032000006000000240000200000002b00001100000001000027000000350000260000000d0000330000002f0000310000001e0000240000002c00003c0000003a0000340000001d00001200000030000014000000110000260000002d000001000000050000200000003900000e000000270000030000003f0000140000003400002c0000002d0000040000002600001b0000003f000020000000260000010000001300002c0000001500000c000000480000360000000500003d0000003700001f000000440000360000002800001b0000002c00000e0000004c0000050000002500003c00000006000043000000390000340000000b00001e0000003d00002b000000050000200000004c0000550000004900003e0000005800004b0000000d000032000000150000540000001100003100000059000017000000240000480000001700000e0000005400003900000064000052",
+   "designKey": "0x59e3b70d2c3a5dc159c06a189eae96da2b4cebbc042ede53643763e6b389f81b",
+   "truthTableHash": "0x2085af6abac27556ea6406552e2627c3687220c5b5287f73e24f4c63842baa9e"
+  },
+  {
+   "nIn": 5,
+   "nOut": 2,
+   "file": "0x5441504e455401000000000500000002000000040000040000000700000400000005000004000000090000020000000800000a0000000b00000a0000000c0000040000000b000005000000020000020000000500000a000000000000080000000700000a000000020000120000000e00000d0000000100000800000006000009000000060000110000000200000e000000040000020000000c00001100000006000013000000130000190000000a00000c0000001000001d0000001c0000030000001b00000b0000000400000100000010000020000000070000030000000f000014",
+   "designKey": "0xaa9a2a7d955cffc30baab4192a3e67c3316ecef75453ac4ac2d828f575ccdabd",
+   "truthTableHash": "0x64838a30dc80077c708d9231979c4536eed8495d1ed8e97f2a646a962d4e3aa4"
+  },
+  {
+   "nIn": 5,
+   "nOut": 12,
+   "file": "0x5441504e45540100000000050000000c00000003000004000000070000050000000300000000000000000005000000000000020000000b0000090000000700000a0000000d00000b0000000700000e0000000b00000e000000090000100000001100000f00000011000002000000010000020000000000001000000003000001000000040000060000000400000100000013000017000000060000010000000d00000b000000190000080000000f00001b0000001d00000f000000020000040000000f00001f0000001b00000a0000001f00000b000000020000110000001600000f",
+   "designKey": "0x367229fb0b6861eed3081dfa86edf05c6be3aa507f61d5152672721c2569347c",
+   "truthTableHash": "0x6bc0d94079dc3e4d6de16ac069da51f2b24749b98ec74172296c0e2709909f60"
+  },
+  {
+   "nIn": 5,
+   "nOut": 13,
+   "file": "0x5441504e45540100000000050000000d00000000000003000000010000010000000400000400000003000003000000070000060000000000000000000001000002000000010000020000000a0000000000000c00000c0000000d000003000000040000000000000a00000a00000012000007000000040000110000000400000a0000000000000f00000015000017000000010000020000000800000d0000000b00000e0000000d0000020000000400001c0000000d00000b00000016000004000000100000050000000c000006000000070000110000001800000b0000000200000d0000000a000015000000200000220000000f0000080000001e0000060000001800000c0000000d0000250000000800002200000015000006000000020000030000000a000024000000120000270000000b0000120000001300000a000000070000110000000f0000070000003200000e0000001400001e0000002e00001e0000000900000600000000000032000000230000340000000f0000390000002d0000320000001500001c0000002f00003000000024000030000000240000250000003200000f000000290000180000000600002b0000002e0000120000000f00000d0000000a00000e000000340000410000003e00001100000046000029000000210000040000000d0000290000003400003b0000001700000d0000003600000e00000009000017",
+   "designKey": "0x32438e48a2650a82bc6fadd25a77afa61920737e280b9101eb9d87c330be6bf7",
+   "truthTableHash": "0x16431a3df9ce28ff34e2edce2dc37c382ee0d312368bf6c1ecaef8b6f9663b1a"
+  },
+  {
+   "nIn": 5,
+   "nOut": 7,
+   "file": "0x5441504e455401000000000500000007000000050000000000000600000400000004000005000000050000080000000a0000040000000a00000100000009000005000000070000000000000800000c000000060000080000000000000700000009000007000000120000090000001300000200000014000003000000120000000000000f000000000000020000080000000f0000110000000800001200000019000012000000140000040000000100001b0000000900001b0000000000001800000012000004000000010000160000000e000015000000020000040000000600001800000014000009000000030000020000000f00001200000019000021000000110000090000000000000c000000130000020000001d0000180000001200000600000017000008000000130000250000001e00001d000000010000150000000e00000e00000018000015000000180000090000002b0000300000002d0000030000000300000700000006000001000000230000360000001c0000140000000e0000020000001f0000000000003000002c000000320000000000002d00003e",
+   "designKey": "0x36a12565cc71f5550e3af0e8aabe327cea0c2a95e347787287236a05ddbea686",
+   "truthTableHash": "0x3e14d4c94df743b1ee534adaae52f8847eca10a223c9942135992bba98dd0446"
+  },
+  {
+   "nIn": 6,
+   "nOut": 8,
+   "file": "0x5441504e4554010000000006000000080000000300000700000001000000000000010000070000000200000700000001000007000000020000020000000400000b0000000500000d000000090000010000000800000b00000004000007000000020000060000000200000600000012000000000000000000140000000400000d000000080000170000000800000100000014000011000000030000100000000d0000130000000a0000140000000600000c0000000100001d000000180000190000000700000d0000000b000011000000180000160000001a00001f00000024000017",
+   "designKey": "0xd8664e86a7c92bd1d516a7444e60cce9a530b13e7218e24e26cf95db949eb687",
+   "truthTableHash": "0x67d7d3cf80281cc10840f1cf366dd227baf1ad5e6a4c4c4705dd24e6c56602a6"
+  },
+  {
+   "nIn": 6,
+   "nOut": 7,
+   "file": "0x5441504e45540100000000060000000700000004000006000000040000030000000200000100000000000007000000070000020000000b0000050000000d0000070000000500000c0000000b0000010000000100000100000011000007000000010000060000000900000b000000080000120000000700000a000000040000130000000e00000a0000000100000f0000000e00000e0000000600001200000008000008000000190000000000000b000003000000090000170000000d00000600000015000019000000110000040000000200000c000000110000020000001e0000150000000600000a00000009000023000000010000210000001500001b000000280000270000000300000f",
+   "designKey": "0x59caad18aedc2e8bb082eee5092494ae07445335553996288b51f2ff3348f3cd",
+   "truthTableHash": "0x1295e40ddf7c55d655c0a9103f5c78297845554b1e92ac14043402fc5aab349c"
+  },
+  {
+   "nIn": 6,
+   "nOut": 25,
+   "file": "0x5441504e4554010000000006000000190000000300000400000005000004000000060000020000000a000006000000080000050000000b00000a0000000b00000700000002000001000000060000010000000b0000030000000d0000030000000d00000e0000000c00000a0000000000000a0000000400000d0000000a0000020000001700000e00000001000007000000070000140000001400000d00000012000015000000130000140000000c00000b00000006000010000000190000130000000800000c0000001e00001b000000210000150000002200000d000000120000080000001f000015000000170000190000000200000d000000100000250000001a0000020000000a00000d0000001f0000090000002c0000260000001800002b0000000400000f0000000600001e000000220000140000002800001f000000040000020000001000000a0000001000002700000007000022000000200000110000001f000021000000170000150000002900000a000000330000310000003300002f0000002b00002f00000008000031000000210000150000001800002a00000019000017000000110000300000001b00000d0000000600002b0000000c000008000000380000010000001100003a0000003e00002c0000001200000a000000340000140000000b000022000000210000350000000c00001d0000002300001b0000004e00004a0000004900004f000000280000490000003000002b00000020000052000000350000130000000400002e000000290000230000004600004b",
+   "designKey": "0x2540847d55cde28916338e25bf5b8a97824761c78faab2fc06b17abb4fc5654e",
+   "truthTableHash": "0x2d671aed9314f4bad8385d5eba95dfdee578a46f13899ad1d352735fe13e042b"
+  },
+  {
+   "nIn": 6,
+   "nOut": 21,
+   "file": "0x5441504e455401000000000600000015000000060000040000000200000200000003000008000000060000010000000600000a0000000c00000200000005000008000000090000060000000c0000090000000a0000000000000e0000020000000600000b00000007000009000000120000070000000c0000110000000c0000070000000c0000170000001700000e00000016000011000000010000010000000d0000090000000300000e000000070000140000001e00000b0000001b00001300000020000016000000090000180000002100000700000020000023000000050000080000000100001b000000110000040000002700001e00000005000006000000010000000000001400000900000011000024000000010000020000001d000014000000070000100000002e0000090000002600000f000000010000290000002400000b000000120000050000000000002300000000000013000000030000140000001f000030000000120000120000001200002a000000210000180000000100001f0000003c00003900000005000025000000180000110000003200003a0000001c00000d0000002300002e0000001f00000c000000220000290000001d0000000000001300002b000000260000260000000a0000170000000a00000c0000003c0000240000000100002f000000280000230000002a0000440000004a0000130000000100002400000015000005000000220000350000004400003e",
+   "designKey": "0x20699bd3a00c4db9e2ff152ecdf8151b7e3036583b95607f77d266f7eef606dc",
+   "truthTableHash": "0xbadccee88addc469f3d019ee4954bcdd5a1cc9b2f82faa004bcf86542f8b78ab"
+  },
+  {
+   "nIn": 6,
+   "nOut": 39,
+   "file": "0x5441504e4554010000000006000000270000000000000100000001000002000000050000010000000a00000500000007000008000000090000070000000a00000a0000000d0000090000000800000c000000080000010000000500000c0000000f0000030000001100000d00000011000008000000020000140000000d0000100000000b0000130000000d00001200000017000016000000000000070000000100000e0000000800001000000013000013000000020000130000001f00001500000005000002000000010000160000001100001a00000014000023000000190000150000002200001300000019000005000000240000160000001f00000c000000100000210000000600000c0000000900001d000000210000140000000c0000230000000700000a000000270000190000000f0000110000001d0000190000002900002700000022000018000000010000110000000300002d000000290000340000000700003400000033000010000000390000200000001a00002f0000000500002b0000000b00001100000030000034000000300000040000002e00003b0000002200001f0000000400001b0000001700003f000000070000340000004000001d0000002200000e0000000400001e0000001600003f0000000a0000120000003c0000140000002100001d00000015000042000000320000430000003500003c0000000400001e000000310000210000001000003d0000000400002e0000003e00002800000029000023000000020000440000000b00004e",
+   "designKey": "0xc8bb3e260b01342d7c0ef9a755711f93dee1f411e6d3d9cf63a2edb48aa15928",
+   "truthTableHash": "0xd36102b904af255f802bf68b11611d1d31a37f621e0e4ba7032314289599d04f"
+  },
+  {
+   "nIn": 6,
+   "nOut": 22,
+   "file": "0x5441504e4554010000000006000000160000000000000700000003000002000000090000020000000300000900000001000001000000030000010000000700000d0000000000000c0000000100000b0000000f0000080000000f0000030000001200000d0000000d0000110000000600000300000008000012000000140000160000001100000b00000000000013000000060000080000001500000500000006000000000000090000000000001c00000a000000090000020000001c00000e0000001600000a0000001200001a0000000d0000050000000a0000040000000900001c0000001e0000250000000b00001b0000000b00001e000000030000050000000500001f0000001e00002a000000110000100000001b0000170000000600000a0000002c00000b0000002700000a0000001700002e0000001f000027000000030000210000000500001d0000000e0000180000000b00000500000020000010000000350000060000003100001500000033000014000000100000200000002c00002d0000001b0000010000002e000022000000010000290000001300001600000014000019000000170000220000002800003500000029000000000000280000210000001c000021000000270000130000002900001f0000000c0000160000000000000e0000002600000d0000001200004a0000002200001b0000001400000b00000025000023000000280000320000002b000018000000180000430000001200001a000000500000140000004100001c0000003e00003c000000260000400000002f000006",
+   "designKey": "0xecc12d98b2f13627ef72a12072de840b6e3a927e8cef95bc29f4a6234b0bcaae",
+   "truthTableHash": "0xc792f6cc34a6c0db6fe190ecb0434efb210994268c4c6cf3084d4f20b7a0e8a0"
+  },
+  {
+   "nIn": 7,
+   "nOut": 6,
+   "file": "0x5441504e45540100000000070000000600000002000008000000020000020000000200000800000004000009000000080000000000000700000c0000000a000003000000000000080000000d00000a00000005000007000000120000010000000600000a000000120000000000001100000a0000000a0000150000000800000e00000012000001",
+   "designKey": "0x97414def593e00993570b80e16b2be15fdac29b02ce0e5ac2f53761f8be0c1cd",
+   "truthTableHash": "0x8e4b7aa5370580debfb3cbfc53d298bb21a6fdf49c81b0da62baa8a85c084794"
+  },
+  {
+   "nIn": 7,
+   "nOut": 35,
+   "file": "0x5441504e45540100000000070000002300000005000004000000030000030000000800000a000000030000090000000900000c000000000000080000000c0000040000000300000d0000000900000900000002000006000000050000000000000e00000d0000000b0000140000000700000c0000000800000c0000000100000900000010000010000000120000160000000d0000190000000200000f0000001a000011000000080000010000001900000800000005000012000000180000030000001a000017000000110000080000001a0000200000000500001f0000000c0000160000000f000006000000180000060000001c0000140000002400000700000007000015000000030000290000001b0000010000000a0000050000000e00000d00000006000004000000060000100000001600001000000027000013000000300000140000002e000024000000300000260000002b00001f000000060000220000000400001b0000001200001c0000000d00000e000000000000330000002300001900000027000038",
+   "designKey": "0x8cd6969a2ec58ec9b5253cbebde847c5bb5069bbd0b5364d9409bdb6f901f3d9",
+   "truthTableHash": "0x98eb59171e0002cff35c8747037ebc2ec75249009587101290f655bead10bb1f"
+  },
+  {
+   "nIn": 7,
+   "nOut": 17,
+   "file": "0x5441504e4554010000000007000000110000000200000800000004000004000000040000060000000500000a0000000300000700000000000005000000000000000000000c00000400000000000003000000060000030000000900000300000004000007000000040000140000000b0000010000000200000f00000010000007000000140000040000000c0000140000001700000700000006000016000000190000170000000c0000110000001a00000e000000190000130000000300001e000000190000040000000f0000130000000a0000010000001f00001c00000024000010",
+   "designKey": "0x20f747f10523bc74c133abc215c014a347b30d25eb27daf90669a8e8575db39c",
+   "truthTableHash": "0x2e1248dcd3d36d237e451ce307a471fd363f62f646e1b5212ad362d140847631"
+  },
+  {
+   "nIn": 7,
+   "nOut": 8,
+   "file": "0x5441504e45540100000000070000000800000006000005000000050000070000000200000800000005000004000000070000060000000a0000060000000a0000070000000e00000c00000007000008000000080000100000001100000300000000000005000000060000120000000700000b00000015000002000000140000110000001400000d000000070000190000000b0000090000000900000d000000080000080000001b000006000000060000050000001200000e0000000100000f00000003000010000000130000070000001f00000f0000001600001f0000000a0000000000001e000007000000010000040000000d0000180000000a00001f0000000000000c00000002000013000000180000040000002c0000210000001b00001a0000002600001300000005000014000000160000300000003000000c0000002f0000290000003000001a000000320000340000002f00000c000000150000130000002500000b0000001b000013",
+   "designKey": "0x4564813c46fab6b1b8667439ec930ca0433df50741bc679c3db734cd93293b50",
+   "truthTableHash": "0xd6a8ae023e9e9b3ddf427bd19a8e26fb513568c4d5b64ce66f8f712118f83715"
+  },
+  {
+   "nIn": 7,
+   "nOut": 3,
+   "file": "0x5441504e45540100000000070000000300000008000006000000020000010000000a000005000000040000070000000700000b0000000100000d0000000c0000020000000f0000090000000c0000040000000400000300000001000005000000040000130000001000000a00000011000011000000100000120000000b0000020000000000001000000011000004000000110000070000000400000a000000190000120000000800001b0000001c0000150000000f000014000000120000070000001300001a00000017000009000000150000200000000c00000b0000001000000f0000001b00000e000000040000230000001300001e00000018000029000000280000220000001000000a",
+   "designKey": "0x2853fd855cd85f9fc2284a6c182871820708f27763ec420508086203c58f74c4",
+   "truthTableHash": "0xe8223237b93bae544bf95d9ae5ae50f1b3741282e6ba117fdc575658c5089666"
+  },
+  {
+   "nIn": 7,
+   "nOut": 18,
+   "file": "0x5441504e455401000000000700000012000000010000050000000800000800000001000008000000010000090000000000000b000000060000030000000a0000070000000f0000030000000200000e000000040000090000000400000b0000000c000008000000130000070000000600000b0000000800000b0000000b0000140000000d000005000000000000180000001800000e0000000600001b0000000600000e0000000800000a0000001a0000130000000800001b000000030000080000000e00000a0000001500000c00000022000015000000070000140000000d000010000000220000080000002000001b000000110000180000001300000a000000230000240000001300000b000000250000220000002b00001e0000000e00000f0000002300000c0000001b00001b0000000a0000290000000000000a000000090000270000000a00002e000000020000020000002b000009000000260000270000001e000023000000050000140000001300001e000000210000170000000300002c0000001200000a00000005000034",
+   "designKey": "0x5b3f1d08a5bfeb9614b6008cde6d2027da80f6ff3533532ffaf148f7dbd47437",
+   "truthTableHash": "0x18934186dd22371069f332510a5380dc456a0b50ca82740fa0410f88f7317058"
+  },
+  {
+   "nIn": 8,
+   "nOut": 1,
+   "file": "0x5441504e455401000000000800000001000000030000070000000700000800000005000009000000070000030000000900000b0000000200000b0000000e000002000000000000010000000300000e0000000300000a000000110000090000000d0000100000000600000b00000015000001000000090000000000001500000d000000020000100000000e0000040000000b000004000000080000000000000d0000160000001100000d0000000f0000000000000e00001f000000120000100000001500000d0000002300000500000000000017000000240000200000000500000c000000120000040000001f0000020000000f0000040000000d00001a000000090000120000002600000e0000000800001f000000270000180000000100000c000000030000230000002b00002e0000002f0000160000001c000019000000340000320000000e00000c0000001d000017000000170000350000001f000022000000360000250000001e0000000000000900002200000014000029000000280000090000001100002f",
+   "designKey": "0xbe586c35d460f844fe38e35b73b8551bc82620183dd0e23b28c2a5057635a98e",
+   "truthTableHash": "0xc90379037ea157b71dbf67133a67d471c010f637726ede35e90fd0455b8c8062"
+  },
+  {
+   "nIn": 8,
+   "nOut": 6,
+   "file": "0x5441504e4554010000000008000000060000000200000400000008000003000000040000000000000a000007000000080000030000000400000e000000040000090000000300000b0000000800000d000000100000050000000e0000100000000500000b0000000b0000090000000100000b0000000700000e0000000600000f000000190000080000000000001500000000000004",
+   "designKey": "0xaaec005adfea70ee94ab0e5541c6770eb176ee24708a0bf86221fc5a9d1962b5",
+   "truthTableHash": "0x623d4897dcab9fe129e18594f32fc4fe03272778744e9265ad3973ec8ce5970a"
+  },
+  {
+   "nIn": 8,
+   "nOut": 20,
+   "file": "0x5441504e455401000000000800000014000000090000040000000a0000040000000000000b0000000a00000700000004000001000000010000030000000f0000090000000200000a0000000000000a000000000000030000000f000002000000090000030000000e00000d0000000a00001600000015000012000000170000010000000200000800000008000012000000090000050000000a00000b000000040000150000001c000015",
+   "designKey": "0xb3ba2ad59238d257ac57557f137a30fae2d9caa26252aafcddbee6b37ba93bae",
+   "truthTableHash": "0xb42dc055e50fe97e4e84e1df2c9d74ba2162fb5548d038530df03fd16f50cd9c"
+  },
+  {
+   "nIn": 8,
+   "nOut": 27,
+   "file": "0x5441504e45540100000000080000001b00000004000001000000060000080000000300000b000000070000000000000c00000b000000080000030000000d0000090000000400000a0000000e0000050000001200000b000000100000090000000f0000010000000500000d0000000a00000900000007000017000000040000080000000a0000140000000300000b0000000b00000f0000000c0000010000000800001d00000017000013000000180000100000000b00001f0000001c000016000000070000160000000400001e0000001100001e0000000b00001e0000001d000021000000160000240000000e0000090000000900001a000000260000160000000700002a0000002c0000220000000e000016000000010000210000001300001e0000000a00000e0000002000001d0000000f00002a0000002d00000c0000002d0000170000001600000e0000001300000d000000070000080000002d000033000000160000150000002b0000360000002700003a0000000200000b00000030000008000000080000240000003f00003f000000380000390000003000002b0000003300002f0000002f0000250000003a0000150000001400002d0000003700003a0000001100000a000000420000380000004200003f00000002000008",
+   "designKey": "0x34710c1f5292323585f40171c4c7423857d469a4856f6155bf37fcf7a6e777ab",
+   "truthTableHash": "0x71117a86f9abe52dad9f651f4d34aac1f083fbeab9a67981b80c6a89e01729d3"
+  },
+  {
+   "nIn": 8,
+   "nOut": 9,
+   "file": "0x5441504e4554010000000008000000090000000500000000000002000009000000090000030000000c00000b0000000b0000030000000e0000050000000300000e0000000f00000c0000001100000e0000000900000b0000000c00000a00000014000000000000010000020000001000000b000000060000120000000f00000c0000001300001700000013000011000000020000170000001700000300000012000002000000140000020000000b00001d0000000d0000050000001500000f000000060000070000000d0000020000001700001d0000000600001e0000002200001a0000001700001900000007000003000000030000180000001b00000b0000000c00000f00000012000014000000150000050000000b00002b0000001c00000a0000000200000c000000010000080000000f000008000000150000310000001e0000030000002100001c000000340000120000000100001e000000100000010000001c0000230000002d00001e0000000b000020000000080000370000002300003300000014000036000000390000120000001a00003e0000001a00001e0000000a00001300000009000032000000020000090000001800002200000001000024",
+   "designKey": "0x7a3f713e536f05a6046ca1779cc9b38be59e3b1de909b3798530851c40f93664",
+   "truthTableHash": "0x170c54e64806ab8d0e2c93e4df43c32bb2a59158a398ea10bc5aeb89351d0278"
+  },
+  {
+   "nIn": 8,
+   "nOut": 23,
+   "file": "0x5441504e4554010000000008000000170000000600000500000006000008000000080000050000000400000b000000070000000000000a0000060000000f00000e000000100000000000000b00000e0000000c000008000000030000110000000100000100000006000009000000130000120000000e00000d00000018000015000000040000170000000b00000d000000140000130000000300000b0000000300000f0000001d00000a0000000100001d0000001400001c0000000b000007000000180000090000001200000c0000001a0000190000001d0000100000001500000d0000001e0000020000002300001b0000001e00000b00000023000008000000020000130000001f00000a000000210000040000001c00001f0000001a00002c0000000000000d000000240000300000002600002a0000001f000009000000100000280000001800000c0000001d0000350000001b00001e0000000f00001c0000002d00002100000028000030000000380000140000000d0000010000001000003c0000000a00001e",
+   "designKey": "0x20589cd10afefd965f024a6db6a7a5268f457e27ed231bc567a2b30bfc20ad98",
+   "truthTableHash": "0x4064b3fc54577e5bfa98f8f708a2a60e74b35b4c5f8b632ef2ae9933e82266fc"
+  },
+  {
+   "nIn": 9,
+   "nOut": 31,
+   "file": "0x5441504e45540100000000090000001f000000000000090000000a0000020000000200000c0000000600000b00000004000001000000000000060000000a0000020000000f000001000000090000060000000b00000b0000000c0000100000000700001000000004000000000000110000000000000200001400000002000016000000150000040000000b0000010000001b0000000000000d0000170000000b0000070000000100000800000000000020000000200000180000001200000800000007000006000000170000090000001900000f0000001400000a0000000f0000060000002300000300000019000025000000220000110000000300001e0000000e00001f00000011000008000000020000190000000600001c0000001a00001a0000001d00002b",
+   "designKey": "0x5e35d273132aedfbd011e570498414b28252e4257245b1441e1ea665236af57f",
+   "truthTableHash": "0x59ab7c4276c93ed57901e48844159e37235f79a222f30e26adcee944be854106"
+  },
+  {
+   "nIn": 9,
+   "nOut": 24,
+   "file": "0x5441504e4554010000000009000000180000000500000900000000000006000000010000070000000a0000060000000400000b000000020000020000000a00000f0000000f00000c000000070000030000000300000b0000000b0000030000000400000c000000040000130000000800000d0000000a00001800000007000007000000110000140000000f0000130000001c00000b000000040000040000001200001a0000000000001e0000001c00001e0000001e00000800000020000010000000090000030000001900000a000000020000150000000f000010000000150000110000001d00000600000004000007000000280000040000000a0000160000001c00000f",
+   "designKey": "0xe6bd47ad89d1cc50fc3a8b3d4b3b8228d8c8045c0931b3dec9d913a6f473ac06",
+   "truthTableHash": "0xc5e0baad05ce99a02f98c29e10a80a84d02a2eb6012755c16d8cf976b408f16b"
+  },
+  {
+   "nIn": 9,
+   "nOut": 25,
+   "file": "0x5441504e45540100000000090000001900000007000003000000050000040000000200000100000002000000000000080000000000000600000600000007000004000000070000020000000c00000f0000000100000f0000001400000800000008000001000000030000110000000f0000110000000a0000120000000f0000000000000500001a000000160000130000001500001900000008000001000000000000140000001200000b0000000e0000200000001d00001b0000001d00001b",
+   "designKey": "0x8295ebc297b0768ae2f1832f1e37b29b2048c1b565945ba6f1cc43882f3d5c95",
+   "truthTableHash": "0x75e17e1936c05dbf5cc00f9adb6b5de9011481fd398398e943164d04c72bf896"
+  },
+  {
+   "nIn": 9,
+   "nOut": 15,
+   "file": "0x5441504e45540100000000090000000f000000000000060000000000000100000006000004000000080000070000000a00000c0000000400000f000000000000010000000b0000040000000a00000d0000000a00000e000000000000100000000b0000040000001200000a0000001700000900000018000017000000030000160000001600001a0000000a0000060000001400000e000000080000020000001c0000110000000f00001e000000050000020000000b00000f0000000f00000b0000000100001f000000070000060000001b000019000000100000100000001d00000b0000001b00001b0000000100000c00000026000012",
+   "designKey": "0x847f268a9b46566a825a3f50fade7a523f2380b2ecd4bdac04da0cf21c7e650d",
+   "truthTableHash": "0x6d169b404a26761e294d990704f5e95f0b3ea9a4264b4780d35ea2b313f243d0"
+  },
+  {
+   "nIn": 9,
+   "nOut": 2,
+   "file": "0x5441504e45540100000000090000000200000000000008000000000000040000000a00000a0000000100000a000000090000030000000400000a000000100000040000000f00000a000000100000020000000800000f00000010000007000000130000090000000400000b0000001400000c0000000e00000e0000000c0000120000000b00001300000006000019000000190000150000001d00000a000000010000170000000d0000160000000400001900000006000001000000200000140000002000001f",
+   "designKey": "0x0a56433dfefacbfa4548b58fcb09d6a77a090e43db123e6fe64b13905532c17b",
+   "truthTableHash": "0x0f4551b782103595449c7509a8b7021026d61959a65c4f78dc1bc79cc71affc2"
+  },
+  {
+   "nIn": 9,
+   "nOut": 34,
+   "file": "0x5441504e45540100000000090000002200000001000001000000050000080000000500000b00000006000000000000050000020000000400000b0000000400000e00000001000008000000010000040000000d000008000000080000130000000a00000900000003000009000000160000120000000b0000000000000a00000800000012000006000000010000070000000600000000000017000018000000140000060000000a00000d0000000b00001b0000001900001c0000001700001d0000001f00000f0000001d000007000000070000080000000d000016000000090000070000001f0000020000001b0000160000001800002800000010000013000000280000250000001000002400000006000015000000290000200000001900002600000004000014000000230000270000003100000d0000001f0000150000001b00001d0000002300000b0000002d000032000000080000360000001100002c0000001e0000110000000100001e000000060000200000000200003900000005000007000000170000070000001e00000f0000000e000024000000040000270000001100001f0000003600000f000000320000270000002600003a0000000a00002b0000001a0000170000001e0000130000003b0000490000002400003d000000220000260000002800003e000000400000370000000700004a000000200000330000001400004c0000003b0000140000000c0000420000002500001b00000050000041000000340000090000002f000005000000400000350000000d0000380000001100000f000000240000530000004a0000360000002e000024",
+   "designKey": "0x9850d9ad5f2fab32bc842e0a79124c79840267c5f3238b907d516a9bd3028aba",
+   "truthTableHash": "0x4fc28d039539e57b5c3f45c89c418de3a7a94df315ab67e9a355263c9e459bf8"
+  },
+  {
+   "nIn": 16,
+   "nOut": 1,
+   "file": "0x5441504e4554010000000010000000010000000e000005000000030000030000000500000b00000012000002000000140000070000001100001300000001000016000000010000020000000500000a00000011000007000000090000110000001000000a0000000200001500000015000000000000150000190000000a0000160000001f0000010000000b0000070000000400001f0000001100001b0000000e00001400000016000017000000180000150000002300001200000018000013000000290000030000000b000015000000140000110000002000001a000000240000080000002c000017000000090000120000001600001f0000000e00000a000000070000100000001f0000150000002e0000160000000f0000060000000e000002000000220000250000003200002e000000260000250000002000001b00000005000009000000050000050000003800000d0000000e0000360000000f00002e0000003500000d00000019000034",
+   "designKey": "0x67a0df3a6c2c0481e535ed39098f43775657943515f595a8fabb895d4e295601",
+   "truthTableHash": "0x99febc6c0f06fd9c0374c84704ec6b9614552c028fbfd7dbccf2188ed015a0ee"
+  },
+  {
+   "nIn": 16,
+   "nOut": 3,
+   "file": "0x5441504e4554010000000010000000030000000800000300000006000009000000010000020000000d000014000000090000000000000b000001000000020000020000000d0000140000000b0000120000001a0000110000000700000a000000080000000000001a0000130000001600000b0000000000000900000014000008000000140000190000001400001100000002000014000000140000100000001d00001a0000000d00000f00000016000016000000220000230000000d0000140000000700002900000002000016000000140000140000001e0000100000000a00000e0000002c00000d000000080000160000001900001e000000060000030000001000002b0000000900000500000026000001000000160000350000000b00001f0000000700001d0000002a0000100000000d000021000000100000210000001c0000060000002d00003600000029000011",
+   "designKey": "0xde8fb638c6f30883daed8dcd81088fd132931439f1d8f8dff48b279e9606a0ef",
+   "truthTableHash": "0x5fc9fc716e89baa3acb78a865911da17578db12f946c6e55b8533bfccd9d7166"
+  },
+  {
+   "nIn": 15,
+   "nOut": 2,
+   "file": "0x5441504e455401000000000f000000020000000f00000c0000000100000f00000007000001000000040000030000000d00000b0000000400000d0000001000000c0000000000000b000000040000110000000100000100000004000009000000150000060000000f0000030000000900001b000000150000090000000500000d00000010000015000000110000020000001d0000100000000d0000090000002400000d00000011000020000000250000250000000900001f00000022000027000000140000040000000a0000080000000a00002b0000000600000300000010000029000000280000280000002400002f",
+   "designKey": "0xf55bebc64626721dae7d26cc2acc7e46001c613d57aeaf9461eb053609f62a6a",
+   "truthTableHash": "0x133f07dda9a346f1593a4787fbdbff7b28d6881f66fa2a00ad60651090655a2a"
+  },
+  {
+   "nIn": 15,
+   "nOut": 2,
+   "file": "0x5441504e455401000000000f00000002000000100000000000000b00000e0000000700000c0000000b00000e00000000000000000000060000080000001600000f00000015000003000000140000010000000f0000040000000b00001a0000000000000300000018000015000000190000020000001a0000020000000100001a0000000f0000050000001c00000e0000000b0000060000000d0000130000001000000a0000000e00001e00000015000011000000010000190000000700001e000000040000230000001b0000290000000600001c0000000100002c00000003000012000000260000280000001c000012000000160000250000001400000300000018000004000000020000220000000500002100000033000034000000050000220000002900001f0000000800003200000009000009000000190000160000001300000c0000002a00001000000028000030",
+   "designKey": "0xa8d989f9e16b996bedda65d70218bd3cb83f688beb496ce42558e46826dcb31c",
+   "truthTableHash": "0x3e408aff81b42c8c26dbed1eadb9abbe5334e7d77824e5cb7bc1b7258f09ad27"
+  },
+  {
+   "nIn": 12,
+   "nOut": 1,
+   "file": "0x5441504e455401000000000c000000010000000300000a0000000e0000090000000600000d0000000b00000b0000000d0000090000000600000c0000000b0000110000001300001300000003000008000000070000090000000c00000300000015000006000000000000130000000c0000060000000d0000050000000f0000160000000f000000000000010000160000000700001c0000000b0000190000000500001f0000000600001c000000170000160000002100001a0000000300001c00000000000011000000120000220000000600001300000026000026000000220000000000002300000f0000001500000b000000080000170000000b00002d0000002b0000180000001700000d0000001b0000270000001600002c00000010000003000000070000340000003100001c000000040000000000002400002b0000001600002c0000000a0000250000001400002600000036000007",
+   "designKey": "0xa8154232b151038c383757b495e8e26aace0fcb42fa79439601cfcdbba75e004",
+   "truthTableHash": "0xf5caca1686d4ef498c122092c3c15d6acc65e31ef954c382c577ac147c2eeec3"
+  },
+  {
+   "nIn": 12,
+   "nOut": 3,
+   "file": "0x5441504e455401000000000c000000030000000a0000020000000c000005000000020000010000000b00000e0000001100000100000008000006000000060000130000000e00000e000000080000070000000500001300000010000011000000070000090000000f0000180000000500001a00000005000000000000140000060000000c0000040000001900000f00000011000003",
+   "designKey": "0x0dad6598d5c44adf7369855a829e37b0f11e2317681c1a018989b06c8b7af345",
+   "truthTableHash": "0x3b490cc3c12c6292f74ed73964180d7f116a2ce709dfc7d5e7b2ae02eb4e8234"
+  },
+  {
+   "nIn": 0,
+   "nOut": 37,
+   "file": "0x5441504e45540100000000000000002500000001000000000000020000020000000300000300000001000002000000050000030000000100000200000000000001000000080000080000000600000700000001000009000000000000000000000c000001000000060000070000000c00000a000000040000020000000b000005000000050000030000000700000c0000000f00000d0000000b000003000000030000110000000a000010000000010000110000001800000a00000008000000000000080000110000001700000b000000000000130000000200000900000008000009000000120000010000000a000001000000010000210000001b000009000000030000080000000f00001200000009000011",
+   "designKey": "0x636c0d5e04b775ee1b2a8a85614396331268fa4670f1374ad3edc2280098e9a0",
+   "truthTableHash": "0x30b68ac482ee07261ef3a7bf3b230b3400079abfff6467fc4599e9e7cc9f1deb"
+  },
+  {
+   "nIn": 1,
+   "nOut": 33,
+   "file": "0x5441504e4554010000000001000000210000000000000100000001000000000000000000000000000100000200000003000002000000050000020000000800000700000007000001000000070000070000000200000100000001000000000000050000030000000d000009000000000000070000000000000200000007000001000000090000000000000e0000070000000600000d000000010000020000001600000600000015000013000000160000040000000b00001900000007000017000000150000130000000b00001c000000130000190000000f00000e0000000d00000f000000180000180000000700001e0000002000001d",
+   "designKey": "0xec2d35210ab928965db075a39f1216b59d60d1960121255d64e54ec48a700737",
+   "truthTableHash": "0xed1a8e4674e8f7f1276636b14f42128f2f6056c0e8232612a78561e92a4e066b"
+  },
+  {
+   "nIn": 2,
+   "nOut": 65,
+   "file": "0x5441504e4554010000000002000000410000000300000300000002000000000000020000040000000300000200000002000001000000020000060000000500000000000000000006000000020000080000000b0000050000000400000300000007000005000000020000080000000b000004000000030000050000000d0000040000001000000c0000000600000b00000002000011000000130000150000000c0000000000000400000700000017000014000000120000070000001a0000070000001b0000050000000400001a0000000a0000010000000f0000080000001f0000020000001d00000c0000001b0000050000000f0000150000000a000020000000250000060000001c00000d0000001000001b0000000a0000160000000b000002000000280000280000000300002b0000000d00001e00000003000004000000110000260000000200000f0000002d000006000000010000210000000e000009000000120000260000001500001c000000140000170000001800001b00000017000027000000350000200000001c000038000000110000000000001f000019000000030000130000003d000003000000340000030000003c00001d0000001c0000330000003800001c0000000f00000400000033000022",
+   "designKey": "0x221a1d68081d5038d3a8235c322cb79951a10c95e9185d8b1b36b7374e2e762c",
+   "truthTableHash": "0x9b1a1ef81b499694a2ca5d4076e21746339a023aef3be96cef93f3683fae2409"
+  },
+  {
+   "nIn": 3,
+   "nOut": 9,
+   "file": "0x5441504e4554010000000003000000090000000400000300000002000005000000000000010000000000000400000003000008000000050000020000000200000a0000000500000100000009000003",
+   "designKey": "0x201748f915f6a8b5f4f62cb4803c4a16591111c1883529eec2b202edfa4b909f",
+   "truthTableHash": "0x149e8f604f1ea2c98e2f6f310af5d3786907606806743e30b2054d28817c97e5"
+  },
+  {
+   "nIn": 7,
+   "nOut": 3,
+   "file": "0x5441504e455401000000000700000003000000080000020000000600000100000000000003",
+   "designKey": "0x7cf0a197c8614d04b3c34114efcf974cdde76f664c187fe07a9c034ffe63e7e6",
+   "truthTableHash": "0x86b94a326e45a1a45119f97057d5efad939a506dfe725bc8338110a7e8ec4625"
+  },
+  {
+   "nIn": 8,
+   "nOut": 5,
+   "file": "0x5441504e455401000000000800000005000000040000070000000100000200000002000008000000000000070000000a000000",
+   "designKey": "0x67ed0c9e353f62e514e97393d5eea8dd787ce80f2248d99b77876e34644a484d",
+   "truthTableHash": "0xf3b0ea7aa359d2aeed77e7f92d8ffda6e501cd71ca04c76e50a72e885112a10f"
+  },
+  {
+   "nIn": 0,
+   "nOut": 1,
+   "file": "0x5441504e45540100000000000000000100000001000001",
+   "designKey": "0xf281282848ffd62549f45e8c3f057070c1c7c13fbcddedb18a7b0a5f60b88c4a",
+   "truthTableHash": "0x9c9786f75022f3f4f37ea3d26d3baedde418091c5c26aac870bee7c617de7a7b"
+  },
+  {
+   "nIn": 16,
+   "nOut": 2,
+   "file": "0x5441504e4554010000000010000000020000000c00000400000001000012",
+   "designKey": "0xa8adf2f4ae594af9f1da1dcf468376d40c90656c02c8331ba2a589d6962c6936",
+   "truthTableHash": "0x53b562d04e85d45dbd657c634aa5f1fd5eea0b4c0a49e01830cf9c51ce01b4ad"
+  }
+ ]
+}
