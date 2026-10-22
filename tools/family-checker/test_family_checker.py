@@ -651,9 +651,7 @@ class Pod(unittest.TestCase):
                 self.assertIsNone(line(rep, "pod.design"), "no PoD fact is displayed for a rejected snapshot")
 
     def test_metadata_example_and_rig(self):
-        doc = json.loads(json.dumps(VPOD["metadataExample"]["document"]))
-        doc["image"] = "https://example.invalid/i.png"
-        doc["tap"]["image"] = {"sha256": "0x" + "11" * 32, "uris": [doc["image"]]}
+        doc = VPOD["metadataExample"]["document"]  # as stored: carries `image` and tap.image
         rep = run("metadata", write_json("pod-ex.json", doc))
         self.assertFalse(rep.failed, rep.render())
         self.assertIn("related rig voucher (informative)", line(rep, "rig").text)

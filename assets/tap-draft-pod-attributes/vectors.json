@@ -2901,10 +2901,17 @@
  "metadataExample": {
   "document": {
    "name": "Example token (illustrative collection address)",
+   "image": "https://example.invalid/tap-pod-example/images/1.png",
    "tap": {
     "v": 1,
     "id": "eip155:196/erc721:0x0000000000000000000000000000000000000001/1",
     "state": "revealed",
+    "image": {
+     "sha256": "0x47dfc2f9468420af2b30a09346890994276dbb21828fe21b743ac911a2b3aa0c",
+     "uris": [
+      "https://example.invalid/tap-pod-example/images/1.png"
+     ]
+    },
     "netlist": {
      "format": "tapnet/1",
      "sha256": "0xecb6f09704b29cd02c9e5255b41c4a3139e0dca1a172782bea855db91cde073e",
@@ -2989,6 +2996,16 @@
   },
   "valid": true,
   "errors": [],
-  "warnings": []
+  "warnings": [],
+  "coreCheck": {
+   "tool": "tapnft.check_metadata (TAP-draft-netlist-bound-nft)",
+   "accepted": true
+  },
+  "image": {
+   "file": "example-image.png",
+   "bytes": 72,
+   "sha256": "0x47dfc2f9468420af2b30a09346890994276dbb21828fe21b743ac911a2b3aa0c",
+   "note": "1x1 RGB PNG written by make_vectors.example_png(); the ERC-721 `image` and tap.image.uris name the same (illustrative) location, as draft A §7.3 item 1 requires"
+  }
  }
 }

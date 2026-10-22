@@ -62,8 +62,9 @@ when the workflow is started manually with `network: true` or the repository var
 | `assets/tap-draft-netlist-structural-hash/vectors2.json` | `06bd3c06961bb4d87b60d3837591696f762b78ddd931cb5eb3a31a8c4564dbe8` | asset README, PR #70 ✓ |
 | `assets/tap-draft-design-credits/vectors.json` | `de1eda4fa7f1ca31449bb73af72a55e1f4416c00d20fd63512873858b11aae8c` | draft Test Cases, PR #75 ✓ |
 | `assets/tap-draft-soulbound-credentials/vectors.json` | `f33709c7e436ba68d89df9adb60f3251172397d82800ab2a0b2592a8f2a64e9b` | PR #76 ✓ |
-| `assets/tap-draft-pod-attributes/vectors.json` | `ade615b1a2e461d26bbf88b67eb93767eb88d26a189b824cf0c484108a4dbebb` | asset README ✓ |
+| `assets/tap-draft-pod-attributes/vectors.json` | `651b660886847443e0bbdd9b4cd542c1f99491f566a680fe094a3f7c9017a102` | asset README ✓ |
 | `assets/tap-draft-pod-attributes/trait-metadata.json` | `336be474884b5cf2ce32ed77bdb05a75a02c8b96db1073e229fe287c6cdda0ac` | asset README ✓ |
+| `assets/tap-draft-pod-attributes/example-image.png` | `47dfc2f9468420af2b30a09346890994276dbb21828fe21b743ac911a2b3aa0c` | asset README ✓ |
 | `assets/tap-draft-netlist-nft-bridging/vectors.json` | `bcfd12c1a2f6d875ce602da32632c260afcd6c5b560a97297044f1f690224f51` | asset README ✓ |
 | `contracts/test/fixtures/core-vectors.json` | `a586b03a6e30f95fbabb17d8379c1d0c0a8beed17da6c56c65dcd8b95e5b457f` | — |
 | `contracts/test/fixtures/core-tokenset.json` | `746646f570cbd13b271f5a72f58bb3063502d44177cef5fb6742491d55a8102a` | — |

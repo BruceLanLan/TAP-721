@@ -6,13 +6,16 @@ Inputs:
   raw/raw<id>.json          read by pod_snapshot.py --raw at the same block (adds bestSlot, bonusOf,
                             the block header and the proxy implementation; also optimal-slot holders)
   synthetic/*.json          hand-built SYNTHETIC examples in the raw-read shape (verifiedButWrong); not chain data
-Output: vectors.json (deterministic).
+Output: vectors.json, trait-metadata.json and example-image.png (all deterministic).
 """
 import copy
 import glob
+import hashlib
 import json
 import os
+import struct
 import sys
+import zlib  # crc32 and adler32 only; no compression, so the example image does not depend on a zlib build
 
 import function_check
 from pod_snapshot import function_check_for
@@ -107,15 +110,32 @@ def invalid_cases(pod):
     return out
 
 
+IMAGE_URI = "https://example.invalid/tap-pod-example/images/1.png"
+
+
+def example_png():
+    """A 1x1 RGB PNG whose IDAT is a stored (uncompressed) deflate block: the bytes are fixed by this function alone."""
+    def chunk(kind, data):
+        return struct.pack(">I", len(data)) + kind + data + struct.pack(">I", zlib.crc32(kind + data) & 0xFFFFFFFF)
+    raw = b"\x00" + bytes((0x1F, 0x7A, 0x3D))  # filter type 0, one RGB pixel
+    idat = (b"\x78\x01\x01" + struct.pack("<HH", len(raw), len(raw) ^ 0xFFFF) + raw
+            + struct.pack(">I", zlib.adler32(raw) & 0xFFFFFFFF))
+    return (b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", 1, 1, 8, 2, 0, 0, 0))
+            + chunk(b"IDAT", idat) + chunk(b"IEND", b""))
+
+
 def metadata_example(entry, pod, processor_number, rig_id):
+    """A complete token metadata document (draft A §7.1 members plus tap.pod and tap.rig), accepted by draft A's check."""
     import tapnft  # draft A reference implementation
     net = bytes.fromhex(entry["netlist"][2:])
     f = tapnft.file_from_chain(net, entry["nIn"], entry["nOut"])
     m = tapnft.check_file(f)
+    png = example_png()
     tap = {
         "v": 1,
         "id": "eip155:196/erc721:0x0000000000000000000000000000000000000001/1",
         "state": "revealed",
+        "image": {"sha256": "0x" + hashlib.sha256(png).hexdigest(), "uris": [IMAGE_URI]},
         "netlist": {"format": "tapnet/1", "sha256": tapnft.hex32(tapnft.netlist_hash(f)), "bytes": len(f),
                     **m.as_json(), "uris": ["ipfs://example"]},
         "source": {"chainId": 56, "processor": pod["processor"], "circuitId": pod["circuitId"],
@@ -123,7 +143,9 @@ def metadata_example(entry, pod, processor_number, rig_id):
         "pod": pod,
         "rig": dict(RIG_VOUCHER, id=str(rig_id)),
     }
-    return {"name": "Example token (illustrative collection address)", "tap": tap}
+    doc = {"name": "Example token (illustrative collection address)", "image": IMAGE_URI, "tap": tap}
+    tapnft.check_metadata(doc)  # draft A's reference check must accept the example as written
+    return doc
 
 
 def main():
@@ -221,7 +243,12 @@ def main():
                           "sampledCombinational": function_check.SAMPLED_COMBINATIONAL,
                           "sequentialRuns": function_check.SEQ_RUNS, "sequentialMinBeats": function_check.SEQ_MIN_BEATS},
         "invalid": invalid_cases(first["pod"]),
-        "metadataExample": {"document": meta, "valid": mv.ok, "errors": mv.errors, "warnings": mv.warnings},
+        "metadataExample": {"document": meta, "valid": mv.ok, "errors": mv.errors, "warnings": mv.warnings,
+                            "coreCheck": {"tool": "tapnft.check_metadata (TAP-draft-netlist-bound-nft)", "accepted": True},
+                            "image": {"file": "example-image.png", "bytes": len(example_png()),
+                                      "sha256": meta["tap"]["image"]["sha256"],
+                                      "note": "1x1 RGB PNG written by make_vectors.example_png(); the ERC-721 `image` and "
+                                              "tap.image.uris name the same (illustrative) location, as draft A §7.3 item 1 requires"}},
     }
     with open(os.path.join(HERE, "vectors.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, indent=1, ensure_ascii=False)
@@ -229,6 +256,8 @@ def main():
     with open(os.path.join(HERE, "trait-metadata.json"), "w", encoding="utf-8") as f:
         json.dump(trait_schema(), f, indent=1, ensure_ascii=False)
         f.write("\n")
+    with open(os.path.join(HERE, "example-image.png"), "wb") as f:
+        f.write(example_png())
     print("wrote vectors.json:", len(cases), "cases,", len(holders), "holders,", len(wrong), "wrong,",
           len(out["invalid"]), "invalid,", len(mcases), "manifest cases")
 

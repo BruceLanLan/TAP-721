@@ -38,7 +38,7 @@ def pods():
 
 class Reproducible(unittest.TestCase):
     def test_vectors_regenerate_byte_for_byte(self):
-        files = ["vectors.json", "trait-metadata.json"]
+        files = ["vectors.json", "trait-metadata.json", "example-image.png"]
         before = {f: _sha(os.path.join(HERE, f)) for f in files}
         subprocess.check_call([sys.executable, os.path.join(HERE, "make_vectors.py")], cwd=HERE, stdout=subprocess.DEVNULL)
         after = {f: _sha(os.path.join(HERE, f)) for f in files}
@@ -245,13 +245,38 @@ class Validator(unittest.TestCase):
         r = validate_tap(doc["tap"])
         self.assertTrue(r.ok, r.errors)
         self.assertEqual(r.warnings, [])
+        self.assertTrue(V["metadataExample"]["coreCheck"]["accepted"])
+
+    def test_metadata_example_passes_core_reference_check(self):
+        """Draft A's tapnft.check_metadata accepts the example exactly as stored in vectors.json (no members added)."""
         try:
             import tapnft
         except ImportError:
             self.skipTest("draft A reference implementation not found")
-        meta = dict(doc, image="ipfs://example")
-        tap = dict(meta["tap"], image={"sha256": "0x" + "11" * 32, "uris": ["ipfs://example"]})
-        tapnft.check_metadata(dict(meta, tap=tap))  # draft A accepts the extra members
+        doc = copy.deepcopy(V["metadataExample"]["document"])
+        tap = tapnft.check_metadata(doc)  # raises on any §7 violation, e.g. a missing `image` or tap.image
+        self.assertEqual(tap["pod"], doc["tap"]["pod"])  # the extra members pass through untouched
+        self.assertEqual(doc["image"], doc["tap"]["image"]["uris"][0])  # §7.3 item 1: one location, one hash
+        for k in ("image", "tap"):
+            with self.assertRaises(Exception):
+                tapnft.check_metadata({a: b for a, b in doc.items() if a != k})
+        with self.assertRaises(Exception):
+            tapnft.check_metadata(dict(doc, tap={a: b for a, b in doc["tap"].items() if a != "image"}))
+
+    def test_example_image_hash(self):
+        """tap.image.sha256 is the SHA-256 of the committed example-image.png, which make_vectors rebuilds byte for byte."""
+        import importlib.util  # by path: ../tap-draft-netlist-bound-nft (first on sys.path) has its own make_vectors.py
+        spec = importlib.util.spec_from_file_location("pod_make_vectors", os.path.join(HERE, "make_vectors.py"))
+        mv = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mv)
+        img = V["metadataExample"]["image"]
+        png = mv.example_png()
+        self.assertEqual(png[:8], b"\x89PNG\r\n\x1a\n")
+        self.assertEqual(len(png), img["bytes"])
+        with open(os.path.join(HERE, img["file"]), "rb") as f:
+            self.assertEqual(f.read(), png)
+        self.assertEqual("0x" + hashlib.sha256(png).hexdigest(), img["sha256"])
+        self.assertEqual(V["metadataExample"]["document"]["tap"]["image"]["sha256"], img["sha256"])
 
     def test_source_mismatch_and_rig(self):
         tap = copy.deepcopy(V["metadataExample"]["document"]["tap"])
