@@ -70,7 +70,7 @@ when the workflow is started manually with `network: true` or the repository var
 | `contracts/test/fixtures/core-tokenset.json` | `746646f570cbd13b271f5a72f58bb3063502d44177cef5fb6742491d55a8102a` | — |
 | `assets/tap-draft-netlist-bound-nft/chain-snapshot.json` | `5e2a9a71baa43234df8794737d4e9a6480002daee8e3e2ea76be054b795ed247` | — |
 
-Re-check: `shasum -a 256 assets/*/vectors*.json assets/tap-draft-pod-attributes/trait-metadata.json`.
+Re-check: `shasum -a 256 assets/*/vectors*.json assets/tap-draft-pod-attributes/trait-metadata.json assets/tap-draft-pod-attributes/example-image.png`.
 TAP-7007 (`TAP-draft-large-netlists`) is tested in its own repository; PR #74 quotes `vectors.json`
 `b6ba365e912f149e1ab8e292588fac7f934cdb1fa1ba6d8d1b8ac3dabfd9f2d6` (68 Python tests, 89 Foundry tests at commit `4fa0c0b`).
 All generators are deterministic (fixed seeds, sorted keys, no timestamps): regenerating must leave
