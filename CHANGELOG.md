@@ -5,6 +5,16 @@ editors. Dates are UTC+8.
 
 ## Unreleased
 
+- **PoD attributes: metadata example repaired (PR #69, `2b2cc7c`).** `vectors.json`'s `metadataExample.document`
+  lacked the ERC-721 `image` and `tap.image`, so the core reference check `tapnft.check_metadata` rejected it
+  although Test Cases said it passed; `test_pod.py` and the family checker test both added the members before
+  calling it. `make_vectors.py` now writes `example-image.png` (a 1×1 PNG from a stored deflate block, 72 bytes, SHA-256
+  `47dfc2f9…`) and gives the example `image` and `tap.image {sha256, uris}`; generation runs the core check, and
+  `test_pod.py` gains two tests (core check on the vector as stored, image hash and reproduction): 26 → 28 tests.
+  `vectors.json` SHA-256 `ade615b1…` → `651b660886847443e0bbdd9b4cd542c1f99491f566a680fe094a3f7c9017a102`;
+  `trait-metadata.json` unchanged. The family checker test uses the vector as is (47 tests). Draft EN/ZH: Test Cases,
+  Reference Implementation (reference folder at `d84cd99`), `updated: 2026-10-22`.
+
 - **Family checker (`tools/family-checker/`).** `tapfam.py`, a reference implementation of the tool-side display
   rules of the whole family: `token` (conformance level by ERC-165, manifest / mint-bound / no-manifest / bridged-copy
   classification, reveal and frozen state read from the chain per core §7.2, netlist verified / unverifiable / invalid
@@ -38,7 +48,7 @@ This repository becomes the home of the whole TAP-721 family. All PRs are marked
 |---|---|---|---|
 | TAP-721 flagship, Netlist-Bound NFTs (revised) | [#66](https://github.com/TapeOutProtocol/TAPs/issues/66) | [#67](https://github.com/TapeOutProtocol/TAPs/pull/67) (`6a05d1b`) | `9808f32ae21d911e377de09aa9f5df862715e9d1286041033f225a54c70031e8` |
 | Extension B, bridging (unchanged) | #66 | [#68](https://github.com/TapeOutProtocol/TAPs/pull/68) (`3b57b4d`) | `bcfd12c1a2f6d875ce602da32632c260afcd6c5b560a97297044f1f690224f51` |
-| Extension C, PoD attributes (unchanged) | #66 | [#69](https://github.com/TapeOutProtocol/TAPs/pull/69) (`997cbb2`) | `ade615b1a2e461d26bbf88b67eb93767eb88d26a189b824cf0c484108a4dbebb` |
+| Extension C, PoD attributes (metadata example repaired on 2026-10-22, see Unreleased) | #66 | [#69](https://github.com/TapeOutProtocol/TAPs/pull/69) (`2b2cc7c`) | `651b660886847443e0bbdd9b4cd542c1f99491f566a680fe094a3f7c9017a102` |
 | Extension D, structural hash (version 2 added) | #66 | [#70](https://github.com/TapeOutProtocol/TAPs/pull/70) (`3efe452`) | v1 `35aaf41cbcff011290ba51ee9cc9f5ca7820345658069161bba74062914062aa`, v2 `06bd3c06961bb4d87b60d3837591696f762b78ddd931cb5eb3a31a8c4564dbe8` |
 | TAP-7007, Large Netlists and Verifiable Execution (new; [own repository](https://github.com/BruceLanLan/tap-large-netlists) at `4fa0c0b`) | [#71](https://github.com/TapeOutProtocol/TAPs/issues/71) | [#74](https://github.com/TapeOutProtocol/TAPs/pull/74) (`7425789`) | `b6ba365e912f149e1ab8e292588fac7f934cdb1fa1ba6d8d1b8ac3dabfd9f2d6` |
 | TAP-5375, Design Credits and Lineage for TapeOut Netlists (new) | [#72](https://github.com/TapeOutProtocol/TAPs/issues/72) | [#75](https://github.com/TapeOutProtocol/TAPs/pull/75) (`91819d8`) | `de1eda4fa7f1ca31449bb73af72a55e1f4416c00d20fd63512873858b11aae8c` |

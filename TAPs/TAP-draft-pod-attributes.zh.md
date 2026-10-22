@@ -7,7 +7,7 @@ discussions-to: https://github.com/TapeOutProtocol/TAPs/issues/66
 status: Draft
 type: Application
 created: 2026-10-18
-updated: 2026-10-21
+updated: 2026-10-22
 requires: TAP-02, TAP-10, TAP-draft-netlist-bound-nft, ERC-7496 (ethereum/ERCs commit b7520ddde9f659fa40cda2e0849d987a4ff88bf5)
 license: CC0-1.0
 ---
@@ -339,7 +339,7 @@ event TraitMetadataURIUpdated();
 
 ## 测试用例
 
-`assets/tap-draft-pod-attributes/vectors.json` 由 `make_vectors.py` 从记录下来的读取结果生成，无需网络访问，测试套件可逐字节复现它（SHA-256 `ade615b1a2e461d26bbf88b67eb93767eb88d26a189b824cf0c484108a4dbebb`；`trait-metadata.json` `336be474884b5cf2ce32ed77bdb05a75a02c8b96db1073e229fe287c6cdda0ac`）。读取以只读方式在 BNB Smart Chain 区块 128200681（哈希 `0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5`，时间戳 1792253755，2026-10-17 16:15:55 UTC）进行：`assets/tap-draft-netlist-bound-nft/chain-snapshot.json`（四个电路；TapeOut #17851 与 #17852 的读取在两个运营方之间一致，而 #3151 与 #38 的读取以及合约参数 `lambda()`、`beta()`、`lambdaBurn()`、`taskCount()` 和两个 `processorMultiplier` 值只来自归档节点 `https://tapeout.net/rpc`）以及 `assets/tap-draft-pod-attributes/raw/`（`pod_snapshot.py`，归档节点，区块头已与第二个运营方交叉核对）。对两个来源都包含的三个电路，读到的每个字段都一致。该区块时的参数：λ = 6，β = 3，λ_burn = 1；`processorMultiplier` 对 TapeOut（`0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C`，处理器 30）为 1，对 Blonskr_No1（`0x1f5cb4aeae1807bf60c3b9c0d8adbcc14e91f12c`，处理器 1）为 6；实现为 `0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898`。
+`assets/tap-draft-pod-attributes/vectors.json` 由 `make_vectors.py` 从记录下来的读取结果生成，无需网络访问，测试套件可逐字节复现它（SHA-256 `651b660886847443e0bbdd9b4cd542c1f99491f566a680fe094a3f7c9017a102`；`trait-metadata.json` `336be474884b5cf2ce32ed77bdb05a75a02c8b96db1073e229fe287c6cdda0ac`）。读取以只读方式在 BNB Smart Chain 区块 128200681（哈希 `0xf4733a8a55285297dedf89f2ecf23911ecb2a5e3922cb3ab86690f5a278830c5`，时间戳 1792253755，2026-10-17 16:15:55 UTC）进行：`assets/tap-draft-netlist-bound-nft/chain-snapshot.json`（四个电路；TapeOut #17851 与 #17852 的读取在两个运营方之间一致，而 #3151 与 #38 的读取以及合约参数 `lambda()`、`beta()`、`lambdaBurn()`、`taskCount()` 和两个 `processorMultiplier` 值只来自归档节点 `https://tapeout.net/rpc`）以及 `assets/tap-draft-pod-attributes/raw/`（`pod_snapshot.py`，归档节点，区块头已与第二个运营方交叉核对）。对两个来源都包含的三个电路，读到的每个字段都一致。该区块时的参数：λ = 6，β = 3，λ_burn = 1；`processorMultiplier` 对 TapeOut（`0xb1024b89886B9a34Aa4ff5F31C411D708b20a14C`，处理器 30）为 1，对 Blonskr_No1（`0x1f5cb4aeae1807bf60c3b9c0d8adbcc14e91f12c`，处理器 1）为 6；实现为 `0xa3dbe873da37cd4e4a13c7cef23a7db6ca60f898`。
 
 | 电路 | 题目（K_task, C_ref） | g, s | n, m | d | A | b* | C | 区块 128200681 时的现状 |
 |---|---|---|---|---|---|---|---|---|
@@ -351,7 +351,7 @@ event TraitMetadataURIUpdated();
 | TapeOut #2033（席位占有者） | 220 | 10, 9 | 1, 9 | 1 | 64 | 10 | 64 | 最优，bonus 100，verifWeight 110；`bestSlot` cost 64 |
 | TapeOut #14947（席位占有者） | 48 | 88, 0 | 88, 0 | 8 | 88 | 88 | 45056 | 最优，bonus 284，verifWeight 372；`bestSlot` cost 45056 |
 
-这些向量说明：对每个席位占有者，`bestSlot(taskId, processor).cost` 等于由存储的面积和深度算出的 C = A·max(d,1)^β，而 `bonusOf(taskId, C)` 等于存储的奖励，后者等于 ⌊K_task·clamp(C_ref/C, 1/4, 4)⌋（对 #14947，C_ref/C ≈ 6.45 被限制为 4：71·4 = 284）。#17851 与 #17852 的成本与席位占有者相同却不是最优，与"严格更小"一致。成员 `verifiedButWrong` 是一个合成示例，标有 `"synthetic": true`，由 `synthetic/verified-but-wrong.json` 生成：一个由三个 NAND 构成的或门网表，以虚构的处理器和电路编号、在 #906 公开读取结果的上下文中，被记录为公开 XOR 题目 3 的已验证矿机。它计算的函数与题目参考电路不同（`functionCheck` 穷举不一致，四个模式中有一个不同），比席位占有者便宜（C 24 对 108）却不占有席位。链上确有这样的矿机；真实实例在向 TapeOut 团队披露之前不放入这些向量，合成示例覆盖的是同一项检查。每个存储的 `area` 与 `bstar` 都符合 A = g + λ·s 与 b* = n + λ_burn·m；`nandBurn` 与 `latchBurn` 等于 `netlist(id)` 中 NAND 与 LATCH 记录的数目，也等于 `circuitBurn` 的结果；verifWeight = (b* + bonus)·P。`cachedDepth` 的第二个返回值是存储的深度；它的第三个值（`live`：4、10、51）对这三个电路等于结构哈希草案（TAP-draft-netlist-structural-hash）§3 意义下的活元件数；这是观察结果，不是公布的规则，本 TAP 不使用该值。每份快照都带有按 `tap-pod-fc/1`、对照 `raw/ref-task<id>.json` 中记录的参考电路（处理器 `0xF4412C52ec3DDf7CAf5f518B6662F77B02Bde28E`，电路 3、48、220）得到的 `functionCheck`：XOR 与置位计数设计穷举一致（4 与 256 个模式），两个约翰逊计数器在 32 拍内一致（抽样，默认种子），合成的 `verifiedButWrong` 例子虽然 `verified` 为 true，却是穷举不一致。文件中还包含每份快照的特征值、特征元数据、十二份必须被拒绝的快照（每份违反一条规则）、五个清单承诺用例（§4.4），以及一份完整的代币元数据示例，含 `tap.source`、`tap.netlist`、`tap.pod` 与 `tap.rig`，能同时通过本 TAP 的验证器和 TAP-draft-netlist-bound-nft 的参考检查。
+这些向量说明：对每个席位占有者，`bestSlot(taskId, processor).cost` 等于由存储的面积和深度算出的 C = A·max(d,1)^β，而 `bonusOf(taskId, C)` 等于存储的奖励，后者等于 ⌊K_task·clamp(C_ref/C, 1/4, 4)⌋（对 #14947，C_ref/C ≈ 6.45 被限制为 4：71·4 = 284）。#17851 与 #17852 的成本与席位占有者相同却不是最优，与"严格更小"一致。成员 `verifiedButWrong` 是一个合成示例，标有 `"synthetic": true`，由 `synthetic/verified-but-wrong.json` 生成：一个由三个 NAND 构成的或门网表，以虚构的处理器和电路编号、在 #906 公开读取结果的上下文中，被记录为公开 XOR 题目 3 的已验证矿机。它计算的函数与题目参考电路不同（`functionCheck` 穷举不一致，四个模式中有一个不同），比席位占有者便宜（C 24 对 108）却不占有席位。链上确有这样的矿机；真实实例在向 TapeOut 团队披露之前不放入这些向量，合成示例覆盖的是同一项检查。每个存储的 `area` 与 `bstar` 都符合 A = g + λ·s 与 b* = n + λ_burn·m；`nandBurn` 与 `latchBurn` 等于 `netlist(id)` 中 NAND 与 LATCH 记录的数目，也等于 `circuitBurn` 的结果；verifWeight = (b* + bonus)·P。`cachedDepth` 的第二个返回值是存储的深度；它的第三个值（`live`：4、10、51）对这三个电路等于结构哈希草案（TAP-draft-netlist-structural-hash）§3 意义下的活元件数；这是观察结果，不是公布的规则，本 TAP 不使用该值。每份快照都带有按 `tap-pod-fc/1`、对照 `raw/ref-task<id>.json` 中记录的参考电路（处理器 `0xF4412C52ec3DDf7CAf5f518B6662F77B02Bde28E`，电路 3、48、220）得到的 `functionCheck`：XOR 与置位计数设计穷举一致（4 与 256 个模式），两个约翰逊计数器在 32 拍内一致（抽样，默认种子），合成的 `verifiedButWrong` 例子虽然 `verified` 为 true，却是穷举不一致。文件中还包含每份快照的特征值、特征元数据、十二份必须被拒绝的快照（每份违反一条规则）、五个清单承诺用例（§4.4），以及一份完整的代币元数据示例，含 ERC-721 `image`、`tap.image`、`tap.netlist`、`tap.source`、`tap.pod` 与 `tap.rig`，原样即能同时通过本 TAP 的验证器和 TAP-draft-netlist-bound-nft 的参考检查（`tapnft.check_metadata`；`test_pod.py` 对该示例运行它，并检查去掉 `image`、`tap.image` 或 `tap` 后会失败）。示例图片是 `example-image.png`，一个 IDAT 为存储式 deflate 块的 1×1 PNG，由 `make_vectors.py` 逐字节写出（SHA-256 `47dfc2f9468420af2b30a09346890994276dbb21828fe21b743ac911a2b3aa0c`，72 字节）；`image` 与 `tap.image.uris` 指向同一个示意位置。
 
 ## 参考实现
 
@@ -362,12 +362,12 @@ Python 3.9，位于 `assets/tap-draft-pod-attributes/`（MIT）；ABI 处理使�
 | `pod_snapshot.py` | §4.1 在固定区块的读取（只读 JSON-RPC、跨节点交叉核对、单一来源报告）、§3 对象、§5.3 特征值、§5.5 特征元数据、测试用例中的交叉核对 |
 | `pod_validate.py` | §3.7 格式良好检查与警告、§3.9 `functionCheck` 格式、§2 与 `tap.source` 的绑定、§4.4 清单承诺、§6 `tap.rig` 格式 |
 | `function_check.py` | §3.9 程序 `tap-pod-fc/1`（使用 TAP-02 参考求值器）；`pod_snapshot.py --check` 读取参考电路并加入 `functionCheck` |
-| `make_vectors.py` | `vectors.json`、`trait-metadata.json` |
-| `test_pod.py` | 测试；重新生成向量并逐字节比较 |
+| `make_vectors.py` | `vectors.json`、`trait-metadata.json`、`example-image.png` |
+| `test_pod.py` | 测试；重新生成向量并逐字节比较；对元数据示例运行 TAP-draft-netlist-bound-nft 的参考检查 |
 
 使用 `assets/tap-draft-netlist-bound-nft/tapnft.py`、`tap02_reference.py` 与 `assets/tap-draft-netlist-bound-nft/chain-snapshot.json`；分配编号后这些文件夹改名为 `assets/tap-<nn>/` 时，这些路径随之更新。
 
-同一目录也以固定提交保存在 [BruceLanLan/TAP-721，提交 `a39f30b538e723e918bf9c3bb2998ee95f8e2f1a`](https://github.com/BruceLanLan/TAP-721/tree/a39f30b538e723e918bf9c3bb2998ee95f8e2f1a) 的 `assets/tap-draft-pod-attributes/` 下（逐字节相同），同一提交中还有在一个固定区块上对一组矿机电路运行 §3.9 功能检查的 `tools/collection/verify_function.py`。
+同一目录也以固定提交保存在 [BruceLanLan/TAP-721，提交 `d84cd99abdd4c19e301711e78c492680f1e7b2b9`](https://github.com/BruceLanLan/TAP-721/tree/d84cd99abdd4c19e301711e78c492680f1e7b2b9) 的 `assets/tap-draft-pod-attributes/` 下（逐字节相同），同一提交中还有在一个固定区块上对一组矿机电路运行 §3.9 功能检查的 `tools/collection/verify_function.py`。
 
 ## 部署
 
