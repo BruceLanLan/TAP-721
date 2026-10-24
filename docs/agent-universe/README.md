@@ -36,15 +36,15 @@ flowchart TB
     CON["Contests (under design)"]
   end
   subgraph L4["Verifiable work"]
-    CJ["Circuit Jobs (#82, PR-JOBS)"] --> V74["#74 Large netlists / verifiable execution"]
+    CJ["Circuit Jobs (#82, #85)"] --> V74["#74 Large netlists / verifiable execution"]
     DE["Dispute economics (under design)"] -.-> V74
   end
   subgraph L3["Verifiable capability and limits"]
     N67["#67 Netlist-bound NFTs"] --- N70["#70 Structural hash"] --- N69["#69 PoD"] --- N68["#68 Bridging"]
-    PG["Policy Circuit Gate (#81, PR-POLICY)"] --> N67
+    PG["Policy Circuit Gate (#81, #84)"] --> N67
   end
   subgraph L2["Identity, tools, payment, authorisation"]
-    PP["Agent Passport (#80, PR-PASSPORT)"] --> E8004[("ERC-8004")]
+    PP["Agent Passport (#80, #83)"] --> E8004[("ERC-8004")]
     T16["#16 MCP"]
     T49["#49 agent member"]
     T54["#54 reviews"]
@@ -111,9 +111,9 @@ Type key: **merged** (in the TAPs repository as a Draft), **PR** (open pull requ
 | Large Netlists and Verifiable Execution | PR (family) | `tapnet/2`, one-step verifiers, dispute game | TAP-02, #67 | in PR | [#74](https://github.com/TapeOutProtocol/TAPs/pull/74) |
 | Design Credits and Lineage | PR (family) | Who designed what | #67, #70 | in PR | [#75](https://github.com/TapeOutProtocol/TAPs/pull/75) |
 | Soulbound Netlist Credentials | PR (family) | Non-transferable credentials; §7 covers agent credentials | #67, #75 | in PR | [#76](https://github.com/TapeOutProtocol/TAPs/pull/76) |
-| **Agent Passport** | new | Binds an ERC-8004 identity to a circuit container: resolution, display, holder epochs | TAP-10/11/13, ERC-8004 as deployed; conditional references to #12 #16 #47 #49 #52 #54 #59 #60 #77 | 147 cases / 18 tests | Idea [#80](https://github.com/TapeOutProtocol/TAPs/issues/80) · [PR-PASSPORT](https://github.com/TapeOutProtocol/TAPs/pull/PR-PASSPORT) |
-| **Policy Circuit Gate** | new | A spending policy as a re-runnable circuit, bound by EIP-712 | TAP-02, TAP-11, EIP-712; inlines what it uses from #67; conditional on #47 #59 #60 | 163 cases / 20 tests | Idea [#81](https://github.com/TapeOutProtocol/TAPs/issues/81) · [PR-POLICY](https://github.com/TapeOutProtocol/TAPs/pull/PR-POLICY) |
-| **Circuit Jobs** | new | An evaluator-and-hook that settles an ERC-8183 job by the state of a claim in the dispute game | ERC-165, the ERC-8183 kernel as deployed; inlines the #74 views it reads | 194 cases / 22 tests | Idea [#82](https://github.com/TapeOutProtocol/TAPs/issues/82) · [PR-JOBS](https://github.com/TapeOutProtocol/TAPs/pull/PR-JOBS) |
+| **Agent Passport** | new | Binds an ERC-8004 identity to a circuit container: resolution, display, holder epochs | TAP-10/11/13, ERC-8004 as deployed; conditional references to #12 #16 #47 #49 #52 #54 #59 #60 #77 | 147 cases / 18 tests | Idea [#80](https://github.com/TapeOutProtocol/TAPs/issues/80) · [#83](https://github.com/TapeOutProtocol/TAPs/pull/83) |
+| **Policy Circuit Gate** | new | A spending policy as a re-runnable circuit, bound by EIP-712 | TAP-02, TAP-11, EIP-712; inlines what it uses from #67; conditional on #47 #59 #60 | 163 cases / 20 tests | Idea [#81](https://github.com/TapeOutProtocol/TAPs/issues/81) · [#84](https://github.com/TapeOutProtocol/TAPs/pull/84) |
+| **Circuit Jobs** | new | An evaluator-and-hook that settles an ERC-8183 job by the state of a claim in the dispute game | ERC-165, the ERC-8183 kernel as deployed; inlines the #74 views it reads | 194 cases / 22 tests | Idea [#82](https://github.com/TapeOutProtocol/TAPs/issues/82) · [#85](https://github.com/TapeOutProtocol/TAPs/pull/85) |
 | Dispute economics | under design | Bonds, deadlines and a settlement bound for the #74 game | #74 | — | not submitted |
 | Verifiable netlist contests | under design | Contest entries settled by the game, leading to credentials | #67, #74, #75, #76 | — | not submitted |
 
@@ -172,11 +172,11 @@ The order is fixed: this map, then the three new pull requests, then the later l
 | Order | Draft | Idea issue | Pull request | Status today |
 |---|---|---|---|---|
 | 0 | This map | — | — | Published in the TAP-721 family repository; informative |
-| 1 | Agent Passport | [#80](https://github.com/TapeOutProtocol/TAPs/issues/80) "Agent Passports for Container Services (Application)" | [PR-PASSPORT](https://github.com/TapeOutProtocol/TAPs/pull/PR-PASSPORT) | Text complete in English and Chinese; 147 cases, 18 tests |
-| 2 | Policy Circuit Gate | [#81](https://github.com/TapeOutProtocol/TAPs/issues/81) "Policy Circuit Gate (Application)" | [PR-POLICY](https://github.com/TapeOutProtocol/TAPs/pull/PR-POLICY) | Conditional draft; no gatekeeper contract; 163 cases, 20 tests |
-| 3 | Circuit Jobs | [#82](https://github.com/TapeOutProtocol/TAPs/issues/82) "Circuit Jobs: Settling Agent Jobs by a Dispute Game (Application)" | [PR-JOBS](https://github.com/TapeOutProtocol/TAPs/pull/PR-JOBS) | Conditional draft; no Solidity reference yet; 194 cases, 22 tests |
+| 1 | Agent Passport | [#80](https://github.com/TapeOutProtocol/TAPs/issues/80) "Agent Passports for Container Services (Application)" | [#83](https://github.com/TapeOutProtocol/TAPs/pull/83) | Text complete in English and Chinese; 147 cases, 18 tests |
+| 2 | Policy Circuit Gate | [#81](https://github.com/TapeOutProtocol/TAPs/issues/81) "Policy Circuit Gate (Application)" | [#84](https://github.com/TapeOutProtocol/TAPs/pull/84) | Conditional draft; no gatekeeper contract; 163 cases, 20 tests |
+| 3 | Circuit Jobs | [#82](https://github.com/TapeOutProtocol/TAPs/issues/82) "Circuit Jobs: Settling Agent Jobs by a Dispute Game (Application)" | [#85](https://github.com/TapeOutProtocol/TAPs/pull/85) | Conditional draft; no Solidity reference yet; 194 cases, 22 tests |
 
-Links marked PR-PASSPORT, PR-POLICY and PR-JOBS are filled in as each pull request opens.
+All three pull requests are open: #83, #84 and #85.
 
 **Agent Passport.** A passport exists when one address holds both a TapeOut circuit and an ERC-8004 identity, the identity's metadata names the circuit (`tap.passport`), the circuit's site names exactly that `agentId` back, and the identity's `agentWallet` is the holder. The Passport defines how a tool resolves this at one pinned block (chain before files, strict agreement), what it shows (CONFIRMED or a named reason), and how holder epochs keep a former holder's reputation away from a new one. Its core rules require only the merged TAP-10, TAP-11 and TAP-13 and the deployed ERC-8004 registry; every other pull request it mentions is a conditional reference.
 

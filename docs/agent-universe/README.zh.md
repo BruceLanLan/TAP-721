@@ -36,15 +36,15 @@ flowchart TB
     CON["竞赛（设计中）"]
   end
   subgraph L4["可验证工作"]
-    CJ["Circuit Jobs（#82，PR-JOBS）"] --> V74["#74 大网表 / 可验证执行"]
+    CJ["Circuit Jobs（#82，#85）"] --> V74["#74 大网表 / 可验证执行"]
     DE["争议经济（设计中）"] -.-> V74
   end
   subgraph L3["可验证能力与限额"]
     N67["#67 网表绑定 NFT"] --- N70["#70 结构哈希"] --- N69["#69 PoD"] --- N68["#68 跨链"]
-    PG["Policy Circuit Gate（#81，PR-POLICY）"] --> N67
+    PG["Policy Circuit Gate（#81，#84）"] --> N67
   end
   subgraph L2["身份、工具、支付、授权"]
-    PP["Agent Passport（#80，PR-PASSPORT）"] --> E8004[("ERC-8004")]
+    PP["Agent Passport（#80，#83）"] --> E8004[("ERC-8004")]
     T16["#16 MCP"]
     T49["#49 agent 成员"]
     T54["#54 评价"]
@@ -111,9 +111,9 @@ flowchart TB
 | Large Netlists and Verifiable Execution | PR（家族） | `tapnet/2`、一步验证器、争议博弈 | TAP-02、#67 | 见 PR | [#74](https://github.com/TapeOutProtocol/TAPs/pull/74) |
 | Design Credits and Lineage | PR（家族） | 谁设计了什么 | #67、#70 | 见 PR | [#75](https://github.com/TapeOutProtocol/TAPs/pull/75) |
 | Soulbound Netlist Credentials | PR（家族） | 不可转让凭证；§7 涉及 agent 凭证 | #67、#75 | 见 PR | [#76](https://github.com/TapeOutProtocol/TAPs/pull/76) |
-| **Agent Passport** | 新 | 把 ERC-8004 身份绑定到电路容器：解析、显示、持有人纪元 | TAP-10/11/13、已部署的 ERC-8004；条件性引用 #12 #16 #47 #49 #52 #54 #59 #60 #77 | 147 例 / 18 测试 | Idea [#80](https://github.com/TapeOutProtocol/TAPs/issues/80) · [PR-PASSPORT](https://github.com/TapeOutProtocol/TAPs/pull/PR-PASSPORT) |
-| **Policy Circuit Gate** | 新 | 支出策略即可重跑电路，用 EIP-712 绑定 | TAP-02、TAP-11、EIP-712；内联所用的 #67 部分；条件性引用 #47 #59 #60 | 163 例 / 20 测试 | Idea [#81](https://github.com/TapeOutProtocol/TAPs/issues/81) · [PR-POLICY](https://github.com/TapeOutProtocol/TAPs/pull/PR-POLICY) |
-| **Circuit Jobs** | 新 | 评估者兼钩子，按争议博弈中主张的状态结算 ERC-8183 作业 | ERC-165、已部署的 ERC-8183 内核；内联所读的 #74 视图 | 194 例 / 22 测试 | Idea [#82](https://github.com/TapeOutProtocol/TAPs/issues/82) · [PR-JOBS](https://github.com/TapeOutProtocol/TAPs/pull/PR-JOBS) |
+| **Agent Passport** | 新 | 把 ERC-8004 身份绑定到电路容器：解析、显示、持有人纪元 | TAP-10/11/13、已部署的 ERC-8004；条件性引用 #12 #16 #47 #49 #52 #54 #59 #60 #77 | 147 例 / 18 测试 | Idea [#80](https://github.com/TapeOutProtocol/TAPs/issues/80) · [#83](https://github.com/TapeOutProtocol/TAPs/pull/83) |
+| **Policy Circuit Gate** | 新 | 支出策略即可重跑电路，用 EIP-712 绑定 | TAP-02、TAP-11、EIP-712；内联所用的 #67 部分；条件性引用 #47 #59 #60 | 163 例 / 20 测试 | Idea [#81](https://github.com/TapeOutProtocol/TAPs/issues/81) · [#84](https://github.com/TapeOutProtocol/TAPs/pull/84) |
+| **Circuit Jobs** | 新 | 评估者兼钩子，按争议博弈中主张的状态结算 ERC-8183 作业 | ERC-165、已部署的 ERC-8183 内核；内联所读的 #74 视图 | 194 例 / 22 测试 | Idea [#82](https://github.com/TapeOutProtocol/TAPs/issues/82) · [#85](https://github.com/TapeOutProtocol/TAPs/pull/85) |
 | 争议经济 | 设计中 | #74 博弈的保证金、期限与结算时限 | #74 | — | 未提交 |
 | 可验证网表竞赛 | 设计中 | 参赛结果由博弈裁决，再发为凭证 | #67、#74、#75、#76 | — | 未提交 |
 
@@ -172,11 +172,11 @@ flowchart LR
 | 顺序 | 草稿 | Idea issue | Pull request | 今天的状态 |
 |---|---|---|---|---|
 | 0 | 本图 | — | — | 发布在 TAP-721 家族仓库；信息性 |
-| 1 | Agent Passport | [#80](https://github.com/TapeOutProtocol/TAPs/issues/80) "Agent Passports for Container Services (Application)" | [PR-PASSPORT](https://github.com/TapeOutProtocol/TAPs/pull/PR-PASSPORT) | 中英文正文完整；147 例，18 个测试 |
-| 2 | Policy Circuit Gate | [#81](https://github.com/TapeOutProtocol/TAPs/issues/81) "Policy Circuit Gate (Application)" | [PR-POLICY](https://github.com/TapeOutProtocol/TAPs/pull/PR-POLICY) | 条件性草稿；没有守门合约；163 例，20 个测试 |
-| 3 | Circuit Jobs | [#82](https://github.com/TapeOutProtocol/TAPs/issues/82) "Circuit Jobs: Settling Agent Jobs by a Dispute Game (Application)" | [PR-JOBS](https://github.com/TapeOutProtocol/TAPs/pull/PR-JOBS) | 条件性草稿；尚无 Solidity 参考；194 例，22 个测试 |
+| 1 | Agent Passport | [#80](https://github.com/TapeOutProtocol/TAPs/issues/80) "Agent Passports for Container Services (Application)" | [#83](https://github.com/TapeOutProtocol/TAPs/pull/83) | 中英文正文完整；147 例，18 个测试 |
+| 2 | Policy Circuit Gate | [#81](https://github.com/TapeOutProtocol/TAPs/issues/81) "Policy Circuit Gate (Application)" | [#84](https://github.com/TapeOutProtocol/TAPs/pull/84) | 条件性草稿；没有守门合约；163 例，20 个测试 |
+| 3 | Circuit Jobs | [#82](https://github.com/TapeOutProtocol/TAPs/issues/82) "Circuit Jobs: Settling Agent Jobs by a Dispute Game (Application)" | [#85](https://github.com/TapeOutProtocol/TAPs/pull/85) | 条件性草稿；尚无 Solidity 参考；194 例，22 个测试 |
 
-标 PR-PASSPORT、PR-POLICY、PR-JOBS 的链接在相应 PR 开出后回填。
+三个 PR 都已开出：#83、#84、#85。
 
 **Agent Passport。** 当同一地址同时持有一枚 TapeOut 电路和一个 ERC-8004 身份，身份的元数据指名该电路（`tap.passport`），电路站点反过来只指名这一个 `agentId`，且身份的 `agentWallet` 就是持有人时，护照成立。Passport 规定工具如何在一个钉住的区块上解析它（先链后文件、严格一致），显示什么（CONFIRMED 或一个具名原因），以及持有人纪元如何让前任持有人的声誉不落到新持有人身上。其核心规则只依赖已合并的 TAP-10、TAP-11、TAP-13 和已部署的 ERC-8004 注册表；它提到的其他 PR 都是条件性引用。
 
