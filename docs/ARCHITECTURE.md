@@ -178,4 +178,5 @@ sequenceDiagram
 | Mint-bound collections (core §8.2, 2026-10-21 revision) | Core | `contracts/src/core/TapMintBoundNFT.sol` (L1 without a manifest: hashes recorded at mint, `storeNetlist` from `TapNetlistStore` with the on-chain check) | `contracts/test/core/TapMintBoundNFT.t.sol` (unit, gas, differential against `vectors.json`) |
 | Collection pipeline | profile | `tools/collection/` | `test_pipeline.py` (network) |
 | Container upload, lock | profile | `tools/uploader/`, `contracts/src/tools/TapContainerLock.sol` | `test_e2e.py`, `test/fork/ContainerLock.t.sol` (fork) |
+| Fair reveal controller (drand) | profile; core §6.1 | `contracts/src/tools/drand/` (`TapDrandReveal`, `TapDrandRevealFactory`, `DrandBeacon`), [DRAND_REVEAL.md](DRAND_REVEAL.md) | `contracts/test/tools/drand/` (BLS tests need `--hardfork prague`) |
 | Server-side gateway | profile / TAP-10 | `tools/gateway/` | `test/unit.test.mjs`, `test/live.test.mjs` (network) |

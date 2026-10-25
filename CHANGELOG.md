@@ -5,6 +5,21 @@ editors. Dates are UTC+8.
 
 ## Unreleased
 
+- **Drand reveal kit (`contracts/src/tools/drand/`).** `TapDrandReveal` makes the reference `TapNetlistNFT` reveal without
+  trusting its owner. The reference writes whatever seed the owner passes, and core §6.1 item 8 leaves the way the seed
+  is written to the implementation. The controller creates the collection in its constructor, is its only owner and its
+  only minting gateway, closes minting before drand quicknet round R can be known by its clock, and accepts the seed
+  only as the BLS-verified randomness of R. Anyone can reveal once R's signature exists. Fixed mode puts R in the
+  manifest, more than 13 h ahead of `clock()` at the commit, and conforms to §6.1. Deferred mode fixes R after minting
+  closes (`scheduleDelay` 1 h to 7 days); its manifest has `round: 0`, which §6.1 does not allow, so it needs a draft
+  change (`docs/DRAND_REVEAL.md` §4). `DrandBeacon` is an ownerless quicknet verifier and round cache (EIP-2537).
+  `TapDrandRevealFactory` builds controllers. With this repository's build recipe the beacon is at
+  `0x777D3Ece3CB4E7D3782Da938CbCf8c2c8AcE55Ca` and the factory at `0x1cE83c28a85574f9E16032B8B5f14794a9312f4B`
+  (CREATE2 through the deterministic deployer, salt 0). Nothing is deployed. 85 tests in `contracts/test/tools/drand/`
+  use real quicknet rounds recorded from two relays (`fetch_drand_rounds.py`). The default `forge test` reports 282
+  passed and 20 skipped (the BLS tests skip without EIP-2537); `--hardfork prague` runs them. No existing contract,
+  interface or fixture changed. CI gains one step.
+
 - **PoD attributes: metadata example repaired (PR #69, `2b2cc7c`).** `vectors.json`'s `metadataExample.document`
   lacked the ERC-721 `image` and `tap.image`, so the core reference check `tapnft.check_metadata` rejected it
   although Test Cases said it passed; `test_pod.py` and the family checker test both added the members before

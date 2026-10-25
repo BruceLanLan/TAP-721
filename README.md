@@ -123,6 +123,7 @@ pip install pycryptodome eth-account   # eth-account：可选的签名交叉核�
 (cd assets/tap-draft-design-credits          && python3 make_vectors.py --check && python3 test_credits.py)
 (cd assets/tap-draft-soulbound-credentials   && python3 make_vectors.py --check && python3 test_soulbound.py)
 (cd contracts && forge build && forge test)
+(cd contracts && forge test --hardfork prague --match-path "test/tools/drand/*")   # drand 揭示套件的 BLS 测试需要 EIP-2537
 (cd assets/tap-draft-soulbound-credentials/contracts && mkdir -p lib && ln -sfn ../../../../contracts/lib/forge-std lib/forge-std && forge test)
 (cd contracts && XLAYER_RPC=https://rpc.xlayer.tech forge test --evm-version cancun --match-path test/fork/ContainerLock.t.sol)
 (cd tools/gateway && npm test)
@@ -136,7 +137,7 @@ pip install pycryptodome eth-account   # eth-account：可选的签名交叉核�
 |---|---|
 | `TAPs/` | 主标准、三个扩展 TAP、TAP-5375 与 TAP-5192（英文 + 中文译本）；TAP-7007 在 [tap-large-netlists](https://github.com/BruceLanLan/tap-large-netlists) |
 | `assets/tap-draft-*/` | 各草案的 Python 参考实现、生成器、测试与 `vectors.json`；`assets/tap-draft-netlist-bound-nft/chain-snapshot.json` 为 BSC 只读快照；`assets/tap-draft-soulbound-credentials/contracts/` 为灵魂绑定凭证的 Solidity 参考实现（独立 Foundry 工程） |
-| `contracts/` | Foundry 工程：`src/core`（L1 集合、伴生合约、求值器）、`src/bridge`、`src/interfaces`、`src/tools`（容器锁）；测试含审查 PoC |
+| `contracts/` | Foundry 工程：`src/core`（L1 集合、伴生合约、求值器）、`src/bridge`、`src/interfaces`、`src/tools`（容器锁；`src/tools/drand`：drand 公平揭示套件，见 [docs/DRAND_REVEAL.md](docs/DRAND_REVEAL.md)）；测试含审查 PoC |
 | `tools/collection/` | 集合流水线：建池、清单、drand 揭示、校验、功能检查、稀有度规则 |
 | `tools/tokenset/` | 在固定区块扫描 TapeCode-Test1 持有人，生成 token 集合（逐枚持有人数据如 `owners.json` 不公开，只发布哈希） |
 | `tools/uploader/`、`tools/gateway/` | 容器上传工具；服务器端 TAP-10 网关 |
@@ -277,7 +278,7 @@ Requirements: Python 3.9+, [Foundry](https://getfoundry.sh) v1.8.3, Node 20+. Cl
 |---|---|
 | `TAPs/` | The flagship, three extension TAPs, TAP-5375 and TAP-5192 (English + Chinese); TAP-7007 is in [tap-large-netlists](https://github.com/BruceLanLan/tap-large-netlists) |
 | `assets/tap-draft-*/` | Python reference implementations, generators, tests and `vectors.json`; `assets/tap-draft-netlist-bound-nft/chain-snapshot.json` is a read-only BSC snapshot; `assets/tap-draft-soulbound-credentials/contracts/` is the Solidity reference of the soulbound credentials (a separate Foundry project) |
-| `contracts/` | Foundry project: `src/core` (L1 collection, companion, evaluator), `src/bridge`, `src/interfaces`, `src/tools` (container lock); tests include the review PoCs |
+| `contracts/` | Foundry project: `src/core` (L1 collection, companion, evaluator), `src/bridge`, `src/interfaces`, `src/tools` (container lock; `src/tools/drand`: the drand reveal kit, see [docs/DRAND_REVEAL.md](docs/DRAND_REVEAL.md)); tests include the review PoCs |
 | `tools/collection/` | Collection pipeline: pools, manifest, drand reveal, verification, functional check, rarity rule |
 | `tools/tokenset/` | TapeCode-Test1 owner scan at a pinned block; token-set builder (per-token holder data such as `owners.json` is not published, only its hash) |
 | `tools/uploader/`, `tools/gateway/` | Container uploader; server-side TAP-10 gateway |

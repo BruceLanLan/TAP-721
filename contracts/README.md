@@ -8,6 +8,7 @@ Foundry project. Solidity 0.8.28, optimizer 10,000 runs, EVM `shanghai` (one bui
 | `src/core/` | `TapNetlistNFT` (L1 collection), `TapCompanion` (L1 for an existing ERC-721), `TapMintBoundNFT` (L1 without a manifest: the mint-bound profile of §8.2), libraries `TapPermutation`, `TapMerkle`, `TapNetlistCheck`, `TapNetlistVM`, storage `TapNetlistStore` |
 | `src/bridge/` | `TapGateway`, `TapMirror`, `TapBridgeEndpoint`, `LayerZeroV2Adapter`, `HubRelayAdapter` |
 | `src/tools/` | `TapContainerLock`: holds a TapeOut container's circuit so its files can no longer change, while anyone can renew its activation |
+| `src/tools/drand/` | The drand reveal kit: `TapDrandReveal` (controller that creates a `TapNetlistNFT`, gates its minting and accepts only a drand quicknet round as the seed), `TapDrandRevealFactory`, `DrandBeacon` (ownerless BLS verifier, EIP-2537). Guide: [`docs/DRAND_REVEAL.md`](../docs/DRAND_REVEAL.md) |
 | `src/vendor/` | Minimal ERC-721, ERC-4906 events, `Owned` (MIT) |
 | `test/` | Unit, vector and gas tests; `test/fixtures/` holds values generated from the Python reference implementations |
 
@@ -17,6 +18,9 @@ forge test
 ```
 
 `test/fixtures/make_core_fixtures.py` regenerates `core-vectors.json` (Python 3.11).
+
+The drand kit's BLS tests need the EIP-2537 precompiles and skip themselves under `shanghai`; run them with
+`forge test --hardfork prague --match-path "test/tools/drand/*"`.
 
 ## Mint-bound profile (`TapMintBoundNFT`)
 

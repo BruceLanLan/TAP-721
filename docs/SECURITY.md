@@ -22,6 +22,11 @@ internal review, **not an audit**. Scope: `contracts/src/` (`core/`, `bridge/`, 
 Method: manual review against the drafts and DESIGN.md, PoC and fuzz tests (`contracts/test/audit/`),
 read-only chain checks. Slither was not run.
 
+The drand reveal kit (`contracts/src/tools/drand/`) was added after these passes and is not covered by them. The
+contributor reviewed it; no independent party has. What the review found was fixed or, where the chain gives no way to
+fix it, narrowed and documented: the chain-clock margins and the off-chain proof of the collection's initcode are
+stated in [DRAND_REVEAL.md](DRAND_REVEAL.md). It has had no external audit.
+
 **First pass:** 0 critical, 0 high, 3 medium, 9 low, 11 info. No way was found to double-mint, replay a message,
 or bypass the ALL policy when the endpoint and adapter code are honest and correctly configured.
 
